@@ -230,7 +230,8 @@ poly:POLY_CILAOS,
 bb:'-21.205,55.400,-21.080,55.550',
 lead:"Cilaos se rejoint par la route aux 400 virages. C'est la base arrière d'une traversée : on dépose les bagages, on repart léger vers Mafate par le Taïbit, on récupère tout à la sortie.",
 L:[{id:'ci',n:'Cilaos',ll:[-21.1361,55.4714],a:1,d:"Ville thermale à 1 200 m, tous commerces.",r:[['🚗',"Transfert RTS depuis toute l'île",'','205'],['🧳','Dépôt, change et garde de bagages','','105'],['📦','Box RTS sécurisé','Forfait groupe','30']]},
-{id:'ic',n:"Îlet à Cordes",ll:[-21.1322,55.4322],d:"Îlet agricole, réputé pour ses lentilles.",r:[]},
+{id:'ic',n:"Îlet à Cordes",ll:[-21.1322,55.4322],a:1,d:"Îlet agricole au bout de la D242, réputé pour ses lentilles. Point de dépose véhicule.",r:[['🚗','Dépose RTS','Tarif Cilaos + 35 € · estimé'],['🧳','Bagages remis à la dépose','']]},
+{id:'tbd',n:'Départ sentier du Taïbit',ll:[-21.1177,55.4501],a:1,d:"Sur la D242, route de l'Îlet à Cordes, environ 6 km après Cilaos et 1 km après le Bras Rouge. Point de dépose véhicule pour attaquer la montée du col.",r:[['🚗','Dépose RTS','Tarif Cilaos + 20 € · estimé'],['🧳','Bagages remis à la dépose','']]},
 {id:'tb',n:'Col du Taïbit',ll:[-21.0983,55.4517],d:"Passage à 2 082 m entre Cilaos et Mafate.",r:[['🧳','Bagages transférés à Marla par la route','']]},
 {id:'bl',n:'Le Bloc',ll:[-21.1156,55.4783],a:1,d:"Dernier point routier avant la Caverne Dufour.",r:[['🚗','Transfert RTS','','210'],['🧳','Dépose de bagages','']]},
 {id:'cd',n:'Caverne Dufour',ll:[-21.0958,55.4772],d:"Gîte sous le Piton des Neiges, à 2 480 m. À pied uniquement.",r:[]},
@@ -263,6 +264,13 @@ L:[{id:'bm',n:'Bourg-Murat',ll:[-21.2058,55.5789],a:1,d:"Plaine des Cafres, 1 60
 P:[{a:'bm',b:'bo',km:9,dp:400,dn:100,h:'2 h 45',d:'moyen'},{a:'bo',b:'gv',km:7,dp:200,dn:150,h:'2 h 15',d:'moyen'},{a:'gv',b:'pb',km:2,dp:60,dn:40,h:'0 h 30',d:'facile'},{a:'gv',b:'gbv',km:18,dp:300,dn:1200,h:'6 h 30',d:'difficile'},{a:'gbv',b:'bv',km:11,dp:100,dn:900,h:'4 h 00',d:'moyen'},{a:'gv',b:'gg',km:16,dp:200,dn:1800,h:'6 h 00',d:'difficile'}],
 R:[{de:'rg',a:'bm',p:180,src:1},{de:'rg',a:'pb',p:268,src:1},{de:'sp',a:'gv',p:160,src:1},{de:'sp',a:'gg',p:105,src:1},{de:'sp',a:'bv',p:125},{de:'sp',a:'gbv',p:205}]}};
 var ALL={};for(var kk in C){C[kk].L.forEach(function(l){ALL[l.id]=l})}
+/* supplements au-dela de Cilaos sur la D242 (estimes, src:0) : le supplement
+   s'ajoute au tarif Cilaos de la grille QUELLE QUE SOIT l'origine, puis la
+   majoration van s'applique sur le total via PX. Aucune course locale creee. */
+var SUPP={tbd:20,ic:35};
+C.cilaos.R.filter(function(r){return r.a==='ci'}).forEach(function(r){
+ for(var sk in SUPP)C.cilaos.R.push({de:r.de,a:sk,p:r.p+SUPP[sk],src:0})});
+for(var sk2 in SUPP)OUT[sk2]=OUT.ci.map(function(p){return p+SUPP[sk2]});
 var BOX={t:'x',n:'Box RTS sécurisé',i:'Stockage des bagages en zone sûre pendant tout le séjour · forfait groupe',p:30};
 function W(j,de,a,n,i,km,dp,dn,h,d){return {t:'w',j:j,de:de,a:a,n:n,i:i,km:km,dp:dp,dn:dn,h:h,d:d}}
 function R(j,de,a,n,i,p){return {t:'r',j:j,de:de,a:a,n:n,i:i,p:p}}
