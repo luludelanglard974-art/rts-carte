@@ -241,17 +241,23 @@ intro:"La grande traversée de l'île à pied, du nord au sud. Douze jours de ma
 E:[R('J1',PT.rg,PT.lpr,"Aéroport → La Providence","Accueil et dépose au départ du sentier",42),BOX,
 W('J1',PT.lpr,PT.pc,'La Providence → Plaine des Chicots','Par Le Brûlé et Mamode Camp',16,1700,60,'6 h 30','difficile'),
 W('J2',PT.pc,PT.da,"Plaine des Chicots → Dos d'Âne","Par la Roche Écrite et la Plaine d'Affouches",14,460,1380,'6 h 15','moyen'),
+{t:'b',j:'J2',de:PT.lport,a:PT.da,n:'Livraison bagages depuis le box du Port',i:"Le sac rejoint les clients à Dos d'Âne pour le change",p:84},
 W('J3',PT.da,PT.au,"Dos d'Âne → Aurère",'Par Deux Bras, entrée dans Mafate',14,1000,1000,'7 h 00','difficile'),
+{t:'b',j:'J3',de:PT.da,a:PT.lport,n:'Les bagages retournent au box du Port',i:'Le change fait, le sac repart au box pendant la marche'},
 W('J4',PT.au,PT.gp,'Aurère → Grand Place',"Par l'Îlet à Malheur",5,400,400,'2 h 30','moyen'),
 W('J5',PT.gp,PT.rp,'Grand Place → Roche Plate','Par les Lataniers et les Orangers',12,600,500,'5 h 00','moyen'),
 W('J6',PT.rp,PT.ma,'Roche Plate → Marla','Par les Trois Roches',8,450,600,'3 h 30','moyen'),
 W('J7',PT.ma,PT.ci,'Marla → Cilaos','Par le col du Taïbit, 2 082 m',9,700,1100,'5 h 00','difficile'),
 {t:'b',j:'J7',de:PT.lport,a:PT.ci,n:'Livraison bagages depuis le box du Port',i:'Le sac propre quitte le box sécurisé du Port et arrive à Cilaos pendant le passage du col',p:105},
 W('J8',PT.ci,PT.cd,'Cilaos → Caverne Dufour','Par Le Bloc · sac léger',8,1550,50,'4 h 45','difficile'),
+{t:'b',j:'J8',de:PT.ci,a:PT.lport,n:'Les bagages retournent au box du Port',i:'Le change fait, le sac repart au box pendant la montée'},
 W('J9',PT.cd,PT.bm,'Caverne Dufour → Bourg-Murat','Longue descente sur la Plaine des Cafres',20,150,1900,'7 h 00','difficile'),
+{t:'b',j:'J9',de:PT.lport,a:PT.bm,n:'Livraison bagages depuis le box du Port',i:'Le sac rejoint les clients à Bourg-Murat avant la partie volcanique',p:126},
 W('J10',PT.bm,PT.gv,'Bourg-Murat → Gîte du Volcan','Par le Bois Ozoux',16,600,250,'5 h 00','moyen'),
+{t:'b',j:'J10',de:PT.bm,a:PT.lport,n:'Les bagages retournent au box du Port',i:'Le change fait, le sac repart au box pendant la marche'},
 W('J11',PT.gv,PT.gbv,'Gîte du Volcan → Gîte de Basse-Vallée','Traversée des hauts du Sud',18,300,1200,'6 h 30','difficile'),
-W('J12',PT.gbv,PT.bv,'Gîte de Basse-Vallée → Basse-Vallée','Arrivée dans le Sud sauvage',11,100,900,'4 h 00','moyen')]};
+W('J12',PT.gbv,PT.bv,'Gîte de Basse-Vallée → Basse-Vallée','Arrivée dans le Sud sauvage',11,100,900,'4 h 00','moyen'),
+R('J12',PT.lport,PT.bv,'Dernier transfert : bagages chargés au box du Port','Le chauffeur charge les bagages au Port et récupère les clients, tout le monde repart ensemble')]};
 var TC={id:'tc',n:'Le Tour des Cirques',sub:'6 jours · boucle au départ de Hell-Bourg',fin:'hb',
 intro:"La boucle des trois cirques, de Salazie à Cilaos puis Mafate et retour. Au J3, le randonneur franchit le col du Taïbit à pied pendant que son sac fait le tour par la route.",
 E:[R('J1',PT.rg,PT.hb,"Aéroport → Hell-Bourg",'Accueil et dépose au départ de la boucle',147),BOX,
@@ -261,26 +267,30 @@ W('J3',PT.ci,PT.ma,'Cilaos → Marla','Par le col du Taïbit · entrée dans Maf
 {t:'b',j:'J3',de:PT.tbd,a:PT.cb,n:'Les bagages font le tour par la route',i:"Le sac part du départ du sentier du Taïbit, route de l'Îlet à Cordes, et contourne par le Col des Bœufs pendant que le col se franchit à pied sans rien porter."},
 W('J4',PT.ma,PT.ln,'Marla → La Nouvelle','Cœur de Mafate',5.5,300,350,'2 h 15','moyen'),
 W('J5',PT.ln,PT.bel,'La Nouvelle → Le Bélier','Par la Plaine des Tamarins et le Col de Fourche',9,550,750,'4 h 00','moyen'),
-W('J6',PT.bel,PT.hb,'Le Bélier → Hell-Bourg','Retour dans Salazie',12,400,450,'4 h 30','moyen')]};
+W('J6',PT.bel,PT.hb,'Le Bélier → Hell-Bourg','Retour dans Salazie',12,400,450,'4 h 30','moyen'),
+R('J6',PT.lport,PT.hb,'Dernier transfert : bagages chargés au box du Port','Le chauffeur charge les bagages au Port et récupère les clients, tout le monde repart ensemble')]};
 var P_SAL={id:'sal',n:'Salazie – La Nouvelle',sub:'Aller-retour par le Col des Bœufs',fin:'cb',
 intro:"La découverte de Mafate en aller-retour, la formule la plus accessible. Nous déposons au parking du Col des Bœufs, par Salazie et Grand Îlet, et nous récupérons au même endroit.",
 E:[R('J1',PT.rg,PT.cb,"Aéroport → Col des Bœufs",'Par Salazie et Grand Îlet',168),BOX,
 W('J1',PT.cb,PT.pt,'Col des Bœufs → Plaine des Tamarins','Entrée dans Mafate',2.5,40,200,'0 h 50','facile'),
 W('J1',PT.pt,PT.ln,'Plaine des Tamarins → La Nouvelle',"Arrivée à l'îlet",2.5,60,200,'0 h 55','facile'),
 W('J3',PT.ln,PT.pt,'La Nouvelle → Plaine des Tamarins','Retour après quelques nuits',2.5,200,60,'1 h 05','facile'),
-W('J3',PT.pt,PT.cb,'Plaine des Tamarins → Col des Bœufs','Remontée au parking',2.5,200,40,'1 h 10','facile')]};
+W('J3',PT.pt,PT.cb,'Plaine des Tamarins → Col des Bœufs','Remontée au parking',2.5,200,40,'1 h 10','facile'),
+R('J3',PT.lport,PT.cb,'Dernier transfert : bagages chargés au box du Port','Le chauffeur charge les bagages au Port et récupère les clients, tout le monde repart ensemble')]};
 var P_ROCHE={id:'roche',n:"La Montée de la Roche Écrite",sub:"Du nord à l'entrée de Mafate",fin:'da',
 intro:"Le départ de la grande traversée. Nous déposons jusqu'à Mamode Camp, ce qui évite deux heures de montée sur route forestière.",
 E:[R('J1',PT.rg,PT.mc,"Aéroport → Mamode Camp","Dépose avancée sur la route forestière",84),BOX,
 W('J1',PT.mc,PT.pc,'Mamode Camp → Plaine des Chicots','Montée en forêt · nuit au gîte',6,700,50,'2 h 45','moyen'),
 W('J2',PT.pc,PT.re,'Plaine des Chicots → Roche Écrite','Sommet à 2 276 m',3,400,30,'1 h 30','moyen'),
 W('J2',PT.re,PT.paf,"Roche Écrite → Plaine d'Affouches","Crête vers Dos d'Âne",4,60,450,'1 h 45','moyen'),
-W('J2',PT.paf,PT.da,"Plaine d'Affouches → Dos d'Âne",'Descente sur le village',7,150,900,'3 h 00','moyen')]};
+W('J2',PT.paf,PT.da,"Plaine d'Affouches → Dos d'Âne",'Descente sur le village',7,150,900,'3 h 00','moyen'),
+R('J2',PT.lport,PT.da,'Dernier transfert : bagages chargés au box du Port','Le chauffeur charge les bagages au Port et récupère les clients, tout le monde repart ensemble')]};
 var P_GG={id:'gg',n:'Le Volcan et la cascade',sub:'Sortie sud par Grand-Galet',fin:'gg',
 intro:"Variante de fin : au lieu de descendre sur Basse-Vallée, le randonneur rejoint la cascade de Grand-Galet.",
 E:[R('J1',PT.rg,PT.bm,"Aéroport → Bourg-Murat",'Transfert et dépôt de bagages',180),BOX,
 W('J1',PT.bm,PT.gv,'Bourg-Murat → Gîte du Volcan','Par le Bois Ozoux et le Pas des Sables',16,600,250,'5 h 00','moyen'),
-W('J2',PT.gv,PT.gg,'Gîte du Volcan → Grand-Galet','Longue descente sur la route de Langevin',16,200,1800,'6 h 00','difficile')]};
+W('J2',PT.gv,PT.gg,'Gîte du Volcan → Grand-Galet','Longue descente sur la route de Langevin',16,200,1800,'6 h 00','difficile'),
+R('J2',PT.lport,PT.gg,'Dernier transfert : bagages chargés au box du Port','Le chauffeur charge les bagages au Port et récupère les clients, tout le monde repart ensemble')]};
 var PARCOURS=[TR,TC,P_SAL,P_ROCHE,P_GG];
 var hud=document.getElementById('hud'),panel=document.getElementById('panel'),zones=document.getElementById('zones');
 var eT='...',eS='...';function maj(){hud.innerHTML='Fond : '+eT+'<br>Sentiers : '+eS}
