@@ -28,6 +28,13 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .trek:hover{filter:brightness(1.06)}
 .trek.on{box-shadow:0 4px 12px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.6),0 0 0 2.5px #fff}
 .mkbox{width:30px;height:30px;border-radius:50%;background:linear-gradient(180deg,#8A6BC8,#6B4EA8);border:2.5px solid #fff;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 3px 8px rgba(0,0,0,.5);cursor:pointer}
+.mk.gite .pin{width:23px;height:23px;border-radius:7px;background:linear-gradient(180deg,#2E9E4B,#06651E);border:2px solid #fff;font-size:12px}
+.sec.fin{background:linear-gradient(180deg,#FFFBEA,#FFF4C9);border:1px solid rgba(251,214,8,.55);border-radius:9px;padding:13px 11px;box-shadow:0 3px 9px rgba(2,17,50,.14)}
+.go2.finbtn{padding:14px 12px;border:none;background:linear-gradient(180deg,#0A2358,#021132);color:#fff;border-radius:9px;box-shadow:0 3px 9px rgba(2,17,50,.35),inset 0 1px 0 rgba(255,255,255,.18)}
+.go2.finbtn .em{font-size:22px}
+.go2.finbtn .tx b{font-size:14px}
+.go2.finbtn .tx i{color:rgba(255,255,255,.72)}
+.go2.finbtn .eur{color:#FBD608;font-size:15px;font-weight:800}
 .stage{flex:1;display:flex;min-height:0}
 .mw{flex:1;position:relative;min-width:0;min-height:0}
 #map{position:absolute;inset:0;background:#dfe3d8}
@@ -133,7 +140,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 <div class="app">
 <div class="bar"><b>Run Transfert <span class="r">&amp;</span> Services</b>
 <div class="veh"><button class="on" id="vB">Berline<small>1 à 4 pers.</small></button><button id="vV">Van<small>5 à 8 pers.</small></button></div><button class="trek" id="btnTrek">Formules Trek</button>
-<div class="tools"><button class="tg on" id="t1">Plan</button><button class="tg" id="t2">Aérien</button><button class="tg on" id="t3">🥾</button><button class="tg on" id="t4">🚗</button><button class="tg on" id="t6">🚘</button></div></div>
+<div class="tools"><button class="tg on" id="t1">Plan</button><button class="tg" id="t2">Aérien</button><button class="tg on" id="t3">🥾</button><button class="tg on" id="t4">🚗</button><button class="tg on" id="t6">🚘</button><button class="tg on" id="t7">🏠</button></div></div>
 <div class="zones" id="zones"></div>
 <div class="stage"><div class="mw"><div id="map"></div><div class="hud" id="hud">Initialisation…</div></div><aside class="panel" id="panel"></aside></div></div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -290,7 +297,6 @@ E:[R('J1',PT.rg,PT.hb,"Aéroport → Hell-Bourg",'Accueil et dépose au départ 
 W('J1',PT.hb,PT.cd,'Hell-Bourg → Caverne Dufour','Par Bélouve, montée vers le Piton des Neiges',13,1650,100,'6 h 00','difficile'),
 W('J2',PT.cd,PT.ci,'Caverne Dufour → Cilaos','Descente par Le Bloc',8,50,1550,'3 h 30','moyen'),
 W('J3',PT.ci,PT.ma,'Cilaos → Marla','Par le col du Taïbit · entrée dans Mafate',9,1100,700,'5 h 00','difficile'),
-{t:'b',j:'J3',de:PT.tbd,a:PT.cb,n:'Les bagages font le tour par la route',i:"Le sac part du départ du sentier du Taïbit, route de l'Îlet à Cordes, et contourne par le Col des Bœufs pendant que le col se franchit à pied sans rien porter."},
 W('J4',PT.ma,PT.ln,'Marla → La Nouvelle','Cœur de Mafate',5.5,300,350,'2 h 15','moyen'),
 W('J5',PT.ln,PT.bel,'La Nouvelle → Le Bélier','Par la Plaine des Tamarins et le Col de Fourche',9,550,750,'4 h 00','moyen'),
 W('J6',PT.bel,PT.hb,'Le Bélier → Hell-Bourg','Retour dans Salazie',12,400,450,'4 h 30','moyen'),
@@ -337,7 +343,7 @@ function suivi(X,nm){X.on('tileload',function(){ok++;if(!basc){eT='<span class="
 X.on('tileerror',function(){ko++;if(!basc&&ko>6&&ok===0){basc=true;map.removeLayer(plan);topo.addTo(map);eT='<span class="ko">IGN bloqué</span> → OpenTopoMap';maj();setTimeout(function(){hud.hidden=true},7000)}})}
 suivi(plan,'IGN OK');suivi(topo,'OpenTopoMap');suivi(ortho,'Aérien');plan.addTo(map);maj();
 var gMask=L.layerGroup().addTo(map),gZone=L.layerGroup().addTo(map),gPath=L.layerGroup().addTo(map),gRoad=L.layerGroup().addTo(map),gMkW=L.layerGroup().addTo(map),gMkR=L.layerGroup().addTo(map),gTrip=L.layerGroup().addTo(map),gLoc=L.layerGroup().addTo(map);
-var t1=document.getElementById('t1'),t2=document.getElementById('t2'),t3=document.getElementById('t3'),t4=document.getElementById('t4'),t6=document.getElementById('t6');
+var t1=document.getElementById('t1'),t2=document.getElementById('t2'),t3=document.getElementById('t3'),t4=document.getElementById('t4'),t6=document.getElementById('t6'),t7=document.getElementById('t7');
 var vB=document.getElementById('vB'),vV=document.getElementById('vV');
 vB.onclick=function(){VAN=false;vB.classList.add('on');vV.classList.remove('on');stopAnim();gTrip.clearLayers();refresh()};
 vV.onclick=function(){VAN=true;vV.classList.add('on');vB.classList.remove('on');stopAnim();gTrip.clearLayers();refresh()};
@@ -347,8 +353,28 @@ t3.onclick=function(){var o=t3.classList.toggle('on');if(o){map.addLayer(gPath);
 t4.onclick=function(){var o=t4.classList.toggle('on');if(o){map.addLayer(gRoad);map.addLayer(gMkR)}else{map.removeLayer(gRoad);map.removeLayer(gMkR)}};
 t6.onclick=function(){var o=t6.classList.toggle('on');o?map.addLayer(gLoc):map.removeLayer(gLoc)};
 document.getElementById('btnTrek').onclick=function(){listeParcours()};
+t7.onclick=function(){var o=t7.classList.toggle('on');o?map.addLayer(gGite):map.removeLayer(gGite)};
 LOC.forEach(function(x){L.marker(x[1],{icon:L.divIcon({html:'<div class="mk loc"><div class="pin">🚘</div></div>',className:'',iconSize:[23,23],iconAnchor:[11,11]})}).addTo(gLoc)
  .bindTooltip('🚘 Location de véhicule — '+x[0]+(x[2]?'<br>'+x[2]:''),{sticky:true})});
+/* gites FICTIFS de demonstration : noms inventes, exemples d'illustration uniquement,
+   aucune donnee reelle (ni Gites de France, ni IRT), aucune offre commerciale */
+var GITES=[
+['Ti Kaz Marla',[-21.0885,55.4390],'Mafate'],
+['Kaz Piton Fleuri',[-21.0490,55.4270],'Mafate'],
+['Lo Rempart Kréol',[-21.0625,55.3950],'Mafate'],
+['Ti Kaz Kaskad',[-21.0655,55.5205],'Salazie'],
+['Lo Toit Vétyver',[-21.0300,55.4810],'Salazie'],
+['Kaz Termal Péi',[-21.1350,55.4700],'Cilaos'],
+['Ti Kaz 400 Viraz',[-21.1385,55.4755],'Cilaos'],
+['Lo Lantiy Doré',[-21.1330,55.4330],'Cilaos'],
+['Kaz Bra-Sek',[-21.1180,55.4900],'Cilaos'],
+['Ti Kaz Volkan',[-21.2230,55.6880],'Volcan'],
+['Kaz Lagon Blé',[-21.0570,55.2300],'Côte ouest'],
+['Ti Kaz Filao',[-21.0790,55.2310],'Côte ouest'],
+['Lo Kaz Terre Sainte',[-21.3380,55.4770],'Saint-Pierre']];
+var gGite=L.layerGroup().addTo(map);
+GITES.forEach(function(x){L.marker(x[1],{icon:L.divIcon({html:'<div class="mk gite"><div class="pin">🏠</div></div>',className:'',iconSize:[23,23],iconAnchor:[11,11]})}).addTo(gGite)
+ .bindTooltip('🏠 '+x[0]+' — gîte · '+x[2]+'<br><i>Exemple d\'illustration, ne constitue pas une offre commerciale</i>',{sticky:true})});
 /* marqueur permanent du box du Port : pose directement sur la carte, hors de tout calque nettoye par clearAll */
 L.marker([-20.9397,55.2925],{icon:L.divIcon({html:'<div class="mkbox">🔒</div>',className:'',iconSize:[30,30],iconAnchor:[15,15]}),zIndexOffset:1200}).addTo(map)
  .bindTooltip('📦 Box RTS sécurisé — Le Port<br>Gardiennage et livraison des bagages',{sticky:true})
@@ -361,12 +387,18 @@ function approxRoute(a,b){
   t.push([v*v*a[0]+2*v*u*mid[0]+u*u*b[0],v*v*a[1]+2*v*u*mid[1]+u*u*b[1]])}
  return t}
 function routeReelle(a,b,cb){var k=a.join()+'|'+b.join();
- if(cacheR[k]){cb(cacheR[k].co,cacheR[k].ap);return}
+ if(cacheR[k]){var c0=cacheR[k];cb(c0.co,c0.ap,c0.head,c0.tail);return}
  var u='https://router.project-osrm.org/route/v1/driving/'+a[1]+','+a[0]+';'+b[1]+','+b[0]+'?overview=full&geometries=geojson';
  var c=new AbortController(),to=setTimeout(function(){c.abort()},9000);
  fetch(u,{signal:c.signal}).then(function(r){clearTimeout(to);if(!r.ok)throw 0;return r.json()})
  .then(function(j){if(!j.routes||!j.routes[0])throw 0;
-  var co=j.routes[0].geometry.coordinates.map(function(p){return [p[1],p[0]]});cacheR[k]={co:co,ap:false};cb(co,false)})
+  var co=j.routes[0].geometry.coordinates.map(function(p){return [p[1],p[0]]});
+  /* OSRM accroche depart et arrivee au reseau routable : si le bout du trace
+     reste loin du point demande (route forestiere, piste), on complete en
+     courbe de repli affichee en pointilles - jamais une ligne droite */
+  var head=map.distance(co[0],a)>250?approxRoute(a,co[0]):null;
+  var tail=map.distance(co[co.length-1],b)>250?approxRoute(co[co.length-1],b):null;
+  cacheR[k]={co:co,ap:false,head:head,tail:tail};cb(co,false,head,tail)})
  .catch(function(){clearTimeout(to);var co=approxRoute(a,b);cacheR[k]={co:co,ap:true};cb(co,true)})}
 /* accroche un trace pieton aux sentiers OSM charges */
 function cheminPieton(a,b){
@@ -443,9 +475,11 @@ function ouvrir(k){vue='zone';vueArg=k;ck=k;lk=null;var z=C[k];M={};z.L.forEach(
  clearAll();onglet(k);masque(z.poly);
  L.polygon(z.poly,{color:z.col,weight:4,opacity:1,fill:false,lineJoin:'round',smoothFactor:.4}).addTo(gZone);
  z.R.forEach(function(r){var A=V[r.de][1],Bp=M[r.a]?M[r.a].ll:null;if(!Bp)return;
-  routeReelle(A,Bp,function(co,ap){
+  routeReelle(A,Bp,function(co,ap,hd,tl){
    var cas=ap?null:L.polyline(co,{color:'#fff',weight:7,opacity:.55}).addTo(gRoad);
    var pl=L.polyline(co,{color:'#0141AC',weight:4,opacity:.9,dashArray:ap?'8 7':null}).addTo(gRoad);
+   if(hd)L.polyline(hd,{color:'#0141AC',weight:4,opacity:.9,dashArray:'6 6'}).addTo(gRoad);
+   if(tl)L.polyline(tl,{color:'#0141AC',weight:4,opacity:.9,dashArray:'6 6'}).addTo(gRoad);
    pl.bindTooltip(V[r.de][0]+' → '+M[r.a].n+' : '+PX(r.p)+' €'+(ap?' · tracé approximatif':''),{sticky:true});
    var lab=L.marker(co[Math.floor(co.length/2)],{icon:L.divIcon({html:'<div class="px">'+PX(r.p)+' €</div>',className:'',iconSize:[52,22],iconAnchor:[26,11]})}).addTo(gRoad);
    roads.push({cas:cas,pl:pl,lab:lab,a:r.a});
@@ -488,10 +522,12 @@ function aff(els){segs=[];gPath.clearLayers();els.forEach(function(w){
 function demo(de,a,type,label){
  stopAnim();gTrip.clearLayers();gRoad.clearLayers();roads=[];
  var col=type==='r'?'#0141AC':'#06651E',cls=type==='r'?'':'w';
- function go(co,ap){
+ function go(co,ap,hd,tl){
   var tir=type==='r'?(ap?'8 7':null):'6 6';
   if(type==='r'&&!ap)L.polyline(co,{color:'#fff',weight:7,opacity:.4}).addTo(gTrip);
   else L.polyline(co,{color:col,weight:type==='r'?5:5,opacity:.2,dashArray:tir}).addTo(gTrip);
+  if(hd)L.polyline(hd,{color:col,weight:4,opacity:.9,dashArray:'6 6'}).addTo(gTrip);
+  if(tl)L.polyline(tl,{color:col,weight:4,opacity:.9,dashArray:'6 6'}).addTo(gTrip);
   var trace=L.polyline([],{color:col,weight:5,opacity:1,dashArray:tir}).addTo(gTrip);
   if(ap)trace.bindTooltip('Tracé approximatif',{sticky:true});
   var pt=L.marker(co[0],{icon:L.divIcon({html:'<div class="dot '+cls+'"></div>',className:'',iconSize:[19,19],iconAnchor:[9,9]}),zIndexOffset:900}).addTo(gTrip);
@@ -500,7 +536,7 @@ function demo(de,a,type,label){
    var idx=Math.floor(pr*(co.length-1));trace.setLatLngs(co.slice(0,idx+1));pt.setLatLng(co[idx]);
    if(pr<1){anim={raf:requestAnimationFrame(tick),to:null}}
    else{map.removeLayer(pt);
-    L.circleMarker(co[co.length-1],{radius:6,color:'#fff',weight:2.5,fillColor:col,fillOpacity:1}).addTo(gTrip);
+    L.circleMarker(tl?a:co[co.length-1],{radius:6,color:'#fff',weight:2.5,fillColor:col,fillOpacity:1}).addTo(gTrip);
     L.marker(co[Math.floor(co.length/2)],{icon:L.divIcon({html:'<div class="px" style="background:'+col+'">'+label+(ap&&type==='r'?' · tracé approximatif':'')+'</div>',className:'',iconSize:[86,22],iconAnchor:[43,11]})}).addTo(gTrip)}}
   anim={raf:requestAnimationFrame(tick),to:null}}
  if(type==='r')routeReelle(de,a,go);
@@ -553,10 +589,10 @@ function lancer(pid){vue='parc';vueArg=pid;var P=null;PARCOURS.forEach(function(
  clearAll();onglet('parcours');pause=false;
  var tot=0,km=0;P.E.forEach(function(e){if(e.p)tot+=PX(e.p);if(e.km)km+=e.km});
  var f=P.fin&&OUT[P.fin]?OUT[P.fin]:null;
- var finHtml=f?'<div class="sec"><h3>🏁 Et après ? Trois retours possibles</h3>'+
-  '<button class="go2" onclick="demo('+JSON.stringify(PT[P.fin])+','+JSON.stringify(PT.rg)+',\'r\',\''+PX(f[0])+' €\')"><span class="em">✈️</span><span class="tx"><b>Vers l\'aéroport Roland Garros</b><i>Retour vol ou agence de location</i></span><span class="eur">'+PX(f[0])+' €</span><span class="play">▶</span></button>'+
-  '<button class="go2" onclick="demo('+JSON.stringify(PT[P.fin])+','+JSON.stringify(PT.sp)+',\'r\',\''+PX(f[1])+' €\')"><span class="em">🌅</span><span class="tx"><b>Vers Saint-Pierre</b><i>Fin de séjour dans le sud</i></span><span class="eur">'+PX(f[1])+' €</span><span class="play">▶</span></button>'+
-  '<button class="go2" onclick="demo('+JSON.stringify(PT[P.fin])+','+JSON.stringify(PT.sg)+',\'r\',\''+PX(f[2])+' €\')"><span class="em">🏖️</span><span class="tx"><b>Vers Saint-Gilles</b><i>Plage et repos après le trek</i></span><span class="eur">'+PX(f[2])+' €</span><span class="play">▶</span></button></div>':'';
+ var finHtml=f?'<div class="sec fin"><h3>🏁 Et après ? Choisissez votre fin de séjour</h3><p class="lead" style="margin-top:0">Trois sorties possibles, votre chauffeur vous attend :</p>'+
+  '<button class="go2 finbtn" onclick="demo('+JSON.stringify(PT[P.fin])+','+JSON.stringify(PT.rg)+',\'r\',\''+PX(f[0])+' €\')"><span class="em">✈️</span><span class="tx"><b>Vers l\'aéroport Roland Garros</b><i>Retour vol ou agence de location</i></span><span class="eur">'+PX(f[0])+' €</span><span class="play">▶</span></button>'+
+  '<button class="go2 finbtn" onclick="demo('+JSON.stringify(PT[P.fin])+','+JSON.stringify(PT.sp)+',\'r\',\''+PX(f[1])+' €\')"><span class="em">🌅</span><span class="tx"><b>Vers Saint-Pierre</b><i>Fin de séjour dans le sud</i></span><span class="eur">'+PX(f[1])+' €</span><span class="play">▶</span></button>'+
+  '<button class="go2 finbtn" onclick="demo('+JSON.stringify(PT[P.fin])+','+JSON.stringify(PT.sg)+',\'r\',\''+PX(f[2])+' €\')"><span class="em">🏖️</span><span class="tx"><b>Vers Saint-Gilles</b><i>Plage et repos après le trek</i></span><span class="eur">'+PX(f[2])+' €</span><span class="play">▶</span></button></div>':'';
  panel.innerHTML='<div class="pad"><button class="tg" style="border-color:var(--l);color:var(--marine);background:#fff;margin-bottom:13px" onclick="listeParcours()">← Les traversées</button>'+
  '<div class="h1">'+P.n+'</div><div class="meta">'+P.sub+(km?' · '+Math.round(km)+' km à pied':'')+'</div><p class="lead">'+P.intro+'</p>'+
  '<div class="ctrl"><button class="go" id="bp" onclick="togglePause()">⏸ Pause</button><button onclick="lancer(\''+pid+'\')">↺ Rejouer</button></div>'+
@@ -579,19 +615,21 @@ function lancer(pid){vue='parc';vueArg=pid;var P=null;PARCOURS.forEach(function(
   /* la chaine ne doit jamais s'interrompre : toute etape en echec est passee */
   var fait=false;
   function passe(){if(fait)return;fait=true;i++;anim={raf:null,to:setTimeout(suivante,300)}}
-  function go(co,ap){if(fait)return;fait=true;
-   try{joue(e,co,ap)}catch(_){i++;anim={raf:null,to:setTimeout(suivante,300)}}}
+  function go(co,ap,hd,tl){if(fait)return;fait=true;
+   try{joue(e,co,ap,hd,tl)}catch(_){i++;anim={raf:null,to:setTimeout(suivante,300)}}}
   if(!e.de||!e.a||!e.de.length||!e.a.length){passe();return}
   try{
    if(e.t==='r'||e.t==='b'){routeReelle(e.de,e.a,go)}
    else traceMarche(e.de,e.a,function(co){go(co,false)})
   }catch(_){passe()}}
- function joue(e,co,ap){
+ function joue(e,co,ap,hd,tl){
   var col=e.t==='r'?'#0141AC':(e.t==='b'?'#E87A1E':'#06651E');
   var cls=e.t==='r'?'':(e.t==='b'?'b':'w');
   var tir=e.t==='b'?'9 6':(e.t==='w'?'6 6':(ap?'8 7':null));
   if(e.t!=='r'||ap)L.polyline(co,{color:col,weight:4.5,opacity:.22,dashArray:tir}).addTo(gTrip);
   else L.polyline(co,{color:'#fff',weight:7,opacity:.35}).addTo(gTrip);
+  if(hd)L.polyline(hd,{color:col,weight:4,opacity:.9,dashArray:'6 6'}).addTo(gTrip);
+  if(tl)L.polyline(tl,{color:col,weight:4,opacity:.9,dashArray:'6 6'}).addTo(gTrip);
   var trace=L.polyline([],{color:col,weight:e.t==='r'?5:4,opacity:1,dashArray:tir}).addTo(gTrip);
   if(ap&&e.t!=='w')trace.bindTooltip('Tracé approximatif',{sticky:true});
   var pt=L.marker(co[0],{icon:L.divIcon({html:'<div class="dot '+cls+'"></div>',className:'',iconSize:[19,19],iconAnchor:[9,9]}),zIndexOffset:900}).addTo(gTrip);
