@@ -2,44 +2,55 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>RTS — Run Transfert &amp; Services</title>
 <style>
-:root{--marine:#021132;--marine2:#0A2358;--roi:#0141AC;--roi2:#1E63C4;--jaune:#FBD608;--or:#E8A200;--vert:#06651E;--vert2:#1E9E4F;--rouge:#C4101B;--rouge2:#DE0715;--l:#D8DEE9}
+/* Charte RTS officielle (25/08/2026) : marine, bleu roi, rouge Reunion, jaune soleil, vert palmier, blanc, creme */
+:root{--marine:#021132;--roi:#0141AC;--rouge:#DE0715;--jaune:#FBD608;--vert:#06651E;--blanc:#FFFFFF;--creme:#FCF9F4}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:#F2F5FA;color:#1C2536;min-height:100vh}
-.hero{background:linear-gradient(160deg,#0A2358,#021132);color:#fff;padding:34px 18px 70px;text-align:center;box-shadow:0 4px 18px rgba(2,17,50,.35)}
-.hero h1{font-size:30px;font-weight:900;letter-spacing:.3px}
-.hero h1 .r{color:var(--jaune)}
-.hero p.sub{margin-top:8px;font-size:15px;color:rgba(255,255,255,.85);max-width:640px;margin-left:auto;margin-right:auto;line-height:1.5}
-.badges{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:18px}
-.badge{font-size:11.5px;font-weight:700;padding:6px 12px;border-radius:20px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 0 rgba(255,255,255,.15)}
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--creme);color:var(--marine);min-height:100vh}
+.bandeau{background:var(--marine);color:var(--blanc);padding:26px 18px 24px;text-align:center;border-bottom:3px solid var(--rouge);box-shadow:0 3px 14px rgba(2,17,50,.25)}
+.badges{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.badge{font-size:11.5px;font-weight:700;padding:6px 12px;border-radius:20px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
 .badge b{color:var(--jaune)}
-.wrap{max-width:980px;margin:-46px auto 0;padding:0 14px 40px}
+.bandeau h1{font-size:29px;font-weight:900;letter-spacing:.3px}
+.bandeau h1 .r{color:var(--jaune)}
+.slogan{margin-top:8px;font-size:15.5px;font-weight:600;color:rgba(255,255,255,.92);font-style:italic}
+.wrap{max-width:980px;margin:0 auto;padding:24px 14px 26px}
 .portes{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-.porte{display:block;text-decoration:none;color:#fff;border-radius:16px;padding:24px 20px 20px;box-shadow:0 6px 18px rgba(2,17,50,.28),inset 0 1px 0 rgba(255,255,255,.30);background-image:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,0) 55%);transition:.16s}
-.porte:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(2,17,50,.36),inset 0 1px 0 rgba(255,255,255,.35)}
+.porte{display:block;text-decoration:none;color:var(--blanc);border-radius:16px;padding:24px 20px 20px;box-shadow:0 6px 18px rgba(2,17,50,.22),inset 0 1px 0 rgba(255,255,255,.30);background-image:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,0) 55%);transition:.16s}
+.porte:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(2,17,50,.30),inset 0 1px 0 rgba(255,255,255,.35)}
 .porte.verte{background-color:var(--vert)}
 .porte.bleue{background-color:var(--roi)}
 .porte.rouge{background-color:var(--rouge)}
 .porte .em{font-size:34px;display:block;margin-bottom:8px;text-shadow:0 2px 4px rgba(0,0,0,.3)}
 .porte h2{font-size:18.5px;font-weight:800;margin-bottom:6px;text-shadow:0 1px 2px rgba(0,0,0,.35)}
-.porte p{font-size:13px;line-height:1.45;color:rgba(255,255,255,.88)}
-.porte .go{display:inline-block;margin-top:14px;font-size:12.5px;font-weight:800;padding:8px 16px;border-radius:9px;background:rgba(255,255,255,.94);color:#1C2536;box-shadow:0 2px 6px rgba(0,0,0,.3)}
-.chiffres{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-top:26px}
-.ch{background:#fff;border-radius:14px;padding:20px 16px;text-align:center;box-shadow:0 4px 12px rgba(2,17,50,.12);border:1px solid var(--l)}
+.porte p{font-size:13px;line-height:1.45;color:rgba(255,255,255,.9)}
+.porte .go{display:inline-block;margin-top:14px;font-size:12.5px;font-weight:800;padding:8px 16px;border-radius:9px;background:var(--blanc);color:var(--marine);box-shadow:0 2px 6px rgba(0,0,0,.28)}
+.chiffres{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-top:22px}
+.ch{background:var(--blanc);border-radius:14px;padding:20px 16px;text-align:center;box-shadow:0 4px 12px rgba(2,17,50,.10);border:1px solid rgba(2,17,50,.10);border-top:3px solid var(--rouge)}
 .ch b{display:block;font-size:32px;font-weight:900;color:var(--roi)}
-.ch span{display:block;margin-top:5px;font-size:12.5px;font-weight:600;color:#4A5568;line-height:1.4}
-.apropos{margin-top:26px;background:#fff;border-radius:14px;padding:20px 18px;box-shadow:0 4px 12px rgba(2,17,50,.12);border:1px solid var(--l);font-size:13.5px;line-height:1.6;color:#3A4557}
+.ch span{display:block;margin-top:5px;font-size:12.5px;font-weight:600;color:rgba(2,17,50,.65);line-height:1.4}
+h2.sect{font-size:17px;color:var(--marine);margin:26px 0 12px;padding-bottom:7px;border-bottom:2px solid var(--rouge)}
+.prestas{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px}
+.presta{display:flex;gap:11px;align-items:flex-start;background:var(--blanc);border:1px solid rgba(2,17,50,.10);border-radius:12px;padding:13px 13px;box-shadow:0 3px 9px rgba(2,17,50,.08)}
+.presta .em{width:38px;height:38px;border-radius:10px;background:var(--marine);color:var(--blanc);display:flex;align-items:center;justify-content:center;font-size:18px;flex:none;box-shadow:0 2px 5px rgba(2,17,50,.25),inset 0 1px 0 rgba(255,255,255,.2)}
+.presta b{display:block;font-size:13.5px;color:var(--marine)}
+.presta i{display:block;font-style:normal;font-size:12px;color:rgba(2,17,50,.62);margin-top:2px;line-height:1.45}
+.apropos{margin-top:22px;background:var(--blanc);border-radius:14px;padding:18px 18px;box-shadow:0 4px 12px rgba(2,17,50,.10);border:1px solid rgba(2,17,50,.10);font-size:13.5px;line-height:1.6;color:rgba(2,17,50,.78)}
 .apropos h3{font-size:15px;color:var(--marine);margin-bottom:8px}
-footer{text-align:center;font-size:11.5px;color:#8894A8;padding:18px 12px 26px}
-@media(max-width:640px){.hero h1{font-size:24px}.hero{padding:26px 14px 62px}}
+footer{background:var(--marine);color:var(--blanc);border-top:3px solid var(--rouge);margin-top:28px;padding:22px 16px 24px;text-align:center}
+footer .co{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;font-size:13px;font-weight:600}
+footer .co a{color:var(--blanc);text-decoration:none}
+footer .co a:hover{color:var(--jaune)}
+footer .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
+@media(max-width:640px){.bandeau h1{font-size:23px}}
 </style></head><body>
-<div class="hero">
+<div class="bandeau">
  <div class="badges">
   <span class="badge">Centrale de réservation <b>T3P déclarée</b></span>
   <span class="badge"><b>13</b> chauffeurs</span>
   <span class="badge">Association <b>loi 1901</b></span>
  </div>
  <h1>Run Transfert <span class="r">&amp;</span> Services</h1>
- <p class="sub">L'association réunionnaise du transport à la demande : trek et logistique bagages dans les cirques, réservation instantanée de transferts, et transport adapté pour tous les publics.</p>
+ <p class="slogan">Des chauffeurs au service de La Réunion</p>
 </div>
 <div class="wrap">
  <div class="portes">
@@ -67,10 +78,28 @@ footer{text-align:center;font-size:11.5px;color:#8894A8;padding:18px 12px 26px}
   <div class="ch"><b>50+</b><span>chauffeurs mobilisables<br>dans le réseau élargi</span></div>
   <div class="ch"><b>3</b><span>véhicules adaptés TPMR,<br>dont un pouvant transporter 4 fauteuils roulants</span></div>
  </div>
+ <h2 class="sect">Nos prestations</h2>
+ <div class="prestas">
+  <div class="presta"><span class="em">✈️</span><div><b>Transferts aéroport</b><i>Prise en charge et dépose à Roland Garros et Pierrefonds, à toute heure.</i></div></div>
+  <div class="presta"><span class="em">🚗</span><div><b>Tous transferts sur La Réunion</b><i>D'un point à l'autre de l'île, côte comme Hauts, berline ou van.</i></div></div>
+  <div class="presta"><span class="em">🌋</span><div><b>Excursions touristiques avec guide chauffeur</b><i>Volcan, cirques, littoral : l'île commentée par un chauffeur qui la connaît.</i></div></div>
+  <div class="presta"><span class="em">🕐</span><div><b>Mise à disposition</b><i>Un véhicule et son chauffeur à votre service, à l'heure ou à la journée.</i></div></div>
+  <div class="presta"><span class="em">🥾</span><div><b>Dépose et récupération sentiers rando et trail</b><i>Aux départs et arrivées de sentiers, y compris sur les routes forestières accessibles.</i></div></div>
+  <div class="presta"><span class="em">🎪</span><div><b>Logistique transport sur événements</b><i>Transport de personnes sur événements professionnels ou privés, coordonné par la centrale.</i></div></div>
+  <div class="presta"><span class="em">🧳</span><div><b>Bagagerie, conservation et transferts de bagages</b><i>Box sécurisé au Port, garde de bagages et livraison pendant que vous marchez.</i></div></div>
+ </div>
  <div class="apropos">
   <h3>Qui sommes-nous ?</h3>
   RTS — Run Transfert &amp; Services — est une association loi 1901 qui fédère les chauffeurs professionnels de La Réunion autour d'une centrale de réservation T3P déclarée. Notre spécialité : la logistique des séjours de randonnée (déposes en montagne, transport des bagages, box sécurisé au Port) et le transport adapté à tous les publics, du transfert aéroport à l'excursion accessible en fauteuil roulant.
  </div>
 </div>
-<footer>Maquette de démonstration — présentation Région Réunion · RTS, association loi 1901</footer>
+<footer>
+ <div class="co">
+  <span>📞 <a href="tel:0693911267">06 93 91 12 67</a></span>
+  <span>✉️ <a href="mailto:runtransfertsservices@gmail.com">runtransfertsservices@gmail.com</a></span>
+  <span><a href="https://www.facebook.com/share/1cknUjSFH1/" target="_blank" rel="noopener">Facebook</a></span>
+  <span><a href="https://www.instagram.com/runtransfertservices/" target="_blank" rel="noopener">Instagram</a></span>
+ </div>
+ <div class="lg">Maquette de démonstration — présentation Région Réunion · RTS, association loi 1901</div>
+</footer>
 </body></html>

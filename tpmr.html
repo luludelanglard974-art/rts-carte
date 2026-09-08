@@ -2,42 +2,47 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Transport adapté — RTS</title>
 <style>
-:root{--marine:#021132;--rouge:#C4101B;--rouge2:#DE0715;--jaune:#FBD608;--l:#D8DEE9}
+:root{--marine:#021132;--roi:#0141AC;--rouge:#DE0715;--jaune:#FBD608;--vert:#06651E;--blanc:#FFFFFF;--creme:#FCF9F4;--l:rgba(2,17,50,.14)}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:#F2F5FA;color:#1C2536;min-height:100vh}
-header{background:linear-gradient(160deg,#DE0715,#8E0A12);color:#fff;padding:16px 16px 18px;box-shadow:0 3px 12px rgba(2,17,50,.3)}
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--creme);color:var(--marine);min-height:100vh}
+header{background:var(--marine);color:var(--blanc);padding:16px 16px 18px;border-bottom:3px solid var(--rouge);box-shadow:0 3px 12px rgba(2,17,50,.25)}
 header .top{display:flex;align-items:center;gap:12px;max-width:760px;margin:0 auto}
 header a.home{color:#fff;text-decoration:none;font-size:12.5px;font-weight:700;padding:7px 12px;border-radius:9px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
 header h1{font-size:19px;font-weight:900}
 header p{font-size:12px;color:rgba(255,255,255,.85);max-width:760px;margin:6px auto 0}
 .wrap{max-width:760px;margin:0 auto;padding:16px 14px 44px}
-.card{background:#fff;border-radius:14px;border:1px solid var(--l);box-shadow:0 4px 14px rgba(2,17,50,.12);padding:18px 16px;margin-bottom:14px}
+.card{background:var(--blanc);border-radius:14px;border:1px solid var(--l);box-shadow:0 4px 14px rgba(2,17,50,.12);padding:18px 16px;margin-bottom:14px}
 .card h2{font-size:16px;color:var(--rouge);margin-bottom:10px}
-.card p{font-size:13.5px;line-height:1.6;color:#3A4557}
-.veh{display:flex;align-items:center;gap:12px;padding:12px 12px;border:1px solid var(--l);border-radius:11px;margin-top:9px;background:#FBFCFE;box-shadow:0 1px 4px rgba(2,17,50,.07)}
-.veh .em{width:44px;height:44px;border-radius:11px;background:linear-gradient(180deg,#F0453C,#C4101B);color:#fff;display:flex;align-items:center;justify-content:center;font-size:21px;flex:none;box-shadow:0 2px 6px rgba(2,17,50,.25),inset 0 1px 0 rgba(255,255,255,.3)}
+.card p{font-size:13.5px;line-height:1.6;color:rgba(2,17,50,.75)}
+.veh{display:flex;align-items:center;gap:12px;padding:12px 12px;border:1px solid var(--l);border-radius:11px;margin-top:9px;background:var(--blanc);box-shadow:0 1px 4px rgba(2,17,50,.07)}
+.veh .em{width:44px;height:44px;border-radius:11px;background:var(--rouge);background-image:linear-gradient(180deg,rgba(255,255,255,.22),rgba(0,0,0,.12));color:#fff;display:flex;align-items:center;justify-content:center;font-size:21px;flex:none;box-shadow:0 2px 6px rgba(2,17,50,.25),inset 0 1px 0 rgba(255,255,255,.3)}
 .veh b{display:block;font-size:13.5px;color:var(--marine)}
-.veh i{display:block;font-style:normal;font-size:12px;color:#66718A;margin-top:2px}
+.veh i{display:block;font-style:normal;font-size:12px;color:rgba(2,17,50,.55);margin-top:2px}
 .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}
-.tag{font-size:12px;font-weight:700;padding:7px 13px;border-radius:20px;background:#FDEBEA;color:var(--rouge);border:1px solid rgba(196,16,27,.3)}
-.exc{background:#fff;border-radius:14px;border:1px solid var(--l);box-shadow:0 4px 14px rgba(2,17,50,.12);margin-bottom:16px;overflow:hidden}
-.exc .tete{display:flex;align-items:center;gap:11px;padding:14px 16px;background:linear-gradient(160deg,#DE0715,#8E0A12);color:#fff}
+.tag{font-size:12px;font-weight:700;padding:7px 13px;border-radius:20px;background:rgba(222,7,21,.08);color:var(--rouge);border:1px solid rgba(222,7,21,.3)}
+.exc{background:var(--blanc);border-radius:14px;border:1px solid var(--l);box-shadow:0 4px 14px rgba(2,17,50,.12);margin-bottom:16px;overflow:hidden}
+.exc .tete{display:flex;align-items:center;gap:11px;padding:14px 16px;background:var(--rouge);background-image:linear-gradient(180deg,rgba(255,255,255,.14),rgba(0,0,0,.10));color:var(--blanc)}
 .exc .tete .em{font-size:24px}
 .exc .tete h3{font-size:16px;font-weight:900;flex:1}
 .exc .duree{font-size:12px;font-weight:800;padding:6px 12px;border-radius:18px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
 .exc .corps{padding:14px 16px 16px}
-.arret{display:flex;gap:11px;padding:9px 0;border-bottom:1px solid #F0F2F7;font-size:13px}
+.arret{display:flex;gap:11px;padding:9px 0;border-bottom:1px solid rgba(2,17,50,.08);font-size:13px}
 .arret:last-of-type{border-bottom:none}
 .arret .t{flex:none;width:64px;font-weight:800;color:var(--rouge);font-size:12px;padding-top:1px}
 .arret b{display:block;color:var(--marine);font-size:13px}
-.arret i{display:block;font-style:normal;font-size:12px;color:#66718A;margin-top:2px;line-height:1.45}
-.arret.tpmr{background:#FDEBEA;border-radius:9px;padding:9px 10px;border-bottom:none;margin:2px 0}
-.arret.tpmr .t{color:#8E0A12}
-.arret.alt{opacity:.92;background:#F7F8FB;border-radius:9px;padding:9px 10px;border-bottom:none;margin-top:6px}
-.arret.alt .t{color:#66718A;font-size:11px}
-.reserve{margin-top:11px;font-size:12px;color:#6A5054;background:#FFF6F0;border:1px solid #F0DCC8;border-radius:9px;padding:9px 11px;line-height:1.5}
-.reserve b{color:#9A5A28}
-footer{text-align:center;font-size:11.5px;color:#8894A8;padding:6px 12px 26px}
+.arret i{display:block;font-style:normal;font-size:12px;color:rgba(2,17,50,.55);margin-top:2px;line-height:1.45}
+.arret.tpmr{background:rgba(222,7,21,.07);border-radius:9px;padding:9px 10px;border-bottom:none;margin:2px 0}
+.arret.tpmr .t{color:var(--rouge)}
+.arret.alt{opacity:.92;background:var(--creme);border-radius:9px;padding:9px 10px;border-bottom:none;margin-top:6px}
+.arret.alt .t{color:rgba(2,17,50,.55);font-size:11px}
+.reserve{margin-top:11px;font-size:12px;color:rgba(2,17,50,.75);background:var(--creme);border:1px solid rgba(222,7,21,.25);border-left:3px solid var(--rouge);border-radius:9px;padding:9px 11px;line-height:1.5}
+.reserve b{color:var(--rouge)}
+footer{text-align:center;font-size:11.5px;color:rgba(2,17,50,.45);padding:6px 12px 26px}
+footer.rts{background:var(--marine);color:var(--blanc);border-top:3px solid var(--rouge);margin-top:28px;padding:22px 16px 24px;text-align:center}
+footer.rts .co{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;font-size:13px;font-weight:600}
+footer.rts .co a{color:var(--blanc);text-decoration:none}
+footer.rts .co a:hover{color:var(--jaune)}
+footer.rts .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
 </style></head><body>
 <header>
  <div class="top"><a class="home" href="index.html">← Accueil</a><h1>♿ Transport adapté &amp; excursions</h1></div>
@@ -96,5 +101,14 @@ footer{text-align:center;font-size:11.5px;color:#8894A8;padding:6px 12px 26px}
   </div>
  </div>
 </div>
-<footer>Maquette de démonstration — présentation Région Réunion · RTS, association loi 1901</footer>
+<footer class="rts">
+ <div class="co">
+  <span>📞 <a href="tel:0693911267">06 93 91 12 67</a></span>
+  <span>✉️ <a href="mailto:runtransfertsservices@gmail.com">runtransfertsservices@gmail.com</a></span>
+  <span><a href="https://www.facebook.com/share/1cknUjSFH1/" target="_blank" rel="noopener">Facebook</a></span>
+  <span><a href="https://www.instagram.com/runtransfertservices/" target="_blank" rel="noopener">Instagram</a></span>
+ </div>
+ <div class="lg">Maquette de démonstration — présentation Région Réunion · RTS, association loi 1901</div>
+</footer>
+
 </body></html>

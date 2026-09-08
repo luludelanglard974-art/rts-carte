@@ -2,46 +2,51 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Réservation — RTS</title>
 <style>
-:root{--marine:#021132;--marine2:#0A2358;--roi:#0141AC;--roi2:#1E63C4;--jaune:#FBD608;--l:#D8DEE9}
+:root{--marine:#021132;--roi:#0141AC;--rouge:#DE0715;--jaune:#FBD608;--vert:#06651E;--blanc:#FFFFFF;--creme:#FCF9F4;--l:rgba(2,17,50,.14)}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:#F2F5FA;color:#1C2536;min-height:100vh}
-header{background:linear-gradient(160deg,#1E63C4,#0141AC);color:#fff;padding:16px 16px 18px;box-shadow:0 3px 12px rgba(2,17,50,.3)}
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--creme);color:var(--marine);min-height:100vh}
+header{background:var(--marine);color:var(--blanc);padding:16px 16px 18px;border-bottom:3px solid var(--rouge);box-shadow:0 3px 12px rgba(2,17,50,.25)}
 header .top{display:flex;align-items:center;gap:12px;max-width:760px;margin:0 auto}
 header a.home{color:#fff;text-decoration:none;font-size:12.5px;font-weight:700;padding:7px 12px;border-radius:9px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
 header h1{font-size:19px;font-weight:900}
 header p{font-size:12px;color:rgba(255,255,255,.85);max-width:760px;margin:6px auto 0}
 .wrap{max-width:760px;margin:0 auto;padding:16px 14px 44px}
 .etapes{display:flex;gap:6px;margin-bottom:16px}
-.et{flex:1;text-align:center;font-size:11.5px;font-weight:800;padding:8px 4px;border-radius:9px;background:#E2E8F2;color:#7A8699;box-shadow:inset 0 1px 2px rgba(2,17,50,.06)}
-.et.on{background:linear-gradient(180deg,#1E63C4,#0141AC);color:#fff;box-shadow:0 3px 8px rgba(2,17,50,.3),inset 0 1px 0 rgba(255,255,255,.3)}
-.card{background:#fff;border-radius:14px;border:1px solid var(--l);box-shadow:0 4px 14px rgba(2,17,50,.12);padding:18px 16px;margin-bottom:14px}
+.et{flex:1;text-align:center;font-size:11.5px;font-weight:800;padding:8px 4px;border-radius:9px;background:rgba(2,17,50,.08);color:rgba(2,17,50,.5);box-shadow:inset 0 1px 2px rgba(2,17,50,.06)}
+.et.on{background:var(--roi);background-image:linear-gradient(180deg,rgba(255,255,255,.25),rgba(255,255,255,0) 55%);color:var(--blanc);box-shadow:0 3px 8px rgba(2,17,50,.3),inset 0 1px 0 rgba(255,255,255,.3)}
+.card{background:var(--blanc);border-radius:14px;border:1px solid var(--l);box-shadow:0 4px 14px rgba(2,17,50,.12);padding:18px 16px;margin-bottom:14px}
 .card h2{font-size:15px;color:var(--marine);margin-bottom:12px}
-label{display:block;font-size:12px;font-weight:700;color:#4A5568;margin:10px 0 4px}
-select,input{width:100%;padding:10px 11px;font-size:14px;border:1px solid var(--l);border-radius:9px;background:#FBFCFE;font-family:inherit}
+label{display:block;font-size:12px;font-weight:700;color:rgba(2,17,50,.65);margin:10px 0 4px}
+select,input{width:100%;padding:10px 11px;font-size:14px;border:1px solid var(--l);border-radius:9px;background:var(--blanc);font-family:inherit}
 .deux{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.opt{display:flex;align-items:center;gap:9px;padding:10px 11px;border:1px solid var(--l);border-radius:9px;margin-top:7px;background:#FBFCFE;font-size:13px;cursor:pointer;box-shadow:0 1px 3px rgba(2,17,50,.06)}
+.opt{display:flex;align-items:center;gap:9px;padding:10px 11px;border:1px solid var(--l);border-radius:9px;margin-top:7px;background:var(--blanc);font-size:13px;cursor:pointer;box-shadow:0 1px 3px rgba(2,17,50,.06)}
 .opt input{width:auto}
 .opt b{margin-left:auto;color:var(--roi);white-space:nowrap}
-.devis{background:linear-gradient(180deg,#0A2358,#021132);color:#fff;border-radius:14px;padding:16px;box-shadow:0 5px 16px rgba(2,17,50,.35);margin-bottom:14px}
+div.devis{background:var(--marine);color:var(--blanc);border-radius:14px;padding:16px;box-shadow:0 5px 16px rgba(2,17,50,.35);margin-bottom:14px}
 .devis h3{font-size:13px;color:var(--jaune);margin-bottom:8px}
 .ligne{display:flex;justify-content:space-between;font-size:12.5px;padding:3px 0;color:rgba(255,255,255,.88)}
-.ligne.tot{border-top:1px solid rgba(255,255,255,.25);margin-top:7px;padding-top:8px;font-size:16px;font-weight:900;color:#fff}
+.ligne.tot{border-top:1px solid rgba(255,255,255,.25);margin-top:7px;padding-top:8px;font-size:16px;font-weight:900;color:var(--blanc)}
 .ligne.ac{color:var(--jaune);font-weight:800}
 .note{font-size:11px;color:rgba(255,255,255,.6);margin-top:8px;line-height:1.4}
 .alerte{margin-top:9px;font-size:12px;font-weight:700;padding:9px 11px;border-radius:9px;background:rgba(251,214,8,.16);border:1px solid rgba(251,214,8,.5);color:var(--jaune)}
-.btn{display:block;width:100%;padding:14px;font-size:15px;font-weight:900;border:none;border-radius:11px;cursor:pointer;font-family:inherit;background:linear-gradient(180deg,#FDE05A,#E8A200);color:#021132;box-shadow:0 4px 12px rgba(2,17,50,.3),inset 0 1px 0 rgba(255,255,255,.55);transition:.15s}
+.btn{display:block;width:100%;padding:14px;font-size:15px;font-weight:900;border:none;border-radius:11px;cursor:pointer;font-family:inherit;background:var(--jaune);background-image:linear-gradient(180deg,rgba(255,255,255,.45),rgba(255,255,255,0) 55%);color:var(--marine);box-shadow:0 4px 12px rgba(2,17,50,.28),inset 0 1px 0 rgba(255,255,255,.55);transition:.15s}
 .btn:hover{filter:brightness(1.05)}
-.btn.sec{background:#fff;color:var(--roi);border:1.5px solid var(--roi);box-shadow:0 2px 6px rgba(2,17,50,.12);margin-top:8px}
-.recap .ligne{color:#3A4557}
+.btn.sec{background:var(--blanc);color:var(--roi);border:1.5px solid var(--roi);box-shadow:0 2px 6px rgba(2,17,50,.12);margin-top:8px}
+.recap .ligne{color:rgba(2,17,50,.75)}
 .recap .ligne.tot{color:var(--marine);border-color:var(--l)}
 .recap .ligne.ac{color:var(--roi)}
 .confirm{text-align:center;padding:30px 16px}
 .confirm .ok{font-size:52px}
 .confirm h2{color:var(--marine);margin:10px 0 8px}
-.confirm p{font-size:13.5px;color:#4A5568;line-height:1.55;max-width:460px;margin:0 auto 6px}
-.confirm .ref{display:inline-block;margin-top:10px;font-size:15px;font-weight:900;letter-spacing:1px;padding:9px 18px;border-radius:9px;background:#EAF0FA;color:var(--roi);border:1px dashed var(--roi)}
-.demo{margin-top:14px;font-size:11.5px;color:#8894A8}
+.confirm p{font-size:13.5px;color:rgba(2,17,50,.65);line-height:1.55;max-width:460px;margin:0 auto 6px}
+.confirm .ref{display:inline-block;margin-top:10px;font-size:15px;font-weight:900;letter-spacing:1px;padding:9px 18px;border-radius:9px;background:rgba(1,65,172,.08);color:var(--roi);border:1px dashed var(--roi)}
+.demo{margin-top:14px;font-size:11.5px;color:rgba(2,17,50,.45)}
 [hidden]{display:none!important}
+footer.rts{background:var(--marine);color:var(--blanc);border-top:3px solid var(--rouge);margin-top:28px;padding:22px 16px 24px;text-align:center}
+footer.rts .co{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;font-size:13px;font-weight:600}
+footer.rts .co a{color:var(--blanc);text-decoration:none}
+footer.rts .co a:hover{color:var(--jaune)}
+footer.rts .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
 </style></head><body>
 <header>
  <div class="top"><a class="home" href="index.html">← Accueil</a><h1>🚗 Réservation instantanée</h1></div>
@@ -103,6 +108,15 @@ select,input{width:100%;padding:10px 11px;font-size:14px;border:1px solid var(--
   <button class="btn sec" onclick="location.reload()">Nouvelle demande</button>
  </div>
 </div>
+<footer class="rts">
+ <div class="co">
+  <span>📞 <a href="tel:0693911267">06 93 91 12 67</a></span>
+  <span>✉️ <a href="mailto:runtransfertsservices@gmail.com">runtransfertsservices@gmail.com</a></span>
+  <span><a href="https://www.facebook.com/share/1cknUjSFH1/" target="_blank" rel="noopener">Facebook</a></span>
+  <span><a href="https://www.instagram.com/runtransfertservices/" target="_blank" rel="noopener">Instagram</a></span>
+ </div>
+ <div class="lg">Maquette de démonstration — présentation Région Réunion · RTS, association loi 1901</div>
+</footer>
 <script src="tarifs.js"></script>
 <script>
 /* Donnees partagees : RTS_LIEUX et RTS_GRILLE sont generees depuis carte.html (tarifs.js) */
