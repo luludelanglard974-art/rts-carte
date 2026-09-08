@@ -24,6 +24,10 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .zb{flex:1;min-width:62px;margin:5px 3px;padding:9px 8px;font-size:12px;font-weight:800;color:#fff;border-radius:10px;white-space:nowrap;text-align:center;transition:.15s;background-image:linear-gradient(180deg,rgba(255,255,255,.32),rgba(255,255,255,.06) 48%,rgba(0,0,0,.18));box-shadow:0 2px 5px rgba(2,17,50,.4),inset 0 1px 0 rgba(255,255,255,.35);text-shadow:0 1px 2px rgba(0,0,0,.45);opacity:.86}
 .zb:hover{opacity:1}
 .zb.on{opacity:1;transform:translateY(-1px);box-shadow:0 4px 12px rgba(2,17,50,.55),inset 0 1px 0 rgba(255,255,255,.55),0 0 0 2.5px #fff}
+.trek{font-size:13.5px;font-weight:800;padding:10px 18px;border-radius:11px;background:linear-gradient(180deg,#FDE05A,#E8A200);color:#021132;box-shadow:0 3px 8px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.5);white-space:nowrap;transition:.15s}
+.trek:hover{filter:brightness(1.06)}
+.trek.on{box-shadow:0 4px 12px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.6),0 0 0 2.5px #fff}
+.mkbox{width:30px;height:30px;border-radius:50%;background:linear-gradient(180deg,#8A6BC8,#6B4EA8);border:2.5px solid #fff;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 3px 8px rgba(0,0,0,.5);cursor:pointer}
 .stage{flex:1;display:flex;min-height:0}
 .mw{flex:1;position:relative;min-width:0;min-height:0}
 #map{position:absolute;inset:0;background:#dfe3d8}
@@ -128,7 +132,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 </style></head><body>
 <div class="app">
 <div class="bar"><b>Run Transfert <span class="r">&amp;</span> Services</b>
-<div class="veh"><button class="on" id="vB">Berline<small>1 à 4 pers.</small></button><button id="vV">Van<small>5 à 8 pers.</small></button></div>
+<div class="veh"><button class="on" id="vB">Berline<small>1 à 4 pers.</small></button><button id="vV">Van<small>5 à 8 pers.</small></button></div><button class="trek" id="btnTrek">Formules Trek</button>
 <div class="tools"><button class="tg on" id="t1">Plan</button><button class="tg" id="t2">Aérien</button><button class="tg on" id="t3">🥾</button><button class="tg on" id="t4">🚗</button><button class="tg on" id="t6">🚘</button></div></div>
 <div class="zones" id="zones"></div>
 <div class="stage"><div class="mw"><div id="map"></div><div class="hud" id="hud">Initialisation…</div></div><aside class="panel" id="panel"></aside></div></div>
@@ -152,7 +156,7 @@ pc:[['Gîte de la Plaine des Chicots',"Gîte d'étape",'Sous la Roche Écrite.',
 gbv:[['Gîte de Basse-Vallée',"Gîte d'étape",'Hauts du Sud sauvage.','g27']],gg:[['Kaz Langevin','Gîte','Près de la cascade.','g23']]};
 /* sorties : [aeroport, saint-pierre, saint-gilles] - tarifs berline */
 var OUT={gv:[268,160,230],bv:[195,125,190],gbv:[255,205,250],gg:[185,105,195],hb:[147,175,165],cb:[168,195,180],da:[84,190,115],ci:[205,153,165],bm:[180,115,170],md:[148,195,95],ss:[162,192,178],mab:[190,130,215],bl:[210,158,195],lpr:[42,190,110],mc:[84,195,120],gi:[155,200,175]};
-var INTER=[['hb','bm',150],['hb','be',110],['be','bm',145],['be','bo',155],['bm','bo',60],['bm','gv',95],['bm','pb',110],['ci','mab',120],['mab','bm',80],['mab','bo',95],['mab','gv',130],['sa','hb',110],['da','rg2',55]];
+var INTER=[['hb','bm',150],['hb','be',110],['be','bm',145],['be','bo',155],['bm','bo',60],['bm','gv',95],['bm','pb',110],['ci','mab',120],['mab','bm',80],['mab','bo',95],['mab','gv',130],['sa','hb',110],['da','rg2',55],['db','rg2',14,'pers'],['sa','cb',150]];
 /* geometrie des cirques : jointifs au Piton des Neiges, remparts partages = memes tableaux des deux cotes */
 var PN=[-21.0994,55.4781];
 var R_MS=[[-21.0900,55.4860],[-21.0760,55.4990],[-21.0620,55.5070],[-21.0520,55.5020],[-21.0430,55.4960],[-21.0340,55.4935],[-21.0295,55.4760],[-21.0180,55.4650],[-21.0060,55.4680],[-20.9920,55.4580]];
@@ -166,8 +170,8 @@ var POLY_MAFATE=[PN].concat(R_MC,[
 ],revR(R_MS));
 var POLY_SALAZIE=[PN].concat(R_MS,[
 [-20.9760,55.4700],[-20.9600,55.4860],[-20.9500,55.5060],[-20.9440,55.5260],[-20.9330,55.5480],[-20.9180,55.6050],
-[-20.9400,55.6120],[-20.9620,55.5960],[-20.9800,55.5780],[-20.9980,55.5640],[-21.0200,55.5750],[-21.0480,55.5850],
-[-21.0700,55.5800],[-21.0850,55.5620],[-21.0950,55.5460],[-21.1030,55.5350]
+[-20.9400,55.6120],[-20.9620,55.5960],[-20.9800,55.5780],[-20.9980,55.5640],[-21.0200,55.5680],[-21.0450,55.5660],
+[-21.0620,55.5600],[-21.0760,55.5580],[-21.0900,55.5470],[-21.1030,55.5350]
 ],revR(R_SC));
 var POLY_CILAOS=[PN].concat(R_SC,[
 [-21.1180,55.5320],[-21.1400,55.5420],[-21.1580,55.5400],[-21.1720,55.5220],[-21.1850,55.5050],[-21.1960,55.4820],
@@ -236,7 +240,7 @@ L:[{id:'hb',n:'Hell-Bourg',ll:[-21.0664,55.5192],a:1,d:"Village classé, à 900 
 {id:'gi',n:'Grand Îlet',ll:[-21.0292,55.4794],a:1,d:"Village de l'ouest, sur la route du Col des Bœufs.",r:[['🚗','Transfert RTS','','155']]},
 {id:'sa',n:'Salazie',ll:[-21.0289,55.5397],a:1,d:"Chef-lieu du cirque, entrée depuis Saint-André.",r:[['🚗','Transfert RTS','']]}],
 P:[{a:'hb',b:'be',km:4,dp:600,dn:50,h:'2 h 00',d:'moyen'},{a:'hb',b:'gi',km:11,dp:400,dn:300,h:'4 h 00',d:'moyen'}],
-R:[{de:'rg',a:'hb',p:147,src:1},{de:'pp',a:'be',p:110},{de:'rg',a:'gi',p:155}]},
+R:[{de:'rg',a:'hb',p:147,src:1},{de:'pp',a:'be',p:110},{de:'rg',a:'gi',p:155},{de:'rg',a:'sa',p:130,src:0}]},
 volcan:{n:'Volcan',t:'Volcan &amp; Sud sauvage',s:'Par la route',col:'#DE0715',c:[-21.245,55.745],z:11.4,
 /* Enclos Fouque : fer a cheval ouvert vers l'est, cote en retrait vers le Grand Brule */
 poly:[[-21.2130,55.6780],[-21.2090,55.7060],[-21.2110,55.7340],[-21.2060,55.7620],[-21.2100,55.7900],[-21.2020,55.8180],[-21.2280,55.8260],[-21.2600,55.7980],[-21.2820,55.8080],[-21.3020,55.7900],[-21.2960,55.7620],[-21.2900,55.7360],[-21.2920,55.7100],[-21.2840,55.6900],[-21.2660,55.6740],[-21.2400,55.6680]],
@@ -259,6 +263,7 @@ var PT={rg:[-20.8907,55.5103],lport:[-20.9397,55.2925],tbd:[-21.1177,55.4501],lp
 var TR={id:'tr',n:'La Traversée du Nord au Sud',sub:'12 jours · de Saint-Denis à Basse-Vallée',fin:'bv',
 intro:"La grande traversée de l'île à pied, du nord au sud. Douze jours de marche et cinq interventions RTS. Le randonneur ne porte jamais son gros sac.",
 E:[R('J1',PT.rg,PT.lpr,"Aéroport → La Providence","Accueil et dépose au départ du sentier",42),BOX,
+{t:'b',j:'J1',de:PT.lpr,a:PT.lport,n:'Les bagages redescendent au box du Port',i:'Clients déposés à La Providence, le chauffeur ramène les valises au box sécurisé'},
 W('J1',PT.lpr,PT.pc,'La Providence → Plaine des Chicots','Par Le Brûlé et Mamode Camp',16,1700,60,'6 h 30','difficile'),
 W('J2',PT.pc,PT.da,"Plaine des Chicots → Dos d'Âne","Par la Roche Écrite et la Plaine d'Affouches",14,460,1380,'6 h 15','moyen'),
 {t:'b',j:'J2',de:PT.lport,a:PT.da,n:'Livraison bagages depuis le box du Port',i:"Le sac rejoint les clients à Dos d'Âne pour le change",p:84},
@@ -281,6 +286,7 @@ R('J12',PT.lport,PT.bv,'Dernier transfert : bagages chargés au box du Port','Le
 var TC={id:'tc',n:'Le Tour des Cirques',sub:'6 jours · boucle au départ de Hell-Bourg',fin:'hb',
 intro:"La boucle des trois cirques, de Salazie à Cilaos puis Mafate et retour. Au J3, le randonneur franchit le col du Taïbit à pied pendant que son sac fait le tour par la route.",
 E:[R('J1',PT.rg,PT.hb,"Aéroport → Hell-Bourg",'Accueil et dépose au départ de la boucle',147),BOX,
+{t:'b',j:'J1',de:PT.hb,a:PT.lport,n:'Les bagages redescendent au box du Port',i:'Clients déposés à Hell-Bourg, le chauffeur ramène les valises au box sécurisé'},
 W('J1',PT.hb,PT.cd,'Hell-Bourg → Caverne Dufour','Par Bélouve, montée vers le Piton des Neiges',13,1650,100,'6 h 00','difficile'),
 W('J2',PT.cd,PT.ci,'Caverne Dufour → Cilaos','Descente par Le Bloc',8,50,1550,'3 h 30','moyen'),
 W('J3',PT.ci,PT.ma,'Cilaos → Marla','Par le col du Taïbit · entrée dans Mafate',9,1100,700,'5 h 00','difficile'),
@@ -292,6 +298,7 @@ R('J6',PT.lport,PT.hb,'Dernier transfert : bagages chargés au box du Port','Le 
 var P_SAL={id:'sal',n:'Salazie – La Nouvelle',sub:'Aller-retour par le Col des Bœufs',fin:'cb',
 intro:"La découverte de Mafate en aller-retour, la formule la plus accessible. Nous déposons au parking du Col des Bœufs, par Salazie et Grand Îlet, et nous récupérons au même endroit.",
 E:[R('J1',PT.rg,PT.cb,"Aéroport → Col des Bœufs",'Par Salazie et Grand Îlet',168),BOX,
+{t:'b',j:'J1',de:PT.cb,a:PT.lport,n:'Les bagages redescendent au box du Port',i:'Clients déposés à au Col des Bœufs, le chauffeur ramène les valises au box sécurisé'},
 W('J1',PT.cb,PT.pt,'Col des Bœufs → Plaine des Tamarins','Entrée dans Mafate',2.5,40,200,'0 h 50','facile'),
 W('J1',PT.pt,PT.ln,'Plaine des Tamarins → La Nouvelle',"Arrivée à l'îlet",2.5,60,200,'0 h 55','facile'),
 W('J3',PT.ln,PT.pt,'La Nouvelle → Plaine des Tamarins','Retour après quelques nuits',2.5,200,60,'1 h 05','facile'),
@@ -300,6 +307,7 @@ R('J3',PT.lport,PT.cb,'Dernier transfert : bagages chargés au box du Port','Le 
 var P_ROCHE={id:'roche',n:"La Montée de la Roche Écrite",sub:"Du nord à l'entrée de Mafate",fin:'da',
 intro:"Le départ de la grande traversée. Nous déposons jusqu'à Mamode Camp, ce qui évite deux heures de montée sur route forestière.",
 E:[R('J1',PT.rg,PT.mc,"Aéroport → Mamode Camp","Dépose avancée sur la route forestière",84),BOX,
+{t:'b',j:'J1',de:PT.mc,a:PT.lport,n:'Les bagages redescendent au box du Port',i:'Clients déposés à Mamode Camp, le chauffeur ramène les valises au box sécurisé'},
 W('J1',PT.mc,PT.pc,'Mamode Camp → Plaine des Chicots','Montée en forêt · nuit au gîte',6,700,50,'2 h 45','moyen'),
 W('J2',PT.pc,PT.re,'Plaine des Chicots → Roche Écrite','Sommet à 2 276 m',3,400,30,'1 h 30','moyen'),
 W('J2',PT.re,PT.paf,"Roche Écrite → Plaine d'Affouches","Crête vers Dos d'Âne",4,60,450,'1 h 45','moyen'),
@@ -308,6 +316,7 @@ R('J2',PT.lport,PT.da,'Dernier transfert : bagages chargés au box du Port','Le 
 var P_GG={id:'gg',n:'Le Volcan et la cascade',sub:'Sortie sud par Grand-Galet',fin:'gg',
 intro:"Variante de fin : au lieu de descendre sur Basse-Vallée, le randonneur rejoint la cascade de Grand-Galet.",
 E:[R('J1',PT.rg,PT.bm,"Aéroport → Bourg-Murat",'Transfert et dépôt de bagages',180),BOX,
+{t:'b',j:'J1',de:PT.bm,a:PT.lport,n:'Les bagages redescendent au box du Port',i:'Clients déposés à Bourg-Murat, le chauffeur ramène les valises au box sécurisé'},
 W('J1',PT.bm,PT.gv,'Bourg-Murat → Gîte du Volcan','Par le Bois Ozoux et le Pas des Sables',16,600,250,'5 h 00','moyen'),
 W('J2',PT.gv,PT.gg,'Gîte du Volcan → Grand-Galet','Longue descente sur la route de Langevin',16,200,1800,'6 h 00','difficile'),
 R('J2',PT.lport,PT.gg,'Dernier transfert : bagages chargés au box du Port','Le chauffeur charge les bagages au Port et récupère les clients, tout le monde repart ensemble')]};
@@ -330,15 +339,20 @@ suivi(plan,'IGN OK');suivi(topo,'OpenTopoMap');suivi(ortho,'Aérien');plan.addTo
 var gMask=L.layerGroup().addTo(map),gZone=L.layerGroup().addTo(map),gPath=L.layerGroup().addTo(map),gRoad=L.layerGroup().addTo(map),gMkW=L.layerGroup().addTo(map),gMkR=L.layerGroup().addTo(map),gTrip=L.layerGroup().addTo(map),gLoc=L.layerGroup().addTo(map);
 var t1=document.getElementById('t1'),t2=document.getElementById('t2'),t3=document.getElementById('t3'),t4=document.getElementById('t4'),t6=document.getElementById('t6');
 var vB=document.getElementById('vB'),vV=document.getElementById('vV');
-vB.onclick=function(){VAN=false;vB.classList.add('on');vV.classList.remove('on');refresh()};
-vV.onclick=function(){VAN=true;vV.classList.add('on');vB.classList.remove('on');refresh()};
+vB.onclick=function(){VAN=false;vB.classList.add('on');vV.classList.remove('on');stopAnim();gTrip.clearLayers();refresh()};
+vV.onclick=function(){VAN=true;vV.classList.add('on');vB.classList.remove('on');stopAnim();gTrip.clearLayers();refresh()};
 t1.onclick=function(){map.removeLayer(ortho);(basc?topo:plan).addTo(map);t1.classList.add('on');t2.classList.remove('on')};
 t2.onclick=function(){map.removeLayer(plan);map.removeLayer(topo);ortho.addTo(map);t2.classList.add('on');t1.classList.remove('on')};
 t3.onclick=function(){var o=t3.classList.toggle('on');if(o){map.addLayer(gPath);map.addLayer(gMkW)}else{map.removeLayer(gPath);map.removeLayer(gMkW)}};
 t4.onclick=function(){var o=t4.classList.toggle('on');if(o){map.addLayer(gRoad);map.addLayer(gMkR)}else{map.removeLayer(gRoad);map.removeLayer(gMkR)}};
 t6.onclick=function(){var o=t6.classList.toggle('on');o?map.addLayer(gLoc):map.removeLayer(gLoc)};
+document.getElementById('btnTrek').onclick=function(){listeParcours()};
 LOC.forEach(function(x){L.marker(x[1],{icon:L.divIcon({html:'<div class="mk loc"><div class="pin">🚘</div></div>',className:'',iconSize:[23,23],iconAnchor:[11,11]})}).addTo(gLoc)
  .bindTooltip('🚘 Location de véhicule — '+x[0]+(x[2]?'<br>'+x[2]:''),{sticky:true})});
+/* marqueur permanent du box du Port : pose directement sur la carte, hors de tout calque nettoye par clearAll */
+L.marker([-20.9397,55.2925],{icon:L.divIcon({html:'<div class="mkbox">🔒</div>',className:'',iconSize:[30,30],iconAnchor:[15,15]}),zIndexOffset:1200}).addTo(map)
+ .bindTooltip('📦 Box RTS sécurisé — Le Port<br>Gardiennage et livraison des bagages',{sticky:true})
+ .on('click',function(){ouvrir('mafate');choisir('lport')});
 var cacheR={};
 /* courbe douce de repli quand OSRM echoue : jamais rien, toujours un trace approximatif */
 function approxRoute(a,b){
@@ -383,12 +397,13 @@ function traceMarche(a,b,cb,essai){essai=essai||0;
  if(!segs.length&&chargeEnCours&&essai<24){setTimeout(function(){traceMarche(a,b,cb,essai+1)},500);return}
  var ch=cheminPieton(a,b);cb(ch||lacets(a,b))}
 /* couleur d'onglet = couleur exacte du contour du secteur (C[k].col) ; ile et parcours n'ont pas de contour */
-var ONGLETS=[{k:'ile',n:"Toute l'île",c:'#5E6C84'},{k:'nord',n:'Nord',c:'#1E9E4F'},{k:'mafate',n:'Mafate',c:'#0141AC'},{k:'cilaos',n:'Cilaos',c:'#E8A200'},{k:'salazie',n:'Salazie',c:'#0E7A4A'},{k:'volcan',n:'Volcan',c:'#DE0715'},{k:'parcours',n:'▶ Parcours',c:'#A87B00'}];
+var ONGLETS=[{k:'ile',n:"Toute l'île",c:'#5E6C84'},{k:'nord',n:'Nord',c:'#1E9E4F'},{k:'mafate',n:'Mafate',c:'#0141AC'},{k:'cilaos',n:'Cilaos',c:'#E8A200'},{k:'salazie',n:'Salazie',c:'#0E7A4A'},{k:'volcan',n:'Volcan',c:'#DE0715'}];
 ONGLETS.forEach(function(o){var b=document.createElement('button');b.className='zb';b.id='zb_'+o.k;
  b.textContent=o.n;b.style.backgroundColor=(C[o.k]?C[o.k].col:o.c);
  b.onclick=function(){o.k==='ile'?vueIle():(o.k==='parcours'?listeParcours():ouvrir(o.k))};zones.appendChild(b)});
 function onglet(k){ONGLETS.forEach(function(o){var b=document.getElementById('zb_'+o.k);
- b.classList.toggle('on',o.k===k)})}
+ b.classList.toggle('on',o.k===k)});
+ var bt=document.getElementById('btnTrek');if(bt)bt.classList.toggle('on',k==='parcours')}
 var ck=null,lk=null,segs=[],M={},roads=[],anim=null,pause=false,vue='ile',vueArg=null;
 function stopAnim(){if(anim){cancelAnimationFrame(anim.raf);clearTimeout(anim.to);anim=null}}
 function masque(poly){gMask.clearLayers();if(!poly)return;
@@ -471,7 +486,7 @@ function aff(els){segs=[];gPath.clearLayers();els.forEach(function(w){
  p.bindTooltip('🥾 '+((w.tags&&w.tags.name)||'Sentier'),{sticky:true});p.addTo(gPath);
  segs.push({p:p,pts:pts})})}
 function demo(de,a,type,label){
- gTrip.clearLayers();stopAnim();
+ stopAnim();gTrip.clearLayers();gRoad.clearLayers();roads=[];
  var col=type==='r'?'#0141AC':'#06651E',cls=type==='r'?'':'w';
  function go(co,ap){
   var tir=type==='r'?(ap?'8 7':null):'6 6';
@@ -502,11 +517,13 @@ function choisir(id){vue='lieu';vueArg=id;var z=C[ck],l=M[id];lk=id;marq();
   TR2.push([PT.rg,o[0],"→ Aéroport Roland Garros"]);
   TR2.push([PT.sp,o[1],'→ Saint-Pierre']);
   TR2.push([PT.sg,o[2],"→ Saint-Gilles"])}
- INTER.forEach(function(x){if(x[0]===id&&ALL[x[1]])TR2.push([ALL[x[1]].ll,x[2],'→ '+ALL[x[1]].n]);
-  else if(x[1]===id&&ALL[x[0]])TR2.push([ALL[x[0]].ll,x[2],'→ '+ALL[x[0]].n])});
+ INTER.forEach(function(x){if(x[0]===id&&ALL[x[1]])TR2.push([ALL[x[1]].ll,x[2],'→ '+ALL[x[1]].n,x[3]]);
+  else if(x[1]===id&&ALL[x[0]])TR2.push([ALL[x[0]].ll,x[2],'→ '+ALL[x[0]].n,x[3]])});
  var trHtml=TR2.length?TR2.map(function(t){
-  return '<button class="go2" onclick="demo('+LLs+','+JSON.stringify(t[0])+',\'r\',\''+PX(t[1])+' €\')">'+
-  '<span class="em">🚗</span><span class="tx"><b>'+t[2]+'</b></span><span class="eur">'+PX(t[1])+' €<small>'+(VAN?'van':'berline')+'</small></span><span class="play">▶ Tracé</span></button>'}).join('')
+  /* tarif "pers" = relais 4x4 partenaire, par personne : jamais de majoration van */
+  var pers=t[3]==='pers',lab=pers?(t[1]+' € / pers.'):(PX(t[1])+' €');
+  return '<button class="go2" onclick="demo('+LLs+','+JSON.stringify(t[0])+',\'r\',\''+lab+'\')">'+
+  '<span class="em">'+(pers?'🚙':'🚗')+'</span><span class="tx"><b>'+t[2]+'</b></span><span class="eur">'+lab+'<small>'+(pers?'4x4 · par personne':(VAN?'van':'berline'))+'</small></span><span class="play">▶ Tracé</span></button>'}).join('')
   :'<p class="lead" style="margin-top:0">Pas de transfert routier depuis ce point.</p>';
  var dep=z.P.filter(function(x){return x.a===id||x.b===id});
  var wkHtml=dep.length?dep.map(function(x){var au=(x.a===id?M[x.b]:M[x.a]);if(!au)return '';
