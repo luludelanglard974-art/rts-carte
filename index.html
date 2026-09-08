@@ -189,7 +189,8 @@ L:[{id:'cb',n:'Col des Bœufs',ll:[-21.0575,55.4972],a:1,d:"Porte d'entrée est,
 {id:'lt',n:'Les Lataniers',ll:[-21.0242,55.3706],d:"Îlet isolé de l'ouest.",r:[]},
 {id:'db',n:'Deux Bras',ll:[-21.0117,55.3561],a:1,d:"Confluent de la Rivière des Galets. Desservi par notre partenaire 4x4 depuis Rivière des Galets.",r:[['🚙','Relais 4x4 partenaire','Depuis Rivière des Galets · tarif par personne','14/pers']]},
 {id:'md',n:'Maïdo',ll:[-21.0725,55.3828],a:1,d:"Belvédère à 2 200 m.",r:[['🚗','Transfert RTS au belvédère','','148'],['🧳',"Bagages déposés à l'avance",'']]},
-{id:'rg2',n:'Rivière des Galets',ll:[-20.9814,55.3244],a:1,d:"Dernier point en véhicule léger avant la piste.",r:[['🚗','Transfert RTS',''],['🚙','Relais 4x4 vers Deux Bras','14 € par personne']]}],
+{id:'rg2',n:'Rivière des Galets',ll:[-20.9814,55.3244],a:1,d:"Dernier point en véhicule léger avant la piste.",r:[['🚗','Transfert RTS',''],['🚙','Relais 4x4 vers Deux Bras','14 € par personne']]},
+{id:'lport',n:'Le Port',ll:[-20.9397,55.2925],a:1,d:"Base logistique côtière RTS. Les seules liaisons bagages autonomes partent d'ici : vers Cilaos et vers le Gîte de Bélouve. Dans tous les autres cas, les bagages voyagent dans le véhicule avec les clients.",r:[['📦','Box RTS sécurisé du Port','Forfait groupe','30'],['🧳','Liaison bagages vers Cilaos',''],['🧳','Liaison bagages vers le Gîte de Bélouve','']]}],
 P:[{a:'cb',b:'pt',km:2.5,dp:40,dn:200,h:'0 h 50',d:'facile'},{a:'pt',b:'ln',km:2.5,dp:60,dn:200,h:'0 h 55',d:'facile'},{a:'ln',b:'ma',km:5.5,dp:350,dn:300,h:'2 h 15',d:'moyen'},{a:'ln',b:'rp',km:7,dp:400,dn:700,h:'3 h 00',d:'moyen'},{a:'ln',b:'bel',km:9,dp:550,dn:750,h:'4 h 00',d:'moyen'},{a:'ma',b:'rp',km:8,dp:450,dn:600,h:'3 h 30',d:'moyen'},{a:'rp',b:'md',km:8,dp:1200,dn:200,h:'4 h 30',d:'difficile'},{a:'rp',b:'io',km:5,dp:250,dn:350,h:'2 h 15',d:'moyen'},{a:'ln',b:'ib',km:4.5,dp:250,dn:400,h:'2 h 00',d:'moyen'},{a:'ib',b:'gp',km:3.5,dp:200,dn:300,h:'1 h 30',d:'moyen'},{a:'gp',b:'im',km:3,dp:300,dn:200,h:'1 h 30',d:'moyen'},{a:'im',b:'au',km:2.5,dp:200,dn:200,h:'1 h 15',d:'moyen'},{a:'gp',b:'ca',km:3,dp:150,dn:250,h:'1 h 15',d:'facile'},{a:'ca',b:'lt',km:3,dp:200,dn:250,h:'1 h 30',d:'moyen'},{a:'lt',b:'io',km:4,dp:350,dn:200,h:'2 h 00',d:'moyen'},{a:'ca',b:'db',km:5,dp:100,dn:600,h:'2 h 15',d:'moyen'},{a:'gp',b:'db',km:6,dp:150,dn:800,h:'2 h 45',d:'moyen'},{a:'au',b:'da',km:7,dp:800,dn:600,h:'4 h 00',d:'difficile'}],
 R:[{de:'rg',a:'cb',p:168,src:1},{de:'rg',a:'ss',p:162},{de:'rg',a:'md',p:148},{de:'lp',a:'rg2',p:41}]},
 cilaos:{n:'Cilaos',t:'Cirque de Cilaos',s:'Par la route',col:'#E8A200',c:[-21.140,55.462],z:12.5,
@@ -234,22 +235,20 @@ var ALL={};for(var kk in C){C[kk].L.forEach(function(l){ALL[l.id]=l})}
 var BOX={t:'x',n:'Box RTS sécurisé',i:'Stockage des bagages en zone sûre pendant tout le séjour · forfait groupe',p:30};
 function W(j,de,a,n,i,km,dp,dn,h,d){return {t:'w',j:j,de:de,a:a,n:n,i:i,km:km,dp:dp,dn:dn,h:h,d:d}}
 function R(j,de,a,n,i,p){return {t:'r',j:j,de:de,a:a,n:n,i:i,p:p}}
-var PT={rg:[-20.8907,55.5103],lpr:[-20.8867,55.4550],mc:[-20.9300,55.4230],pc:[-20.9430,55.4200],re:[-20.9497,55.4283],paf:[-20.9450,55.3980],da:[-20.9556,55.3739],db:[-21.0117,55.3561],au:[-20.9933,55.3942],gp:[-21.0083,55.3992],rp:[-21.0619,55.3961],ma:[-21.0878,55.4378],ci:[-21.1361,55.4714],bl:[-21.1156,55.4783],cd:[-21.0958,55.4772],mab:[-21.1550,55.5350],bm:[-21.2058,55.5789],gv:[-21.2222,55.6900],gbv:[-21.3167,55.7322],bv:[-21.3736,55.7286],gg:[-21.3203,55.6403],sp:[-21.3393,55.4781],sg:[-21.0583,55.2289],hb:[-21.0664,55.5192],cb:[-21.0575,55.4972],pt:[-21.0600,55.4650],ln:[-21.0483,55.4283],bel:[-21.0350,55.4900]};
+var PT={rg:[-20.8907,55.5103],lport:[-20.9397,55.2925],tbd:[-21.1177,55.4501],lpr:[-20.8867,55.4550],mc:[-20.9300,55.4230],pc:[-20.9430,55.4200],re:[-20.9497,55.4283],paf:[-20.9450,55.3980],da:[-20.9556,55.3739],db:[-21.0117,55.3561],au:[-20.9933,55.3942],gp:[-21.0083,55.3992],rp:[-21.0619,55.3961],ma:[-21.0878,55.4378],ci:[-21.1361,55.4714],bl:[-21.1156,55.4783],cd:[-21.0958,55.4772],mab:[-21.1550,55.5350],bm:[-21.2058,55.5789],gv:[-21.2222,55.6900],gbv:[-21.3167,55.7322],bv:[-21.3736,55.7286],gg:[-21.3203,55.6403],sp:[-21.3393,55.4781],sg:[-21.0583,55.2289],hb:[-21.0664,55.5192],cb:[-21.0575,55.4972],pt:[-21.0600,55.4650],ln:[-21.0483,55.4283],bel:[-21.0350,55.4900]};
 var TR={id:'tr',n:'La Traversée du Nord au Sud',sub:'12 jours · de Saint-Denis à Basse-Vallée',fin:'bv',
 intro:"La grande traversée de l'île à pied, du nord au sud. Douze jours de marche et cinq interventions RTS. Le randonneur ne porte jamais son gros sac.",
 E:[R('J1',PT.rg,PT.lpr,"Aéroport → La Providence","Accueil et dépose au départ du sentier",42),BOX,
 W('J1',PT.lpr,PT.pc,'La Providence → Plaine des Chicots','Par Le Brûlé et Mamode Camp',16,1700,60,'6 h 30','difficile'),
 W('J2',PT.pc,PT.da,"Plaine des Chicots → Dos d'Âne","Par la Roche Écrite et la Plaine d'Affouches",14,460,1380,'6 h 15','moyen'),
-R('J2',PT.rg,PT.da,"Change de bagages à Dos d'Âne",'Vingt minutes sur place',84),
 W('J3',PT.da,PT.au,"Dos d'Âne → Aurère",'Par Deux Bras, entrée dans Mafate',14,1000,1000,'7 h 00','difficile'),
 W('J4',PT.au,PT.gp,'Aurère → Grand Place',"Par l'Îlet à Malheur",5,400,400,'2 h 30','moyen'),
 W('J5',PT.gp,PT.rp,'Grand Place → Roche Plate','Par les Lataniers et les Orangers',12,600,500,'5 h 00','moyen'),
 W('J6',PT.rp,PT.ma,'Roche Plate → Marla','Par les Trois Roches',8,450,600,'3 h 30','moyen'),
 W('J7',PT.ma,PT.ci,'Marla → Cilaos','Par le col du Taïbit, 2 082 m',9,700,1100,'5 h 00','difficile'),
-{t:'b',j:'J7',de:PT.ma,a:PT.ci,n:'Les bagages passent par la route',i:'Le sac arrive à Cilaos pendant le passage du col',p:105},
+{t:'b',j:'J7',de:PT.cb,a:PT.ci,n:'Les bagages passent par la route',i:'Le sac sort de Mafate par le Col des Bœufs et arrive à Cilaos pendant le passage du col',p:105},
 W('J8',PT.ci,PT.cd,'Cilaos → Caverne Dufour','Par Le Bloc · sac léger',8,1550,50,'4 h 45','difficile'),
 W('J9',PT.cd,PT.bm,'Caverne Dufour → Bourg-Murat','Longue descente sur la Plaine des Cafres',20,150,1900,'7 h 00','difficile'),
-R('J9',PT.rg,PT.bm,'Change de bagages à Bourg-Murat','Avant la partie volcanique',126),
 W('J10',PT.bm,PT.gv,'Bourg-Murat → Gîte du Volcan','Par le Bois Ozoux',16,600,250,'5 h 00','moyen'),
 W('J11',PT.gv,PT.gbv,'Gîte du Volcan → Gîte de Basse-Vallée','Traversée des hauts du Sud',18,300,1200,'6 h 30','difficile'),
 W('J12',PT.gbv,PT.bv,'Gîte de Basse-Vallée → Basse-Vallée','Arrivée dans le Sud sauvage',11,100,900,'4 h 00','moyen')]};
@@ -257,10 +256,11 @@ var TC={id:'tc',n:'Le Tour des Cirques',sub:'6 jours · boucle au départ de Hel
 intro:"La boucle des trois cirques, de Salazie à Cilaos puis Mafate et retour. Au J3, le randonneur franchit le col du Taïbit à pied pendant que son sac fait le tour par la route.",
 E:[R('J1',PT.rg,PT.hb,"Aéroport → Hell-Bourg",'Accueil et dépose au départ de la boucle',147),BOX,
 W('J1',PT.hb,PT.cd,'Hell-Bourg → Caverne Dufour','Par Bélouve, montée vers le Piton des Neiges',13,1650,100,'6 h 00','difficile'),
+{t:'b',j:'J1',de:PT.lport,a:PT.be,n:'Bagages : liaison du box du Port vers Bélouve',i:'Le sac du séjour part du box sécurisé du Port et attend au Gîte de Bélouve'},
 W('J2',PT.cd,PT.ci,'Caverne Dufour → Cilaos','Descente par Le Bloc',8,50,1550,'3 h 30','moyen'),
-R('J2',PT.hb,PT.ci,'Change de bagages à Cilaos','Sac propre apporté, le reste repris',105),
+{t:'b',j:'J2',de:PT.lport,a:PT.ci,n:'Bagages : liaison du box du Port vers Cilaos',i:'Sac propre apporté depuis le box du Port, le reste repris',p:105},
 W('J3',PT.ci,PT.ma,'Cilaos → Marla','Par le col du Taïbit · entrée dans Mafate',9,1100,700,'5 h 00','difficile'),
-{t:'b',j:'J3',de:PT.ci,a:PT.ma,n:'Les bagages font le tour par la route',i:"Le sac quitte Cilaos et attend à Marla. Le col se franchit sans rien porter."},
+{t:'b',j:'J3',de:PT.tbd,a:PT.cb,n:'Les bagages font le tour par la route',i:"Le sac part du départ du sentier du Taïbit, route de l'Îlet à Cordes, et contourne par le Col des Bœufs pendant que le col se franchit à pied sans rien porter."},
 W('J4',PT.ma,PT.ln,'Marla → La Nouvelle','Cœur de Mafate',5.5,300,350,'2 h 15','moyen'),
 W('J5',PT.ln,PT.bel,'La Nouvelle → Le Bélier','Par la Plaine des Tamarins et le Col de Fourche',9,550,750,'4 h 00','moyen'),
 W('J6',PT.bel,PT.hb,'Le Bélier → Hell-Bourg','Retour dans Salazie',12,400,450,'4 h 30','moyen')]};
