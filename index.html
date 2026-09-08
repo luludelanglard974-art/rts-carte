@@ -21,10 +21,9 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 #t4.on{background:linear-gradient(180deg,#2E6FD8,#0141AC)}
 #t6.on{background:linear-gradient(180deg,#F0453C,#C4101B)}
 .zones{display:flex;flex:none;background:#03194A;overflow-x:auto;box-shadow:0 3px 8px rgba(0,0,0,.35);z-index:990}
-.zb{flex:1;min-width:78px;padding:10px 6px;font-size:11.5px;font-weight:700;color:rgba(255,255,255,.62);border-bottom:4px solid transparent;white-space:nowrap;text-align:center;transition:.15s}
-.zb small{display:block;font-size:9px;font-weight:500;opacity:.6;margin-top:1px}
-.zb:hover{background:rgba(255,255,255,.07);color:#fff}
-.zb.on{background:rgba(255,255,255,.1)}
+.zb{flex:1;min-width:62px;margin:5px 3px;padding:9px 8px;font-size:12px;font-weight:800;color:#fff;border-radius:10px;white-space:nowrap;text-align:center;transition:.15s;background-image:linear-gradient(180deg,rgba(255,255,255,.32),rgba(255,255,255,.06) 48%,rgba(0,0,0,.18));box-shadow:0 2px 5px rgba(2,17,50,.4),inset 0 1px 0 rgba(255,255,255,.35);text-shadow:0 1px 2px rgba(0,0,0,.45);opacity:.86}
+.zb:hover{opacity:1}
+.zb.on{opacity:1;transform:translateY(-1px);box-shadow:0 4px 12px rgba(2,17,50,.55),inset 0 1px 0 rgba(255,255,255,.55),0 0 0 2.5px #fff}
 .stage{flex:1;display:flex;min-height:0}
 .mw{flex:1;position:relative;min-width:0;min-height:0}
 #map{position:absolute;inset:0;background:#dfe3d8}
@@ -154,6 +153,27 @@ gbv:[['Gîte de Basse-Vallée',"Gîte d'étape",'Hauts du Sud sauvage.','g27']],
 /* sorties : [aeroport, saint-pierre, saint-gilles] - tarifs berline */
 var OUT={gv:[268,160,230],bv:[195,125,190],gbv:[255,205,250],gg:[185,105,195],hb:[147,175,165],cb:[168,195,180],da:[84,190,115],ci:[205,153,165],bm:[180,115,170],md:[148,195,95],ss:[162,192,178],mab:[190,130,215],bl:[210,158,195],lpr:[42,190,110],mc:[84,195,120],gi:[155,200,175]};
 var INTER=[['hb','bm',150],['hb','be',110],['be','bm',145],['be','bo',155],['bm','bo',60],['bm','gv',95],['bm','pb',110],['ci','mab',120],['mab','bm',80],['mab','bo',95],['mab','gv',130],['sa','hb',110],['da','rg2',55]];
+/* geometrie des cirques : jointifs au Piton des Neiges, remparts partages = memes tableaux des deux cotes */
+var PN=[-21.0994,55.4781];
+var R_MS=[[-21.0900,55.4860],[-21.0760,55.4990],[-21.0620,55.5070],[-21.0520,55.5020],[-21.0430,55.4960],[-21.0340,55.4935],[-21.0295,55.4760],[-21.0180,55.4650],[-21.0060,55.4680],[-20.9920,55.4580]];
+var R_MC=[[-21.1000,55.4680],[-21.0950,55.4520],[-21.1030,55.4400],[-21.1080,55.4270]];
+var R_SC=[[-21.0940,55.4920],[-21.0970,55.5060],[-21.1030,55.5180],[-21.1090,55.5300]];
+function revR(a){return a.slice().reverse()}
+var POLY_MAFATE=[PN].concat(R_MC,[
+[-21.0980,55.4080],[-21.0870,55.3950],[-21.0730,55.3790],[-21.0560,55.3680],[-21.0400,55.3620],[-21.0250,55.3530],
+[-21.0140,55.3440],[-20.9980,55.3320],[-20.9780,55.3170],[-20.9720,55.3300],[-20.9840,55.3430],[-20.9960,55.3540],
+[-20.9700,55.3740],[-20.9640,55.3900],[-20.9700,55.4100],[-20.9840,55.4280],[-20.9900,55.4440]
+],revR(R_MS));
+var POLY_SALAZIE=[PN].concat(R_MS,[
+[-20.9760,55.4700],[-20.9600,55.4860],[-20.9500,55.5060],[-20.9440,55.5260],[-20.9330,55.5480],[-20.9180,55.6050],
+[-20.9400,55.6120],[-20.9620,55.5960],[-20.9800,55.5780],[-20.9980,55.5640],[-21.0200,55.5750],[-21.0480,55.5850],
+[-21.0700,55.5800],[-21.0850,55.5620],[-21.0950,55.5460],[-21.1030,55.5350]
+],revR(R_SC));
+var POLY_CILAOS=[PN].concat(R_SC,[
+[-21.1180,55.5320],[-21.1400,55.5420],[-21.1580,55.5400],[-21.1720,55.5220],[-21.1850,55.5050],[-21.1960,55.4820],
+[-21.2080,55.4620],[-21.2220,55.4460],[-21.2080,55.4360],[-21.1880,55.4280],[-21.1660,55.4180],[-21.1460,55.4100],
+[-21.1260,55.4120],[-21.1120,55.4200]
+],revR(R_MC));
 var C={
 nord:{n:'Nord',t:'Roche Écrite',s:'Par la route',col:'#1E9E4F',c:[-20.930,55.415],z:12.4,
 poly:[[-20.878,55.442],[-20.888,55.462],[-20.906,55.470],[-20.924,55.466],[-20.938,55.452],[-20.948,55.436],[-20.956,55.418],[-20.962,55.400],[-20.960,55.382],[-20.950,55.368],[-20.936,55.362],[-20.920,55.368],[-20.906,55.382],[-20.894,55.400],[-20.884,55.420]],
@@ -169,8 +189,8 @@ L:[{id:'lpr',n:'La Providence',ll:[-20.8867,55.4550],a:1,d:"Quartier haut de Sai
 P:[{a:'lpr',b:'lbr',km:6,dp:600,dn:20,h:'2 h 15',d:'moyen'},{a:'lbr',b:'mc',km:4,dp:400,dn:30,h:'1 h 30',d:'moyen'},{a:'mc',b:'pc',km:6,dp:700,dn:50,h:'2 h 45',d:'moyen'},{a:'pc',b:'re',km:3,dp:400,dn:30,h:'1 h 30',d:'moyen'},{a:'re',b:'paf',km:4,dp:60,dn:450,h:'1 h 45',d:'moyen'},{a:'paf',b:'da',km:7,dp:150,dn:900,h:'3 h 00',d:'moyen'}],
 R:[{de:'rg',a:'lpr',p:42},{de:'rg',a:'mc',p:84,src:1},{de:'rg',a:'da',p:84,src:1}]},
 mafate:{n:'Mafate',t:'Cirque de Mafate',s:'À pied',col:'#0141AC',c:[-21.022,55.418],z:12.6,
-/* jointif au Piton des Neiges, bec ouvert nord-ouest par la Riviere des Galets */
-poly:[[-21.0994,55.4781],[-21.078,55.484],[-21.058,55.498],[-21.038,55.488],[-21.018,55.470],[-20.998,55.455],[-20.976,55.436],[-20.960,55.412],[-20.950,55.388],[-20.9556,55.372],[-20.964,55.352],[-20.976,55.334],[-20.982,55.322],[-20.993,55.330],[-21.008,55.344],[-21.018,55.355],[-21.035,55.368],[-21.055,55.376],[-21.068,55.380],[-21.086,55.396],[-21.098,55.418],[-21.103,55.442],[-21.098,55.455]],
+/* cuvette nord-ouest du Piton des Neiges, bec etroit vers Le Port par la Riviere des Galets */
+poly:POLY_MAFATE,
 bb:'-21.115,55.310,-20.935,55.520',
 lead:"Aucune route n'entre dans Mafate. Tout se fait à pied, et c'est là que la logistique compte : nous déposons et récupérons aux portes du cirque, acheminons les bagages jusqu'aux points routiers, et prenons le relais en 4x4 sur la Rivière des Galets.",
 L:[{id:'cb',n:'Col des Bœufs',ll:[-21.0575,55.4972],a:1,d:"Porte d'entrée est, parking de la Petite Plaine, 1 950 m.",r:[['🚗','Transfert RTS au parking','','168'],['🧳','Dépôt et récupération de bagages','']]},
@@ -194,8 +214,8 @@ L:[{id:'cb',n:'Col des Bœufs',ll:[-21.0575,55.4972],a:1,d:"Porte d'entrée est,
 P:[{a:'cb',b:'pt',km:2.5,dp:40,dn:200,h:'0 h 50',d:'facile'},{a:'pt',b:'ln',km:2.5,dp:60,dn:200,h:'0 h 55',d:'facile'},{a:'ln',b:'ma',km:5.5,dp:350,dn:300,h:'2 h 15',d:'moyen'},{a:'ln',b:'rp',km:7,dp:400,dn:700,h:'3 h 00',d:'moyen'},{a:'ln',b:'bel',km:9,dp:550,dn:750,h:'4 h 00',d:'moyen'},{a:'ma',b:'rp',km:8,dp:450,dn:600,h:'3 h 30',d:'moyen'},{a:'rp',b:'md',km:8,dp:1200,dn:200,h:'4 h 30',d:'difficile'},{a:'rp',b:'io',km:5,dp:250,dn:350,h:'2 h 15',d:'moyen'},{a:'ln',b:'ib',km:4.5,dp:250,dn:400,h:'2 h 00',d:'moyen'},{a:'ib',b:'gp',km:3.5,dp:200,dn:300,h:'1 h 30',d:'moyen'},{a:'gp',b:'im',km:3,dp:300,dn:200,h:'1 h 30',d:'moyen'},{a:'im',b:'au',km:2.5,dp:200,dn:200,h:'1 h 15',d:'moyen'},{a:'gp',b:'ca',km:3,dp:150,dn:250,h:'1 h 15',d:'facile'},{a:'ca',b:'lt',km:3,dp:200,dn:250,h:'1 h 30',d:'moyen'},{a:'lt',b:'io',km:4,dp:350,dn:200,h:'2 h 00',d:'moyen'},{a:'ca',b:'db',km:5,dp:100,dn:600,h:'2 h 15',d:'moyen'},{a:'gp',b:'db',km:6,dp:150,dn:800,h:'2 h 45',d:'moyen'},{a:'au',b:'da',km:7,dp:800,dn:600,h:'4 h 00',d:'difficile'}],
 R:[{de:'rg',a:'cb',p:168,src:1},{de:'rg',a:'ss',p:162},{de:'rg',a:'md',p:148},{de:'lp',a:'rg2',p:41}]},
 cilaos:{n:'Cilaos',t:'Cirque de Cilaos',s:'Par la route',col:'#E8A200',c:[-21.140,55.462],z:12.5,
-/* jointif au Piton des Neiges par le Taibit, descend au sud par Le Dimitile */
-poly:[[-21.0994,55.4781],[-21.098,55.455],[-21.103,55.442],[-21.110,55.425],[-21.125,55.412],[-21.145,55.408],[-21.163,55.412],[-21.178,55.420],[-21.188,55.428],[-21.196,55.438],[-21.200,55.452],[-21.196,55.468],[-21.185,55.480],[-21.170,55.492],[-21.152,55.502],[-21.135,55.508],[-21.118,55.505],[-21.105,55.495]],
+/* au sud du Piton des Neiges, descend par le Bras de Cilaos vers Saint-Louis, avancee au Dimitile */
+poly:POLY_CILAOS,
 bb:'-21.205,55.400,-21.080,55.550',
 lead:"Cilaos se rejoint par la route aux 400 virages. C'est la base arrière d'une traversée : on dépose les bagages, on repart léger vers Mafate par le Taïbit, on récupère tout à la sortie.",
 L:[{id:'ci',n:'Cilaos',ll:[-21.1361,55.4714],a:1,d:"Ville thermale à 1 200 m, tous commerces.",r:[['🚗',"Transfert RTS depuis toute l'île",'','205'],['🧳','Dépôt, change et garde de bagages','','105'],['📦','Box RTS sécurisé','Forfait groupe','30']]},
@@ -207,8 +227,8 @@ L:[{id:'ci',n:'Cilaos',ll:[-21.1361,55.4714],a:1,d:"Ville thermale à 1 200 m, t
 P:[{a:'ci',b:'tb',km:4,dp:850,dn:50,h:'2 h 30',d:'difficile'},{a:'ci',b:'ic',km:9,dp:200,dn:350,h:'3 h 00',d:'moyen'},{a:'ci',b:'bl',km:3,dp:250,dn:50,h:'1 h 15',d:'facile'},{a:'bl',b:'cd',km:5,dp:1300,dn:0,h:'3 h 30',d:'difficile'},{a:'cd',b:'mab',km:9,dp:100,dn:1100,h:'3 h 30',d:'moyen'}],
 R:[{de:'rg',a:'ci',p:205,src:1},{de:'sp',a:'ci',p:153,src:1}]},
 salazie:{n:'Salazie',t:'Salazie &amp; Bélouve',s:'Par la route',col:'#0E7A4A',c:[-21.020,55.560],z:12.5,
-/* jointif au Piton des Neiges et a Mafate, s'etire loin vers l'est */
-poly:[[-21.0994,55.4781],[-21.078,55.484],[-21.058,55.498],[-21.038,55.488],[-21.018,55.470],[-20.998,55.455],[-20.975,55.470],[-20.960,55.500],[-20.955,55.540],[-20.958,55.580],[-20.968,55.615],[-20.988,55.645],[-21.012,55.660],[-21.040,55.652],[-21.060,55.632],[-21.072,55.605],[-21.080,55.575],[-21.088,55.545],[-21.094,55.515],[-21.098,55.492]],
+/* au nord-est du Piton des Neiges, s'ouvre au nord-est par la Riviere du Mat vers Saint-Andre */
+poly:POLY_SALAZIE,
 bb:'-21.105,55.450,-20.950,55.665',
 lead:"Le plus vert des cirques. Hell-Bourg et le plateau de Bélouve sont deux de nos points de rendez-vous les plus fréquents. C'est aussi la route d'accès au Col des Bœufs pour entrer dans Mafate.",
 L:[{id:'hb',n:'Hell-Bourg',ll:[-21.0664,55.5192],a:1,d:"Village classé, à 900 m.",r:[['🚗',"Transfert RTS depuis l'aéroport",'','147'],['🧳','Dépôt et récupération de bagages','','25'],['📦','Box RTS sécurisé','Forfait groupe','30']]},
@@ -218,8 +238,8 @@ L:[{id:'hb',n:'Hell-Bourg',ll:[-21.0664,55.5192],a:1,d:"Village classé, à 900 
 P:[{a:'hb',b:'be',km:4,dp:600,dn:50,h:'2 h 00',d:'moyen'},{a:'hb',b:'gi',km:11,dp:400,dn:300,h:'4 h 00',d:'moyen'}],
 R:[{de:'rg',a:'hb',p:147,src:1},{de:'pp',a:'be',p:110},{de:'rg',a:'gi',p:155}]},
 volcan:{n:'Volcan',t:'Volcan &amp; Sud sauvage',s:'Par la route',col:'#DE0715',c:[-21.245,55.745],z:11.4,
-/* Enclos Fouque : fer a cheval ouvert vers l'est jusqu'au Grand Brule */
-poly:[[-21.176,55.822],[-21.190,55.790],[-21.202,55.762],[-21.212,55.736],[-21.218,55.716],[-21.216,55.694],[-21.228,55.684],[-21.244,55.680],[-21.260,55.686],[-21.272,55.698],[-21.278,55.716],[-21.282,55.740],[-21.288,55.766],[-21.293,55.792],[-21.296,55.812],[-21.278,55.818],[-21.258,55.823],[-21.238,55.826],[-21.218,55.826],[-21.198,55.824]],
+/* Enclos Fouque : fer a cheval ouvert vers l'est, cote en retrait vers le Grand Brule */
+poly:[[-21.2130,55.6780],[-21.2090,55.7060],[-21.2110,55.7340],[-21.2060,55.7620],[-21.2100,55.7900],[-21.2020,55.8180],[-21.2280,55.8260],[-21.2600,55.7980],[-21.2820,55.8080],[-21.3020,55.7900],[-21.2960,55.7620],[-21.2900,55.7360],[-21.2920,55.7100],[-21.2840,55.6900],[-21.2660,55.6740],[-21.2400,55.6680]],
 bb:'-21.395,55.520,-21.140,55.835',
 lead:"Le Piton de la Fournaise et son Enclos Fouqué, la Plaine des Cafres et la descente sur le Sud sauvage. C'est la fin de traversée la plus fréquente.",
 L:[{id:'bm',n:'Bourg-Murat',ll:[-21.2058,55.5789],a:1,d:"Plaine des Cafres, 1 600 m. Entrée de la route du Volcan.",r:[['🚗',"Transfert RTS depuis toute l'île",'','180'],['🧳','Change de bagages','','126'],['📦','Box RTS sécurisé','Forfait groupe','30']]},
@@ -362,13 +382,13 @@ function lacets(a,b){
 function traceMarche(a,b,cb,essai){essai=essai||0;
  if(!segs.length&&chargeEnCours&&essai<24){setTimeout(function(){traceMarche(a,b,cb,essai+1)},500);return}
  var ch=cheminPieton(a,b);cb(ch||lacets(a,b))}
-var ONGLETS=[{k:'ile',n:"Toute l'île",s:'vue générale',c:'#8894A8'},{k:'nord',n:'Nord',s:'Roche Écrite',c:'#1E9E4F'},{k:'mafate',n:'Mafate',s:'à pied',c:'#2E6FD8'},{k:'cilaos',n:'Cilaos',s:'par la route',c:'#E8A200'},{k:'salazie',n:'Salazie',s:'par la route',c:'#0E7A4A'},{k:'volcan',n:'Volcan',s:'par la route',c:'#DE0715'},{k:'parcours',n:'▶ Parcours',s:'traversées',c:'#FBD608'}];
+/* couleur d'onglet = couleur exacte du contour du secteur (C[k].col) ; ile et parcours n'ont pas de contour */
+var ONGLETS=[{k:'ile',n:"Toute l'île",c:'#5E6C84'},{k:'nord',n:'Nord',c:'#1E9E4F'},{k:'mafate',n:'Mafate',c:'#0141AC'},{k:'cilaos',n:'Cilaos',c:'#E8A200'},{k:'salazie',n:'Salazie',c:'#0E7A4A'},{k:'volcan',n:'Volcan',c:'#DE0715'},{k:'parcours',n:'▶ Parcours',c:'#A87B00'}];
 ONGLETS.forEach(function(o){var b=document.createElement('button');b.className='zb';b.id='zb_'+o.k;
- b.innerHTML=o.n+'<small>'+o.s+'</small>';
+ b.textContent=o.n;b.style.backgroundColor=(C[o.k]?C[o.k].col:o.c);
  b.onclick=function(){o.k==='ile'?vueIle():(o.k==='parcours'?listeParcours():ouvrir(o.k))};zones.appendChild(b)});
 function onglet(k){ONGLETS.forEach(function(o){var b=document.getElementById('zb_'+o.k);
- var on=(o.k===k);b.classList.toggle('on',on);
- b.style.borderBottomColor=on?o.c:'transparent';b.style.color=on?o.c:''})}
+ b.classList.toggle('on',o.k===k)})}
 var ck=null,lk=null,segs=[],M={},roads=[],anim=null,pause=false,vue='ile',vueArg=null;
 function stopAnim(){if(anim){cancelAnimationFrame(anim.raf);clearTimeout(anim.to);anim=null}}
 function masque(poly){gMask.clearLayers();if(!poly)return;
