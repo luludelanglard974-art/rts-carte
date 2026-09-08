@@ -1,0 +1,179 @@
+<!DOCTYPE html><html lang="fr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Réservation — RTS</title>
+<style>
+:root{--marine:#021132;--marine2:#0A2358;--roi:#0141AC;--roi2:#1E63C4;--jaune:#FBD608;--l:#D8DEE9}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:#F2F5FA;color:#1C2536;min-height:100vh}
+header{background:linear-gradient(160deg,#1E63C4,#0141AC);color:#fff;padding:16px 16px 18px;box-shadow:0 3px 12px rgba(2,17,50,.3)}
+header .top{display:flex;align-items:center;gap:12px;max-width:760px;margin:0 auto}
+header a.home{color:#fff;text-decoration:none;font-size:12.5px;font-weight:700;padding:7px 12px;border-radius:9px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
+header h1{font-size:19px;font-weight:900}
+header p{font-size:12px;color:rgba(255,255,255,.85);max-width:760px;margin:6px auto 0}
+.wrap{max-width:760px;margin:0 auto;padding:16px 14px 44px}
+.etapes{display:flex;gap:6px;margin-bottom:16px}
+.et{flex:1;text-align:center;font-size:11.5px;font-weight:800;padding:8px 4px;border-radius:9px;background:#E2E8F2;color:#7A8699;box-shadow:inset 0 1px 2px rgba(2,17,50,.06)}
+.et.on{background:linear-gradient(180deg,#1E63C4,#0141AC);color:#fff;box-shadow:0 3px 8px rgba(2,17,50,.3),inset 0 1px 0 rgba(255,255,255,.3)}
+.card{background:#fff;border-radius:14px;border:1px solid var(--l);box-shadow:0 4px 14px rgba(2,17,50,.12);padding:18px 16px;margin-bottom:14px}
+.card h2{font-size:15px;color:var(--marine);margin-bottom:12px}
+label{display:block;font-size:12px;font-weight:700;color:#4A5568;margin:10px 0 4px}
+select,input{width:100%;padding:10px 11px;font-size:14px;border:1px solid var(--l);border-radius:9px;background:#FBFCFE;font-family:inherit}
+.deux{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{display:flex;align-items:center;gap:9px;padding:10px 11px;border:1px solid var(--l);border-radius:9px;margin-top:7px;background:#FBFCFE;font-size:13px;cursor:pointer;box-shadow:0 1px 3px rgba(2,17,50,.06)}
+.opt input{width:auto}
+.opt b{margin-left:auto;color:var(--roi);white-space:nowrap}
+.devis{background:linear-gradient(180deg,#0A2358,#021132);color:#fff;border-radius:14px;padding:16px;box-shadow:0 5px 16px rgba(2,17,50,.35);margin-bottom:14px}
+.devis h3{font-size:13px;color:var(--jaune);margin-bottom:8px}
+.ligne{display:flex;justify-content:space-between;font-size:12.5px;padding:3px 0;color:rgba(255,255,255,.88)}
+.ligne.tot{border-top:1px solid rgba(255,255,255,.25);margin-top:7px;padding-top:8px;font-size:16px;font-weight:900;color:#fff}
+.ligne.ac{color:var(--jaune);font-weight:800}
+.note{font-size:11px;color:rgba(255,255,255,.6);margin-top:8px;line-height:1.4}
+.alerte{margin-top:9px;font-size:12px;font-weight:700;padding:9px 11px;border-radius:9px;background:rgba(251,214,8,.16);border:1px solid rgba(251,214,8,.5);color:var(--jaune)}
+.btn{display:block;width:100%;padding:14px;font-size:15px;font-weight:900;border:none;border-radius:11px;cursor:pointer;font-family:inherit;background:linear-gradient(180deg,#FDE05A,#E8A200);color:#021132;box-shadow:0 4px 12px rgba(2,17,50,.3),inset 0 1px 0 rgba(255,255,255,.55);transition:.15s}
+.btn:hover{filter:brightness(1.05)}
+.btn.sec{background:#fff;color:var(--roi);border:1.5px solid var(--roi);box-shadow:0 2px 6px rgba(2,17,50,.12);margin-top:8px}
+.recap .ligne{color:#3A4557}
+.recap .ligne.tot{color:var(--marine);border-color:var(--l)}
+.recap .ligne.ac{color:var(--roi)}
+.confirm{text-align:center;padding:30px 16px}
+.confirm .ok{font-size:52px}
+.confirm h2{color:var(--marine);margin:10px 0 8px}
+.confirm p{font-size:13.5px;color:#4A5568;line-height:1.55;max-width:460px;margin:0 auto 6px}
+.confirm .ref{display:inline-block;margin-top:10px;font-size:15px;font-weight:900;letter-spacing:1px;padding:9px 18px;border-radius:9px;background:#EAF0FA;color:var(--roi);border:1px dashed var(--roi)}
+.demo{margin-top:14px;font-size:11.5px;color:#8894A8}
+[hidden]{display:none!important}
+</style></head><body>
+<header>
+ <div class="top"><a class="home" href="index.html">← Accueil</a><h1>🚗 Réservation instantanée</h1></div>
+ <p>Maquette de démonstration : tarif calculé en direct, aucun paiement réel.</p>
+</header>
+<div class="wrap">
+ <div class="etapes"><div class="et on" id="e1">1 · Trajet</div><div class="et" id="e2">2 · Coordonnées</div><div class="et" id="e3">3 · Récapitulatif</div></div>
+
+ <div id="p1">
+  <div class="card">
+   <h2>Votre trajet</h2>
+   <div class="deux">
+    <div><label>Départ</label><select id="dep"></select></div>
+    <div><label>Arrivée</label><select id="arr"></select></div>
+   </div>
+   <div class="deux">
+    <div><label>Date</label><input type="date" id="date"></div>
+    <div><label>Heure</label><input type="time" id="heure" value="10:00"></div>
+   </div>
+   <label>Passagers</label><select id="pax"></select>
+   <label>Options</label>
+   <label class="opt"><input type="checkbox" id="obag">🧳 Bagagerie (transport de bagages)<b>25 €</b></label>
+   <label class="opt"><input type="checkbox" id="obox">📦 Box sécurisé du Port<b>30 €</b></label>
+   <label class="opt"><input type="checkbox" id="osiege">👶 Siège enfant<b>Offert</b></label>
+  </div>
+  <div class="devis" id="devis"></div>
+  <button class="btn" onclick="etape(2)">Continuer ▶</button>
+ </div>
+
+ <div id="p2" hidden>
+  <div class="card">
+   <h2>Vos coordonnées</h2>
+   <label>Nom complet</label><input id="nom" placeholder="Votre nom">
+   <div class="deux">
+    <div><label>Téléphone</label><input id="tel" placeholder="0692 …"></div>
+    <div><label>E-mail</label><input id="mail" placeholder="vous@exemple.re"></div>
+   </div>
+   <label>Remarque (facultatif)</label><input id="rem" placeholder="Vol, hébergement, bagages volumineux…">
+  </div>
+  <button class="btn" onclick="etape(3)">Voir le récapitulatif ▶</button>
+  <button class="btn sec" onclick="etape(1)">← Modifier le trajet</button>
+ </div>
+
+ <div id="p3" hidden>
+  <div class="card recap"><h2>Récapitulatif</h2><div id="recap"></div></div>
+  <button class="btn" onclick="confirmer()">Confirmer la demande ✓</button>
+  <button class="btn sec" onclick="etape(2)">← Retour</button>
+ </div>
+
+ <div id="p4" hidden>
+  <div class="card confirm">
+   <div class="ok">✅</div>
+   <h2>Demande enregistrée</h2>
+   <p id="cmsg"></p>
+   <p>Un chauffeur de l'association vous recontacte pour confirmer la course et encaisser l'acompte.</p>
+   <span class="ref" id="cref"></span>
+   <p class="demo">Maquette de démonstration — aucune réservation réelle, aucun paiement.</p>
+  </div>
+  <button class="btn sec" onclick="location.reload()">Nouvelle demande</button>
+ </div>
+</div>
+<script src="tarifs.js"></script>
+<script>
+/* Donnees partagees : RTS_LIEUX et RTS_GRILLE sont generees depuis carte.html (tarifs.js) */
+var dep=document.getElementById('dep'),arr=document.getElementById('arr'),pax=document.getElementById('pax');
+RTS_LIEUX.sort(function(a,b){return a.n.localeCompare(b.n,'fr')}).forEach(function(l){
+ dep.add(new Option(l.n,l.id));arr.add(new Option(l.n,l.id))});
+dep.value='v_rg';arr.value='ci';
+for(var i=1;i<=10;i++)pax.add(new Option(i+(i>1?' passagers':' passager'),i));
+document.getElementById('date').value=new Date(Date.now()+86400000).toISOString().slice(0,10);
+function lieu(id){for(var i=0;i<RTS_LIEUX.length;i++)if(RTS_LIEUX[i].id===id)return RTS_LIEUX[i];return null}
+function catalogue(a,b){for(var i=0;i<RTS_GRILLE.length;i++){var g=RTS_GRILLE[i];
+ if(g.pers)continue; /* le relais 4x4 par personne n'est pas une course vehicule */
+ if((g.de===a&&g.a===b)||(g.de===b&&g.a===a))return g}return null}
+function hav(p,q){var R=6371,dLa=(q[0]-p[0])*Math.PI/180,dLo=(q[1]-p[1])*Math.PI/180;
+ var x=Math.sin(dLa/2),y=Math.sin(dLo/2);
+ var h=x*x+Math.cos(p[0]*Math.PI/180)*Math.cos(q[0]*Math.PI/180)*y*y;
+ return 2*R*Math.asin(Math.sqrt(h))}
+function calc(){
+ var A=lieu(dep.value),B=lieu(arr.value);if(!A||!B)return null;
+ var n=parseInt(pax.value),van=n>4,deux=n>8;
+ var d=document.getElementById('date').value,h=document.getElementById('heure').value;
+ var dim=d?new Date(d+'T12:00:00').getDay()===0:false;
+ var hh=h?parseInt(h.split(':')[0]):10,nuit=hh>=20||hh<6;
+ var lignes=[],alertes=[];
+ var g=catalogue(A.id,B.id),base,src;
+ if(A.id===B.id){base=0;src='—'}
+ else if(g){base=g.p;src='tarif catalogue'+(g.src?'':' (estimé)')}
+ else{
+  var km=Math.round(hav(A.ll,B.ll)*1.4),mn=Math.round(km*1.5);
+  base=15+0.75*km+0.90*mn;
+  var mont=A.mont||B.mont;
+  if(mont)base=base*1.15;
+  base=Math.round(base);
+  src='estimation '+km+' km · '+mn+' min'+(mont?' · +15 % montagne':'')}
+ lignes.push(['Course '+A.n+' → '+B.n+' ('+src+')',base]);
+ var total=base;
+ if(van){total=Math.round(total*1.2);lignes.push(['Majoration van +20 %',total-base]);
+  alertes.push('Plus de 4 passagers : la réglementation impose un véhicule de catégorie van (5 à 8 places). Passage automatique en van.')}
+ if(deux)alertes.push('Au-delà de 8 passagers, deux véhicules sont nécessaires : le tarif affiché est doublé.');
+ if(deux){lignes.push(['Deuxième véhicule',total]);total=total*2}
+ if(dim){lignes.push(['Supplément dimanche',20]);total+=20}
+ if(nuit){lignes.push(['Supplément nuit (20 h – 6 h)',20]);total+=20}
+ if(document.getElementById('obag').checked){lignes.push(['Bagagerie',25]);total+=25}
+ if(document.getElementById('obox').checked){lignes.push(['Box sécurisé du Port',30]);total+=30}
+ if(document.getElementById('osiege').checked)lignes.push(['Siège enfant','Offert']);
+ var ac=Math.round(total*0.30);
+ return {lignes:lignes,total:total,acompte:ac,alertes:alertes,van:van,deux:deux,A:A,B:B,n:n,d:d,h:h}}
+function affiche(el,c,fonce){
+ var html=(fonce?'<h3>Votre tarif en direct</h3>':'');
+ c.lignes.forEach(function(l){html+='<div class="ligne"><span>'+l[0]+'</span><span>'+(typeof l[1]==='number'?l[1]+' €':l[1])+'</span></div>'});
+ html+='<div class="ligne tot"><span>Total TTC</span><span>'+c.total+' €</span></div>';
+ html+='<div class="ligne ac"><span>Acompte 30 % à la réservation</span><span>'+c.acompte+' €</span></div>';
+ c.alertes.forEach(function(a){html+='<div class="alerte">⚠️ '+a+'</div>'});
+ if(fonce)html+='<div class="note">Tarifs TTC indicatifs. Dimanche et nuit : +20 €. Van (5 à 8 passagers) : +20 %. Maquette de démonstration.</div>';
+ el.innerHTML=html}
+function maj(){var c=calc();if(c)affiche(document.getElementById('devis'),c,true)}
+['dep','arr','date','heure','pax','obag','obox','osiege'].forEach(function(id){
+ document.getElementById(id).addEventListener('change',maj)});
+maj();
+function etape(n){
+ for(var i=1;i<=4;i++){var p=document.getElementById('p'+i);if(p)p.hidden=(i!==n)}
+ for(var j=1;j<=3;j++)document.getElementById('e'+j).classList.toggle('on',j<=Math.min(n,3));
+ if(n===3){var c=calc();
+  var r='<div class="ligne"><span>Client</span><span>'+(document.getElementById('nom').value||'—')+'</span></div>'+
+  '<div class="ligne"><span>Date · heure</span><span>'+(c.d||'—')+' · '+(c.h||'—')+'</span></div>'+
+  '<div class="ligne"><span>Passagers</span><span>'+c.n+(c.van?' · van':' · berline')+(c.deux?' · 2 véhicules':'')+'</span></div>';
+  document.getElementById('recap').innerHTML=r;
+  affiche({set innerHTML(v){document.getElementById('recap').innerHTML+=v}},c,false)}
+ window.scrollTo(0,0)}
+function confirmer(){var c=calc();
+ document.getElementById('cmsg').textContent='Votre demande de transfert '+c.A.n+' → '+c.B.n+' ('+c.total+' € TTC, acompte '+c.acompte+' €) est bien enregistrée.';
+ document.getElementById('cref').textContent='RTS-'+new Date().getFullYear()+'-'+String(Math.floor(1000+Math.random()*9000));
+ etape(4)}
+</script></body></html>
