@@ -20,9 +20,23 @@ header p{font-size:12px;color:rgba(255,255,255,.85);max-width:760px;margin:6px a
 .veh i{display:block;font-style:normal;font-size:12px;color:#66718A;margin-top:2px}
 .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}
 .tag{font-size:12px;font-weight:700;padding:7px 13px;border-radius:20px;background:#FDEBEA;color:var(--rouge);border:1px solid rgba(196,16,27,.3)}
-.avenir{border:2px dashed var(--rouge);background:#FFF9F8;border-radius:14px;padding:22px 16px;text-align:center;margin-bottom:14px}
-.avenir h2{font-size:15px;color:var(--rouge);margin-bottom:6px}
-.avenir p{font-size:12.5px;color:#8A5A5E}
+.exc{background:#fff;border-radius:14px;border:1px solid var(--l);box-shadow:0 4px 14px rgba(2,17,50,.12);margin-bottom:16px;overflow:hidden}
+.exc .tete{display:flex;align-items:center;gap:11px;padding:14px 16px;background:linear-gradient(160deg,#DE0715,#8E0A12);color:#fff}
+.exc .tete .em{font-size:24px}
+.exc .tete h3{font-size:16px;font-weight:900;flex:1}
+.exc .duree{font-size:12px;font-weight:800;padding:6px 12px;border-radius:18px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
+.exc .corps{padding:14px 16px 16px}
+.arret{display:flex;gap:11px;padding:9px 0;border-bottom:1px solid #F0F2F7;font-size:13px}
+.arret:last-of-type{border-bottom:none}
+.arret .t{flex:none;width:64px;font-weight:800;color:var(--rouge);font-size:12px;padding-top:1px}
+.arret b{display:block;color:var(--marine);font-size:13px}
+.arret i{display:block;font-style:normal;font-size:12px;color:#66718A;margin-top:2px;line-height:1.45}
+.arret.tpmr{background:#FDEBEA;border-radius:9px;padding:9px 10px;border-bottom:none;margin:2px 0}
+.arret.tpmr .t{color:#8E0A12}
+.arret.alt{opacity:.92;background:#F7F8FB;border-radius:9px;padding:9px 10px;border-bottom:none;margin-top:6px}
+.arret.alt .t{color:#66718A;font-size:11px}
+.reserve{margin-top:11px;font-size:12px;color:#6A5054;background:#FFF6F0;border:1px solid #F0DCC8;border-radius:9px;padding:9px 11px;line-height:1.5}
+.reserve b{color:#9A5A28}
 footer{text-align:center;font-size:11.5px;color:#8894A8;padding:6px 12px 26px}
 </style></head><body>
 <header>
@@ -41,9 +55,45 @@ footer{text-align:center;font-size:11.5px;color:#8894A8;padding:6px 12px 26px}
   <div class="veh"><span class="em">🚐</span><div><b>Van TPMR</b><i>2 fauteuils roulants + accompagnants</i></div></div>
   <div class="veh"><span class="em">🚙</span><div><b>Véhicule TPMR compact</b><i>1 fauteuil roulant + accompagnants</i></div></div>
  </div>
- <div class="avenir" id="excursions">
-  <h2>🌋 Fiches d'excursions accessibles — à venir</h2>
-  <p>Cet emplacement accueillera les fiches d'excursions adaptées (volcan, cirques, littoral).<br>Contenu en préparation.</p>
+ <div id="excursions">
+  <div class="exc">
+   <div class="tete"><span class="em">🌋</span><h3>Le Volcan</h3><span class="duree">≈ 8 h</span></div>
+   <div class="corps">
+    <div class="arret tpmr"><span class="t">20 min</span><div><b>Installation et sécurisation TPMR</b><i>Prise en charge à la porte, arrimage du fauteuil — la prestation commence ici</i></div></div>
+    <div class="arret"><span class="t">1 h</span><div><b>Bois Court</b><i>Nouveau belvédère vitré, panorama sur Grand Bassin</i></div></div>
+    <div class="arret"><span class="t">1 h</span><div><b>Nez de Bœuf</b><i>Belvédère et découverte de la Route du Volcan</i></div></div>
+    <div class="arret"><span class="t">≈ 1 h</span><div><b>Pas des Sables et traversée de la Plaine des Sables</b><i>Panorama, puis découverte du paysage volcanique depuis le véhicule</i></div></div>
+    <div class="arret"><span class="t">1 h max</span><div><b>Pas de Bellecombe-Jacob</b><i>Uniquement si l'état de la route permet un accès confortable et sécurisé au véhicule TPMR — à confirmer avant chaque excursion</i></div></div>
+    <div class="arret tpmr"><span class="t">20 min</span><div><b>Descente et fin de prise en charge TPMR</b></div></div>
+    <div class="reserve"><b>Bon à savoir :</b> circuit volontairement limité pour conserver une journée d'environ 8 h. L'arrêt au Pas de Bellecombe-Jacob est confirmé avant chaque départ selon l'état de la route.</div>
+   </div>
+  </div>
+  <div class="exc">
+   <div class="tete"><span class="em">⛰️</span><h3>Cilaos</h3><span class="duree">≈ 8 h</span></div>
+   <div class="corps">
+    <div class="arret tpmr"><span class="t">20 min</span><div><b>Installation et sécurisation TPMR</b><i>Prise en charge à la porte, arrimage du fauteuil — la prestation commence ici</i></div></div>
+    <div class="arret"><span class="t">Route</span><div><b>La route de Cilaos, la route aux 400 virages</b><i>La route et ses paysages font partie intégrante de l'excursion</i></div></div>
+    <div class="arret"><span class="t">1 h 30</span><div><b>Notre-Dame-des-Neiges</b><i>Découverte de l'église et du secteur</i></div></div>
+    <div class="arret"><span class="t">1 h 30</span><div><b>Centre-ville de Cilaos</b><i>Balade, commerces, artisanat, découverte du village. Le dimanche, possibilité de privilégier le marché de Cilaos sur ce même créneau plutôt que de multiplier les arrêts</i></div></div>
+    <div class="arret"><span class="t">Route</span><div><b>Retour par la route de Cilaos</b></div></div>
+    <div class="arret tpmr"><span class="t">20 min</span><div><b>Descente et fin de prise en charge TPMR</b></div></div>
+    <div class="reserve"><b>Bon à savoir :</b> la Roche Merveilleuse a été retirée du circuit, l'accès étant insuffisant en fauteuil TPMR. Les itinéraires ont été réellement parcourus avant d'être proposés.</div>
+   </div>
+  </div>
+  <div class="exc">
+   <div class="tete"><span class="em">🌊</span><h3>Tour de l'île TPMR</h3><span class="duree">≈ 8 h</span></div>
+   <div class="corps">
+    <div class="arret tpmr"><span class="t">20 min</span><div><b>Installation et sécurisation TPMR</b><i>Prise en charge à la porte, arrimage du fauteuil — la prestation commence ici</i></div></div>
+    <div class="arret"><span class="t">1 h</span><div><b>Grande Anse</b><i>Découverte du site et du littoral. Aucune baignade. Accessibilité précise du cheminement fauteuil à valider avant intégration définitive</i></div></div>
+    <div class="arret"><span class="t">1 h</span><div><b>Anse des Cascades</b><i>Site particulièrement intéressant pour une excursion TPMR</i></div></div>
+    <div class="arret"><span class="t">1 h</span><div><b>Notre-Dame-des-Laves</b><i>Découverte de l'église et de l'histoire des coulées de lave</i></div></div>
+    <div class="arret"><span class="t">Route</span><div><b>Poursuite par la côte Est, le Nord et l'Ouest avant retour</b><i>Le reste du tour se découvre depuis le véhicule</i></div></div>
+    <div class="arret tpmr"><span class="t">20 min</span><div><b>Descente et fin de prise en charge TPMR</b></div></div>
+    <div class="arret alt"><span class="t">Alternatif</span><div><b>Le Baril et le secteur de la piscine du Baril</b><i>Visite du site uniquement, aucune baignade</i></div></div>
+    <div class="arret alt"><span class="t">Alternatif</span><div><b>Pont de la Rivière de l'Est</b><i>Peut remplacer Notre-Dame-des-Laves</i></div></div>
+    <div class="reserve"><b>Bon à savoir :</b> Cap Méchant et Grand Étang ont été retirés du circuit. Aucune activité de baignade dans les excursions TPMR. Les itinéraires ont été réellement parcourus avant d'être proposés.</div>
+   </div>
+  </div>
  </div>
 </div>
 <footer>Maquette de démonstration — présentation Région Réunion · RTS, association loi 1901</footer>
