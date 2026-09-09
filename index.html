@@ -74,27 +74,28 @@ a.presta i{color:var(--roi)}
 .tpmrrow .porte{min-height:210px}
 .deuxcol{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px}
 .apropos,.infos{background:var(--blanc);border-radius:14px;padding:18px;box-shadow:0 4px 12px rgba(2,17,50,.10);border:1px solid var(--l);font-size:13.5px;line-height:1.6;color:rgba(2,17,50,.78)}
-.infos h3 .ic{color:var(--roi)}
 /* Informations complementaires : bandeau degrade marine -> bleu roi, pastilles en relief glossy (recette du commit 98971e3) */
-.apropos{background:linear-gradient(180deg,var(--marine) 0%,var(--roi) 100%);color:rgba(255,255,255,.92);border:none;box-shadow:0 8px 22px rgba(2,17,50,.32)}
+.apropos,.infos{background:linear-gradient(180deg,var(--marine) 0%,var(--roi) 100%);color:rgba(255,255,255,.92);border:none;box-shadow:0 8px 22px rgba(2,17,50,.32)}
 .apropos h3{color:var(--jaune);font-size:16px;margin-bottom:8px}
 .pastilles{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin-top:14px}
 .pastille{display:flex;align-items:center;gap:10px;min-height:50px;padding:10px 13px;border-radius:12px;border:2.5px solid var(--creme);color:var(--blanc);font-size:13.5px;font-weight:800;line-height:1.25;text-shadow:0 1px 1px rgba(0,0,0,.35);--c:var(--roi);background-color:var(--roi);background-image:linear-gradient(180deg,rgba(255,255,255,.46) 0%,rgba(255,255,255,.34) 50%,rgba(255,255,255,0) 50%,rgba(0,0,0,.20) 84%,rgba(255,255,255,.14) 100%);box-shadow:0 4px 8px -1px var(--c),0 1px 2px rgba(2,17,50,.35)}
 @supports(color:color-mix(in srgb,red,blue)){.pastille{box-shadow:0 4px 8px -1px color-mix(in srgb,var(--c) 80%,transparent),0 1px 2px rgba(2,17,50,.35)}}
 .pastille .ic{color:var(--jaune);width:22px;height:22px;filter:drop-shadow(0 1px 1px rgba(0,0,0,.35))}
-.infos h3{font-size:15px;color:var(--marine);margin-bottom:8px}
-.infos a{display:flex;justify-content:space-between;align-items:center;gap:9px;padding:10px 11px;border:1px solid var(--l);margin-top:7px;text-decoration:none;color:inherit;border-radius:9px;background:var(--creme);transition:.15s;font-size:13px}
-.infos a:hover{transform:translateX(3px);border-color:var(--roi)}
-.infos a b{color:var(--marine)}
-.infos a i{display:block;font-style:normal;font-size:11.5px;color:rgba(2,17,50,.55)}
-.infos .arr{color:var(--roi);font-weight:800}
-.infos .avert{margin-top:9px;font-size:11.5px;color:rgba(2,17,50,.55)}
-/* ---- UN RESEAU SUR TOUTE L'ILE : silhouette marine sur creme, points pleins et creux ---- */
-.reseau{max-width:860px;margin:0 auto;background:var(--creme);border-radius:18px;padding:18px 18px 16px;box-shadow:0 7px 20px rgba(2,17,50,.22);border-top:5px solid var(--roi)}
-.rmap{height:420px;border-radius:14px;overflow:hidden;background:var(--creme);border:3px solid var(--blanc);box-shadow:0 6px 16px rgba(2,17,50,.22)}
+/* Informations pratiques : meme bandeau, un lien = une pastille glossy, fleche d'ouverture externe conservee */
+.infos .pastilles{margin-top:0}
+.infos a.pastille{text-decoration:none;justify-content:flex-start;transition:transform .15s ease,filter .15s ease}
+.infos a.pastille:hover{filter:brightness(1.06);transform:translateY(-1px)}
+.infos a.pastille .tx{flex:1;min-width:0}
+.infos a.pastille b{display:block;color:var(--blanc);font-size:13.5px}
+.infos a.pastille i{display:block;font-style:normal;font-weight:600;font-size:12px;color:rgba(255,255,255,.82);margin-top:1px}
+.infos .arr{color:var(--jaune);font-weight:900;font-size:16px;flex:none}
+.infos .avert{margin-top:12px;font-size:12.5px;color:rgba(255,255,255,.78)}
+/* ---- UN RESEAU SUR TOUTE L'ILE : mini-carte Leaflet figee, cadre plus haut que large, points pleins et creux ---- */
+.reseau{max-width:620px;margin:0 auto;background:var(--creme);border-radius:18px;padding:18px 18px 16px;box-shadow:0 7px 20px rgba(2,17,50,.22);border-top:5px solid var(--roi)}
+.rmap{height:520px;border-radius:14px;overflow:hidden;background:var(--creme);border:3px solid var(--blanc);box-shadow:0 6px 16px rgba(2,17,50,.22)}
 .rmap .leaflet-control-attribution{font-size:9px;background:rgba(255,255,255,.75)}
 .rmap .leaflet-tooltip{font-weight:700;color:var(--marine);border-color:var(--roi)}
-@media(max-width:600px){.rmap{height:320px}.reseau{padding:12px 10px 14px}}
+@media(max-width:600px){.rmap{height:400px}.reseau{padding:12px 10px 14px}}
 .reseau .leg{display:flex;flex-direction:column;gap:8px;margin-top:14px;font-size:14px;font-weight:700;color:var(--marine)}
 .reseau .leg span{display:flex;align-items:center;gap:10px}
 .reseau .leg i{width:16px;height:16px;border-radius:50%;flex:none;border:2px solid var(--blanc);background:var(--roi);box-sizing:border-box;box-shadow:0 0 0 1px var(--roi)}
@@ -105,8 +106,8 @@ footer .co a{color:var(--blanc);text-decoration:none}
 footer .co a:hover{color:var(--jaune)}
 footer .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
 @media(max-width:760px){.portes{grid-template-columns:1fr}.porte{min-height:200px}.deuxcol{grid-template-columns:1fr}.hero{height:min(62vh,560px);min-height:400px}
-.porte p{font-size:14px}.presta b{font-size:14.5px}.presta i{font-size:14px}.ch span{font-size:14px}.infos a{min-height:44px;font-size:14px}footer .co{font-size:14px}}
-@media(max-width:900px){.badge{font-size:14px;min-height:32px;display:inline-flex;align-items:center}.hero .desc{font-size:14px}.hero .baseline{font-size:14px}.porte p{font-size:14px}.porte .go{font-size:14px;min-height:44px;display:inline-flex;align-items:center}.presta b{font-size:15px}.presta i{font-size:14px}.ch span{font-size:14px}.apropos,.infos{font-size:14px}.infos a{min-height:44px;font-size:14px}.infos a i{font-size:14px}.infos .avert{font-size:14px}footer .co{font-size:14px}footer .co a{display:inline-flex;align-items:center;min-height:44px;padding:0 4px}footer .lg{font-size:14px}}
+.porte p{font-size:14px}.presta b{font-size:14.5px}.presta i{font-size:14px}.ch span{font-size:14px}.infos a.pastille{min-height:44px}footer .co{font-size:14px}}
+@media(max-width:900px){.badge{font-size:14px;min-height:32px;display:inline-flex;align-items:center}.hero .desc{font-size:14px}.hero .baseline{font-size:14px}.porte p{font-size:14px}.porte .go{font-size:14px;min-height:44px;display:inline-flex;align-items:center}.presta b{font-size:15px}.presta i{font-size:14px}.ch span{font-size:14px}.apropos,.infos{font-size:14px}.infos a.pastille{min-height:44px}.infos a.pastille i{font-size:14px}.infos .avert{font-size:14px}footer .co{font-size:14px}footer .co a{display:inline-flex;align-items:center;min-height:44px;padding:0 4px}footer .lg{font-size:14px}}
 </style></head><body>
 
 <div class="hero">
@@ -184,9 +185,10 @@ footer .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
  <h2 class="sect">Informations pratiques</h2>
  <div style="margin-top:0">
   <div class="infos">
-   <h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z" /></svg> Informations pratiques</h3>
-   <a href="https://meteofrance.re/" target="_blank" rel="noopener"><span><b>Météo-France Réunion</b><i>Prévisions et vigilances officielles</i></span><span class="arr">↗</span></a>
-   <a href="https://www.onf.fr/" target="_blank" rel="noopener"><span><b>ONF — état des sentiers</b><i>Ouvertures et fermetures officielles</i></span><span class="arr">↗</span></a>
+   <div class="pastilles">
+    <a class="pastille" href="https://meteofrance.re/" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v2" /><path d="m4.93 4.93 1.41 1.41" /><path d="M20 12h2" /><path d="m19.07 4.93-1.41 1.41" /><path d="M15.947 12.65a4 4 0 0 0-5.925-4.128" /><path d="M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z" /></svg><span class="tx"><b>Météo-France Réunion</b><i>Prévisions et vigilances officielles</i></span><span class="arr">↗</span></a>
+    <a class="pastille" href="https://www.onf.fr/" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 10v.2A3 3 0 0 1 8.9 16H5a3 3 0 0 1-1-5.8V10a3 3 0 0 1 6 0Z" /><path d="M7 16v6" /><path d="M13 19v3" /><path d="M12 19h8.3a1 1 0 0 0 .7-1.7L18 14h.3a1 1 0 0 0 .7-1.7L16 9h.2a1 1 0 0 0 .8-1.7L13 3l-1.4 1.5" /></svg><span class="tx"><b>ONF — état des sentiers</b><i>Ouvertures et fermetures officielles</i></span><span class="arr">↗</span></a>
+   </div>
    <div class="avert">Avant chaque randonnée, vérifiez la météo et l'état des sentiers auprès de ces sources officielles.</div>
   </div>
  </div>
@@ -212,20 +214,23 @@ footer .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
 </footer>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-/* Carte du reseau : meme Geoplateforme IGN que carte.html (couche Plan IGN v2), repli OpenTopoMap si l'IGN est bloque.
+/* Carte du reseau : meme photo aerienne IGN que carte.html (Geoplateforme), repli OpenTopoMap si l'IGN est bloque.
    Carte figee : aucun zoom, aucun deplacement, aucun bouton. Deux series de pastilles toujours affichees. */
 (function(){if(typeof L==='undefined')return;var el=document.getElementById('reseauMap');if(!el)return;
 var m=L.map(el,{zoomControl:false,dragging:false,scrollWheelZoom:false,doubleClickZoom:false,touchZoom:false,boxZoom:false,keyboard:false,tap:false,zoomSnap:0.1,attributionControl:true});
-var IGN='&copy; <a href="https://www.ign.fr/" target="_blank" rel="noopener">IGN</a> Géoplateforme',OSMA='&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>';
-var plan=L.tileLayer('https://data.geopf.fr/wmts?SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&FORMAT=image/png',{attribution:IGN,maxNativeZoom:18});
+var IGN='&copy; <a href="https://www.ign.fr/" target="_blank" rel="noopener">IGN</a> Géoplateforme',OSMA='&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors';
+/* photo aerienne IGN : exactement la couche et les parametres de carte.html */
+var B='https://data.geopf.fr/wmts?SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}';
+var plan=L.tileLayer(B+'&LAYER=ORTHOIMAGERY.ORTHOPHOTOS&FORMAT=image/jpeg',{attribution:IGN+' &middot; '+OSMA,maxNativeZoom:17});
 var topo=L.tileLayer('https://a.tile.opentopomap.org/{z}/{x}/{y}.png',{attribution:OSMA+' &middot; OpenTopoMap',maxNativeZoom:16});
 var ok=0,ko=0,basc=false;plan.on('tileload',function(){ok++});plan.on('tileerror',function(){ko++;if(!basc&&ko>4&&ok===0){basc=true;m.removeLayer(plan);topo.addTo(m)}});plan.addTo(m);
 var S1=[["Saint-Denis",-20.8789,55.4481],["Sainte-Suzanne",-20.9057,55.6058],["Saint-André",-20.9625,55.6503],["La Plaine-des-Palmistes",-21.1333,55.6333],["Saint-Paul",-21.0096,55.2707],["Trois-Bassins",-21.1053,55.2925],["Saint-Leu",-21.1706,55.2861],["Saint-Louis",-21.2861,55.4119],["Saint-Pierre",-21.3393,55.4781],["Le Tampon",-21.2783,55.5153],["Petite-Île",-21.3556,55.5678],["Le Port",-20.9394,55.2925]];
-var S2=[["Sainte-Marie",-20.8969,55.5497],["Aéroport Roland Garros",-20.8907,55.5164],["Sainte-Clotilde",-20.8917,55.4661],["La Montagne",-20.9053,55.4211],["Bois-de-Nèfles Saint-Denis",-20.9128,55.4525],["Le Brûlé",-20.9394,55.4361],["Dos d'Âne",-20.9744,55.3486],["La Possession",-20.9247,55.335],["Bras-Panon",-21.0,55.6789],["Saint-Benoît",-21.0339,55.7136],["Bras-Fusil",-21.045,55.7],["Sainte-Anne",-21.0783,55.7458],["Sainte-Rose",-21.1281,55.7925],["Champ Borne",-20.9481,55.665],["Salazie",-21.0286,55.5386],["Hell-Bourg",-21.0631,55.5194],["Grand Îlet",-21.0311,55.4808],["Plateau Caillou",-21.01,55.29],["Le Guillaume",-21.0089,55.34],["Saint-Gilles-les-Bains",-21.05,55.2225],["La Saline",-21.0783,55.2358],["Piton Saint-Leu",-21.2072,55.31],["Les Avirons",-21.2408,55.3392],["L'Étang-Salé",-21.265,55.3625],["Étang-Salé les Bains",-21.2811,55.3606],["Cilaos",-21.1339,55.4714],["Entre-Deux",-21.245,55.4692],["Les Makes",-21.2019,55.4058],["La Rivière",-21.2853,55.3986],["Bois de Nèfles Saint-Louis",-21.2478,55.4147],["Ravine des Cabris",-21.3183,55.4589],["Terre Sainte",-21.345,55.4869],["Trois Mares",-21.29,55.4986],["Bourg-Murat",-21.2114,55.5758],["La Plaine-des-Cafres",-21.2231,55.5628],["Grand Bois",-21.3444,55.5361],["Manapany",-21.3742,55.5911],["Saint-Joseph",-21.3789,55.6194],["Vincendo",-21.3739,55.6789]];
+var S2=[["Sainte-Marie",-20.8969,55.5497],["Aéroport Roland Garros",-20.8907,55.5164],["Sainte-Clotilde",-20.8917,55.4661],["La Montagne",-20.9053,55.4211],["Bois-de-Nèfles Saint-Denis",-20.9128,55.4525],["Le Brûlé",-20.9394,55.4361],["Dos d'Âne",-20.9744,55.3486],["La Possession",-20.9247,55.335],["Bras-Panon",-21.0,55.6789],["Saint-Benoît",-21.0339,55.7136],["Bras-Fusil",-21.045,55.7],["Sainte-Anne",-21.0783,55.7458],["Sainte-Rose",-21.1281,55.7925],["Champ Borne",-20.9481,55.665],["Salazie",-21.0286,55.5386],["Plateau Caillou",-21.01,55.29],["Le Guillaume",-21.0089,55.34],["Saint-Gilles-les-Bains",-21.05,55.2225],["La Saline",-21.0783,55.2358],["Piton Saint-Leu",-21.2072,55.31],["Les Avirons",-21.2408,55.3392],["L'Étang-Salé",-21.265,55.3625],["Étang-Salé les Bains",-21.2811,55.3606],["Cilaos",-21.1339,55.4714],["Entre-Deux",-21.245,55.4692],["Les Makes",-21.2019,55.4058],["La Rivière",-21.2853,55.3986],["Bois de Nèfles Saint-Louis",-21.2478,55.4147],["Ravine des Cabris",-21.3183,55.4589],["Terre Sainte",-21.345,55.4869],["Trois Mares",-21.29,55.4986],["Bourg-Murat",-21.2114,55.5758],["La Plaine-des-Cafres",-21.2231,55.5628],["Grand Bois",-21.3444,55.5361],["Manapany",-21.3742,55.5911],["Saint-Joseph",-21.3789,55.6194],["Vincendo",-21.3739,55.6789]];
 var g=L.layerGroup().addTo(m);
 S2.forEach(function(p){L.circleMarker([p[1],p[2]],{radius:5,color:'#0141AC',weight:2,fillColor:'#FFFFFF',fillOpacity:1}).bindTooltip(p[0]).addTo(g)});
 S1.forEach(function(p){L.circleMarker([p[1],p[2]],{radius:7,color:'#FFFFFF',weight:1.5,fillColor:'#0141AC',fillOpacity:1}).bindTooltip(p[0]).addTo(g)});
-var BB=L.latLngBounds([[-21.40,55.20],[-20.86,55.85]]);function cadre(){m.invalidateSize();m.fitBounds(BB,{padding:[6,6],animate:false})}
+/* bornes : l'ile (lat -21.39 a -20.87, lon 55.21 a 55.84) plus environ 10 % de mer de chaque cote */
+var BB=L.latLngBounds([[-21.44,55.15],[-20.82,55.90]]);function cadre(){m.invalidateSize();m.fitBounds(BB,{padding:[0,0],animate:false})}
 cadre();setTimeout(cadre,400);window.addEventListener('resize',cadre);
 })();
 </script>
