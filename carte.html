@@ -57,7 +57,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .calq{position:absolute;right:12px;top:12px;z-index:800;display:flex;flex-direction:column;gap:10px}
 .calq button{min-height:46px;padding:10px 16px;font-size:13px;font-weight:800;white-space:nowrap;text-align:left;background-color:rgba(2,17,50,.82);color:#fff;box-shadow:0 1px 3px rgba(0,0,0,.35)}
 .calq button:not(.on):hover{background-color:rgba(2,17,50,.95)}
-.mkbox{width:30px;height:30px;border-radius:50%;background:linear-gradient(180deg,#8A6BC8,#6B4EA8);border:2.5px solid #fff;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 3px 8px rgba(0,0,0,.5);cursor:pointer}
+.mkbox{width:30px;height:30px;border-radius:50%;background:linear-gradient(180deg,#FFE55C,#FBD608);border:2.5px solid #021132;color:#021132;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 3px 8px rgba(0,0,0,.5);cursor:pointer}
 .mk.gite .pin{width:23px;height:23px;border-radius:7px;background:linear-gradient(180deg,#2E9E4B,#06651E);border:2px solid #fff;font-size:12px}
 .sec.fin{background:linear-gradient(180deg,#FFFBEA,#FFF4C9);border:1px solid rgba(251,214,8,.55);border-radius:9px;padding:13px 11px;box-shadow:0 3px 9px rgba(2,17,50,.14)}
 .go2.finbtn{padding:14px 12px;border:none;background-color:#0A2358;--c:#0141AC;color:#fff;border-radius:12px}
@@ -137,7 +137,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .step.on:not(.now) .c b::after{content:' ✓';color:var(--vert);font-weight:800}
 .step.now{background:#FFF8DC;margin:0 -8px;padding:9px 8px;border-radius:6px;border-left:3px solid #DE0715;box-shadow:0 2px 8px rgba(2,17,50,.12)}
 .step .n{width:21px;height:21px;border-radius:50%;background:var(--marine);color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;flex:none}
-.step.bag .n{background:var(--orange)}.step.walk .n{background:var(--vert)}.step.box .n{background:#6B4EA8}
+.step.bag .n{background:var(--orange)}.step.walk .n{background:var(--vert)}.step.box .n{background:#FBD608;color:#021132}
 .step .c{flex:1;font-size:12.5px;line-height:1.4}
 .step .c b{font-weight:600;display:block}
 .step .c i{font-style:normal;font-size:11px;color:rgba(2,17,50,.5)}
@@ -593,7 +593,7 @@ function vueIle(){vue='ile';ck=null;lk=null;clearAll();onglet('ile');
  '<div class="lg"><span class="sw" style="background:linear-gradient(180deg,#2E9E4B,#06651E);color:#fff">🥾</span><span class="tx"><b>Les sentiers, en vert</b><i>Chemins réels issus des données OpenStreetMap</i></span></div>'+
  '<div class="lg"><span class="sw" style="background:linear-gradient(180deg,#2E6FD8,#0141AC);color:#fff">🚗</span><span class="tx"><b>Nos transferts, en bleu</b><i>Tracé routier réel, avec le tarif affiché</i></span></div>'+
  '<div class="lg"><span class="sw" style="background:linear-gradient(180deg,#F09A45,#E87A1E);color:#fff">🧳</span><span class="tx"><b>Le trajet des bagages, en orange</b><i>Votre sac voyage par la route pendant que vous marchez</i></span></div>'+
- '<div class="lg"><span class="sw" style="background:linear-gradient(180deg,#8A6BC8,#6B4EA8);color:#fff">📦</span><span class="tx"><b>Box RTS sécurisé</b><i>Stockage en zone sûre · forfait groupe 30 €</i></span></div>'+
+ '<div class="lg"><span class="sw" style="background:linear-gradient(180deg,#FFE55C,#FBD608);color:#021132;border:2px solid #021132">📦</span><span class="tx"><b>Box RTS sécurisé</b><i>Stockage en zone sûre · forfait groupe 30 €</i></span></div>'+
  '<div class="lg"><span class="sw" style="background:linear-gradient(180deg,#F0453C,#C4101B);color:#fff;border-radius:4px">🚘</span><span class="tx"><b>Location de véhicule</b><i>11 points sur la côte et dans les cirques</i></span></div>'+
  '<div class="lg"><span class="sw" style="background:var(--jaune)">🚙</span><span class="tx"><b>Relais 4x4</b><i>Partenaire agréé vers Deux Bras · 14 € par personne</i></span></div></div>'+
  '<div class="sec"><h3>Explorer</h3><p class="lead" style="margin-top:0">Choisissez un secteur en haut de l\'écran, ou touchez-le sur la carte. Chaque lieu vous donne les sentiers au départ, les transferts possibles et les hébergements. Touchez une ligne pour voir le tracé s\'animer.</p></div>'+

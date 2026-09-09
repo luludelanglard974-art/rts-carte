@@ -95,13 +95,19 @@ p.sous{font-size:15px;color:rgba(255,255,255,.82);margin:10px 0 18px;max-width:7
 .sortie h3{font-size:19px;font-weight:900}
 .sortie p{font-size:14.5px;line-height:1.5;color:rgba(2,17,50,.7);flex:1}
 /* ---- RTS n'est pas une agence de voyage : 5 cartes, memes composants que les portes de sortie ---- */
-.pasagence{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-.pasagence .sortie{gap:8px;padding:20px 18px}
-.pasagence .sortie:nth-child(2n){border-top-color:var(--roi)}
-.pasagence .sortie:nth-child(5){border-top-color:var(--jaune)}
-.pasagence .sortie .em{width:56px;height:56px;border-radius:16px;align-items:center;justify-content:center;color:var(--blanc);background-color:var(--roi);background-image:linear-gradient(180deg,rgba(255,255,255,.30),rgba(255,255,255,0) 55%);box-shadow:0 4px 10px rgba(1,65,172,.45),inset 0 1px 0 rgba(255,255,255,.35);font-size:28px;flex:none}
-.pasagence .sortie .em .ic{width:28px;height:28px}
-.pasagence .sortie h3{font-size:17px}
+.pasagence{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));grid-auto-rows:1fr;align-items:stretch;gap:16px}
+/* lisere : bleu roi par defaut, vert pour les gites, jaune pour les prix ; la pastille d'icone reprend la couleur du lisere (--c) */
+.pasagence .sortie{--c:var(--roi);border-top-color:var(--c);gap:8px;padding:20px 18px 24px;min-width:0;height:100%}
+.pasagence .sortie.vert{--c:#06651E}
+.pasagence .sortie.jaune{--c:var(--jaune)}
+/* pastille glossy carree 56 px (recette du commit 98971e3) : bandeau clair sur la moitie haute, arret net a 50 %, lisere creme 2,5 px, ombre teintee */
+.pasagence .sortie .em{width:56px;height:56px;border-radius:14px;align-items:center;justify-content:center;color:var(--blanc);background-color:var(--c);border:2.5px solid var(--creme);
+ background-image:linear-gradient(180deg,rgba(255,255,255,.46) 0%,rgba(255,255,255,.34) 50%,rgba(255,255,255,0) 50%,rgba(0,0,0,.20) 84%,rgba(255,255,255,.14) 100%);
+ box-shadow:0 4px 8px -1px var(--c),0 1px 2px rgba(2,17,50,.35);font-size:28px;flex:none}
+@supports(color:color-mix(in srgb,red,blue)){.pasagence .sortie .em{box-shadow:0 4px 8px -1px color-mix(in srgb,var(--c) 80%,transparent),0 1px 2px rgba(2,17,50,.35)}}
+.pasagence .sortie .em .ic{width:28px;height:28px;stroke-width:2.5;filter:drop-shadow(0 1px 1px rgba(0,0,0,.35))}
+.pasagence .sortie h3{font-size:17px;line-height:1.25;overflow-wrap:break-word;hyphens:manual}
+.pasagence .sortie p{overflow-wrap:break-word;flex:1 0 auto}
 .pasfin{margin:26px auto 0;max-width:760px;text-align:center;color:var(--blanc);font-size:clamp(18px,2.4vw,24px);font-weight:800;line-height:1.35;text-shadow:0 1px 3px rgba(0,0,0,.4)}
 /* ---- Les 5 formules : vignettes immersives (donnees lues dans le moteur de la carte) ---- */
 .formules{margin-top:36px;scroll-margin-top:16px}
@@ -213,7 +219,7 @@ footer.rts .co{font-size:14px}footer.rts .co a{display:inline-flex;align-items:c
    </div>
   </div>
   <!-- Legende : les pastilles reprennent les couleurs telles que le moteur de carte.html trace les lignes
-       (bleu roi transfert, vert sentier, orange bagages, violet box). Elles decrivent la carte, pas la page. -->
+       (bleu roi transfert, vert sentier, orange bagages, jaune box). Elles decrivent la carte, pas la page. -->
   <aside class="legende panier" id="legende">
    <h3>Votre séjour</h3>
    <div class="encours" id="encours"><b>Étape en cours</b><span>En attente : appuyez sur « Lancer la démonstration ».</span></div>
@@ -225,7 +231,7 @@ footer.rts .co{font-size:14px}footer.rts .co a{display:inline-flex;align-items:c
    <div class="lg"><span class="sw" style="background-color:#0141AC"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8" /><path d="M7 14h.01" /><path d="M17 14h.01" /><rect width="18" height="8" x="3" y="10" rx="2" /><path d="M5 18v2" /><path d="M19 18v2" /></svg></span><span class="tx"><b>Transfert véhicule</b><i>Tracé bleu, avec le tarif</i></span><span class="trait" style="background:#0141AC"></span></div>
    <div class="lg"><span class="sw" style="background-color:#06651E"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5.5c0 3.11-2 5.66-2 8.68V16a2 2 0 1 1-4 0Z" /><path d="M20 20v-2.38c0-2.12 1.03-3.12 1-5.62-.03-2.72-1.49-6-4.5-6C14.63 6 14 7.8 14 9.5c0 3.11 2 5.66 2 8.68V20a2 2 0 1 0 4 0Z" /><path d="M16 17h4" /><path d="M4 13h4" /></svg></span><span class="tx"><b>Randonnée</b><i>Tracé vert pointillé</i></span><span class="trait" style="background:repeating-linear-gradient(90deg,#06651E 0 6px,transparent 6px 10px)"></span></div>
    <div class="lg"><span class="sw" style="background-color:#E87A1E"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2" /><path d="M8 18V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v14" /><path d="M10 20h4" /><circle cx="16" cy="20" r="2" /><circle cx="8" cy="20" r="2" /></svg></span><span class="tx"><b>Bagages</b><i>Tracé orange pointillé</i></span><span class="trait" style="background:repeating-linear-gradient(90deg,#E87A1E 0 8px,transparent 8px 12px)"></span></div>
-   <div class="lg"><span class="sw" style="background-color:#6B4EA8"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="16" r="1" /><rect x="3" y="10" width="18" height="12" rx="2" /><path d="M7 10V7a5 5 0 0 1 10 0v3" /></svg></span><span class="tx"><b>Box sécurisé du Port</b><i>Marqueur violet permanent</i></span><span class="trait" style="background:#6B4EA8;width:22px;height:22px;border-radius:50%;border:2.5px solid #FFFFFF;box-shadow:0 2px 5px rgba(0,0,0,.35)"></span></div>
+   <div class="lg"><span class="sw" style="background-color:#FBD608;color:#021132;border:2px solid #021132"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="16" r="1" /><rect x="3" y="10" width="18" height="12" rx="2" /><path d="M7 10V7a5 5 0 0 1 10 0v3" /></svg></span><span class="tx"><b>Box sécurisé du Port</b><i>Marqueur jaune permanent</i></span><span class="trait" style="background:#FBD608;width:22px;height:22px;border-radius:50%;border:2.5px solid #021132;box-shadow:0 2px 5px rgba(0,0,0,.35)"></span></div>
    </details>
   </aside>
  </div>
@@ -235,9 +241,9 @@ footer.rts .co{font-size:14px}footer.rts .co a{display:inline-flex;align-items:c
  <div class="pasagence">
   <div class="sortie"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8" /><path d="M7 14h.01" /><path d="M17 14h.01" /><rect width="18" height="8" x="3" y="10" rx="2" /><path d="M5 18v2" /><path d="M19 18v2" /></svg></span><h3>Vos transferts</h3><p>Dépose et récupération aux départs de sentiers. Aucun véhicule n'est basé là-haut : sans nous, il n'y a pas d'accès.</p></div>
   <div class="sortie"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2" /><path d="M8 18V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v14" /><path d="M10 20h4" /><circle cx="16" cy="20" r="2" /><circle cx="8" cy="20" r="2" /></svg></span><h3>Vos bagages</h3><p>Gardés au box du Port, livrés au bon endroit au bon moment. Vous marchez léger.</p></div>
-  <div class="sortie"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8" /><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4" /><path d="M12 4v6" /><path d="M2 18h20" /></svg></span><h3>Un lien direct avec les gîtes</h3><p>Les hébergements de chaque étape, avec le lien pour réserver directement auprès d'eux.</p></div>
+  <div class="sortie vert"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8" /><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4" /><path d="M12 4v6" /><path d="M2 18h20" /></svg></span><h3>Un lien direct avec les&nbsp;gîtes</h3><p>Les hébergements de chaque étape, avec le lien pour réserver directement auprès d'eux.</p></div>
   <div class="sortie"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z" /><circle cx="16.5" cy="7.5" r=".5" fill="currentColor" /></svg></span><h3>Un lien direct avec nos loueurs partenaires</h3><p>À l'aéroport comme en ville, pour la partie du séjour où vous roulez seul.</p></div>
-  <div class="sortie"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12" /><path d="M4 14h9" /><path d="M19 6a7.7 7.7 0 0 0-5.2-2A7.9 7.9 0 0 0 6 12c0 4.4 3.5 8 7.8 8 2 0 3.8-.8 5.2-2" /></svg></span><h3>Vos prix, tout de suite</h3><p>Le tarif de chaque trajet s'affiche avant de réserver. Vous estimez votre séjour sans attendre un devis.</p></div>
+  <div class="sortie jaune"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12" /><path d="M4 14h9" /><path d="M19 6a7.7 7.7 0 0 0-5.2-2A7.9 7.9 0 0 0 6 12c0 4.4 3.5 8 7.8 8 2 0 3.8-.8 5.2-2" /></svg></span><h3>Vos prix, tout de suite</h3><p>Le tarif de chaque trajet s'affiche avant de réserver. Vous estimez votre séjour sans attendre un devis.</p></div>
  </div>
  <p class="pasfin">Vous composez votre séjour. Nous le rendons possible.</p>
 

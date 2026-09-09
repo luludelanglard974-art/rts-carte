@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="fr"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" type="image/png" href="images/favicon.png">
-<title>Réservation — RTS</title>
+<title>Transferts aéroport &amp; courses — RTS</title>
 <style>
 /* Palette RTS officielle uniquement */
 :root{--marine:#021132;--roi:#0141AC;--rouge:#DE0715;--jaune:#FBD608;--blanc:#FFFFFF;--creme:#FCF9F4;--l:rgba(2,17,50,.14)}
@@ -59,7 +59,7 @@ footer.rts .co a:hover{color:var(--jaune)}
 footer.rts .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
 </style></head><body>
 <header>
- <div class="top"><a class="logo" href="index.html" title="Accueil"><img src="images/logo-rts.png" alt="Run Transfert &amp; Services"></a><a class="home" href="index.html">← Accueil</a><h1><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8" /><path d="M7 14h.01" /><path d="M17 14h.01" /><rect width="18" height="8" x="3" y="10" rx="2" /><path d="M5 18v2" /><path d="M19 18v2" /></svg> Réservation instantanée</h1></div>
+ <div class="top"><a class="logo" href="index.html" title="Accueil"><img src="images/logo-rts.png" alt="Run Transfert &amp; Services"></a><a class="home" href="index.html">← Accueil</a><h1><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8" /><path d="M7 14h.01" /><path d="M17 14h.01" /><rect width="18" height="8" x="3" y="10" rx="2" /><path d="M5 18v2" /><path d="M19 18v2" /></svg> Transferts aéroport &amp; courses</h1></div>
  <p>Maquette de démonstration : tarif calculé en direct, aucun paiement réel.</p>
 </header>
 <div class="wrap">
@@ -72,13 +72,13 @@ footer.rts .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
     <div><label>Départ</label><select id="dep"></select></div>
     <div><label>Arrivée</label><select id="arr"></select></div>
    </div>
+   <label>Véhicule</label><select id="veh"><option value="b">Berline · 1 à 4 places</option><option value="v">Van · 1 à 8 places</option><option value="t">Van TPMR · fauteuils roulants</option></select>
+   <div id="tpmrSub" hidden><label>Fauteuils roulants</label><select id="fauteuils"><option value="1">1 fauteuil roulant</option><option value="2">2 fauteuils roulants</option><option value="4">4 fauteuils roulants</option></select></div>
    <div class="deux">
     <div><label>Date</label><input type="date" id="date"></div>
     <div><label>Heure</label><input type="time" id="heure" value="10:00"></div>
    </div>
    <label>Passagers</label><select id="pax"></select>
-   <label>Véhicule</label><select id="veh"><option value="b">Berline · 1 à 4 places</option><option value="v">Van · 1 à 8 places</option><option value="t">Van TPMR · fauteuils roulants</option></select>
-   <div id="tpmrSub" hidden><label>Fauteuils roulants</label><select id="fauteuils"><option value="1">1 fauteuil roulant</option><option value="2">2 fauteuils roulants</option><option value="4">4 fauteuils roulants</option></select></div>
    <label>Options</label>
    <label class="opt"><input type="checkbox" id="obag"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2" /><path d="M8 18V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v14" /><path d="M10 20h4" /><circle cx="16" cy="20" r="2" /><circle cx="8" cy="20" r="2" /></svg> Bagagerie (transport de bagages)<b>25 €</b></label>
    <label class="opt"><input type="checkbox" id="obox"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="16" r="1" /><rect x="3" y="10" width="18" height="12" rx="2" /><path d="M7 10V7a5 5 0 0 1 10 0v3" /></svg> Box sécurisé du Port<b>30 €</b></label>
