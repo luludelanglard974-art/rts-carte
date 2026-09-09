@@ -11,25 +11,26 @@ body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background
 .anim{animation:fadeup .55s ease both}
 .anim.d1{animation-delay:.08s}.anim.d2{animation-delay:.16s}.anim.d3{animation-delay:.24s}.anim.d4{animation-delay:.32s}
 /* ---- HEROS : paysage reunionnais dessine (remparts, route en lacets, courbes topo) ---- */
-.hero{position:relative;background:linear-gradient(180deg,var(--creme) 0%,#F4EEE3 55%,var(--creme) 100%);border-bottom:3px solid var(--rouge);overflow:hidden}
-.hero svg.scene{display:block;width:100%;height:auto;min-height:300px;max-height:440px;object-fit:cover}
-.hero .sur{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;text-align:center;padding:30px 18px 0;pointer-events:none}
+.hero{position:relative;height:min(80vh,720px);min-height:440px;background:var(--marine);border-bottom:3px solid var(--rouge);overflow:hidden}
+.hero img.photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 60%;display:block}
+.hero .voile{position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,17,50,.66) 0%,rgba(2,17,50,.30) 45%,rgba(2,17,50,.22) 65%,rgba(2,17,50,.72) 100%)}
+.hero .sur{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:28px 18px;pointer-events:none}
 .badges{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:14px;pointer-events:auto}
 .badge{font-size:11px;font-weight:700;padding:6px 12px;border-radius:20px;background:rgba(2,17,50,.85);color:var(--blanc);box-shadow:0 2px 6px rgba(2,17,50,.25)}
 .badge b{color:var(--jaune)}
-.hero h1{font-size:clamp(26px,5vw,40px);font-weight:900;letter-spacing:1px;color:var(--marine);text-shadow:0 1px 0 rgba(255,255,255,.7)}
+.hero h1{font-size:clamp(28px,5.4vw,46px);font-weight:900;letter-spacing:1px;color:var(--blanc);text-shadow:0 2px 6px rgba(0,0,0,.55),0 0 24px rgba(2,17,50,.6)}
 .hero h1 .r{color:var(--rouge)}
-.hero .tag{margin-top:6px;font-size:clamp(14px,2.4vw,19px);font-weight:700;color:var(--roi)}
-.hero .desc{margin-top:8px;font-size:13.5px;max-width:560px;line-height:1.55;color:rgba(2,17,50,.75);background:rgba(252,249,244,.72);border-radius:10px;padding:6px 12px}
-.hero .baseline{margin-top:10px;font-size:13px;font-style:italic;font-weight:600;color:var(--marine);background:var(--jaune);padding:6px 16px;border-radius:20px;box-shadow:0 2px 8px rgba(2,17,50,.2)}
+.hero .tag{margin-top:8px;font-size:clamp(15px,2.4vw,21px);font-weight:700;color:var(--blanc);text-shadow:0 2px 5px rgba(0,0,0,.6)}
+.hero .desc{margin-top:12px;font-size:14.5px;max-width:560px;line-height:1.55;color:rgba(255,255,255,.95);background:rgba(2,17,50,.42);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:8px 14px;text-shadow:0 1px 3px rgba(0,0,0,.5)}
+.hero .baseline{margin-top:14px;font-size:13px;font-style:italic;font-weight:600;color:var(--marine);background:var(--jaune);padding:6px 16px;border-radius:20px;box-shadow:0 2px 8px rgba(2,17,50,.2)}
 .wrap{max-width:1020px;margin:0 auto;padding:26px 14px 26px}
 /* ---- LES TROIS ENTREES ---- */
 .portes{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .porte{position:relative;display:block;text-decoration:none;color:var(--blanc);border-radius:18px;overflow:hidden;box-shadow:0 7px 20px rgba(2,17,50,.22);transition:transform .22s ease,box-shadow .22s ease;min-height:230px}
 .porte:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(2,17,50,.32)}
-.porte svg.fond{position:absolute;inset:0;width:100%;height:100%;transition:transform .5s ease}
-.porte:hover svg.fond{transform:scale(1.045)}
-.porte .voile{position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,17,50,0) 30%,rgba(2,17,50,.72) 100%)}
+.porte img.fond{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+.porte:hover img.fond{transform:scale(1.045)}
+.porte .voile{position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,17,50,.05) 0%,rgba(2,17,50,.18) 35%,rgba(2,17,50,.82) 100%)}
 .porte .txt{position:absolute;left:0;right:0;bottom:0;padding:18px 18px 16px}
 .porte .ico{position:absolute;top:14px;right:16px;font-size:22px;opacity:.85;text-shadow:0 2px 4px rgba(0,0,0,.4)}
 .porte h2{font-size:20px;font-weight:900;text-shadow:0 2px 5px rgba(0,0,0,.45)}
@@ -70,27 +71,14 @@ footer .co{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;font-size
 footer .co a{color:var(--blanc);text-decoration:none}
 footer .co a:hover{color:var(--jaune)}
 footer .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
-@media(max-width:760px){.portes{grid-template-columns:1fr}.porte{min-height:200px}.deuxcol{grid-template-columns:1fr}.hero .desc{display:none}
+@media(max-width:760px){.portes{grid-template-columns:1fr}.porte{min-height:200px}.deuxcol{grid-template-columns:1fr}.hero{height:min(62vh,560px);min-height:400px}
 .porte p{font-size:14px}.presta b{font-size:14.5px}.presta i{font-size:14px}.ch span{font-size:14px}.infos a{min-height:44px;font-size:14px}footer .co{font-size:14px}}
 @media(max-width:900px){.badge{font-size:14px;min-height:32px;display:inline-flex;align-items:center}.hero .desc{font-size:14px}.hero .baseline{font-size:14px}.porte p{font-size:14px}.porte .go{font-size:14px;min-height:44px;display:inline-flex;align-items:center}.presta b{font-size:15px}.presta i{font-size:14px}.ch span{font-size:14px}.apropos,.infos{font-size:14px}.infos a{min-height:44px;font-size:14px}.infos a i{font-size:14px}.infos .avert{font-size:14px}footer .co{font-size:14px}footer .co a{display:inline-flex;align-items:center;min-height:44px;padding:0 4px}footer .lg{font-size:14px}}
 </style></head><body>
 
 <div class="hero">
- <!-- Paysage dessine : remparts de cirque, vegetation, route en lacets. Pas de photo :
-      les sources d'images libres sont inaccessibles depuis cet environnement (voir IMAGE-CREDITS.md) -->
- <svg class="scene" viewBox="0 0 1440 430" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
-  <g stroke="#8A5A2B" stroke-width="1" fill="none" opacity=".14">
-   <path d="M0 120 Q 360 90 720 118 T 1440 108"/><path d="M0 150 Q 360 122 720 150 T 1440 140"/>
-   <path d="M0 180 Q 360 156 720 182 T 1440 172"/><path d="M0 210 Q 360 190 720 214 T 1440 204"/>
-  </g>
-  <path fill="#23282E" opacity=".24" d="M0 260 L120 180 L230 235 L340 150 L470 225 L600 130 L760 220 L900 155 L1040 230 L1180 170 L1320 235 L1440 190 L1440 430 L0 430 Z"/>
-  <path fill="#23282E" opacity=".45" d="M0 300 L150 225 L280 275 L430 195 L560 270 L700 205 L860 280 L1000 215 L1160 285 L1300 230 L1440 275 L1440 430 L0 430 Z"/>
-  <path fill="#1F4A2C" opacity=".85" d="M0 345 L130 290 L260 330 L400 270 L540 325 L690 275 L840 330 L990 285 L1150 335 L1290 295 L1440 330 L1440 430 L0 430 Z"/>
-  <path fill="#5C4633" d="M0 430 L0 392 L200 372 L420 388 L640 366 L880 386 L1100 368 L1300 384 L1440 372 L1440 430 Z"/>
-  <path d="M-20 425 C 220 400 320 415 470 392 C 640 366 700 400 880 384 C 1060 368 1150 396 1330 378 L 1460 372" fill="none" stroke="#8A5A2B" stroke-width="17" stroke-linecap="round" opacity=".95"/>
-  <path d="M-20 425 C 220 400 320 415 470 392 C 640 366 700 400 880 384 C 1060 368 1150 396 1330 378 L 1460 372" fill="none" stroke="#FBD608" stroke-width="2" stroke-dasharray="14 12" opacity=".9"/>
-  <g fill="#021132"><circle cx="472" cy="392" r="5"/><circle cx="880" cy="384" r="5"/></g>
- </svg>
+ <img class="photo" src="images/hero-salazie.jpg" alt="Le cirque de Salazie et ses remparts sous les nuages, La Réunion">
+ <span class="voile"></span>
  <div class="sur">
   <div class="badges anim"><span class="badge">Centrale de réservation <b>T3P déclarée</b></span><span class="badge"><b>13</b> chauffeurs</span><span class="badge">Association <b>loi 1901</b></span></div>
   <h1 class="anim d1">RUN TRANSFERT <span class="r">&amp;</span> SERVICES</h1>
@@ -103,15 +91,7 @@ footer .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
 <div class="wrap">
  <div class="portes">
   <a class="porte trek anim d1" href="carte.html">
-   <svg class="fond" viewBox="0 0 800 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <rect width="800" height="300" fill="#F4EEE3"/>
-    <g stroke="#8A5A2B" stroke-width="1" fill="none" opacity=".18"><path d="M0 60 Q200 40 400 62 T800 55"/><path d="M0 95 Q200 78 400 98 T800 90"/><path d="M0 130 Q200 115 400 133 T800 126"/></g>
-    <path fill="#23282E" opacity=".35" d="M0 170 L110 90 L210 140 L330 70 L460 145 L590 85 L710 150 L800 110 L800 300 L0 300 Z"/>
-    <path fill="#1F4A2C" opacity=".9" d="M0 225 L120 170 L250 210 L390 155 L530 205 L670 165 L800 210 L800 300 L0 300 Z"/>
-    <path d="M60 275 C 180 250 260 268 370 244 C 490 220 560 248 690 232" fill="none" stroke="#FCF9F4" stroke-width="3.5" stroke-dasharray="7 8" stroke-linecap="round" opacity=".95"/>
-    <g fill="#FBD608"><circle cx="370" cy="244" r="6"/></g>
-    <g fill="#FCF9F4" opacity=".95"><circle cx="688" cy="230" r="5"/><rect x="676" y="216" width="24" height="9" rx="3"/></g>
-   </svg>
+   <img class="fond" src="images/carte-trek.jpg" loading="lazy" alt="Véhicule RTS sous les remparts, logistique bagages sur les sentiers de La Réunion">
    <span class="voile"></span><span class="ico">🥾</span>
    <div class="txt">
     <h2>Trek &amp; logistique bagages</h2>
@@ -122,14 +102,7 @@ footer .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
    <span class="bord"></span>
   </a>
   <a class="porte resa anim d2" href="reservation.html">
-   <svg class="fond" viewBox="0 0 600 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <rect width="600" height="300" fill="#EDF0F6"/>
-    <path fill="#23282E" opacity=".3" d="M0 150 L100 85 L200 130 L320 70 L450 135 L560 90 L600 120 L600 300 L0 300 Z"/>
-    <path fill="#021132" opacity=".85" d="M0 300 L0 215 L140 190 L300 210 L460 185 L600 205 L600 300 Z"/>
-    <path d="M-10 285 C 120 240 200 265 320 228 C 430 195 500 225 610 200" fill="none" stroke="#8A5A2B" stroke-width="15" stroke-linecap="round"/>
-    <path d="M-10 285 C 120 240 200 265 320 228 C 430 195 500 225 610 200" fill="none" stroke="#FBD608" stroke-width="1.8" stroke-dasharray="12 11"/>
-    <circle cx="320" cy="228" r="6" fill="#0141AC" stroke="#FFFFFF" stroke-width="2.5"/>
-   </svg>
+   <img class="fond" src="images/carte-reservation.jpg" loading="lazy" alt="Véhicule RTS sur une route de La Réunion">
    <span class="voile"></span><span class="ico">🚗</span>
    <div class="txt"><h2>Réservation instantanée</h2><p>Votre transfert en trois étapes, tarif et acompte calculés en direct.</p><span class="go">Réserver ▶</span></div>
    <span class="bord"></span>
@@ -160,16 +133,7 @@ footer .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
  <h2 class="sect">Transport adapté &amp; informations pratiques</h2>
  <div class="deuxcol" style="margin-top:0">
   <a class="porte tpmr " href="tpmr.html">
-   <svg class="fond" viewBox="0 0 600 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <rect width="600" height="300" fill="#F4EEE3"/>
-    <g stroke="#8A5A2B" stroke-width="1" fill="none" opacity=".2"><path d="M0 70 Q150 55 300 72 T600 65"/><path d="M0 105 Q150 92 300 108 T600 100"/></g>
-    <path fill="#5C4633" opacity=".8" d="M0 190 L90 130 L190 170 L300 115 L420 175 L520 135 L600 165 L600 300 L0 300 Z"/>
-    <path fill="#23282E" d="M0 300 L0 235 L150 215 L320 232 L480 212 L600 228 L600 300 Z"/>
-    <path d="M-10 280 L 610 245" stroke="#8A5A2B" stroke-width="14" stroke-linecap="round"/>
-    <path d="M-10 280 L 610 245" stroke="#FBD608" stroke-width="1.8" stroke-dasharray="12 11"/>
-    <circle cx="300" cy="263" r="9" fill="none" stroke="#FFFFFF" stroke-width="3"/>
-    <circle cx="300" cy="263" r="3" fill="#FFFFFF"/>
-   </svg>
+   <img class="fond" src="images/carte-tpmr.jpg" loading="lazy" alt="La plage de Grande Anse, dans le sud de La Réunion">
    <span class="voile"></span><span class="ico">♿</span>
    <div class="txt"><h2>Transport adapté &amp; excursions</h2><p>Chauffeurs accompagnateurs TPMR, véhicules adaptés, excursions pour tous.</p><span class="go">Découvrir ▶</span></div>
    <span class="bord"></span>

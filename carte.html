@@ -48,6 +48,9 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 @keyframes fadepad{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .pad{animation:fadepad .3s ease}
 .pad{padding:16px}
+.photo{height:150px;border-radius:10px;overflow:hidden;margin:12px 0 2px;box-shadow:0 4px 12px rgba(2,17,50,.22);background:#2a3a30}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.sec.fin .photo{margin:0 0 12px;height:118px}
 .h1{font-size:23px;font-weight:700;line-height:1.12}
 .meta{font-size:12px;color:rgba(2,17,50,.5);margin-top:4px}
 .lead{font-size:13.5px;line-height:1.55;margin-top:11px;color:rgba(2,17,50,.82)}
@@ -179,7 +182,8 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .panel[data-vue="tr"] .sec.s-tr{display:block}
 .panel[data-vue="st"] .sec.s-st{display:block}
 .panel[data-vue="in"] .sec.s-in{display:block}
-.panel[data-vue]:not([data-vue="in"]) .lead.zl{display:none}
+.panel[data-vue]:not([data-vue="in"]) .lead.zl,.panel[data-vue]:not([data-vue="in"]) .photo.zl{display:none}
+.photo{height:170px}
 /* ---- textes 14px minimum, cibles 44px minimum ---- */
 .pad{padding:14px 14px 30px}
 .h1{font-size:24px}
@@ -554,7 +558,7 @@ function vueIle(){vue='ile';ck=null;lk=null;clearAll();onglet('ile');
  '<div class="lg"><span class="sw" style="background:linear-gradient(180deg,#FDE05A,#E8A200)">🚙</span><span class="tx"><b>Relais 4x4</b><i>Partenaire agréé vers Deux Bras · 14 € par personne</i></span></div></div>'+
  '<div class="sec"><h3>Explorer</h3><p class="lead" style="margin-top:0">Choisissez un secteur en haut de l\'écran, ou touchez-le sur la carte. Chaque lieu vous donne les sentiers au départ, les transferts possibles et les hébergements. Touchez une ligne pour voir le tracé s\'animer.</p></div>'+
  '<div class="down">Ou déroulez une traversée complète<span>↓</span></div>'+
- '<div class="sec"><h3>▶ Les traversées</h3>'+PARCOURS.map(function(p,i){return '<button class="trip'+(i<2?' star':'')+'" onclick="lancer(\''+p.id+'\')"><b>'+p.n+'</b><i>'+p.sub+'</i><u>▶ Dérouler</u></button>'}).join('')+'</div>'+
+ '<div class="sec"><h3>▶ Les traversées</h3>'+PHOTO_TREK+PARCOURS.map(function(p,i){return '<button class="trip'+(i<2?' star':'')+'" onclick="lancer(\''+p.id+'\')"><b>'+p.n+'</b><i>'+p.sub+'</i><u>▶ Dérouler</u></button>'}).join('')+'</div>'+
  '<div class="sec"><h3>Liens utiles</h3>'+liens('')+'</div>'+
  '<div class="vueille"></div><div class="note"><b>Maquette de démonstration.</b> Les hébergements et loueurs illustrent le fonctionnement : ils ne constituent pas une offre commerciale. Tarifs TTC indicatifs '+(VAN?'van 5 à 8 personnes':'berline 1 à 4 personnes')+'. Fond IGN, sentiers OpenStreetMap (ODbL). RTS n\'organise pas la randonnée et n\'accompagne pas sur les sentiers.</div></div>';
  panel.removeAttribute('data-vue');panel.scrollTop=0}
@@ -578,7 +582,7 @@ function ouvrir(k){vue='zone';vueArg=k;ck=k;lk=null;var z=C[k];M={};z.L.forEach(
  var wkHtml=z.P.map(function(x){var A=M[x.a]||ALL[x.a],B2=M[x.b]||ALL[x.b];if(!A||!B2)return '';
   return '<button class="go2" onclick="demo('+JSON.stringify(A.ll)+','+JSON.stringify(B2.ll)+',\'w\',\''+x.km+' km · '+x.h+'\')">'+
   '<span class="em">🥾</span><span class="tx"><b>'+A.n+' → '+B2.n+'</b><span class="kv"><span>'+x.km+' km</span><span>+'+x.dp+' m</span><span>-'+x.dn+' m</span><span>'+x.h+'</span><span class="chip '+x.d+'">'+x.d+'</span></span></span><span class="play w">▶ Tracé</span></button>'}).join('');
- panel.innerHTML='<div class="pad"><div class="h1" style="color:'+z.col+'">'+z.t.replace('&amp;','&')+'</div><div class="meta">'+z.s+'</div>'+BASCULE+'<p class="lead zl">'+z.lead+'</p>'+
+ panel.innerHTML='<div class="pad"><div class="h1" style="color:'+z.col+'">'+z.t.replace('&amp;','&')+'</div><div class="meta">'+z.s+'</div>'+photoSecteur(k)+BASCULE+'<p class="lead zl">'+z.lead+'</p>'+
  '<div class="sec s-tr"><h3>🚗 Transferts</h3>'+(trHtml||'<p class="lead" style="margin-top:0">Pas de transfert répertorié dans ce secteur.</p>')+'</div>'+
   '<div class="sec s-st"><h3>🥾 Sentiers</h3>'+(wkHtml||'<p class="lead" style="margin-top:0">Aucun sentier répertorié dans ce secteur.</p>')+'</div>'+
  '<div class="sec s-in"><h3>Liens utiles — '+z.n+'</h3>'+liens(z.n)+'</div>'+
@@ -672,7 +676,7 @@ function choisir(id){vue='lieu';vueArg=id;var z=C[ck],l=M[id];lk=id;marq();
  '<div class="note">Tarifs TTC '+(VAN?'van, 5 à 8 passagers':'berline, 1 à 4 passagers')+'. Chaque hébergement garde son propre système de réservation. <b>Exemples d\'illustration.</b></div></div>';
  panel.dataset.vue='tr';panel.scrollTop=0}
 function listeParcours(){vue='liste';clearAll();onglet('parcours');
- panel.innerHTML='<div class="pad"><div class="h1">Les traversées</div><div class="meta">Comment nous accompagnons un séjour de trek</div>'+
+ panel.innerHTML='<div class="pad"><div class="h1">Les traversées</div><div class="meta">Comment nous accompagnons un séjour de trek</div>'+PHOTO_TREK+
  '<p class="lead">Déposes, changes de bagages, récupérations. Le point bleu suit la route, le vert marche, l\'orange transporte les sacs.</p>'+
  PARCOURS.map(function(p,i){return '<button class="trip'+(i<2?' star':'')+'" onclick="lancer(\''+p.id+'\')"><b>'+p.n+'</b><i>'+p.sub+'</i><u>▶ Dérouler</u></button>'}).join('')+'</div>';
  panel.removeAttribute('data-vue');panel.scrollTop=0}
@@ -680,7 +684,7 @@ function lancer(pid){vue='parc';vueArg=pid;var P=null;PARCOURS.forEach(function(
  clearAll();onglet('parcours');pause=false;tiroirRepos();
  var tot=0,km=0;P.E.forEach(function(e){if(e.p)tot+=PX(e.p);if(e.km)km+=e.km});
  var f=P.fin&&OUT[P.fin]?OUT[P.fin]:null;
- var finHtml=f?'<div class="sec fin"><h3>🏁 Et après ? Choisissez votre fin de séjour</h3><p class="lead" style="margin-top:0">Trois sorties possibles, votre chauffeur vous attend :</p>'+
+ var finHtml=f?'<div class="sec fin"><div class="photo"><img src="images/fin-de-sejour.jpg" loading="lazy" alt="Coucher de soleil sur l\'océan Indien, fin de séjour à La Réunion"></div><h3>🏁 Et après ? Choisissez votre fin de séjour</h3><p class="lead" style="margin-top:0">Trois sorties possibles, votre chauffeur vous attend :</p>'+
   '<button class="go2 finbtn" onclick="demo('+JSON.stringify(PT[P.fin])+','+JSON.stringify(PT.rg)+',\'r\',\''+PX(f[0])+' €\')"><span class="em">✈️</span><span class="tx"><b>Vers l\'aéroport Roland Garros</b><i>Retour vol ou agence de location</i></span><span class="eur">'+PX(f[0])+' €</span><span class="play">▶</span></button>'+
   '<button class="go2 finbtn" onclick="demo('+JSON.stringify(PT[P.fin])+','+JSON.stringify(PT.sp)+',\'r\',\''+PX(f[1])+' €\')"><span class="em">🌅</span><span class="tx"><b>Vers Saint-Pierre</b><i>Fin de séjour dans le sud</i></span><span class="eur">'+PX(f[1])+' €</span><span class="play">▶</span></button>'+
   '<button class="go2 finbtn" onclick="demo('+JSON.stringify(PT[P.fin])+','+JSON.stringify(PT.sg)+',\'r\',\''+PX(f[2])+' €\')"><span class="em">🏖️</span><span class="tx"><b>Vers Saint-Gilles</b><i>Plage et repos après le trek</i></span><span class="eur">'+PX(f[2])+' €</span><span class="play">▶</span></button></div>':'';
@@ -743,6 +747,9 @@ function lancer(pid){vue='parc';vueArg=pid;var P=null;PARCOURS.forEach(function(
   anim={raf:requestAnimationFrame(tick),to:null}}
  setTimeout(suivante,500)}
 function togglePause(){pause=!pause;var b=document.getElementById('bp');if(b)b.textContent=pause?'▶ Reprendre':'⏸ Pause'}
+var PHOTO={mafate:'Le cirque de Mafate vu depuis les hauteurs, La Réunion',cilaos:'La route de l\'Îlet à Cordes dans le cirque de Cilaos',salazie:'Le cirque de Salazie et ses cascades',volcan:'Le Piton de la Fournaise et les paysages du Volcan'};
+function photoSecteur(k){return PHOTO[k]?'<div class="photo zl"><img src="images/secteur-'+k+'.jpg" loading="lazy" alt="'+PHOTO[k]+'"></div>':''}
+var PHOTO_TREK='<div class="photo"><img src="images/piton-des-neiges.jpg" loading="lazy" alt="Le Piton des Neiges, point culminant de La Réunion"></div>';
 var BASCULE='<div class="bascule"><button data-v="tr" class="on">🚗 Transferts</button><button data-v="st">🥾 Sentiers</button><button data-v="in">ℹ️ Infos</button></div>';
 panel.addEventListener('click',function(e){var b=e.target&&e.target.closest?e.target.closest('.bascule button'):null;if(!b)return;
  panel.dataset.vue=b.dataset.v;

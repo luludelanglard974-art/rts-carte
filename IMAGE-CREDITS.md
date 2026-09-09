@@ -1,33 +1,33 @@
 # Crédits images — site RTS
 
-## État au 09/09/2026 : AUCUNE photographie intégrée
+## État au 09/09/2026 : 11 photographies personnelles intégrées
 
-L'environnement d'exécution utilisé pour cette refonte bloque l'accès réseau aux
-sources d'images libres de droits (`commons.wikimedia.org` et
-`upload.wikimedia.org` renvoient tous deux un refus du proxy, HTTP 403 CONNECT,
-testé le 09/09/2026). Conformément à la règle du projet — ne jamais supposer
-qu'une image est libre de droits, ne jamais inventer d'URL, ne jamais intégrer
-une image dont la licence n'a pas été vérifiée — **la refonte a été livrée sans
-photographie**.
+Toutes les images du site sont des photographies prises à La Réunion par le
+gérant de RTS. Aucune image tierce, aucune dépendance externe : les fichiers
+sont stockés dans le dossier `images/` du projet et référencés en chemin
+relatif (`images/nom.jpg`).
 
-L'immersion territoriale est assurée par des paysages dessinés en SVG, intégrés
-au code des pages (aucune dépendance externe) : silhouettes de remparts de
-cirques, végétation, route en lacets, courbes topographiques. Ces illustrations
-sont des créations originales du projet, sans droits tiers.
+Les paysages dessinés en SVG de la refonte précédente ont été retirés.
 
-## Marche à suivre pour ajouter de vraies photos plus tard
+## Registre des images
 
-1. Chercher sur Wikimedia Commons (catégories : Cirque de Mafate, Cirque de
-   Cilaos, Piton de la Fournaise, Plaine des Sables, routes de La Réunion).
-2. Vérifier la licence sur la page du fichier : uniquement CC0, CC BY ou
-   CC BY-SA avec usage commercial autorisé. Si la licence n'est pas claire,
-   ne pas utiliser l'image.
-3. Télécharger l'original, l'optimiser pour le web (≤ 250 Ko), le stocker dans
-   un dossier `images/` du projet.
-4. Compléter le tableau ci-dessous AVANT toute mise en ligne.
+| Fichier | Lieu représenté | Écran concerné | Auteur | Droits | Date |
+|---|---|---|---|---|---|
+| `images/hero-salazie.jpg` (1920×1079) | Cirque de Salazie, remparts sous les nuages | Accueil — photo héros plein écran, sous le titre et la baseline | Ludovic de Langlard / RTS | Photographie personnelle, droits détenus par RTS | Septembre 2026 |
+| `images/carte-trek.jpg` | Véhicule RTS sous les remparts | Accueil — carte « Trek & logistique bagages » | Ludovic de Langlard / RTS | Photographie personnelle, droits détenus par RTS | Septembre 2026 |
+| `images/carte-reservation.jpg` | Véhicule RTS sur la route | Accueil — carte « Réservation instantanée » | Ludovic de Langlard / RTS | Photographie personnelle, droits détenus par RTS | Septembre 2026 |
+| `images/carte-tpmr.jpg` | Grande Anse | Accueil — carte « Transport adapté & excursions » | Ludovic de Langlard / RTS | Photographie personnelle, droits détenus par RTS | Septembre 2026 |
+| `images/secteur-mafate.jpg` | Cirque de Mafate | Carte — panneau du secteur Mafate | Ludovic de Langlard / RTS | Photographie personnelle, droits détenus par RTS | Septembre 2026 |
+| `images/secteur-cilaos.jpg` | Cirque de Cilaos, route de l'Îlet à Cordes | Carte — panneau du secteur Cilaos | Ludovic de Langlard / RTS | Photographie personnelle, droits détenus par RTS | Septembre 2026 |
+| `images/secteur-salazie.jpg` | Cirque de Salazie | Carte — panneau du secteur Salazie | Ludovic de Langlard / RTS | Photographie personnelle, droits détenus par RTS | Septembre 2026 |
+| `images/secteur-volcan.jpg` | Volcan, Piton de la Fournaise | Carte — panneau du secteur Volcan | Ludovic de Langlard / RTS | Photographie personnelle, droits détenus par RTS | Septembre 2026 |
+| `images/excursion-cilaos.jpg` | Église Notre-Dame-des-Neiges, Cilaos | Transport adapté — fiche de l'excursion Cilaos | Ludovic de Langlard / RTS | Photographie personnelle, droits détenus par RTS | Septembre 2026 |
+| `images/piton-des-neiges.jpg` | Piton des Neiges | Carte — section « Les traversées » (accueil de la carte et liste des traversées) | Ludovic de Langlard / RTS | Photographie personnelle, droits détenus par RTS | Septembre 2026 |
+| `images/fin-de-sejour.jpg` | Coucher de soleil sur l'océan | Carte — bloc des trois sorties de fin de parcours | Ludovic de Langlard / RTS | Photographie personnelle, droits détenus par RTS | Septembre 2026 |
 
-## Registre des images (à remplir pour CHAQUE image ajoutée)
+## Règles pour toute image ajoutée plus tard
 
-| Écran | Lieu représenté | URL exacte de la source | Auteur | Licence | Lien licence | Attribution obligatoire | Date de récupération |
-|---|---|---|---|---|---|---|---|
-| — | — | — | — | — | — | — | — |
+1. Ne jamais intégrer une image dont les droits ne sont pas établis.
+2. Stocker le fichier dans `images/`, optimisé pour le web, et le référencer en
+   chemin relatif.
+3. Compléter le tableau ci-dessus AVANT toute mise en ligne.
