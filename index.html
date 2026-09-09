@@ -37,6 +37,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background
 .porte .go{display:inline-block;margin-top:11px;font-size:12.5px;font-weight:800;padding:8px 16px;border-radius:9px;background:var(--blanc);color:var(--marine);box-shadow:0 2px 7px rgba(0,0,0,.3);transition:.18s}
 .porte:hover .go{background:var(--jaune)}
 .porte.trek{grid-column:1/-1;min-height:280px}
+.porte.resa{grid-column:1/-1;min-height:210px}
 .porte.trek h2{font-size:24px}
 .porte.trek .phrase{display:inline-block;margin-top:6px;font-size:14px;font-weight:800;color:var(--jaune);text-shadow:0 1px 3px rgba(0,0,0,.5)}
 .porte .bord{position:absolute;top:0;left:0;right:0;height:5px}
@@ -69,7 +70,8 @@ footer .co{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;font-size
 footer .co a{color:var(--blanc);text-decoration:none}
 footer .co a:hover{color:var(--jaune)}
 footer .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
-@media(max-width:760px){.portes{grid-template-columns:1fr}.porte{min-height:200px}.deuxcol{grid-template-columns:1fr}.hero .desc{display:none}}
+@media(max-width:760px){.portes{grid-template-columns:1fr}.porte{min-height:200px}.deuxcol{grid-template-columns:1fr}.hero .desc{display:none}
+.porte p{font-size:14px}.presta b{font-size:14.5px}.presta i{font-size:14px}.ch span{font-size:14px}.infos a{min-height:44px;font-size:14px}.badge{font-size:12px;min-height:28px}footer .co{font-size:14px}}
 </style></head><body>
 
 <div class="hero">
@@ -131,21 +133,6 @@ footer .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
    <div class="txt"><h2>Réservation instantanée</h2><p>Votre transfert en trois étapes, tarif et acompte calculés en direct.</p><span class="go">Réserver ▶</span></div>
    <span class="bord"></span>
   </a>
-  <a class="porte tpmr anim d3" href="tpmr.html">
-   <svg class="fond" viewBox="0 0 600 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <rect width="600" height="300" fill="#F4EEE3"/>
-    <g stroke="#8A5A2B" stroke-width="1" fill="none" opacity=".2"><path d="M0 70 Q150 55 300 72 T600 65"/><path d="M0 105 Q150 92 300 108 T600 100"/></g>
-    <path fill="#5C4633" opacity=".8" d="M0 190 L90 130 L190 170 L300 115 L420 175 L520 135 L600 165 L600 300 L0 300 Z"/>
-    <path fill="#23282E" d="M0 300 L0 235 L150 215 L320 232 L480 212 L600 228 L600 300 Z"/>
-    <path d="M-10 280 L 610 245" stroke="#8A5A2B" stroke-width="14" stroke-linecap="round"/>
-    <path d="M-10 280 L 610 245" stroke="#FBD608" stroke-width="1.8" stroke-dasharray="12 11"/>
-    <circle cx="300" cy="263" r="9" fill="none" stroke="#FFFFFF" stroke-width="3"/>
-    <circle cx="300" cy="263" r="3" fill="#FFFFFF"/>
-   </svg>
-   <span class="voile"></span><span class="ico">♿</span>
-   <div class="txt"><h2>Transport adapté &amp; excursions</h2><p>Chauffeurs accompagnateurs TPMR, véhicules adaptés, excursions pour tous.</p><span class="go">Découvrir ▶</span></div>
-   <span class="bord"></span>
-  </a>
  </div>
 
  <div class="chiffres anim d3">
@@ -165,11 +152,27 @@ footer .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
   <div class="presta"><span class="em">🧳</span><div><b>Bagagerie, conservation et transferts de bagages</b><i>Box sécurisé au Port, garde de bagages et livraison pendant que vous marchez.</i></div></div>
  </div>
 
- <div class="deuxcol">
-  <div class="apropos">
+ <div class="apropos" style="margin-top:24px">
    <h3>Qui sommes-nous ?</h3>
    RTS — Run Transfert &amp; Services — est une association loi 1901 qui fédère les chauffeurs professionnels de La Réunion autour d'une centrale de réservation T3P déclarée. Notre spécialité : la logistique des séjours de randonnée (déposes en montagne, transport des bagages, box sécurisé au Port) et le transport adapté à tous les publics.
   </div>
+ <h2 class="sect">Transport adapté &amp; informations pratiques</h2>
+ <div class="deuxcol" style="margin-top:0">
+  <a class="porte tpmr " href="tpmr.html">
+   <svg class="fond" viewBox="0 0 600 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <rect width="600" height="300" fill="#F4EEE3"/>
+    <g stroke="#8A5A2B" stroke-width="1" fill="none" opacity=".2"><path d="M0 70 Q150 55 300 72 T600 65"/><path d="M0 105 Q150 92 300 108 T600 100"/></g>
+    <path fill="#5C4633" opacity=".8" d="M0 190 L90 130 L190 170 L300 115 L420 175 L520 135 L600 165 L600 300 L0 300 Z"/>
+    <path fill="#23282E" d="M0 300 L0 235 L150 215 L320 232 L480 212 L600 228 L600 300 Z"/>
+    <path d="M-10 280 L 610 245" stroke="#8A5A2B" stroke-width="14" stroke-linecap="round"/>
+    <path d="M-10 280 L 610 245" stroke="#FBD608" stroke-width="1.8" stroke-dasharray="12 11"/>
+    <circle cx="300" cy="263" r="9" fill="none" stroke="#FFFFFF" stroke-width="3"/>
+    <circle cx="300" cy="263" r="3" fill="#FFFFFF"/>
+   </svg>
+   <span class="voile"></span><span class="ico">♿</span>
+   <div class="txt"><h2>Transport adapté &amp; excursions</h2><p>Chauffeurs accompagnateurs TPMR, véhicules adaptés, excursions pour tous.</p><span class="go">Découvrir ▶</span></div>
+   <span class="bord"></span>
+  </a>
   <div class="infos">
    <h3>🧭 Informations pratiques</h3>
    <a href="https://meteofrance.re/" target="_blank" rel="noopener"><span><b>Météo-France Réunion</b><i>Prévisions et vigilances officielles</i></span><span class="arr">↗</span></a>
