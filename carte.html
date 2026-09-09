@@ -27,7 +27,8 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .zb{flex:1;min-width:62px;margin:5px 3px;padding:9px 8px;font-size:12px;font-weight:800;color:#fff;border-radius:10px;white-space:nowrap;text-align:center;transition:.15s;opacity:.9}
 .zb:hover{opacity:1}
 .zb.on{opacity:1;transform:translateY(-1px)}
-.trek{font-size:13.5px;font-weight:800;padding:10px 18px;border-radius:11px;background-color:#F5C518;--c:#E8A200;color:#021132;white-space:nowrap;transition:.15s;text-shadow:0 1px 0 rgba(255,255,255,.35)}
+.trekrow{flex:1 0 100%;display:flex;justify-content:center;padding:2px 0 3px}
+.trek{font-size:14.5px;font-weight:800;padding:11px 30px;border-radius:11px;background-color:var(--jaune);--c:var(--jaune);color:#021132;white-space:nowrap;transition:.15s;text-shadow:0 1px 0 rgba(255,255,255,.35)}
 .trek:hover{filter:brightness(1.06)}
 .trek.on{transform:translateY(-1px)}
 /* ---- Relief glossy (reference validee par le gerant) : bandeau clair net sur la moitie haute, moitie basse
@@ -201,7 +202,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .bar .logo img{height:40px}
 .veh button{font-size:14px;min-height:44px;padding:5px 12px}
 .veh button small{font-size:14px}
-.trek{font-size:15px;padding:11px 16px;min-height:44px}
+.trek{font-size:16px;padding:12px 34px;min-height:46px}
 .tools{gap:6px}
 .tg{font-size:14px;min-height:44px;padding:8px 13px}
 .zones{scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain;padding:0 4px}
@@ -251,8 +252,8 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 </style></head><body>
 <div class="app">
 <div class="bar"><a class="logo" href="index.html" title="Accueil"><img src="images/logo-rts.png" alt="Run Transfert &amp; Services"></a><a href="index.html" class="home">← Accueil</a><b>Run Transfert <span class="r">&amp;</span> Services</b>
-<div class="veh"><button class="on" id="vB">Berline<small>1 à 4 pers.</small></button><button id="vV">Van<small>5 à 8 pers.</small></button></div><button class="trek" id="btnTrek">Formules Trek</button>
-<div class="tools"><button class="tg on" id="t3">🥾</button><button class="tg on" id="t4">🚗</button></div></div>
+<div class="veh"><button class="on" id="vB">Berline<small>1 à 4 pers.</small></button><button id="vV">Van<small>5 à 8 pers.</small></button></div>
+<div class="tools"><button class="tg on" id="t3">🥾</button><button class="tg on" id="t4">🚗</button></div><div class="trekrow"><button class="trek" id="btnTrek">Formules Trek</button></div></div>
 <div class="zones" id="zones"></div>
 <div class="stage"><div class="mw"><div id="map"></div><div class="hud" id="hud">Initialisation…</div><div class="calq" id="calq"><button id="t6">🚘 Loueurs de voitures</button><button id="t7">🏠 Gîtes partenaires</button></div></div><div class="tiroir" id="tiroir"><div class="tirette" id="tirette"><span></span><i id="tirlib">▲ Glisser pour agrandir</i></div><aside class="panel" id="panel"></aside></div></div></div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -260,7 +261,9 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 var VAN=false;
 var ETROIT=window.matchMedia('(max-width:900px)');
 function PX(p){return VAN?Math.round(p*1.2):p}
-function ph(s){return 'https://picsum.photos/seed/'+s+'/420/260'}
+/* photos locales des hebergements, choisies selon le secteur du gite (Mafate, Cilaos, Salazie, Volcan, autres) : aucun appel externe */
+var PH_LOCAL={g1:'ilet-mafate',g2:'secteur-mafate',g3:'mafate-maido-aube',g4:'ilet-mafate',g5:'secteur-mafate',g7:'mafate-maido-aube',g8:'ilet-mafate',g10:'cilaos-village',g11:'mare-a-joncs',g22:'secteur-cilaos',g24:'cilaos-village',g13:'hell-bourg-village',g14:'case-creole-hell-bourg',g15:'secteur-salazie',g16:'secteur-volcan',g18:'plaine-des-sables',g26:'case-bambou-traditionnelle',g27:'chapelle-patrimoine',g23:'case-bambou-traditionnelle'};
+function ph(s){return 'images/'+(PH_LOCAL[s]||'chapelle-patrimoine')+'.jpg'}
 function gmap(q){return 'https://www.google.com/maps/search/'+encodeURIComponent(q)}
 var V={rg:['Aéroport Roland Garros',[-20.8907,55.5103]],sp:['Saint-Pierre',[-21.3393,55.4781]],sg:['Saint-Gilles',[-21.0583,55.2289]],lp:['Le Port',[-20.9397,55.2925]],sd:['Saint-Denis',[-20.8789,55.4481]],pp:['Plaine-des-Palmistes',[-21.1339,55.6367]]};
 var LOC=[['Aéroport Roland Garros',[-20.8890,55.5140],'Location Carrée (partenaire RTS)'],['Saint-Denis centre',[-20.8800,55.4520],''],['Le Port',[-20.9370,55.2960],''],['Saint-Gilles-les-Bains',[-21.0560,55.2320],''],["L'Hermitage",[-21.0770,55.2300],''],['Saint-Leu',[-21.1700,55.2880],''],["Étang-Salé",[-21.2650,55.3600],''],['Saint-Pierre',[-21.3400,55.4800],''],['Cilaos',[-21.1340,55.4740],''],['Hell-Bourg',[-21.0640,55.5210],''],['Bourg-Murat',[-21.2040,55.5810],'']];
