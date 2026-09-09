@@ -38,7 +38,9 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .stage{flex:1;display:flex;min-height:0}
 .mw{flex:1;position:relative;min-width:0;min-height:0}
 #map{position:absolute;inset:0;background:#dfe3d8}
-.panel{width:382px;flex:none;background:var(--paper);overflow-y:auto;z-index:900;border-left:3px solid var(--marine)}
+.panel{width:382px;flex:none;background:var(--paper);overflow-y:auto;z-index:900;border-left:3px solid var(--marine);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='340' height='340'%3E%3Cg fill='none' stroke='%23021132' stroke-opacity='.05' stroke-width='1'%3E%3Cpath d='M0 40 Q85 20 170 42 T340 36'/%3E%3Cpath d='M0 105 Q85 86 170 106 T340 100'/%3E%3Cpath d='M0 170 Q85 152 170 172 T340 166'/%3E%3Cpath d='M0 235 Q85 218 170 236 T340 230'/%3E%3Cpath d='M0 300 Q85 284 170 302 T340 296'/%3E%3C/g%3E%3C/svg%3E")}
+@keyframes fadepad{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.pad{animation:fadepad .3s ease}
 .pad{padding:16px}
 .h1{font-size:23px;font-weight:700;line-height:1.12}
 .meta{font-size:12px;color:rgba(2,17,50,.5);margin-top:4px}
@@ -94,7 +96,8 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .trip u{text-decoration:none;font-size:12px;font-weight:700;color:var(--roi);display:block;margin-top:5px}
 .step{display:flex;gap:9px;padding:9px 0;border-bottom:1px solid rgba(2,17,50,.07);opacity:.3;transition:opacity .35s}
 .step.on{opacity:1}
-.step.now{background:#FFF8DC;margin:0 -8px;padding:9px 8px;border-radius:4px}
+.step.on:not(.now) .c b::after{content:' ✓';color:var(--vert);font-weight:800}
+.step.now{background:#FFF8DC;margin:0 -8px;padding:9px 8px;border-radius:6px;border-left:3px solid #DE0715;box-shadow:0 2px 8px rgba(2,17,50,.12)}
 .step .n{width:21px;height:21px;border-radius:50%;background:var(--marine);color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;flex:none}
 .step.bag .n{background:var(--orange)}.step.walk .n{background:var(--vert)}.step.box .n{background:#6B4EA8}
 .step .c{flex:1;font-size:12.5px;line-height:1.4}
@@ -128,6 +131,10 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .city{font-size:11px;font-weight:700;color:#fff;white-space:nowrap;text-shadow:0 0 3px #021132,0 0 5px #021132,0 1px 2px #000}
 .px{background:var(--roi);color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:11px;white-space:nowrap;box-shadow:0 2px 5px rgba(0,0,0,.45);border:1.5px solid #fff}
 .px.bag{background:var(--orange)}
+.pxc{background:#fff;border:1px solid rgba(2,17,50,.15);border-left:3px solid #0141AC;border-radius:8px;padding:5px 10px;box-shadow:0 3px 10px rgba(2,17,50,.3);white-space:nowrap;text-align:left;line-height:1.3}
+.pxc small{display:block;font-size:8.5px;font-weight:800;letter-spacing:.4px;color:#0141AC;text-transform:uppercase}
+.pxc b{display:block;font-size:13px;font-weight:800;color:#021132}
+.pxc i{display:block;font-style:normal;font-size:9.5px;color:rgba(2,17,50,.55)}
 .dot{width:19px;height:19px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 3px rgba(1,65,172,.4),0 3px 9px rgba(0,0,0,.5);background:var(--roi)}
 .dot.w{background:var(--vert);box-shadow:0 0 0 3px rgba(6,101,30,.4),0 3px 9px rgba(0,0,0,.5)}
 .dot.b{background:var(--orange);box-shadow:0 0 0 3px rgba(232,122,30,.4),0 3px 9px rgba(0,0,0,.5)}
@@ -546,7 +553,11 @@ function demo(de,a,type,label){
    if(pr<1){anim={raf:requestAnimationFrame(tick),to:null}}
    else{map.removeLayer(pt);
     L.circleMarker(tl?a:co[co.length-1],{radius:6,color:'#fff',weight:2.5,fillColor:col,fillOpacity:1}).addTo(gTrip);
-    L.marker(co[Math.floor(co.length/2)],{icon:L.divIcon({html:'<div class="px" style="background:'+col+'">'+label+(ap&&type==='r'?' · tracé approximatif':'')+'</div>',className:'',iconSize:[86,22],iconAnchor:[43,11]})}).addTo(gTrip)}}
+    var kmc=0;for(var q2=1;q2<co.length;q2++)kmc+=map.distance(co[q2-1],co[q2]);kmc=Math.round(kmc/1000);
+    var lbl=type==='r'
+     ?'<div class="pxc"><small>Transfert RTS</small><b>'+label+(ap?' · tracé approximatif':'')+'</b><i>'+kmc+' km · ≈'+Math.round(kmc*1.5)+' min</i></div>'
+     :'<div class="px" style="background:'+col+'">'+label+'</div>';
+    L.marker(co[Math.floor(co.length/2)],{icon:L.divIcon({html:lbl,className:'',iconSize:type==='r'?[150,52]:[86,22],iconAnchor:type==='r'?[75,26]:[43,11]})}).addTo(gTrip)}}
   anim={raf:requestAnimationFrame(tick),to:null}}
  if(type==='r')routeReelle(de,a,go);
  else traceMarche(de,a,function(co){go(co,false)})}
@@ -652,7 +663,11 @@ function lancer(pid){vue='parc';vueArg=pid;var P=null;PARCOURS.forEach(function(
    if(pr<1){anim={raf:requestAnimationFrame(tick),to:null}}
    else{map.removeLayer(pt);
     L.circleMarker(e.a,{radius:5.5,color:'#fff',weight:2.5,fillColor:col,fillOpacity:1}).addTo(gTrip);
-    if(e.p)L.marker(co[Math.floor(co.length/2)],{icon:L.divIcon({html:'<div class="px'+(e.t==='b'?' bag':'')+'">'+PX(e.p)+' €</div>',className:'',iconSize:[52,22],iconAnchor:[26,11]})}).addTo(gTrip);
+    if(e.p){var kmj=0;for(var q3=1;q3<co.length;q3++)kmj+=map.distance(co[q3-1],co[q3]);kmj=Math.round(kmj/1000);
+     var lblj=e.t==='r'
+      ?'<div class="pxc"><small>Transfert RTS</small><b>'+PX(e.p)+' €</b><i>'+kmj+' km · ≈'+Math.round(kmj*1.5)+' min</i></div>'
+      :'<div class="px'+(e.t==='b'?' bag':'')+'">'+PX(e.p)+' €</div>';
+     L.marker(co[Math.floor(co.length/2)],{icon:L.divIcon({html:lblj,className:'',iconSize:e.t==='r'?[150,52]:[52,22],iconAnchor:e.t==='r'?[75,26]:[26,11]})}).addTo(gTrip)}
     i++;anim={raf:null,to:setTimeout(suivante,350)}}}
   anim={raf:requestAnimationFrame(tick),to:null}}
  setTimeout(suivante,500)}

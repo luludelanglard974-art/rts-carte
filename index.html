@@ -2,82 +2,158 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>RTS — Run Transfert &amp; Services</title>
 <style>
-/* Charte RTS officielle (25/08/2026) : marine, bleu roi, rouge Reunion, jaune soleil, vert palmier, blanc, creme */
-:root{--marine:#021132;--roi:#0141AC;--rouge:#DE0715;--jaune:#FBD608;--vert:#06651E;--blanc:#FFFFFF;--creme:#FCF9F4}
+/* Charte RTS officielle + accents territoriaux secondaires (vegetation, terre volcanique, anthracite) */
+:root{--marine:#021132;--roi:#0141AC;--rouge:#DE0715;--jaune:#FBD608;--vert:#06651E;--blanc:#FFFFFF;--creme:#FCF9F4;
+--foret:#1F4A2C;--ocre:#8A5A2B;--terre:#5C4633;--anthracite:#23282E;--l:rgba(2,17,50,.12)}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--creme);color:var(--marine);min-height:100vh}
-.bandeau{background:var(--marine);color:var(--blanc);padding:26px 18px 24px;text-align:center;border-bottom:3px solid var(--rouge);box-shadow:0 3px 14px rgba(2,17,50,.25)}
-.badges{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-.badge{font-size:11.5px;font-weight:700;padding:6px 12px;border-radius:20px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--creme);color:var(--marine);min-height:100vh;overflow-x:hidden}
+@keyframes fadeup{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.anim{animation:fadeup .55s ease both}
+.anim.d1{animation-delay:.08s}.anim.d2{animation-delay:.16s}.anim.d3{animation-delay:.24s}.anim.d4{animation-delay:.32s}
+/* ---- HEROS : paysage reunionnais dessine (remparts, route en lacets, courbes topo) ---- */
+.hero{position:relative;background:linear-gradient(180deg,var(--creme) 0%,#F4EEE3 55%,var(--creme) 100%);border-bottom:3px solid var(--rouge);overflow:hidden}
+.hero svg.scene{display:block;width:100%;height:auto;min-height:300px;max-height:440px;object-fit:cover}
+.hero .sur{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;text-align:center;padding:30px 18px 0;pointer-events:none}
+.badges{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:14px;pointer-events:auto}
+.badge{font-size:11px;font-weight:700;padding:6px 12px;border-radius:20px;background:rgba(2,17,50,.85);color:var(--blanc);box-shadow:0 2px 6px rgba(2,17,50,.25)}
 .badge b{color:var(--jaune)}
-.bandeau h1{font-size:29px;font-weight:900;letter-spacing:.3px}
-.bandeau h1 .r{color:var(--jaune)}
-.slogan{margin-top:8px;font-size:15.5px;font-weight:600;color:rgba(255,255,255,.92);font-style:italic}
-.wrap{max-width:980px;margin:0 auto;padding:24px 14px 26px}
-.portes{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-.porte{display:block;text-decoration:none;color:var(--blanc);border-radius:16px;padding:24px 20px 20px;box-shadow:0 6px 18px rgba(2,17,50,.22),inset 0 1px 0 rgba(255,255,255,.30);background-image:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,0) 55%);transition:.16s}
-.porte:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(2,17,50,.30),inset 0 1px 0 rgba(255,255,255,.35)}
-.porte.verte{background-color:var(--vert)}
-.porte.bleue{background-color:var(--roi)}
-.porte.rouge{background-color:var(--rouge)}
-.porte .em{font-size:34px;display:block;margin-bottom:8px;text-shadow:0 2px 4px rgba(0,0,0,.3)}
-.porte h2{font-size:18.5px;font-weight:800;margin-bottom:6px;text-shadow:0 1px 2px rgba(0,0,0,.35)}
-.porte p{font-size:13px;line-height:1.45;color:rgba(255,255,255,.9)}
-.porte .go{display:inline-block;margin-top:14px;font-size:12.5px;font-weight:800;padding:8px 16px;border-radius:9px;background:var(--blanc);color:var(--marine);box-shadow:0 2px 6px rgba(0,0,0,.28)}
-.chiffres{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-top:22px}
-.ch{background:var(--blanc);border-radius:14px;padding:20px 16px;text-align:center;box-shadow:0 4px 12px rgba(2,17,50,.10);border:1px solid rgba(2,17,50,.10);border-top:3px solid var(--rouge)}
+.hero h1{font-size:clamp(26px,5vw,40px);font-weight:900;letter-spacing:1px;color:var(--marine);text-shadow:0 1px 0 rgba(255,255,255,.7)}
+.hero h1 .r{color:var(--rouge)}
+.hero .tag{margin-top:6px;font-size:clamp(14px,2.4vw,19px);font-weight:700;color:var(--roi)}
+.hero .desc{margin-top:8px;font-size:13.5px;max-width:560px;line-height:1.55;color:rgba(2,17,50,.75);background:rgba(252,249,244,.72);border-radius:10px;padding:6px 12px}
+.hero .baseline{margin-top:10px;font-size:13px;font-style:italic;font-weight:600;color:var(--marine);background:var(--jaune);padding:6px 16px;border-radius:20px;box-shadow:0 2px 8px rgba(2,17,50,.2)}
+.wrap{max-width:1020px;margin:0 auto;padding:26px 14px 26px}
+/* ---- LES TROIS ENTREES ---- */
+.portes{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.porte{position:relative;display:block;text-decoration:none;color:var(--blanc);border-radius:18px;overflow:hidden;box-shadow:0 7px 20px rgba(2,17,50,.22);transition:transform .22s ease,box-shadow .22s ease;min-height:230px}
+.porte:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(2,17,50,.32)}
+.porte svg.fond{position:absolute;inset:0;width:100%;height:100%;transition:transform .5s ease}
+.porte:hover svg.fond{transform:scale(1.045)}
+.porte .voile{position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,17,50,0) 30%,rgba(2,17,50,.72) 100%)}
+.porte .txt{position:absolute;left:0;right:0;bottom:0;padding:18px 18px 16px}
+.porte .ico{position:absolute;top:14px;right:16px;font-size:22px;opacity:.85;text-shadow:0 2px 4px rgba(0,0,0,.4)}
+.porte h2{font-size:20px;font-weight:900;text-shadow:0 2px 5px rgba(0,0,0,.45)}
+.porte p{margin-top:4px;font-size:13px;color:rgba(255,255,255,.92);text-shadow:0 1px 3px rgba(0,0,0,.4)}
+.porte .go{display:inline-block;margin-top:11px;font-size:12.5px;font-weight:800;padding:8px 16px;border-radius:9px;background:var(--blanc);color:var(--marine);box-shadow:0 2px 7px rgba(0,0,0,.3);transition:.18s}
+.porte:hover .go{background:var(--jaune)}
+.porte.trek{grid-column:1/-1;min-height:280px}
+.porte.trek h2{font-size:24px}
+.porte.trek .phrase{display:inline-block;margin-top:6px;font-size:14px;font-weight:800;color:var(--jaune);text-shadow:0 1px 3px rgba(0,0,0,.5)}
+.porte .bord{position:absolute;top:0;left:0;right:0;height:5px}
+.porte.trek .bord{background:var(--vert)}
+.porte.resa .bord{background:var(--roi)}
+.porte.tpmr .bord{background:var(--rouge)}
+/* ---- CHIFFRES / PRESTATIONS / BLOCS ---- */
+.chiffres{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-top:24px}
+.ch{background:var(--blanc);border-radius:14px;padding:20px 16px;text-align:center;box-shadow:0 4px 12px rgba(2,17,50,.10);border:1px solid var(--l);border-top:3px solid var(--rouge)}
 .ch b{display:block;font-size:32px;font-weight:900;color:var(--roi)}
 .ch span{display:block;margin-top:5px;font-size:12.5px;font-weight:600;color:rgba(2,17,50,.65);line-height:1.4}
-h2.sect{font-size:17px;color:var(--marine);margin:26px 0 12px;padding-bottom:7px;border-bottom:2px solid var(--rouge)}
+h2.sect{font-size:17px;color:var(--marine);margin:28px 0 12px;padding-bottom:7px;border-bottom:2px solid var(--rouge)}
 .prestas{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px}
-.presta{display:flex;gap:11px;align-items:flex-start;background:var(--blanc);border:1px solid rgba(2,17,50,.10);border-radius:12px;padding:13px 13px;box-shadow:0 3px 9px rgba(2,17,50,.08)}
+.presta{display:flex;gap:11px;align-items:flex-start;background:var(--blanc);border:1px solid var(--l);border-radius:12px;padding:13px;box-shadow:0 3px 9px rgba(2,17,50,.08);transition:transform .18s ease,box-shadow .18s ease}
+.presta:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(2,17,50,.14)}
 .presta .em{width:38px;height:38px;border-radius:10px;background:var(--marine);color:var(--blanc);display:flex;align-items:center;justify-content:center;font-size:18px;flex:none;box-shadow:0 2px 5px rgba(2,17,50,.25),inset 0 1px 0 rgba(255,255,255,.2)}
 .presta b{display:block;font-size:13.5px;color:var(--marine)}
 .presta i{display:block;font-style:normal;font-size:12px;color:rgba(2,17,50,.62);margin-top:2px;line-height:1.45}
-.apropos{margin-top:22px;background:var(--blanc);border-radius:14px;padding:18px 18px;box-shadow:0 4px 12px rgba(2,17,50,.10);border:1px solid rgba(2,17,50,.10);font-size:13.5px;line-height:1.6;color:rgba(2,17,50,.78)}
-.apropos h3{font-size:15px;color:var(--marine);margin-bottom:8px}
+.deuxcol{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px}
+.apropos,.infos{background:var(--blanc);border-radius:14px;padding:18px;box-shadow:0 4px 12px rgba(2,17,50,.10);border:1px solid var(--l);font-size:13.5px;line-height:1.6;color:rgba(2,17,50,.78)}
+.apropos h3,.infos h3{font-size:15px;color:var(--marine);margin-bottom:8px}
+.infos a{display:flex;justify-content:space-between;align-items:center;gap:9px;padding:10px 11px;border:1px solid var(--l);margin-top:7px;text-decoration:none;color:inherit;border-radius:9px;background:var(--creme);transition:.15s;font-size:13px}
+.infos a:hover{transform:translateX(3px);border-color:var(--roi)}
+.infos a b{color:var(--marine)}
+.infos a i{display:block;font-style:normal;font-size:11.5px;color:rgba(2,17,50,.55)}
+.infos .arr{color:var(--roi);font-weight:800}
+.infos .avert{margin-top:9px;font-size:11.5px;color:rgba(2,17,50,.55)}
 footer{background:var(--marine);color:var(--blanc);border-top:3px solid var(--rouge);margin-top:28px;padding:22px 16px 24px;text-align:center}
 footer .co{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;font-size:13px;font-weight:600}
 footer .co a{color:var(--blanc);text-decoration:none}
 footer .co a:hover{color:var(--jaune)}
 footer .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
-@media(max-width:640px){.bandeau h1{font-size:23px}}
+@media(max-width:760px){.portes{grid-template-columns:1fr}.porte{min-height:200px}.deuxcol{grid-template-columns:1fr}.hero .desc{display:none}}
 </style></head><body>
-<div class="bandeau">
- <div class="badges">
-  <span class="badge">Centrale de réservation <b>T3P déclarée</b></span>
-  <span class="badge"><b>13</b> chauffeurs</span>
-  <span class="badge">Association <b>loi 1901</b></span>
+
+<div class="hero">
+ <!-- Paysage dessine : remparts de cirque, vegetation, route en lacets. Pas de photo :
+      les sources d'images libres sont inaccessibles depuis cet environnement (voir IMAGE-CREDITS.md) -->
+ <svg class="scene" viewBox="0 0 1440 430" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+  <g stroke="#8A5A2B" stroke-width="1" fill="none" opacity=".14">
+   <path d="M0 120 Q 360 90 720 118 T 1440 108"/><path d="M0 150 Q 360 122 720 150 T 1440 140"/>
+   <path d="M0 180 Q 360 156 720 182 T 1440 172"/><path d="M0 210 Q 360 190 720 214 T 1440 204"/>
+  </g>
+  <path fill="#23282E" opacity=".24" d="M0 260 L120 180 L230 235 L340 150 L470 225 L600 130 L760 220 L900 155 L1040 230 L1180 170 L1320 235 L1440 190 L1440 430 L0 430 Z"/>
+  <path fill="#23282E" opacity=".45" d="M0 300 L150 225 L280 275 L430 195 L560 270 L700 205 L860 280 L1000 215 L1160 285 L1300 230 L1440 275 L1440 430 L0 430 Z"/>
+  <path fill="#1F4A2C" opacity=".85" d="M0 345 L130 290 L260 330 L400 270 L540 325 L690 275 L840 330 L990 285 L1150 335 L1290 295 L1440 330 L1440 430 L0 430 Z"/>
+  <path fill="#5C4633" d="M0 430 L0 392 L200 372 L420 388 L640 366 L880 386 L1100 368 L1300 384 L1440 372 L1440 430 Z"/>
+  <path d="M-20 425 C 220 400 320 415 470 392 C 640 366 700 400 880 384 C 1060 368 1150 396 1330 378 L 1460 372" fill="none" stroke="#8A5A2B" stroke-width="17" stroke-linecap="round" opacity=".95"/>
+  <path d="M-20 425 C 220 400 320 415 470 392 C 640 366 700 400 880 384 C 1060 368 1150 396 1330 378 L 1460 372" fill="none" stroke="#FBD608" stroke-width="2" stroke-dasharray="14 12" opacity=".9"/>
+  <g fill="#021132"><circle cx="472" cy="392" r="5"/><circle cx="880" cy="384" r="5"/></g>
+ </svg>
+ <div class="sur">
+  <div class="badges anim"><span class="badge">Centrale de réservation <b>T3P déclarée</b></span><span class="badge"><b>13</b> chauffeurs</span><span class="badge">Association <b>loi 1901</b></span></div>
+  <h1 class="anim d1">RUN TRANSFERT <span class="r">&amp;</span> SERVICES</h1>
+  <div class="tag anim d2">La mobilité réunionnaise, du littoral aux sentiers.</div>
+  <p class="desc anim d3">Un réseau local pour organiser vos transferts, vos déplacements et toute la logistique autour de vos randonnées.</p>
+  <div class="baseline anim d4">« Des chauffeurs au service de La Réunion »</div>
  </div>
- <h1>Run Transfert <span class="r">&amp;</span> Services</h1>
- <p class="slogan">Des chauffeurs au service de La Réunion</p>
 </div>
+
 <div class="wrap">
  <div class="portes">
-  <a class="porte verte" href="carte.html">
-   <span class="em">🥾</span>
-   <h2>Trek &amp; logistique bagages</h2>
-   <p>La carte interactive des sentiers : déposes, récupérations, box sécurisé du Port et acheminement de vos bagages pendant que vous marchez.</p>
-   <span class="go">Ouvrir la carte ▶</span>
+  <a class="porte trek anim d1" href="carte.html">
+   <svg class="fond" viewBox="0 0 800 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <rect width="800" height="300" fill="#F4EEE3"/>
+    <g stroke="#8A5A2B" stroke-width="1" fill="none" opacity=".18"><path d="M0 60 Q200 40 400 62 T800 55"/><path d="M0 95 Q200 78 400 98 T800 90"/><path d="M0 130 Q200 115 400 133 T800 126"/></g>
+    <path fill="#23282E" opacity=".35" d="M0 170 L110 90 L210 140 L330 70 L460 145 L590 85 L710 150 L800 110 L800 300 L0 300 Z"/>
+    <path fill="#1F4A2C" opacity=".9" d="M0 225 L120 170 L250 210 L390 155 L530 205 L670 165 L800 210 L800 300 L0 300 Z"/>
+    <path d="M60 275 C 180 250 260 268 370 244 C 490 220 560 248 690 232" fill="none" stroke="#FCF9F4" stroke-width="3.5" stroke-dasharray="7 8" stroke-linecap="round" opacity=".95"/>
+    <g fill="#FBD608"><circle cx="370" cy="244" r="6"/></g>
+    <g fill="#FCF9F4" opacity=".95"><circle cx="688" cy="230" r="5"/><rect x="676" y="216" width="24" height="9" rx="3"/></g>
+   </svg>
+   <span class="voile"></span><span class="ico">🥾</span>
+   <div class="txt">
+    <h2>Trek &amp; logistique bagages</h2>
+    <p>La carte interactive des sentiers, des transferts et du box sécurisé.</p>
+    <span class="phrase">Vous marchez. RTS s'occupe du reste.</span><br>
+    <span class="go">Ouvrir la carte ▶</span>
+   </div>
+   <span class="bord"></span>
   </a>
-  <a class="porte bleue" href="reservation.html">
-   <span class="em">🚗</span>
-   <h2>Réservation instantanée</h2>
-   <p>Votre transfert en trois étapes : trajet, coordonnées, récapitulatif. Tarif calculé en direct, berline ou van, acompte affiché immédiatement.</p>
-   <span class="go">Réserver ▶</span>
+  <a class="porte resa anim d2" href="reservation.html">
+   <svg class="fond" viewBox="0 0 600 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <rect width="600" height="300" fill="#EDF0F6"/>
+    <path fill="#23282E" opacity=".3" d="M0 150 L100 85 L200 130 L320 70 L450 135 L560 90 L600 120 L600 300 L0 300 Z"/>
+    <path fill="#021132" opacity=".85" d="M0 300 L0 215 L140 190 L300 210 L460 185 L600 205 L600 300 Z"/>
+    <path d="M-10 285 C 120 240 200 265 320 228 C 430 195 500 225 610 200" fill="none" stroke="#8A5A2B" stroke-width="15" stroke-linecap="round"/>
+    <path d="M-10 285 C 120 240 200 265 320 228 C 430 195 500 225 610 200" fill="none" stroke="#FBD608" stroke-width="1.8" stroke-dasharray="12 11"/>
+    <circle cx="320" cy="228" r="6" fill="#0141AC" stroke="#FFFFFF" stroke-width="2.5"/>
+   </svg>
+   <span class="voile"></span><span class="ico">🚗</span>
+   <div class="txt"><h2>Réservation instantanée</h2><p>Votre transfert en trois étapes, tarif et acompte calculés en direct.</p><span class="go">Réserver ▶</span></div>
+   <span class="bord"></span>
   </a>
-  <a class="porte rouge" href="tpmr.html">
-   <span class="em">♿</span>
-   <h2>Transport adapté &amp; excursions</h2>
-   <p>Chauffeurs diplômés accompagnateurs TPMR et véhicules adaptés : fauteuil roulant, déficience visuelle, mobilité réduite. Excursions accessibles à tous.</p>
-   <span class="go">Découvrir ▶</span>
+  <a class="porte tpmr anim d3" href="tpmr.html">
+   <svg class="fond" viewBox="0 0 600 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <rect width="600" height="300" fill="#F4EEE3"/>
+    <g stroke="#8A5A2B" stroke-width="1" fill="none" opacity=".2"><path d="M0 70 Q150 55 300 72 T600 65"/><path d="M0 105 Q150 92 300 108 T600 100"/></g>
+    <path fill="#5C4633" opacity=".8" d="M0 190 L90 130 L190 170 L300 115 L420 175 L520 135 L600 165 L600 300 L0 300 Z"/>
+    <path fill="#23282E" d="M0 300 L0 235 L150 215 L320 232 L480 212 L600 228 L600 300 Z"/>
+    <path d="M-10 280 L 610 245" stroke="#8A5A2B" stroke-width="14" stroke-linecap="round"/>
+    <path d="M-10 280 L 610 245" stroke="#FBD608" stroke-width="1.8" stroke-dasharray="12 11"/>
+    <circle cx="300" cy="263" r="9" fill="none" stroke="#FFFFFF" stroke-width="3"/>
+    <circle cx="300" cy="263" r="3" fill="#FFFFFF"/>
+   </svg>
+   <span class="voile"></span><span class="ico">♿</span>
+   <div class="txt"><h2>Transport adapté &amp; excursions</h2><p>Chauffeurs accompagnateurs TPMR, véhicules adaptés, excursions pour tous.</p><span class="go">Découvrir ▶</span></div>
+   <span class="bord"></span>
   </a>
  </div>
- <div class="chiffres">
+
+ <div class="chiffres anim d3">
   <div class="ch"><b>13</b><span>chauffeurs partenaires<br>inscrits à l'association</span></div>
   <div class="ch"><b>50+</b><span>chauffeurs mobilisables<br>dans le réseau élargi</span></div>
   <div class="ch"><b>3</b><span>véhicules adaptés TPMR,<br>dont un pouvant transporter 4 fauteuils roulants</span></div>
  </div>
+
  <h2 class="sect">Nos prestations</h2>
  <div class="prestas">
   <div class="presta"><span class="em">✈️</span><div><b>Transferts aéroport</b><i>Prise en charge et dépose à Roland Garros et Pierrefonds, à toute heure.</i></div></div>
@@ -88,11 +164,21 @@ footer .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
   <div class="presta"><span class="em">🎪</span><div><b>Logistique transport sur événements</b><i>Transport de personnes sur événements professionnels ou privés, coordonné par la centrale.</i></div></div>
   <div class="presta"><span class="em">🧳</span><div><b>Bagagerie, conservation et transferts de bagages</b><i>Box sécurisé au Port, garde de bagages et livraison pendant que vous marchez.</i></div></div>
  </div>
- <div class="apropos">
-  <h3>Qui sommes-nous ?</h3>
-  RTS — Run Transfert &amp; Services — est une association loi 1901 qui fédère les chauffeurs professionnels de La Réunion autour d'une centrale de réservation T3P déclarée. Notre spécialité : la logistique des séjours de randonnée (déposes en montagne, transport des bagages, box sécurisé au Port) et le transport adapté à tous les publics, du transfert aéroport à l'excursion accessible en fauteuil roulant.
+
+ <div class="deuxcol">
+  <div class="apropos">
+   <h3>Qui sommes-nous ?</h3>
+   RTS — Run Transfert &amp; Services — est une association loi 1901 qui fédère les chauffeurs professionnels de La Réunion autour d'une centrale de réservation T3P déclarée. Notre spécialité : la logistique des séjours de randonnée (déposes en montagne, transport des bagages, box sécurisé au Port) et le transport adapté à tous les publics.
+  </div>
+  <div class="infos">
+   <h3>🧭 Informations pratiques</h3>
+   <a href="https://meteofrance.re/" target="_blank" rel="noopener"><span><b>Météo-France Réunion</b><i>Prévisions et vigilances officielles</i></span><span class="arr">↗</span></a>
+   <a href="https://www.onf.fr/" target="_blank" rel="noopener"><span><b>ONF — état des sentiers</b><i>Ouvertures et fermetures officielles</i></span><span class="arr">↗</span></a>
+   <div class="avert">Avant chaque randonnée, vérifiez la météo et l'état des sentiers auprès de ces sources officielles.</div>
+  </div>
  </div>
 </div>
+
 <footer>
  <div class="co">
   <span>📞 <a href="tel:0693911267">06 93 91 12 67</a></span>
