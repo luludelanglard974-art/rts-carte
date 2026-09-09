@@ -9,29 +9,47 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .bar{display:flex;align-items:center;gap:8px;padding:8px 12px;flex:none;background:linear-gradient(180deg,#0A2358,#021132);color:#fff;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,.4);flex-wrap:wrap}
 .bar b{font-size:13.5px;font-weight:700}.bar .r{color:var(--jaune)}
 .bar .home{color:#fff;text-decoration:none;font-size:12px;font-weight:700;padding:7px 12px;border-radius:9px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
-.veh{display:flex;gap:0;border-radius:6px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.35);margin-left:10px}
-.veh button{font-size:10.5px;font-weight:700;padding:6px 10px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.75);white-space:nowrap}
+.veh{display:flex;gap:6px;margin-left:10px}
+.veh button{font-size:10.5px;font-weight:700;padding:6px 10px;background-color:rgba(255,255,255,.1);color:rgba(255,255,255,.75);white-space:nowrap}
 .veh button small{display:block;font-size:8.5px;font-weight:500;opacity:.75}
-.veh button.on{background:linear-gradient(180deg,#FDE05A,#E8A200);color:#021132}
+.veh button.on{background-color:#F5C518;--c:#E8A200;color:#021132;text-shadow:0 1px 0 rgba(255,255,255,.35)}
 .tools{margin-left:auto;display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
 .tg{font-size:11px;font-weight:700;padding:7px 11px;border-radius:5px;white-space:nowrap;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:rgba(255,255,255,.8);box-shadow:0 2px 4px rgba(0,0,0,.25);transition:.15s}
 .tg:hover{background:rgba(255,255,255,.18);transform:translateY(-1px)}
 .tg.on{color:#fff;border-color:transparent;box-shadow:0 3px 8px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.3)}
-#t1.on,#t2.on{background:linear-gradient(180deg,#8894A8,#5A6478)}
-#t3.on{background:linear-gradient(180deg,#2E9E4B,#06651E)}
-#t4.on{background:linear-gradient(180deg,#2E6FD8,#0141AC)}
-#t6.on{background:linear-gradient(180deg,#F0453C,#C4101B)}
+#t3.on{background-color:#1E8A3E;--c:#06651E}
+#t4.on{background-color:#2E6FD8;--c:#0141AC}
+#t6.on{background-color:#DE0715;--c:#C4101B}
+#t7.on{background-color:#2E9E4B;--c:#06651E}
 .zones{display:flex;flex:none;background:#03194A;overflow-x:auto;box-shadow:0 3px 8px rgba(0,0,0,.35);z-index:990}
-.zb{flex:1;min-width:62px;margin:5px 3px;padding:9px 8px;font-size:12px;font-weight:800;color:#fff;border-radius:10px;white-space:nowrap;text-align:center;transition:.15s;background-image:linear-gradient(180deg,rgba(255,255,255,.32),rgba(255,255,255,.06) 48%,rgba(0,0,0,.18));box-shadow:0 2px 5px rgba(2,17,50,.4),inset 0 1px 0 rgba(255,255,255,.35);text-shadow:0 1px 2px rgba(0,0,0,.45);opacity:.86}
+.zb{flex:1;min-width:62px;margin:5px 3px;padding:9px 8px;font-size:12px;font-weight:800;color:#fff;border-radius:10px;white-space:nowrap;text-align:center;transition:.15s;opacity:.9}
 .zb:hover{opacity:1}
-.zb.on{opacity:1;transform:translateY(-1px);box-shadow:0 4px 12px rgba(2,17,50,.55),inset 0 1px 0 rgba(255,255,255,.55),0 0 0 2.5px #fff}
-.trek{font-size:13.5px;font-weight:800;padding:10px 18px;border-radius:11px;background:linear-gradient(180deg,#FDE05A,#E8A200);color:#021132;box-shadow:0 3px 8px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.5);white-space:nowrap;transition:.15s}
+.zb.on{opacity:1;transform:translateY(-1px)}
+.trek{font-size:13.5px;font-weight:800;padding:10px 18px;border-radius:11px;background-color:#F5C518;--c:#E8A200;color:#021132;white-space:nowrap;transition:.15s;text-shadow:0 1px 0 rgba(255,255,255,.35)}
 .trek:hover{filter:brightness(1.06)}
-.trek.on{box-shadow:0 4px 12px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.6),0 0 0 2.5px #fff}
+.trek.on{transform:translateY(-1px)}
+/* ---- Relief charte (recette Pepite Pays) : degrade radial bombe clair en haut a gauche, reflet, ombre portee
+   teintee de la couleur du bouton, ombres internes, coins arrondis (jamais rond). Couleurs RTS uniquement. ---- */
+.zb,.trek,.veh button.on,.tg.on,.play,.go2.finbtn{--c:#0141AC;
+ background-image:radial-gradient(130% 110% at 16% 10%,rgba(255,255,255,.62) 0%,rgba(255,255,255,.24) 24%,rgba(255,255,255,0) 56%),linear-gradient(180deg,rgba(255,255,255,.08) 0%,rgba(0,0,0,.05) 55%,rgba(0,0,0,.24) 100%);
+ box-shadow:0 8px 16px -6px var(--c),0 2px 4px rgba(2,17,50,.22),inset 0 1px 0 rgba(255,255,255,.7),inset 1px 0 0 rgba(255,255,255,.28),inset 0 -3px 6px rgba(0,0,0,.24),inset 0 -1px 0 rgba(0,0,0,.28);
+ border:none;transition:transform .15s ease,box-shadow .15s ease,filter .15s ease}
+@supports(color:color-mix(in srgb,red,blue)){.zb,.trek,.veh button.on,.tg.on,.play,.go2.finbtn{
+ box-shadow:0 9px 18px -6px color-mix(in srgb,var(--c) 70%,transparent),0 2px 4px rgba(2,17,50,.2),inset 0 1px 0 rgba(255,255,255,.7),inset 1px 0 0 rgba(255,255,255,.28),inset 0 -3px 6px rgba(0,0,0,.24),inset 0 -1px 0 rgba(0,0,0,.28)}}
+.zb,.trek,.tg.on,.go2.finbtn{text-shadow:0 1px 1px rgba(0,0,0,.3)}
+.trek,.veh button.on{text-shadow:0 1px 0 rgba(255,255,255,.35)}
+.zb:hover,.trek:hover,.play:hover,.go2.finbtn:hover{filter:brightness(1.06);transform:translateY(-1px)}
+.zb:active,.trek:active,.veh button:active,.tg:active,.play:active,.go2.finbtn:active{transform:translateY(1px);filter:brightness(.97)}
+.zb.on,.trek.on{outline:2.5px solid #fff;outline-offset:-2.5px}
+.veh button{border-radius:10px;border:1px solid rgba(255,255,255,.22);box-shadow:inset 0 1px 2px rgba(0,0,0,.25)}
+.veh button.on{border-color:transparent}
+.tg{border-radius:10px}
+.tg.on{border-color:transparent}
+.go2.finbtn:hover{border-color:transparent}
 .mkbox{width:30px;height:30px;border-radius:50%;background:linear-gradient(180deg,#8A6BC8,#6B4EA8);border:2.5px solid #fff;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 3px 8px rgba(0,0,0,.5);cursor:pointer}
 .mk.gite .pin{width:23px;height:23px;border-radius:7px;background:linear-gradient(180deg,#2E9E4B,#06651E);border:2px solid #fff;font-size:12px}
 .sec.fin{background:linear-gradient(180deg,#FFFBEA,#FFF4C9);border:1px solid rgba(251,214,8,.55);border-radius:9px;padding:13px 11px;box-shadow:0 3px 9px rgba(2,17,50,.14)}
-.go2.finbtn{padding:14px 12px;border:none;background:linear-gradient(180deg,#0A2358,#021132);color:#fff;border-radius:9px;box-shadow:0 3px 9px rgba(2,17,50,.35),inset 0 1px 0 rgba(255,255,255,.18)}
+.go2.finbtn{padding:14px 12px;border:none;background-color:#0A2358;--c:#0141AC;color:#fff;border-radius:12px}
 .go2.finbtn .em{font-size:22px}
 .go2.finbtn .tx b{font-size:14px}
 .go2.finbtn .tx i{color:rgba(255,255,255,.72)}
@@ -73,8 +91,8 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .go2 .eur small{display:block;font-size:9px;font-weight:600;color:rgba(2,17,50,.45)}
 .go2 .kv{display:flex;gap:6px;flex-wrap:wrap;margin-top:3px;font-size:10px;font-weight:600;color:rgba(2,17,50,.55)}
 .go2 .kv span{background:rgba(6,101,30,.1);padding:2px 5px;border-radius:2px}
-.play{font-size:9.5px;font-weight:800;color:#fff;background:var(--roi);padding:3px 8px;border-radius:10px;flex:none;white-space:nowrap}
-.play.w{background:var(--vert)}
+.play{font-size:9.5px;font-weight:800;color:#fff;background-color:var(--roi);--c:var(--roi);padding:5px 10px;border-radius:8px;flex:none;white-space:nowrap}
+.play.w{background-color:var(--vert);--c:var(--vert)}
 .card{border:1px solid var(--l);border-radius:5px;overflow:hidden;margin-bottom:10px;background:#fff}
 .card .ph{height:112px;background:linear-gradient(135deg,#1d3a2a,#3d6b4a);position:relative;overflow:hidden}
 .card .ph img{width:100%;height:100%;object-fit:cover;display:block}
@@ -220,7 +238,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 <div class="app">
 <div class="bar"><a href="index.html" class="home">← Accueil</a><b>Run Transfert <span class="r">&amp;</span> Services</b>
 <div class="veh"><button class="on" id="vB">Berline<small>1 à 4 pers.</small></button><button id="vV">Van<small>5 à 8 pers.</small></button></div><button class="trek" id="btnTrek">Formules Trek</button>
-<div class="tools"><button class="tg on" id="t1">Plan</button><button class="tg" id="t2">Aérien</button><button class="tg on" id="t3">🥾</button><button class="tg on" id="t4">🚗</button><button class="tg on" id="t6">🚘</button><button class="tg on" id="t7">🏠</button></div></div>
+<div class="tools"><button class="tg on" id="t3">🥾</button><button class="tg on" id="t4">🚗</button><button class="tg" id="t6">🚘</button><button class="tg" id="t7">🏠</button></div></div>
 <div class="zones" id="zones"></div>
 <div class="stage"><div class="mw"><div id="map"></div><div class="hud" id="hud">Initialisation…</div></div><div class="tiroir" id="tiroir"><div class="tirette" id="tirette"><span></span><i id="tirlib">▲ Glisser pour agrandir</i></div><aside class="panel" id="panel"></aside></div></div></div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -425,20 +443,17 @@ L.Popup.mergeOptions({autoPan:false});
 L.control.zoom({position:'bottomright'}).addTo(map);
 var IGN='&copy; <a href="https://www.ign.fr/" target="_blank">IGN</a> Géoplateforme',OSMA='&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors';
 var B='https://data.geopf.fr/wmts?SERVICE=WMTS&VERSION=1.0.0&REQUEST=GetTile&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}';
-var plan=L.tileLayer(B+'&LAYER=GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2&FORMAT=image/png',{attribution:IGN+' &middot; '+OSMA,maxNativeZoom:17});
 var ortho=L.tileLayer(B+'&LAYER=ORTHOIMAGERY.ORTHOPHOTOS&FORMAT=image/jpeg',{attribution:IGN+' &middot; '+OSMA,maxNativeZoom:17});
 var topo=L.tileLayer('https://a.tile.opentopomap.org/{z}/{x}/{y}.png',{attribution:OSMA+' &middot; OpenTopoMap',maxNativeZoom:16});
 var ok=0,ko=0,basc=false;
 function suivi(X,nm){X.on('tileload',function(){ok++;if(!basc){eT='<span class="ok">'+nm+'</span>';maj()}});
-X.on('tileerror',function(){ko++;if(!basc&&ko>6&&ok===0){basc=true;map.removeLayer(plan);topo.addTo(map);eT='<span class="ko">IGN bloqué</span> → OpenTopoMap';maj();setTimeout(function(){hud.hidden=true},7000)}})}
-suivi(plan,'IGN OK');suivi(topo,'OpenTopoMap');suivi(ortho,'Aérien');plan.addTo(map);maj();
-var gMask=L.layerGroup().addTo(map),gZone=L.layerGroup().addTo(map),gPath=L.layerGroup().addTo(map),gRoad=L.layerGroup().addTo(map),gMkW=L.layerGroup().addTo(map),gMkR=L.layerGroup().addTo(map),gTrip=L.layerGroup().addTo(map),gLoc=L.layerGroup().addTo(map);
-var t1=document.getElementById('t1'),t2=document.getElementById('t2'),t3=document.getElementById('t3'),t4=document.getElementById('t4'),t6=document.getElementById('t6'),t7=document.getElementById('t7');
+X.on('tileerror',function(){ko++;if(!basc&&ko>6&&ok===0){basc=true;map.removeLayer(ortho);topo.addTo(map);eT='<span class="ko">IGN bloqué</span> → OpenTopoMap';maj();setTimeout(function(){hud.hidden=true},7000)}})}
+suivi(topo,'OpenTopoMap');suivi(ortho,'Aérien IGN');ortho.addTo(map);maj();
+var gMask=L.layerGroup().addTo(map),gZone=L.layerGroup().addTo(map),gPath=L.layerGroup().addTo(map),gRoad=L.layerGroup().addTo(map),gMkW=L.layerGroup().addTo(map),gMkR=L.layerGroup().addTo(map),gTrip=L.layerGroup().addTo(map),gLoc=L.layerGroup(); /* loueurs : desactives au depart, bouton 🚘 */
+var t3=document.getElementById('t3'),t4=document.getElementById('t4'),t6=document.getElementById('t6'),t7=document.getElementById('t7');
 var vB=document.getElementById('vB'),vV=document.getElementById('vV');
 vB.onclick=function(){VAN=false;vB.classList.add('on');vV.classList.remove('on');stopAnim();gTrip.clearLayers();refresh()};
 vV.onclick=function(){VAN=true;vV.classList.add('on');vB.classList.remove('on');stopAnim();gTrip.clearLayers();refresh()};
-t1.onclick=function(){map.removeLayer(ortho);(basc?topo:plan).addTo(map);t1.classList.add('on');t2.classList.remove('on')};
-t2.onclick=function(){map.removeLayer(plan);map.removeLayer(topo);ortho.addTo(map);t2.classList.add('on');t1.classList.remove('on')};
 t3.onclick=function(){var o=t3.classList.toggle('on');if(o){map.addLayer(gPath);map.addLayer(gMkW)}else{map.removeLayer(gPath);map.removeLayer(gMkW)}};
 t4.onclick=function(){var o=t4.classList.toggle('on');if(o){map.addLayer(gRoad);map.addLayer(gMkR)}else{map.removeLayer(gRoad);map.removeLayer(gMkR)}};
 t6.onclick=function(){var o=t6.classList.toggle('on');o?map.addLayer(gLoc):map.removeLayer(gLoc)};
@@ -462,7 +477,7 @@ var GITES=[
 ['Kaz Lagon Blé',[-21.0570,55.2300],'Côte ouest'],
 ['Ti Kaz Filao',[-21.0790,55.2310],'Côte ouest'],
 ['Lo Kaz Terre Sainte',[-21.3380,55.4770],'Saint-Pierre']];
-var gGite=L.layerGroup().addTo(map);
+var gGite=L.layerGroup(); /* gites : desactives au depart, bouton 🏠 */
 GITES.forEach(function(x){L.marker(x[1],{icon:L.divIcon({html:'<div class="mk gite"><div class="pin">🏠</div></div>',className:'',iconSize:[23,23],iconAnchor:[11,11]})}).addTo(gGite)
  .bindTooltip('🏠 '+x[0]+' — gîte · '+x[2]+'<br><i>Exemple d\'illustration, ne constitue pas une offre commerciale</i>',{sticky:true})});
 /* marqueur permanent du box du Port : pose directement sur la carte, hors de tout calque nettoye par clearAll */
@@ -521,7 +536,7 @@ function traceMarche(a,b,cb,essai){essai=essai||0;
 /* couleur d'onglet = couleur exacte du contour du secteur (C[k].col) ; ile et parcours n'ont pas de contour */
 var ONGLETS=[{k:'ile',n:"Toute l'île",c:'#5E6C84'},{k:'nord',n:'Nord',c:'#1E9E4F'},{k:'mafate',n:'Mafate',c:'#0141AC'},{k:'cilaos',n:'Cilaos',c:'#E8A200'},{k:'salazie',n:'Salazie',c:'#0E7A4A'},{k:'volcan',n:'Volcan',c:'#DE0715'}];
 ONGLETS.forEach(function(o){var b=document.createElement('button');b.className='zb';b.id='zb_'+o.k;
- b.textContent=o.n;b.style.backgroundColor=(C[o.k]?C[o.k].col:o.c);
+ b.textContent=o.n;var col=(C[o.k]?C[o.k].col:o.c);b.style.backgroundColor=col;b.style.setProperty('--c',col);
  b.onclick=function(){o.k==='ile'?vueIle():(o.k==='parcours'?listeParcours():ouvrir(o.k))};zones.appendChild(b)});
 function onglet(k){ONGLETS.forEach(function(o){var b=document.getElementById('zb_'+o.k);
  b.classList.toggle('on',o.k===k)});
@@ -546,7 +561,6 @@ function vueIle(){vue='ile';ck=null;lk=null;clearAll();onglet('ile');
   p.on('click',function(){ouvrir(k)});p.addTo(gZone);
   var m=L.marker(z.c,{icon:L.divIcon({html:'<div class="cq">'+z.n+'<small style="color:'+z.col+'">'+z.s+'</small></div>',className:'',iconSize:[120,32],iconAnchor:[60,16]})});
   m.on('click',function(){ouvrir(k)});m.addTo(gMkR)})(k)}
- for(var v in V){L.marker(V[v][1],{icon:L.divIcon({html:'<div class="city">● '+V[v][0]+'</div>',className:'',iconSize:[150,16],iconAnchor:[4,8]})}).addTo(gMkR)}
  panel.innerHTML='<div class="pad"><div class="h1">La Réunion</div><div class="meta">Sentiers, transferts et logistique bagages</div>'+
  '<p class="lead">Cette carte montre où nous intervenons sur un séjour de randonnée : déposes, récupérations, et surtout l\'acheminement des bagages pendant que vous marchez.</p>'+
  '<div class="sec"><h3>Comment lire la carte</h3>'+
@@ -565,16 +579,7 @@ function vueIle(){vue='ile';ck=null;lk=null;clearAll();onglet('ile');
 function ouvrir(k){vue='zone';vueArg=k;ck=k;lk=null;var z=C[k];M={};z.L.forEach(function(l){M[l.id]=l});
  clearAll();onglet(k);masque(z.poly);
  L.polygon(z.poly,{color:z.col,weight:4,opacity:1,fill:false,lineJoin:'round',smoothFactor:.4}).addTo(gZone);
- z.R.forEach(function(r){var A=V[r.de][1],Bp=M[r.a]?M[r.a].ll:null;if(!Bp)return;
-  routeReelle(A,Bp,function(co,ap,hd,tl){
-   var cas=ap?null:L.polyline(co,{color:'#fff',weight:7,opacity:.55}).addTo(gRoad);
-   var pl=L.polyline(co,{color:'#0141AC',weight:4,opacity:.9,dashArray:ap?'8 7':null}).addTo(gRoad);
-   if(hd)L.polyline(hd,{color:'#0141AC',weight:4,opacity:.9,dashArray:'6 6'}).addTo(gRoad);
-   if(tl)L.polyline(tl,{color:'#0141AC',weight:4,opacity:.9,dashArray:'6 6'}).addTo(gRoad);
-   pl.bindTooltip(V[r.de][0]+' → '+M[r.a].n+' : '+PX(r.p)+' €'+(ap?' · tracé approximatif':''),{sticky:true});
-   var lab=L.marker(co[Math.floor(co.length/2)],{icon:L.divIcon({html:'<div class="px">'+PX(r.p)+' €</div>',className:'',iconSize:[52,22],iconAnchor:[26,11]})}).addTo(gRoad);
-   roads.push({cas:cas,pl:pl,lab:lab,a:r.a});
-   L.circleMarker(co[0],{radius:5,color:'#fff',weight:2,fillColor:'#0141AC',fillOpacity:1}).addTo(gRoad)})});
+ /* carte epuree : les transferts ne se dessinent qu'au clic sur ▶ Tracé (fonction demo) */
  marq();charge(z.bb);
  var trHtml=z.R.map(function(r){if(!M[r.a])return '';
   return '<button class="go2" onclick="demo('+JSON.stringify(V[r.de][1])+','+JSON.stringify(M[r.a].ll)+',\'r\',\''+PX(r.p)+' €\')">'+
@@ -783,10 +788,9 @@ var tiroirPos=34,tiroirRepos=function(){};
   window.addEventListener('mousemove',function(e){mouv(e.clientY)});window.addEventListener('mouseup',fin)}
  if(ETROIT.addEventListener)ETROIT.addEventListener('change',pose);else ETROIT.addListener(pose);
  pose()})();
-if(ETROIT.matches){t6.click();t7.click()}
 window.ouvrir=ouvrir;window.choisir=choisir;window.vueIle=vueIle;window.lancer=lancer;window.listeParcours=listeParcours;window.togglePause=togglePause;
 setTimeout(function(){map.invalidateSize();if(ETROIT.matches)map.panBy([0,Math.round(map.getSize().y*0.16)],{animate:false})},350);
 window.addEventListener('resize',function(){map.invalidateSize()});
 vueIle();
-setTimeout(function(){if(ok===0&&!basc){basc=true;map.removeLayer(plan);topo.addTo(map);eT='<span class="ko">IGN sans réponse</span> → OpenTopoMap';maj()}},6000);
+setTimeout(function(){if(ok===0&&!basc){basc=true;map.removeLayer(ortho);topo.addTo(map);eT='<span class="ko">IGN sans réponse</span> → OpenTopoMap';maj()}},6000);
 </script></body></html>
