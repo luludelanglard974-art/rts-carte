@@ -1,5 +1,6 @@
 <!DOCTYPE html><html lang="fr"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/png" href="images/favicon.png">
 <title>RTS — Trek &amp; logistique bagages</title>
 <style>
 /* Palette RTS officielle, et rien d'autre : marine, bleu roi, rouge, jaune, blanc, creme */
@@ -17,7 +18,9 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .hero{position:relative;height:min(64vh,560px);min-height:380px;background:var(--marine);border-bottom:3px solid var(--rouge);overflow:hidden}
 .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 55%;display:block}
 .hero .voile{position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,17,50,.55) 0%,rgba(2,17,50,.22) 40%,rgba(2,17,50,.30) 65%,rgba(2,17,50,.82) 100%)}
-.hero .home{position:absolute;left:16px;top:14px;z-index:2;color:var(--blanc);text-decoration:none;font-size:14px;font-weight:700;padding:9px 14px;min-height:44px;display:inline-flex;align-items:center;border-radius:10px;background:rgba(2,17,50,.55);border:1px solid rgba(255,255,255,.35);box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
+.hero .hd{position:absolute;left:16px;top:12px;z-index:2;display:flex;align-items:center;gap:12px}
+.hero .logo img{height:56px;width:auto;display:block;filter:drop-shadow(0 2px 5px rgba(0,0,0,.5))}
+.hero .home{color:var(--blanc);text-decoration:none;font-size:14px;font-weight:700;padding:9px 14px;min-height:44px;display:inline-flex;align-items:center;border-radius:10px;background:rgba(2,17,50,.55);border:1px solid rgba(255,255,255,.35);box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
 .hero .sur{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;padding:24px clamp(16px,5vw,64px) 36px;max-width:1100px;margin:0 auto}
 .hero .sur small{display:inline-block;font-size:14px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--jaune);text-shadow:0 1px 3px rgba(0,0,0,.6);margin-bottom:10px}
 .hero h1{font-size:clamp(28px,5vw,50px);font-weight:900;line-height:1.08;color:var(--blanc);text-shadow:0 2px 6px rgba(0,0,0,.55),0 0 24px rgba(2,17,50,.6);max-width:14ch}
@@ -136,7 +139,7 @@ footer.rts .co{font-size:14px}footer.rts .co a{display:inline-flex;align-items:c
 <section class="hero">
  <img src="images/carte-trek.jpg" alt="Véhicule RTS sous les remparts, logistique bagages sur les sentiers de La Réunion">
  <span class="voile"></span>
- <a class="home" href="index.html">← Accueil</a>
+ <div class="hd"><a class="logo" href="index.html" title="Accueil"><img src="images/logo-rts.png" alt="Run Transfert &amp; Services"></a><a class="home" href="index.html">← Accueil</a></div>
  <div class="sur">
   <small class="anim">Trek &amp; logistique bagages</small>
   <h1 class="anim d1">Vous marchez. RTS s'occupe du reste.</h1>
@@ -227,7 +230,9 @@ var COUL={jaune:'var(--jaune)',roi:'var(--roi)',rouge:'var(--rouge)'};
 function parcours(pid){var P=null;cw.PARCOURS.forEach(function(x){if(x.id===pid)P=x});return P}
 function bornes(P){var pts=[];P.E.forEach(function(e){if(e.de&&e.de.length===2)pts.push(e.de);if(e.a&&e.a.length===2)pts.push(e.a)});return cw.L.latLngBounds(pts)}
 function cadrer(pid){var P=parcours(pid);if(!P)return;cw.map.invalidateSize();cw.map.fitBounds(bornes(P),{padding:[26,26],animate:false})}
-fr.addEventListener('load',function(){cw=fr.contentWindow;cd=cw.document;
+/* le cadre appelle scrollIntoView a son ouverture, ce qui fait defiler la page parente : on la remet en haut si l'utilisateur n'a pas encore bouge */
+var aBouge=false;['wheel','touchmove','keydown'].forEach(function(ev){window.addEventListener(ev,function(){aBouge=true},{passive:true})});
+fr.addEventListener('load',function(){cw=fr.contentWindow;cd=cw.document;if(!aBouge)window.scrollTo(0,0);setTimeout(function(){if(!aBouge)window.scrollTo(0,0)},500);
  var st=cd.createElement('style');st.textContent=CSS_CADRE;cd.head.appendChild(st);
  setTimeout(function(){try{cadrer(PID);construireFormules();pret=true}catch(e){info.textContent='La carte n\'a pas pu se charger.'}},450)});
 function marqueEtape(n,fait){document.querySelectorAll('.et').forEach(function(el){var k=parseInt(el.dataset.etape);el.classList.toggle('now',k===n);el.classList.toggle('fait',fait?k<=4:(n?k<n:false))})}

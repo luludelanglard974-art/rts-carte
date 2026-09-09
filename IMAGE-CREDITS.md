@@ -32,6 +32,9 @@ Icônes : pictogrammes vectoriels Lucide (licence ISC, usage commercial libre), 
 | `images/parcours-roche-ecrite.jpg` | Sommet de la Roche Écrite | Trek — vignette de la formule « La Montée de la Roche Écrite » | Ludovic de Langlard / RTS | Photographie personnelle, droits détenus par RTS | Septembre 2026 |
 | `images/parcours-volcan-cascade.jpg` | Cascade de Grand-Galet, Langevin | Trek — vignette de la formule « Le Volcan et la cascade » · Excursions — « Le Sud Sauvage & ses cascades » | Ludovic de Langlard / RTS | Photographie personnelle, droits détenus par RTS | Septembre 2026 |
 | `images/excursion-tour-ile.jpg` | Littoral de La Réunion, tour de l'île | Transport adapté — bannière de l'excursion « Tour de l'île TPMR » · Excursions — « Le Grand Tour de l'île » | Ludovic de Langlard / RTS | Photographie personnelle, droits détenus par RTS | Septembre 2026 |
+| `images/logo-rts.png` | Logo RTS (carte de La Réunion, palmier, volcan, véhicule) | En-tête des six pages, lien vers l'accueil · Accueil — au-dessus du nom | RTS | Logo de l'association, droits détenus par RTS | Septembre 2026 |
+| `images/logo-rts-bandeau.png` | Logo RTS, version bandeau | Déposé, pas encore placé dans une page | RTS | Logo de l'association, droits détenus par RTS | Septembre 2026 |
+| `images/favicon.png` | Icône du site (180 × 180) | Favicon des six pages | RTS | Logo de l'association, droits détenus par RTS | Septembre 2026 |
 | `images/cascade-niagara.jpg` | Cascade Niagara, Sainte-Suzanne | Déposée, pas encore placée dans une page | Ludovic de Langlard / RTS | Photographie personnelle, droits détenus par RTS | Septembre 2026 |
 | `images/route-cascade.jpg` | Cascade au bord de la route de Salazie | Excursions — « Journée Cirque de Salazie » | Ludovic de Langlard / RTS | Photographie personnelle, droits détenus par RTS | Septembre 2026 |
 

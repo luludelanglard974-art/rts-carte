@@ -1,5 +1,6 @@
 <!DOCTYPE html><html lang="fr"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/png" href="images/favicon.png">
 <title>Transport adapté — RTS</title>
 <style>
 /* Palette RTS officielle uniquement. Univers TPMR : jaune soleil, texte marine. */
@@ -11,6 +12,9 @@ html{background:#021132}
 body{background-color:var(--marine);background-image:repeating-linear-gradient(180deg,rgba(255,255,255,.025) 0 2px,rgba(255,255,255,0) 2px 9px),linear-gradient(180deg,var(--roi) 0%,rgba(1,65,172,.55) 35%,var(--marine) 100%);background-attachment:fixed}
 body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:var(--marine);min-height:100vh}
 header{background:var(--jaune);background-image:linear-gradient(180deg,rgba(255,255,255,.35),rgba(255,255,255,0) 55%);color:var(--marine);padding:16px 16px 18px;border-bottom:3px solid var(--marine);box-shadow:0 3px 12px rgba(2,17,50,.35)}
+header .logo{display:flex;align-items:center;flex:none}
+header .logo img{height:52px;width:auto;display:block;filter:drop-shadow(0 2px 4px rgba(0,0,0,.35))}
+@media(max-width:600px){header .logo img{height:44px}}
 header .top{display:flex;align-items:center;gap:12px;max-width:760px;margin:0 auto}
 header a.home{color:#fff;text-decoration:none;font-size:12.5px;font-weight:700;padding:7px 12px;border-radius:9px;background:var(--marine);border:1px solid var(--marine);white-space:nowrap;box-shadow:0 2px 5px rgba(2,17,50,.3)}
 header h1{font-size:19px;font-weight:900}
@@ -63,7 +67,7 @@ footer.rts .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
 @media(max-width:900px){.arret{font-size:14px}.arret i{font-size:14px}.arret .t{font-size:14px;width:72px}.arret b{font-size:15px}.arret.alt .t{font-size:14px}.card p{font-size:14.5px}.veh b{font-size:15px}.veh i{font-size:14px}.reserve{font-size:14px}.tag{min-height:44px;display:inline-flex;align-items:center;font-size:14px}.exc .duree{font-size:14px}header p{font-size:14px}header a.home{font-size:14px;min-height:44px;display:inline-flex;align-items:center}footer{font-size:14px}footer.rts .co{font-size:14px}footer.rts .co a{display:inline-flex;align-items:center;min-height:44px;padding:0 4px}footer.rts .lg{font-size:14px}}
 </style></head><body>
 <header>
- <div class="top"><a class="home" href="index.html">← Accueil</a><h1><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="16" cy="4" r="1" /><path d="m18 19 1-7-6 1" /><path d="m5 8 3-3 5.5 3-2.36 3.5" /><path d="M4.24 14.5a5 5 0 0 0 6.88 6" /><path d="M13.76 17.5a5 5 0 0 0-6.88-6" /></svg> Transport adapté &amp; excursions</h1></div>
+ <div class="top"><a class="logo" href="index.html" title="Accueil"><img src="images/logo-rts.png" alt="Run Transfert &amp; Services"></a><a class="home" href="index.html">← Accueil</a><h1><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="16" cy="4" r="1" /><path d="m18 19 1-7-6 1" /><path d="m5 8 3-3 5.5 3-2.36 3.5" /><path d="M4.24 14.5a5 5 0 0 0 6.88 6" /><path d="M13.76 17.5a5 5 0 0 0-6.88-6" /></svg> Transport adapté &amp; excursions</h1></div>
  <p>Le transport pour tous les publics, partout sur l'île.</p>
 </header>
 <div class="wrap">

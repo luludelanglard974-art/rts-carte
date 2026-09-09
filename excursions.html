@@ -1,5 +1,6 @@
 <!DOCTYPE html><html lang="fr"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/png" href="images/favicon.png">
 <title>RTS — Excursions guidées</title>
 <style>
 /* Palette RTS officielle uniquement : marine, bleu roi, rouge, jaune, blanc, creme */
@@ -12,6 +13,9 @@ body{background-color:var(--marine);background-image:repeating-linear-gradient(1
 body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:var(--marine);min-height:100vh;overflow-x:hidden}
 button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 header{background:var(--marine);color:var(--blanc);padding:16px 16px 18px;border-bottom:3px solid var(--rouge);box-shadow:0 3px 12px rgba(0,0,0,.35)}
+header .logo{display:flex;align-items:center;flex:none}
+header .logo img{height:52px;width:auto;display:block;filter:drop-shadow(0 2px 4px rgba(0,0,0,.35))}
+@media(max-width:600px){header .logo img{height:44px}}
 header .top{display:flex;align-items:center;gap:12px;max-width:1000px;margin:0 auto;flex-wrap:wrap}
 header a.home{color:#fff;text-decoration:none;font-size:14px;font-weight:700;padding:9px 14px;min-height:44px;display:inline-flex;align-items:center;border-radius:10px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
 header h1{font-size:clamp(20px,3vw,26px);font-weight:900;display:flex;align-items:center;gap:10px}
@@ -98,7 +102,7 @@ footer.rts .co{font-size:14px}footer.rts .co a{display:inline-flex;align-items:c
 @media(max-width:600px){.vig .ph .duree{display:none}.vig .ph .txt{right:120px}.vig .ph b{font-size:15px}.vig .ph .tarifs{flex-direction:column;gap:2px}}
 </style></head><body>
 <header>
- <div class="top"><a class="home" href="index.html">← Accueil</a><h1><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 3 4 8 5-5 5 15H2L8 3z" /></svg> Sept excursions guidées</h1></div>
+ <div class="top"><a class="logo" href="index.html" title="Accueil"><img src="images/logo-rts.png" alt="Run Transfert &amp; Services"></a><a class="home" href="index.html">← Accueil</a><h1><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 3 4 8 5-5 5 15H2L8 3z" /></svg> Sept excursions guidées</h1></div>
  <p>Une journée avec un chauffeur qui connaît l'île. Même tarif pour les sept : 380 € en berline, 420 € en van, pour le véhicule entier.</p>
 </header>
 <div class="wrap">

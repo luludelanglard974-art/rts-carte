@@ -1,5 +1,6 @@
 <!DOCTYPE html><html lang="fr"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/png" href="images/favicon.png">
 <title>RTS — Run Transfert &amp; Services</title>
 <style>
 /* Charte RTS officielle + accents territoriaux secondaires (vegetation, terre volcanique, anthracite) */
@@ -14,18 +15,22 @@ body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:var(
 .anim{animation:fadeup .55s ease both}
 .anim.d1{animation-delay:.08s}.anim.d2{animation-delay:.16s}.anim.d3{animation-delay:.24s}.anim.d4{animation-delay:.32s}
 /* ---- HEROS : paysage reunionnais dessine (remparts, route en lacets, courbes topo) ---- */
-.hero{position:relative;height:min(80vh,720px);min-height:440px;background:var(--marine);border-bottom:3px solid var(--rouge);overflow:hidden}
+.hero{position:relative;height:min(86vh,760px);min-height:520px;background:var(--marine);border-bottom:3px solid var(--rouge);overflow:hidden}
 .hero img.photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 60%;display:block}
 .hero .voile{position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,17,50,.66) 0%,rgba(2,17,50,.30) 45%,rgba(2,17,50,.22) 65%,rgba(2,17,50,.72) 100%)}
 .hero .sur{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:28px 18px;pointer-events:none}
-.badges{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:14px;pointer-events:auto}
+.hero .logo{display:block;pointer-events:auto;margin-bottom:10px}
+.hero .logo img{height:clamp(96px,16vh,150px);width:auto;display:block;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5))}
+.hero .slogan{margin-top:12px;font-size:clamp(16px,2.4vw,22px);font-style:italic;font-weight:600;color:var(--blanc);text-shadow:0 2px 5px rgba(0,0,0,.6)}
+.hero .slogan em{color:var(--jaune);font-weight:800}
+.badges{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:16px;pointer-events:auto}
 .badge{font-size:11px;font-weight:700;padding:6px 12px;border-radius:20px;background:rgba(2,17,50,.85);color:var(--blanc);box-shadow:0 2px 6px rgba(2,17,50,.25)}
 .badge b{color:var(--jaune)}
 .hero h1{font-size:clamp(28px,5.4vw,46px);font-weight:900;letter-spacing:1px;color:var(--blanc);text-shadow:0 2px 6px rgba(0,0,0,.55),0 0 24px rgba(2,17,50,.6)}
 .hero h1 .r{color:var(--rouge)}
-.hero .tag{margin-top:8px;font-size:clamp(15px,2.4vw,21px);font-weight:700;color:var(--blanc);text-shadow:0 2px 5px rgba(0,0,0,.6)}
+.hero .tag{margin-top:12px;font-size:clamp(15px,2.4vw,21px);font-weight:700;color:var(--blanc);text-shadow:0 2px 5px rgba(0,0,0,.6)}
 .hero .desc{margin-top:12px;font-size:14.5px;max-width:560px;line-height:1.55;color:rgba(255,255,255,.95);background:rgba(2,17,50,.42);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:8px 14px;text-shadow:0 1px 3px rgba(0,0,0,.5)}
-.hero .baseline{margin-top:14px;font-size:13px;font-style:italic;font-weight:600;color:var(--marine);background:var(--jaune);padding:6px 16px;border-radius:20px;box-shadow:0 2px 8px rgba(2,17,50,.2)}
+.hero .baseline{margin-top:12px;font-size:13px;font-style:italic;font-weight:600;color:var(--marine);background:var(--jaune);padding:6px 16px;border-radius:20px;box-shadow:0 2px 8px rgba(2,17,50,.2)}
 .wrap{max-width:1020px;margin:0 auto;padding:26px 14px 26px}
 /* ---- LES TROIS ENTREES ---- */
 .portes{display:grid;grid-template-columns:1fr 1fr;gap:16px}
@@ -89,11 +94,12 @@ footer .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
  <img class="photo" src="images/hero-salazie.jpg" alt="Le cirque de Salazie et ses remparts sous les nuages, La Réunion">
  <span class="voile"></span>
  <div class="sur">
-  <div class="badges anim"><span class="badge">Centrale de réservation <b>T3P déclarée</b></span><span class="badge"><b>13</b> chauffeurs</span><span class="badge">Association <b>loi 1901</b></span></div>
+  <a class="logo anim" href="index.html" title="Accueil"><img src="images/logo-rts.png" alt="Run Transfert &amp; Services"></a>
   <h1 class="anim d1">RUN TRANSFERT <span class="r">&amp;</span> SERVICES</h1>
-  <div class="tag anim d2">La mobilité réunionnaise, du littoral aux sentiers.</div>
-  <p class="desc anim d3">Un réseau local pour organiser vos transferts, vos déplacements et toute la logistique autour de vos randonnées.</p>
-  <div class="baseline anim d4">« Des chauffeurs au service de La Réunion »</div>
+  <div class="baseline anim d2">« Des chauffeurs au service de La Réunion »</div>
+  <p class="slogan anim d3">La Réunion, notre métier, <em>votre sérénité.</em></p>
+  <div class="badges anim d4"><span class="badge">Centrale de réservation <b>T3P déclarée</b></span><span class="badge"><b>13</b> chauffeurs</span><span class="badge">Association <b>loi 1901</b></span></div>
+  <div class="tag anim d4">La mobilité réunionnaise, du littoral aux sentiers.</div>
  </div>
 </div>
 
