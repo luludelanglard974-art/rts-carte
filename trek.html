@@ -67,6 +67,13 @@ p.sous{font-size:15px;color:rgba(255,255,255,.82);margin:10px 0 18px;max-width:7
 .sortie .em{font-size:30px;color:var(--roi);display:flex}
 .sortie h3{font-size:19px;font-weight:900}
 .sortie p{font-size:14.5px;line-height:1.5;color:rgba(2,17,50,.7);flex:1}
+/* ---- RTS n'est pas une agence de voyage : 5 cartes, memes composants que les portes de sortie ---- */
+.pasagence{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.pasagence .sortie{gap:8px;padding:20px 18px}
+.pasagence .sortie:nth-child(2n){border-top-color:var(--roi)}
+.pasagence .sortie:nth-child(5){border-top-color:var(--jaune)}
+.pasagence .sortie h3{font-size:17px}
+.pasfin{margin:26px auto 0;max-width:760px;text-align:center;color:var(--blanc);font-size:clamp(18px,2.4vw,24px);font-weight:800;line-height:1.35;text-shadow:0 1px 3px rgba(0,0,0,.4)}
 /* ---- Les 5 formules : vignettes immersives (donnees lues dans le moteur de la carte) ---- */
 .formules{margin-top:36px;scroll-margin-top:16px}
 .formules[hidden]{display:none}
@@ -133,7 +140,7 @@ footer.rts .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
 footer.rts .co{font-size:14px}footer.rts .co a{display:inline-flex;align-items:center;min-height:44px;padding:0 4px}footer.rts .lg{font-size:14px}
 .hero .sur small{font-size:14px}.encours b{font-size:14px}.legende h3{font-size:14px}.vig .ph .eur small{font-size:14px}
 }
-@media(max-width:600px){.hero{height:min(58vh,480px);min-height:340px}.hero h1{max-width:none}.vig .ph .txt{right:140px}}
+@media(max-width:600px){.pasagence{grid-template-columns:1fr}.hero{height:min(58vh,480px);min-height:340px}.hero h1{max-width:none}.vig .ph .txt{right:140px}}
 </style></head><body>
 
 <section class="hero">
@@ -185,6 +192,17 @@ footer.rts .co{font-size:14px}footer.rts .co a{display:inline-flex;align-items:c
    <div class="encours" id="encours"><b>Étape en cours</b><span>En attente : appuyez sur « Lancer la démonstration ».</span></div>
   </aside>
  </div>
+
+ <h2 class="sect" style="margin-top:36px">RTS n'est pas une agence de voyage</h2>
+ <p class="sous">Nous ne composons pas votre séjour à votre place. Vous choisissez vos sentiers, vos étapes, votre rythme. Ce que nous prenons en charge, c'est la logistique que vous ne pouvez pas assurer seul.</p>
+ <div class="pasagence">
+  <div class="sortie"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8" /><path d="M7 14h.01" /><path d="M17 14h.01" /><rect width="18" height="8" x="3" y="10" rx="2" /><path d="M5 18v2" /><path d="M19 18v2" /></svg></span><h3>Vos transferts</h3><p>Dépose et récupération aux départs de sentiers. Aucun véhicule n'est basé là-haut : sans nous, il n'y a pas d'accès.</p></div>
+  <div class="sortie"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2" /><path d="M8 18V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v14" /><path d="M10 20h4" /><circle cx="16" cy="20" r="2" /><circle cx="8" cy="20" r="2" /></svg></span><h3>Vos bagages</h3><p>Gardés au box du Port, livrés au bon endroit au bon moment. Vous marchez léger.</p></div>
+  <div class="sortie"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8" /><path d="M4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4" /><path d="M12 4v6" /><path d="M2 18h20" /></svg></span><h3>Un lien direct avec les gîtes</h3><p>Nous connaissons les hébergements de chaque étape et nous appelons pour vous.</p></div>
+  <div class="sortie"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z" /><circle cx="16.5" cy="7.5" r=".5" fill="currentColor" /></svg></span><h3>Un lien direct avec nos loueurs partenaires</h3><p>À l'aéroport comme en ville, pour la partie du séjour où vous roulez seul.</p></div>
+  <div class="sortie"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12" /><path d="M4 14h9" /><path d="M19 6a7.7 7.7 0 0 0-5.2-2A7.9 7.9 0 0 0 6 12c0 4.4 3.5 8 7.8 8 2 0 3.8-.8 5.2-2" /></svg></span><h3>Vos prix, tout de suite</h3><p>Le tarif de chaque trajet s'affiche avant de réserver. Vous estimez votre séjour sans attendre un devis.</p></div>
+ </div>
+ <p class="pasfin">Vous composez votre séjour. Nous garantissons que vous retrouvez vos affaires au bon endroit, au bon moment.</p>
 
  <h2 class="sect" style="margin-top:36px">Et maintenant ?</h2>
  <p class="sous">Deux façons de continuer, selon ce que vous cherchez.</p>
