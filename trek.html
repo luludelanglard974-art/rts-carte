@@ -76,6 +76,8 @@ p.sous{font-size:15px;color:rgba(255,255,255,.82);margin:10px 0 18px;max-width:7
 .options .op .lb{flex:1;line-height:1.3}.options .op .lb small{display:block;font-size:11.5px;color:rgba(2,17,50,.55)}
 .options .op .lb small[hidden]{display:none}
 .options .op .px{font-weight:800;color:var(--roi);white-space:nowrap}
+.options .op .px small.est{display:block;font-size:10px;font-weight:600;color:rgba(2,17,50,.5);text-align:right;text-transform:lowercase}
+.retour .petit{margin-top:4px}
 .options .op.lock{cursor:default}.options .op.lock .lb small.verrou{color:var(--roi);font-weight:700}
 .total{margin-top:14px;background:var(--jaune);color:var(--marine);border-radius:12px;padding:12px 14px;box-shadow:0 4px 12px rgba(2,17,50,.25);background-image:linear-gradient(180deg,rgba(255,255,255,.35),rgba(255,255,255,0) 55%)}
 .total .lb{display:block;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.8px}
@@ -135,6 +137,10 @@ p.sous{font-size:15px;color:rgba(255,255,255,.82);margin:10px 0 18px;max-width:7
 .vig .det .ln .p{flex:none;font-weight:800;color:var(--roi)}
 .vig .det .tot{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding:10px 12px;border-radius:9px;background:var(--marine);color:var(--blanc);font-size:14px;font-weight:700}
 .vig .det .tot span{font-size:18px;font-weight:900;color:var(--jaune)}
+.vig .det .ret{margin-top:12px;padding-top:8px;border-top:2px solid var(--c)}
+.vig .det .ret>b{display:block;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:rgba(2,17,50,.6);margin-bottom:2px}
+.vig .det .ret .ln .p small.est{display:block;font-size:10px;font-weight:600;color:rgba(2,17,50,.5);text-align:right;text-transform:lowercase}
+.vig .det .ret .petit{margin-top:6px}
 /* ---- Relief glossy RTS (recette du commit 98971e3) ---- */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:12px 22px;font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:.3px;text-decoration:none;border-radius:14px;border:2.5px solid var(--creme);color:var(--blanc);--c:var(--roi);background-color:var(--roi);
  background-image:linear-gradient(180deg,rgba(255,255,255,.46) 0%,rgba(255,255,255,.34) 50%,rgba(255,255,255,0) 50%,rgba(0,0,0,.20) 84%,rgba(255,255,255,.14) 100%);
@@ -226,6 +232,7 @@ footer.rts .co{font-size:14px}footer.rts .co a{display:inline-flex;align-items:c
    <div class="socle"><span class="ttl">Compris dans le parcours</span><div id="socle"><div class="ln"><span class="lb">Chargement du parcours…</span></div></div></div>
    <p class="petit">Aucun véhicule n'est basé en montagne : les transferts sont indispensables.</p>
    <div class="options"><span class="ttl">Vos options</span><div id="options"></div></div>
+   <div class="options retour"><span class="ttl">Votre retour</span><div id="retours"></div><p class="petit">Tarifs de retour indicatifs, confirmés lors de la réservation.</p></div>
    <div class="total" id="total"><span class="lb">Total de votre séjour</span><strong id="totalVal">— €</strong><a class="btn marine" href="reservation.html">Réserver ce séjour</a></div>
    <details class="legdet"><summary>Légende de la carte</summary>
    <div class="lg"><span class="sw" style="background-color:#0141AC"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8" /><path d="M7 14h.01" /><path d="M17 14h.01" /><rect width="18" height="8" x="3" y="10" rx="2" /><path d="M5 18v2" /><path d="M19 18v2" /></svg></span><span class="tx"><b>Transfert véhicule</b><i>Tracé bleu, avec le tarif</i></span><span class="trait" style="background:#0141AC"></span></div>
@@ -332,11 +339,17 @@ function construirePanier(P){if(!P)return;var socle=document.getElementById('soc
  var o='<label class="op" id="opBox"><input type="checkbox" id="optBox" data-px="30"><span class="lb">Gardiennage au box du Port<small>Forfait groupe</small><small class="verrou" id="verrou" hidden>Les bagages partent du box du Port.</small></span><span class="px">30 €</span></label>';
  var vus={};P.E.forEach(function(e){if(e.t==='b'&&e.p){var l=lieuDe(e.a);if(!l||vus[l])return;vus[l]=1;var px=cw.PX(e.p);
   o+='<label class="op"><input type="checkbox" class="optLiv" data-px="'+px+'"><span class="lb">Livraison des bagages à '+l+'</span><span class="px">'+px+' €</span></label>'}});
- opts.innerHTML=o;opts.querySelectorAll('input').forEach(function(c){c.addEventListener('change',majPanier)});majPanier()}
+ opts.innerHTML=o;opts.querySelectorAll('input').forEach(function(c){c.addEventListener('change',majPanier)});
+ /* retours : trois sorties exclusives entre elles, aucune cochee par defaut, tarif via retours() du moteur (van +20 % par PX) */
+ var ret=document.getElementById('retours'),r='';(cw.retours?cw.retours(P):[]).forEach(function(x){
+  r+='<label class="op"><input type="checkbox" class="optRet" data-k="'+x.k+'" data-px="'+cw.PX(x.p)+'"><span class="lb">Retour vers '+(x.k==='rg'?"l'aéroport Roland Garros":x.n)+'<small>'+x.i+'</small></span><span class="px">'+cw.PX(x.p)+' €'+(x.est?'<small class="est">estimé</small>':'')+'</span></label>'});
+ ret.innerHTML=r;ret.querySelectorAll('input').forEach(function(c){c.addEventListener('change',function(){
+  if(c.checked)ret.querySelectorAll('input').forEach(function(d){if(d!==c)d.checked=false});majPanier()})});
+ majPanier()}
 function majPanier(){var box=document.getElementById('optBox'),op=document.getElementById('opBox'),v=document.getElementById('verrou');if(!box)return;
  var livs=[].slice.call(document.querySelectorAll('.optLiv')),uneLiv=livs.some(function(c){return c.checked});
  if(uneLiv){box.checked=true;box.disabled=true;op.classList.add('lock');v.hidden=false}else{box.disabled=false;op.classList.remove('lock');v.hidden=true}
- var t=panierBase;document.querySelectorAll('#options input').forEach(function(c){if(c.checked)t+=parseInt(c.dataset.px)});
+ var t=panierBase;document.querySelectorAll('#options input,#retours input').forEach(function(c){if(c.checked)t+=parseInt(c.dataset.px)});
  document.getElementById('totalVal').textContent=t+' €'}
 /* on cale toujours l'ecran sur la carte (jamais sur la legende), petite marge haute via scroll-margin-top, puis on redonne sa taille a Leaflet */
 function voirDemo(){document.querySelector('.scene').scrollIntoView({block:'start',behavior:'smooth'});setTimeout(function(){try{cw.map.invalidateSize()}catch(e){}},300)}
@@ -346,7 +359,11 @@ btnPause.onclick=function(){cw.togglePause();var bp=cd.getElementById('bp');btnP
 /* deroule jour par jour d'une formule, lu dans les donnees du moteur */
 function deroule(P){var h='';P.E.forEach(function(e){var cl=e.t==='r'?'r':(e.t==='b'?'b':(e.t==='x'?'x':'w'));var pic=pico(e);
  h+='<div class="ln"><span class="n '+cl+'">'+pic+'</span><span class="c"><b>'+(e.j?e.j+' · ':'')+e.n+'</b>'+(e.i?'<i>'+e.i+'</i>':'')+(e.km?'<i>'+e.km+' km · +'+e.dp+' m · -'+e.dn+' m · '+e.h+'</i>':'')+'</span>'+(e.p?'<span class="p">'+cw.PX(e.p)+' €</span>':'')+'</div>'});
- return h+'<div class="tot"><b>Prestations RTS pendant le trek</b><span>'+totalP(P)+' €</span></div>'}
+ h+='<div class="tot"><b>Prestations RTS pendant le trek</b><span>'+totalP(P)+' €</span></div>';
+ var rt=cw.retours?cw.retours(P):[];if(rt.length){h+='<div class="ret"><b>Votre retour</b>';
+  rt.forEach(function(x){h+='<div class="ln"><span class="n r">'+ICO.r+'</span><span class="c"><b>Retour vers '+(x.k==='rg'?"l'aéroport Roland Garros":x.n)+'</b><i>'+x.i+'</i></span><span class="p">'+cw.PX(x.p)+' €'+(x.est?'<small class="est">estimé</small>':'')+'</span></div>'});
+  h+='<i class="petit" style="display:block">Tarifs de retour indicatifs, confirmés lors de la réservation.</i></div>'}
+ return h}
 function construireFormules(){var h='';cw.PARCOURS.forEach(function(P){var v=VIG[P.id]||['images/carte-trek.jpg','Randonnée à La Réunion','rouge'];var jours=0;P.E.forEach(function(e){if(e.j){var n=parseInt(e.j.replace('J',''));if(n>jours)jours=n}});
  h+='<div class="vig" id="vig_'+P.id+'" style="--c:'+COUL[v[2]]+'"><div class="ph" role="button" tabindex="0" data-pid="'+P.id+'"><img src="'+v[0]+'" loading="lazy" alt="'+v[1]+'"><span class="voile"></span>'+
   '<span class="eur">'+totalP(P)+' € <small>· '+jours+' jour'+(jours>1?'s':'')+'</small></span>'+

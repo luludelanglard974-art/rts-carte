@@ -59,6 +59,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .calq button:not(.on):hover{background-color:rgba(2,17,50,.95)}
 .mkbox{width:30px;height:30px;border-radius:50%;background:linear-gradient(180deg,#FFE55C,#FBD608);border:2.5px solid #021132;color:#021132;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 3px 8px rgba(0,0,0,.5);cursor:pointer}
 .mk.gite .pin{width:23px;height:23px;border-radius:7px;background:linear-gradient(180deg,#2E9E4B,#06651E);border:2px solid #fff;font-size:12px}
+.est{font-size:10px;font-weight:600;color:rgba(2,17,50,.55);text-transform:lowercase;white-space:nowrap}
 .sec.fin{background:linear-gradient(180deg,#FFFBEA,#FFF4C9);border:1px solid rgba(251,214,8,.55);border-radius:9px;padding:13px 11px;box-shadow:0 3px 9px rgba(2,17,50,.14)}
 .go2.finbtn{padding:14px 12px;border:none;background-color:#0A2358;--c:#0141AC;color:#fff;border-radius:12px}
 .go2.finbtn .em{font-size:22px}
@@ -461,6 +462,29 @@ W('J1',PT.bm,PT.gv,'Bourg-Murat → Gîte du Volcan','Par le Bois Ozoux et le Pa
 W('J2',PT.gv,PT.gg,'Gîte du Volcan → Grand-Galet','Longue descente sur la route de Langevin',16,200,1800,'6 h 00','difficile'),
 R('J2',PT.lport,PT.gg,'Dernier transfert : bagages chargés au box du Port','Le chauffeur charge les bagages au Port et récupère les clients, tout le monde repart ensemble')]};
 var PARCOURS=[TR,TC,P_SAL,P_ROCHE,P_GG];
+/* ---- Retours de fin de parcours : trois sorties (regle actee), tarif au depart du DERNIER point du parcours (P.fin).
+   Meme logique que calc() de reservation.html : tarif catalogue reel en premier (OUT, tarifs.js src:1), sinon estimation
+   base 15 EUR + 0,75 EUR/km + 0,90 EUR/min, +15 % depuis un point de montagne, arrondi a l'euro, distance a vol d'oiseau x 1,4,
+   duree 1,5 min par km. Toute ligne estimee porte est:true (mention "estime" a l'affichage). Van +20 % via PX() comme le reste.
+   Basse-Vallee : tarifs reels fixes 125 Saint-Pierre et 190 Saint-Gilles ; aeroport 255 a marquer estime. ---- */
+var SORTIES=[{k:'rg',n:'Aéroport Roland Garros',ll:[-20.8907,55.5164],i:'Vol retour ou agence de location'},
+ {k:'sp',n:'Saint-Pierre',ll:[-21.3393,55.4781],i:'Fin de séjour dans le sud'},
+ {k:'sg',n:'Saint-Gilles',ll:[-21.0500,55.2225],i:'Plage et repos après le trek'}];
+var RETOUR_FIXE={bv:{rg:{p:255,est:true},sp:{p:125,est:false},sg:{p:190,est:false}}};
+function havR(p,q){var R=6371,dLa=(q[0]-p[0])*Math.PI/180,dLo=(q[1]-p[1])*Math.PI/180;
+ var x=Math.sin(dLa/2),y=Math.sin(dLo/2);
+ var h=x*x+Math.cos(p[0]*Math.PI/180)*Math.cos(q[0]*Math.PI/180)*y*y;
+ return 2*R*Math.asin(Math.sqrt(h))}
+function estimeRetour(de,a,mont){var km=Math.round(havR(de,a)*1.4),mn=Math.round(km*1.5);
+ var base=15+0.75*km+0.90*mn;if(mont)base=base*1.15;return Math.round(base)}
+/* tous les points de fin de parcours (bv, hb, cb, da, gg) sont des points de montagne : +15 % sur toute estimation */
+function retours(P){var fin=P&&P.fin,de=fin?PT[fin]:null;if(!de)return [];var o=OUT[fin],fixe=RETOUR_FIXE[fin]||{};
+ return SORTIES.map(function(s,i){var f=fixe[s.k];
+  if(f)return {k:s.k,n:s.n,i:s.i,p:f.p,est:f.est,src:'fixe'};
+  if(o&&o[i])return {k:s.k,n:s.n,i:s.i,p:o[i],est:false,src:'catalogue'};
+  return {k:s.k,n:s.n,i:s.i,p:estimeRetour(de,s.ll,true),est:true,src:'formule'}})}
+/* memes valeurs, formule seule, pour comparaison */
+function retoursFormule(P){var de=P&&P.fin?PT[P.fin]:null;if(!de)return [];return SORTIES.map(function(s){return {k:s.k,n:s.n,p:estimeRetour(de,s.ll,true)}})}
 var hud=document.getElementById('hud'),panel=document.getElementById('panel'),zones=document.getElementById('zones');
 var eT='...',eS='...';function maj(){hud.innerHTML='Fond : '+eT+'<br>Sentiers : '+eS}
 var map=L.map('map',{center:[-21.10,55.53],zoom:10,minZoom:9,maxZoom:17,zoomControl:false});
@@ -714,11 +738,11 @@ function listeParcours(){vue='liste';clearAll();onglet('parcours');
 function lancer(pid){vue='parc';vueArg=pid;var P=null;PARCOURS.forEach(function(x){if(x.id===pid)P=x});if(!P)return;
  clearAll();onglet('parcours');pause=false;tiroirRepos();
  var tot=0,km=0;P.E.forEach(function(e){if(e.p)tot+=PX(e.p);if(e.km)km+=e.km});
- var f=P.fin&&OUT[P.fin]?OUT[P.fin]:null;
+ var rt=retours(P),f=rt.length?rt:null;var estM=function(r){return r.est?' <small class="est">estimé</small>':''};
  var finHtml=f?'<div class="sec fin"><div class="photo"><img src="images/fin-de-sejour.jpg" loading="lazy" alt="Coucher de soleil sur l\'océan Indien, fin de séjour à La Réunion"></div><h3>🏁 Et après ? Choisissez votre fin de séjour</h3><p class="lead" style="margin-top:0">Trois sorties possibles, votre chauffeur vous attend :</p>'+
-  '<button class="go2 finbtn" onclick="demo('+JSON.stringify(PT[P.fin])+','+JSON.stringify(PT.rg)+',\'r\',\''+PX(f[0])+' €\')"><span class="em">✈️</span><span class="tx"><b>Vers l\'aéroport Roland Garros</b><i>Retour vol ou agence de location</i></span><span class="eur">'+PX(f[0])+' €</span><span class="play">▶</span></button>'+
-  '<button class="go2 finbtn" onclick="demo('+JSON.stringify(PT[P.fin])+','+JSON.stringify(PT.sp)+',\'r\',\''+PX(f[1])+' €\')"><span class="em">🌅</span><span class="tx"><b>Vers Saint-Pierre</b><i>Fin de séjour dans le sud</i></span><span class="eur">'+PX(f[1])+' €</span><span class="play">▶</span></button>'+
-  '<button class="go2 finbtn" onclick="demo('+JSON.stringify(PT[P.fin])+','+JSON.stringify(PT.sg)+',\'r\',\''+PX(f[2])+' €\')"><span class="em">🏖️</span><span class="tx"><b>Vers Saint-Gilles</b><i>Plage et repos après le trek</i></span><span class="eur">'+PX(f[2])+' €</span><span class="play">▶</span></button></div>':'';
+  '<button class="go2 finbtn" onclick="demo('+JSON.stringify(PT[P.fin])+','+JSON.stringify(PT.rg)+',\'r\',\''+PX(f[0].p)+' €\')"><span class="em">✈️</span><span class="tx"><b>Vers l\'aéroport Roland Garros</b><i>Retour vol ou agence de location</i></span><span class="eur">'+PX(f[0].p)+' €'+estM(f[0])+'</span><span class="play">▶</span></button>'+
+  '<button class="go2 finbtn" onclick="demo('+JSON.stringify(PT[P.fin])+','+JSON.stringify(PT.sp)+',\'r\',\''+PX(f[1].p)+' €\')"><span class="em">🌅</span><span class="tx"><b>Vers Saint-Pierre</b><i>Fin de séjour dans le sud</i></span><span class="eur">'+PX(f[1].p)+' €'+estM(f[1])+'</span><span class="play">▶</span></button>'+
+  '<button class="go2 finbtn" onclick="demo('+JSON.stringify(PT[P.fin])+','+JSON.stringify(PT.sg)+',\'r\',\''+PX(f[2].p)+' €\')"><span class="em">🏖️</span><span class="tx"><b>Vers Saint-Gilles</b><i>Plage et repos après le trek</i></span><span class="eur">'+PX(f[2].p)+' €'+estM(f[2])+'</span><span class="play">▶</span></button><p class="lead" style="margin:6px 0 0;font-size:11px;color:rgba(2,17,50,.55)">Tarifs de retour indicatifs, confirmés lors de la réservation.</p></div>':'';
  panel.innerHTML='<div class="pad"><button class="tg" style="border-color:var(--l);color:var(--marine);background:#fff;margin-bottom:13px" onclick="listeParcours()">← Les traversées</button>'+
  '<div class="h1">'+P.n+'</div><div class="meta">'+P.sub+(km?' · '+Math.round(km)+' km à pied':'')+'</div><p class="lead">'+P.intro+'</p>'+
  '<div class="ctrl"><button class="go" id="bp" onclick="togglePause()">⏸ Pause</button><button onclick="lancer(\''+pid+'\')">↺ Rejouer</button></div>'+
