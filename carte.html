@@ -14,8 +14,10 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .veh{display:flex;gap:6px;margin-left:10px}
 .veh button{font-size:10.5px;font-weight:700;padding:6px 10px;background-color:rgba(255,255,255,.1);color:rgba(255,255,255,.75);white-space:nowrap}
 .veh button small{display:block;font-size:8.5px;font-weight:500;opacity:.75}
-.veh button.on{background-color:#F5C518;--c:#E8A200;color:#021132;text-shadow:0 1px 0 rgba(255,255,255,.35)}
-.tools{margin-left:auto;display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
+.veh button.on{background-color:var(--jaune);--c:var(--jaune);color:#021132;text-shadow:0 1px 0 rgba(255,255,255,.35)}
+/* groupe de droite de la ligne 1 : Berline/Van, Formules Trek, icones ; passe en dessous sur ecran etroit */
+.droite{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.tools{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
 .tg{font-size:11px;font-weight:700;padding:7px 11px;border-radius:5px;white-space:nowrap;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:rgba(255,255,255,.8);box-shadow:0 2px 4px rgba(0,0,0,.25);transition:.15s}
 .tg:hover{background:rgba(255,255,255,.18)}
 .tg.on{color:#fff}
@@ -27,11 +29,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .zb{flex:1;min-width:62px;margin:5px 3px;padding:9px 8px;font-size:12px;font-weight:800;color:#fff;border-radius:10px;white-space:nowrap;text-align:center;transition:.15s;opacity:.9}
 .zb:hover{opacity:1}
 .zb.on{opacity:1;transform:translateY(-1px)}
-.accroche{flex:1 0 100%;text-align:center;padding:6px 8px 2px}
-.bar .accroche b{display:block;font-size:16px;font-weight:900;color:#fff}
-.bar .accroche span{display:block;font-size:12.5px;color:rgba(255,255,255,.82);margin-top:2px}
-.trekrow{flex:1 0 100%;display:flex;justify-content:center;padding:2px 0 3px}
-.trek{font-size:14.5px;font-weight:800;padding:11px 30px;border-radius:11px;background-color:var(--jaune);--c:var(--jaune);color:#021132;white-space:nowrap;transition:.15s;text-shadow:0 1px 0 rgba(255,255,255,.35)}
+.trek{font-size:13px;font-weight:800;padding:8px 16px;border-radius:11px;background-color:var(--jaune);--c:var(--jaune);color:#021132;white-space:nowrap;transition:.15s;text-shadow:0 1px 0 rgba(255,255,255,.35)}
 .trek:hover{filter:brightness(1.06)}
 .trek.on{transform:translateY(-1px)}
 /* ---- Relief glossy (reference validee par le gerant) : bandeau clair net sur la moitie haute, moitie basse
@@ -159,7 +157,12 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .lg .tx i{font-style:normal;font-size:11px;color:rgba(2,17,50,.55)}
 .down{text-align:center;padding:14px 12px;margin-top:16px;background:linear-gradient(180deg,#FFFBEA,#FFF4C9);border:1px solid rgba(251,214,8,.5);border-radius:6px;font-size:12.5px;font-weight:600;line-height:1.45}
 .down span{display:block;font-size:19px;margin-top:5px}
-.hud{position:absolute;left:8px;top:8px;z-index:700;background:rgba(2,17,50,.9);color:#fff;font-size:10.5px;line-height:1.6;padding:7px 10px;border-radius:4px;max-width:230px}
+/* coin haut-gauche de la carte : accroche (disparait au premier clic sur un secteur) puis etat des fonds */
+.coin{position:absolute;left:8px;top:8px;z-index:700;display:flex;flex-direction:column;align-items:flex-start;gap:6px;pointer-events:none}
+.hud.accroche{background:rgba(2,17,50,.78);border-radius:12px;padding:8px 12px;max-width:min(70%,360px);font-size:12px;line-height:1.35;box-shadow:0 3px 10px rgba(0,0,0,.35)}
+.hud.accroche b{display:block;font-size:14px;font-weight:900;color:#fff}
+.hud.accroche span{display:block;color:rgba(255,255,255,.85);margin-top:2px}
+.hud{position:static;background:rgba(2,17,50,.9);color:#fff;font-size:10.5px;line-height:1.6;padding:7px 10px;border-radius:4px;max-width:230px}
 .hud .ok{color:#7BE08F}.hud .ko{color:#FF9A8A}.hud[hidden]{display:none}
 .mk{text-align:center}
 .mk .pin{width:26px;height:26px;border-radius:50%;background:#fff;border:2.5px solid var(--marine);display:flex;align-items:center;justify-content:center;font-size:13px;box-shadow:0 2px 6px rgba(0,0,0,.45);margin:0 auto;transition:transform .15s}
@@ -203,12 +206,15 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .bar b{font-size:14px}
 .bar .home{font-size:14px;min-height:44px;display:inline-flex;align-items:center}
 .bar .logo img{height:40px}
-.veh button{font-size:14px;min-height:44px;padding:5px 12px}
-.veh button small{font-size:14px}
-.trek{font-size:16px;padding:12px 34px;min-height:46px}
-.bar .accroche b{font-size:17px}.bar .accroche span{font-size:14px}
-.tools{gap:6px}
-.tg{font-size:14px;min-height:44px;padding:8px 13px}
+/* ecran etroit : le groupe de droite tient sur une seule rangee sous le logo */
+.droite{width:100%;gap:3px;justify-content:space-between}
+.veh{margin-left:0;gap:2px}
+.veh button{font-size:12px;min-height:42px;padding:4px 5px}
+.veh button small{font-size:10.5px}
+.trek{font-size:12.5px;letter-spacing:0;padding:8px 7px;min-height:42px}
+.hud.accroche{max-width:min(80%,340px)}.hud.accroche b{font-size:15px}.hud.accroche span{font-size:13.5px}
+.tools{gap:4px}
+.tg{font-size:14px;min-height:42px;padding:8px 6px}
 .zones{scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain;padding:0 4px}
 .zones::-webkit-scrollbar{display:none}
 .zb{font-size:15px;min-width:112px;min-height:46px;flex:1 0 112px;padding:12px 14px;margin:6px 4px}
@@ -256,10 +262,9 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 </style></head><body>
 <div class="app">
 <div class="bar"><a class="logo" href="index.html" title="Accueil"><img src="images/logo-rts.png" alt="Run Transfert &amp; Services"></a><a href="index.html" class="home">← Accueil</a><b>Run Transfert <span class="r">&amp;</span> Services</b>
-<div class="veh"><button class="on" id="vB">Berline<small>1 à 4 pers.</small></button><button id="vV">Van<small>5 à 8 pers.</small></button></div>
-<div class="tools"><button class="tg on" id="t3">🥾</button><button class="tg on" id="t4">🚗</button></div><div class="accroche"><b>Créez votre séjour. RTS vous accompagne.</b><span>Sélectionnez vos randonnées selon votre niveau. RTS met à disposition les outils et la logistique.</span></div><div class="trekrow"><button class="trek" id="btnTrek">Formules Trek</button></div></div>
+<div class="droite"><div class="veh"><button class="on" id="vB">Berline<small>1 à 4 pers.</small></button><button id="vV">Van<small>5 à 8 pers.</small></button></div><button class="trek" id="btnTrek">Formules Trek</button><div class="tools"><button class="tg on" id="t3">🥾</button><button class="tg on" id="t4">🚗</button></div></div></div>
 <div class="zones" id="zones"></div>
-<div class="stage"><div class="mw"><div id="map"></div><div class="hud" id="hud">Initialisation…</div><div class="calq" id="calq"><button id="t6">🚘 Loueurs de voitures</button><button id="t7">🏠 Gîtes partenaires</button></div></div><div class="tiroir" id="tiroir"><div class="tirette" id="tirette"><span></span><i id="tirlib">▲ Glisser pour agrandir</i></div><aside class="panel" id="panel"></aside></div></div></div>
+<div class="stage"><div class="mw"><div id="map"></div><div class="coin"><div class="hud accroche" id="accroche"><b>Créez votre séjour. RTS vous accompagne.</b><span>Sélectionnez vos randonnées selon votre niveau. RTS met à disposition les outils et la logistique.</span></div><div class="hud" id="hud">Initialisation…</div></div><div class="calq" id="calq"><button id="t6">🚘 Loueurs de voitures</button><button id="t7">🏠 Gîtes partenaires</button></div></div><div class="tiroir" id="tiroir"><div class="tirette" id="tirette"><span></span><i id="tirlib">▲ Glisser pour agrandir</i></div><aside class="panel" id="panel"></aside></div></div></div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 var VAN=false;
@@ -306,7 +311,7 @@ var POLY_CILAOS=[PN].concat(R_SC,[
 [-21.1260,55.4120],[-21.1120,55.4200]
 ],revR(R_MC));
 var C={
-nord:{n:'Nord',t:'Roche Écrite',s:'Par la route',col:'#1E9E4F',c:[-20.930,55.415],z:12.4,
+nord:{n:'Nord',t:'Roche Écrite',s:'Par la route',col:'#021132',c:[-20.930,55.415],z:12.4,
 poly:[[-20.878,55.442],[-20.888,55.462],[-20.906,55.470],[-20.924,55.466],[-20.938,55.452],[-20.948,55.436],[-20.956,55.418],[-20.962,55.400],[-20.960,55.382],[-20.950,55.368],[-20.936,55.362],[-20.920,55.368],[-20.906,55.382],[-20.894,55.400],[-20.884,55.420]],
 bb:'-20.980,55.355,-20.875,55.475',
 lead:"Le massif de la Roche Écrite, au-dessus de Saint-Denis. Départ de la grande traversée. Nous déposons jusqu'à Mamode Camp, ce qui évite deux heures de montée sur route forestière.",
@@ -344,7 +349,7 @@ L:[{id:'cb',n:'Col des Bœufs',ll:[-21.0575,55.4972],a:1,d:"Porte d'entrée est,
 {id:'lport',n:'Le Port',ll:[-20.9397,55.2925],a:1,d:"Base logistique côtière RTS. Deux prestations distinctes : le gardiennage au box sécurisé, et la livraison des bagages facturée en plus selon la destination. Dans tous les autres cas, les bagages voyagent dans le véhicule avec les clients.",r:[['📦','Gardiennage au box sécurisé','Stockage · forfait groupe','30'],['🧳','Livraison bagages vers Cilaos','En plus du gardiennage','105'],['🧳','Livraison bagages vers Bourg-Murat','En plus du gardiennage','126'],['🧳',"Livraison bagages vers Dos d'Âne",'En plus du gardiennage','84']]}],
 P:[{a:'cb',b:'pt',km:2.5,dp:40,dn:200,h:'0 h 50',d:'facile'},{a:'pt',b:'ln',km:2.5,dp:60,dn:200,h:'0 h 55',d:'facile'},{a:'ln',b:'ma',km:5.5,dp:350,dn:300,h:'2 h 15',d:'moyen'},{a:'ln',b:'rp',km:7,dp:400,dn:700,h:'3 h 00',d:'moyen'},{a:'ln',b:'bel',km:9,dp:550,dn:750,h:'4 h 00',d:'moyen'},{a:'ma',b:'rp',km:8,dp:450,dn:600,h:'3 h 30',d:'moyen'},{a:'rp',b:'md',km:8,dp:1200,dn:200,h:'4 h 30',d:'difficile'},{a:'rp',b:'io',km:5,dp:250,dn:350,h:'2 h 15',d:'moyen'},{a:'ln',b:'ib',km:4.5,dp:250,dn:400,h:'2 h 00',d:'moyen'},{a:'ib',b:'gp',km:3.5,dp:200,dn:300,h:'1 h 30',d:'moyen'},{a:'gp',b:'im',km:3,dp:300,dn:200,h:'1 h 30',d:'moyen'},{a:'im',b:'au',km:2.5,dp:200,dn:200,h:'1 h 15',d:'moyen'},{a:'gp',b:'ca',km:3,dp:150,dn:250,h:'1 h 15',d:'facile'},{a:'ca',b:'lt',km:3,dp:200,dn:250,h:'1 h 30',d:'moyen'},{a:'lt',b:'io',km:4,dp:350,dn:200,h:'2 h 00',d:'moyen'},{a:'ca',b:'db',km:5,dp:100,dn:600,h:'2 h 15',d:'moyen'},{a:'gp',b:'db',km:6,dp:150,dn:800,h:'2 h 45',d:'moyen'},{a:'au',b:'da',km:7,dp:800,dn:600,h:'4 h 00',d:'difficile'},{a:'ma',b:'tbd',km:6,dp:460,dn:820,h:'3 h 30',d:'difficile'}],
 R:[{de:'rg',a:'cb',p:168,src:1},{de:'rg',a:'ss',p:162},{de:'rg',a:'md',p:148},{de:'lp',a:'rg2',p:41}]},
-cilaos:{n:'Cilaos',t:'Cirque de Cilaos',s:'Par la route',col:'#E8A200',c:[-21.140,55.462],z:12.5,
+cilaos:{n:'Cilaos',t:'Cirque de Cilaos',s:'Par la route',col:'#6B4EA8',c:[-21.140,55.462],z:12.5,
 /* au sud du Piton des Neiges, descend par le Bras de Cilaos vers Saint-Louis, avancee au Dimitile */
 poly:POLY_CILAOS,
 bb:'-21.205,55.400,-21.080,55.550',
@@ -359,7 +364,7 @@ L:[{id:'ci',n:'Cilaos',ll:[-21.1361,55.4714],a:1,d:"Ville thermale à 1 200 m, t
 {id:'mab',n:'Mare à Boue',ll:[-21.1550,55.5350],a:1,d:"Sur la descente de la Caverne Dufour vers la Plaine des Cafres. Dernier accès véhicule avant Bourg-Murat.",r:[['🚗','Récupération sur la route forestière','','80'],['🧳','Acheminement des bagages','','25']]}],
 P:[{a:'ci',b:'tb',km:4,dp:850,dn:50,h:'2 h 30',d:'difficile'},{a:'ci',b:'ic',km:9,dp:200,dn:350,h:'3 h 00',d:'moyen'},{a:'ci',b:'bl',km:3,dp:250,dn:50,h:'1 h 15',d:'facile'},{a:'bl',b:'cd',km:5,dp:1300,dn:0,h:'3 h 30',d:'difficile'},{a:'bl',b:'pn',km:8,dp:1700,dn:30,h:'5 h 30',d:'difficile'},{a:'cd',b:'mab',km:9,dp:100,dn:1100,h:'3 h 30',d:'moyen'},{a:'tbd',b:'ma',km:6,dp:820,dn:460,h:'4 h 00',d:'difficile'}],
 R:[{de:'rg',a:'ci',p:205,src:1},{de:'sp',a:'ci',p:153,src:1}]},
-salazie:{n:'Salazie',t:'Salazie &amp; Bélouve',s:'Par la route',col:'#0E7A4A',c:[-21.020,55.560],z:12.5,
+salazie:{n:'Salazie',t:'Salazie &amp; Bélouve',s:'Par la route',col:'#06651E',c:[-21.020,55.560],z:12.5,
 /* au nord-est du Piton des Neiges, s'ouvre au nord-est par la Riviere du Mat vers Saint-Andre */
 poly:POLY_SALAZIE,
 bb:'-21.105,55.450,-20.950,55.665',
@@ -555,10 +560,10 @@ function traceMarche(a,b,cb,essai){essai=essai||0;
  if(!segs.length&&chargeEnCours&&essai<24){setTimeout(function(){traceMarche(a,b,cb,essai+1)},500);return}
  var ch=cheminPieton(a,b);cb(ch||lacets(a,b))}
 /* couleur d'onglet = couleur exacte du contour du secteur (C[k].col) ; ile et parcours n'ont pas de contour */
-var ONGLETS=[{k:'ile',n:"Toute l'île",c:'#5E6C84'},{k:'nord',n:'Nord',c:'#1E9E4F'},{k:'mafate',n:'Mafate',c:'#0141AC'},{k:'cilaos',n:'Cilaos',c:'#E8A200'},{k:'salazie',n:'Salazie',c:'#0E7A4A'},{k:'volcan',n:'Volcan',c:'#DE0715'}];
+var ONGLETS=[{k:'ile',n:"Toute l'île",c:'#5E6C84'},{k:'nord',n:'Nord',c:'#021132'},{k:'mafate',n:'Mafate',c:'#0141AC'},{k:'cilaos',n:'Cilaos',c:'#6B4EA8'},{k:'salazie',n:'Salazie',c:'#06651E'},{k:'volcan',n:'Volcan',c:'#DE0715'}];
 ONGLETS.forEach(function(o){var b=document.createElement('button');b.className='zb';b.id='zb_'+o.k;
  b.textContent=o.n;var col=(C[o.k]?C[o.k].col:o.c);b.style.backgroundColor=col;b.style.setProperty('--c',col);
- b.onclick=function(){o.k==='ile'?vueIle():(o.k==='parcours'?listeParcours():ouvrir(o.k))};zones.appendChild(b)});
+ b.onclick=function(){var ac=document.getElementById('accroche');if(ac)ac.hidden=true;o.k==='ile'?vueIle():(o.k==='parcours'?listeParcours():ouvrir(o.k))};zones.appendChild(b)});
 function onglet(k){ONGLETS.forEach(function(o){var b=document.getElementById('zb_'+o.k);
  b.classList.toggle('on',o.k===k)});
  var bt=document.getElementById('btnTrek');if(bt)bt.classList.toggle('on',k==='parcours');
@@ -590,7 +595,7 @@ function vueIle(){vue='ile';ck=null;lk=null;clearAll();onglet('ile');
  '<div class="lg"><span class="sw" style="background:linear-gradient(180deg,#F09A45,#E87A1E);color:#fff">🧳</span><span class="tx"><b>Le trajet des bagages, en orange</b><i>Votre sac voyage par la route pendant que vous marchez</i></span></div>'+
  '<div class="lg"><span class="sw" style="background:linear-gradient(180deg,#8A6BC8,#6B4EA8);color:#fff">📦</span><span class="tx"><b>Box RTS sécurisé</b><i>Stockage en zone sûre · forfait groupe 30 €</i></span></div>'+
  '<div class="lg"><span class="sw" style="background:linear-gradient(180deg,#F0453C,#C4101B);color:#fff;border-radius:4px">🚘</span><span class="tx"><b>Location de véhicule</b><i>11 points sur la côte et dans les cirques</i></span></div>'+
- '<div class="lg"><span class="sw" style="background:linear-gradient(180deg,#FDE05A,#E8A200)">🚙</span><span class="tx"><b>Relais 4x4</b><i>Partenaire agréé vers Deux Bras · 14 € par personne</i></span></div></div>'+
+ '<div class="lg"><span class="sw" style="background:var(--jaune)">🚙</span><span class="tx"><b>Relais 4x4</b><i>Partenaire agréé vers Deux Bras · 14 € par personne</i></span></div></div>'+
  '<div class="sec"><h3>Explorer</h3><p class="lead" style="margin-top:0">Choisissez un secteur en haut de l\'écran, ou touchez-le sur la carte. Chaque lieu vous donne les sentiers au départ, les transferts possibles et les hébergements. Touchez une ligne pour voir le tracé s\'animer.</p></div>'+
  '<div class="down">Ou déroulez une traversée complète<span>↓</span></div>'+
  '<div class="sec"><h3>▶ Les traversées</h3>'+PHOTO_TREK+PARCOURS.map(function(p,i){return '<button class="trip'+(i<2?' star':'')+'" onclick="lancer(\''+p.id+'\')"><b>'+p.n+'</b><i>'+p.sub+'</i><u>▶ Dérouler</u></button>'}).join('')+'</div>'+
