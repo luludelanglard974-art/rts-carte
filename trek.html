@@ -131,8 +131,8 @@ footer.rts .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
 .et .num{grid-column:2}
 .et b,.et i{grid-column:2}
 .demo{grid-template-columns:1fr}
-.scene{aspect-ratio:auto;height:min(58vh,560px)}
-.legende{order:-1;display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;padding:12px 14px}
+.scene{aspect-ratio:auto;height:420px;scroll-margin-top:12px} /* hauteur fixe : le vh bouge avec la barre d'adresse du telephone */
+.legende{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;padding:12px 14px}
 .legende h3{grid-column:1/-1}
 .lg{padding:6px 0}.lg+.lg{border-top:none}.lg .trait{display:none}.lg .sw{width:30px;height:30px;font-size:15px}
 .encours{grid-column:1/-1;margin-top:6px;min-height:0}
@@ -278,8 +278,8 @@ function lancerDemo(pid){if(!pret)return;PID=pid||PID;fini=false;var P=parcours(
  rideau.hidden=true;btnPause.hidden=false;btnRejouer.hidden=true;btnPause.textContent='⏸ Pause';
  info.textContent=P.n+' · '+P.sub;document.getElementById('demoSous').textContent='Le point bleu suit la route, le vert marche sur les sentiers, l\'orange transporte les sacs.';
  cadrer(PID);cw.lancer(PID);marqueEtape(1,false);surveille();voirDemo()}
-/* sur ecran etroit la legende est au-dessus de la carte : on cale l'ecran dessus pour qu'elle reste lisible */
-function voirDemo(){var cible=matchMedia('(max-width:900px)').matches?document.getElementById('legende'):document.querySelector('.scene');cible.scrollIntoView({block:'start',behavior:'smooth'})}
+/* on cale toujours l'ecran sur la carte (jamais sur la legende), petite marge haute via scroll-margin-top, puis on redonne sa taille a Leaflet */
+function voirDemo(){document.querySelector('.scene').scrollIntoView({block:'start',behavior:'smooth'});setTimeout(function(){try{cw.map.invalidateSize()}catch(e){}},300)}
 btnLancer.onclick=function(){lancerDemo(PID)};
 btnRejouer.onclick=function(){lancerDemo(PID)};
 btnPause.onclick=function(){cw.togglePause();var bp=cd.getElementById('bp');btnPause.textContent=(bp&&bp.textContent.indexOf('Reprendre')>=0)?'▶ Reprendre':'⏸ Pause'};

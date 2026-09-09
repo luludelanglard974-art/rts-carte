@@ -27,6 +27,9 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .zb{flex:1;min-width:62px;margin:5px 3px;padding:9px 8px;font-size:12px;font-weight:800;color:#fff;border-radius:10px;white-space:nowrap;text-align:center;transition:.15s;opacity:.9}
 .zb:hover{opacity:1}
 .zb.on{opacity:1;transform:translateY(-1px)}
+.accroche{flex:1 0 100%;text-align:center;padding:6px 8px 2px}
+.bar .accroche b{display:block;font-size:16px;font-weight:900;color:#fff}
+.bar .accroche span{display:block;font-size:12.5px;color:rgba(255,255,255,.82);margin-top:2px}
 .trekrow{flex:1 0 100%;display:flex;justify-content:center;padding:2px 0 3px}
 .trek{font-size:14.5px;font-weight:800;padding:11px 30px;border-radius:11px;background-color:var(--jaune);--c:var(--jaune);color:#021132;white-space:nowrap;transition:.15s;text-shadow:0 1px 0 rgba(255,255,255,.35)}
 .trek:hover{filter:brightness(1.06)}
@@ -203,6 +206,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .veh button{font-size:14px;min-height:44px;padding:5px 12px}
 .veh button small{font-size:14px}
 .trek{font-size:16px;padding:12px 34px;min-height:46px}
+.bar .accroche b{font-size:17px}.bar .accroche span{font-size:14px}
 .tools{gap:6px}
 .tg{font-size:14px;min-height:44px;padding:8px 13px}
 .zones{scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain;padding:0 4px}
@@ -253,7 +257,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 <div class="app">
 <div class="bar"><a class="logo" href="index.html" title="Accueil"><img src="images/logo-rts.png" alt="Run Transfert &amp; Services"></a><a href="index.html" class="home">← Accueil</a><b>Run Transfert <span class="r">&amp;</span> Services</b>
 <div class="veh"><button class="on" id="vB">Berline<small>1 à 4 pers.</small></button><button id="vV">Van<small>5 à 8 pers.</small></button></div>
-<div class="tools"><button class="tg on" id="t3">🥾</button><button class="tg on" id="t4">🚗</button></div><div class="trekrow"><button class="trek" id="btnTrek">Formules Trek</button></div></div>
+<div class="tools"><button class="tg on" id="t3">🥾</button><button class="tg on" id="t4">🚗</button></div><div class="accroche"><b>Créez votre séjour. RTS vous accompagne.</b><span>Sélectionnez vos randonnées selon votre niveau. RTS met à disposition les outils et la logistique.</span></div><div class="trekrow"><button class="trek" id="btnTrek">Formules Trek</button></div></div>
 <div class="zones" id="zones"></div>
 <div class="stage"><div class="mw"><div id="map"></div><div class="hud" id="hud">Initialisation…</div><div class="calq" id="calq"><button id="t6">🚘 Loueurs de voitures</button><button id="t7">🏠 Gîtes partenaires</button></div></div><div class="tiroir" id="tiroir"><div class="tirette" id="tirette"><span></span><i id="tirlib">▲ Glisser pour agrandir</i></div><aside class="panel" id="panel"></aside></div></div></div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>

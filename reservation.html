@@ -37,7 +37,6 @@ div.devis{animation:fadeup .5s ease both;background:var(--marine);color:var(--bl
 .devis h3{font-size:13px;color:var(--jaune);margin-bottom:8px}
 .ligne{display:flex;justify-content:space-between;font-size:12.5px;padding:3px 0;color:rgba(255,255,255,.88)}
 .ligne.tot{border-top:1px solid rgba(255,255,255,.25);margin-top:7px;padding-top:8px;font-size:16px;font-weight:900;color:var(--blanc)}
-.ligne.ac{color:var(--jaune);font-weight:800}
 .note{font-size:11px;color:rgba(255,255,255,.6);margin-top:8px;line-height:1.4}
 .alerte{margin-top:9px;font-size:12px;font-weight:700;padding:9px 11px;border-radius:9px;background:rgba(251,214,8,.16);border:1px solid rgba(251,214,8,.5);color:var(--jaune)}
 .btn{display:block;width:100%;padding:14px;font-size:15px;font-weight:900;border:none;border-radius:11px;cursor:pointer;font-family:inherit;background:var(--jaune);background-image:linear-gradient(180deg,rgba(255,255,255,.45),rgba(255,255,255,0) 55%);color:var(--marine);box-shadow:0 4px 12px rgba(2,17,50,.28),inset 0 1px 0 rgba(255,255,255,.55);transition:.15s}
@@ -45,7 +44,6 @@ div.devis{animation:fadeup .5s ease both;background:var(--marine);color:var(--bl
 .btn.sec{background:var(--blanc);color:var(--roi);border:1.5px solid var(--roi);box-shadow:0 2px 6px rgba(2,17,50,.12);margin-top:8px}
 .recap .ligne{color:rgba(2,17,50,.75)}
 .recap .ligne.tot{color:var(--marine);border-color:var(--l)}
-.recap .ligne.ac{color:var(--roi)}
 .confirm{text-align:center;padding:30px 16px}
 .confirm .ok{font-size:52px;color:var(--roi)}
 .confirm h2{color:var(--marine);margin:10px 0 8px}
@@ -79,6 +77,8 @@ footer.rts .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
     <div><label>Heure</label><input type="time" id="heure" value="10:00"></div>
    </div>
    <label>Passagers</label><select id="pax"></select>
+   <label>Véhicule</label><select id="veh"><option value="b">Berline · 1 à 4 places</option><option value="v">Van · 1 à 8 places</option><option value="t">Van TPMR · fauteuils roulants</option></select>
+   <div id="tpmrSub" hidden><label>Fauteuils roulants</label><select id="fauteuils"><option value="1">1 fauteuil roulant</option><option value="2">2 fauteuils roulants</option><option value="4">4 fauteuils roulants</option></select></div>
    <label>Options</label>
    <label class="opt"><input type="checkbox" id="obag"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2" /><path d="M8 18V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v14" /><path d="M10 20h4" /><circle cx="16" cy="20" r="2" /><circle cx="8" cy="20" r="2" /></svg> Bagagerie (transport de bagages)<b>25 €</b></label>
    <label class="opt"><input type="checkbox" id="obox"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="16" r="1" /><rect x="3" y="10" width="18" height="12" rx="2" /><path d="M7 10V7a5 5 0 0 1 10 0v3" /></svg> Box sécurisé du Port<b>30 €</b></label>
@@ -113,7 +113,7 @@ footer.rts .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
    <div class="ok"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="m16 9-5.5 5.5L8 12" /></svg></div>
    <h2>Demande enregistrée</h2>
    <p id="cmsg"></p>
-   <p>Un chauffeur de l'association vous recontacte pour confirmer la course et encaisser l'acompte.</p>
+   <p>Un chauffeur va prendre contact avec vous rapidement.</p>
    <span class="ref" id="cref"></span>
    <p class="demo">Maquette de démonstration — aucune réservation réelle, aucun paiement.</p>
   </div>
@@ -148,11 +148,14 @@ function hav(p,q){var R=6371,dLa=(q[0]-p[0])*Math.PI/180,dLo=(q[1]-p[1])*Math.PI
  return 2*R*Math.asin(Math.sqrt(h))}
 function calc(){
  var A=lieu(dep.value),B=lieu(arr.value);if(!A||!B)return null;
- var n=parseInt(pax.value),van=n>4,deux=n>8;
+ var veh=document.getElementById('veh').value,tpmr=veh==='t';
+ var n=parseInt(pax.value),auto=n>4&&veh==='b',van=veh==='v'||n>4,deux=n>8;
+ var fauteuils=parseInt(document.getElementById('fauteuils').value);
  var d=document.getElementById('date').value,h=document.getElementById('heure').value;
  var dim=d?new Date(d+'T12:00:00').getDay()===0:false;
  var hh=h?parseInt(h.split(':')[0]):10,nuit=hh>=20||hh<6;
  var lignes=[],alertes=[];
+ if(tpmr)return {tpmr:true,fauteuils:fauteuils,lignes:[],alertes:[],total:null,van:false,deux:false,A:A,B:B,n:n,d:d,h:h};
  var g=catalogue(A.id,B.id),base,src;
  if(A.id===B.id){base=0;src='—'}
  else if(g){base=g.p;src='tarif catalogue'+(g.src?'':' (estimé)')}
@@ -166,7 +169,7 @@ function calc(){
  lignes.push(['Course '+A.n+' → '+B.n+' ('+src+')',base]);
  var total=base;
  if(van){total=Math.round(total*1.2);lignes.push(['Majoration van +20 %',total-base]);
-  alertes.push('Plus de 4 passagers : la réglementation impose un véhicule de catégorie van (5 à 8 places). Passage automatique en van.')}
+  if(auto)alertes.push('Plus de 4 passagers : la réglementation impose un véhicule de catégorie van (5 à 8 places). Passage automatique en van.')}
  if(deux)alertes.push('Au-delà de 8 passagers, deux véhicules sont nécessaires : le tarif affiché est doublé.');
  if(deux){lignes.push(['Deuxième véhicule',total]);total=total*2}
  if(dim){lignes.push(['Supplément dimanche',20]);total+=20}
@@ -174,19 +177,20 @@ function calc(){
  if(document.getElementById('obag').checked){lignes.push(['Bagagerie',25]);total+=25}
  if(document.getElementById('obox').checked){lignes.push(['Box sécurisé du Port',30]);total+=30}
  if(document.getElementById('osiege').checked)lignes.push(['Siège enfant','Offert']);
- var ac=Math.round(total*0.30);
- return {lignes:lignes,total:total,acompte:ac,alertes:alertes,van:van,deux:deux,A:A,B:B,n:n,d:d,h:h}}
+ return {lignes:lignes,total:total,alertes:alertes,van:van,deux:deux,A:A,B:B,n:n,d:d,h:h}}
 function affiche(el,c,fonce){
  var html=(fonce?'<h3>Votre tarif en direct</h3>':'');
+ if(c.tpmr){html+='<div class="ligne"><span>Van TPMR · '+c.fauteuils+' fauteuil'+(c.fauteuils>1?'s':'')+' roulant'+(c.fauteuils>1?'s':'')+'</span><span>Sur devis</span></div>';
+  html+='<div class="alerte">Sur devis. Un conseiller vous rappelle.</div>';el.innerHTML=html;return}
  c.lignes.forEach(function(l){html+='<div class="ligne"><span>'+l[0]+'</span><span>'+(typeof l[1]==='number'?l[1]+' €':l[1])+'</span></div>'});
  html+='<div class="ligne tot"><span>Total TTC</span><span>'+c.total+' €</span></div>';
- html+='<div class="ligne ac"><span>Acompte 30 % à la réservation</span><span>'+c.acompte+' €</span></div>';
  c.alertes.forEach(function(a){html+='<div class="alerte"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /><path d="M12 9v4" /><path d="M12 17h.01" /></svg> '+a+'</div>'});
  if(fonce)html+='<div class="note">Tarifs TTC indicatifs. Dimanche et nuit : +20 €. Van (5 à 8 passagers) : +20 %. Maquette de démonstration.</div>';
  el.innerHTML=html}
 function maj(){var c=calc();if(c)affiche(document.getElementById('devis'),c,true)}
-['dep','arr','date','heure','pax','obag','obox','osiege'].forEach(function(id){
+['dep','arr','date','heure','pax','veh','fauteuils','obag','obox','osiege'].forEach(function(id){
  document.getElementById(id).addEventListener('change',maj)});
+document.getElementById('veh').addEventListener('change',function(){document.getElementById('tpmrSub').hidden=this.value!=='t'});
 maj();
 function etape(n){
  for(var i=1;i<=4;i++){var p=document.getElementById('p'+i);if(p)p.hidden=(i!==n)}
@@ -194,12 +198,12 @@ function etape(n){
  if(n===3){var c=calc();
   var r='<div class="ligne"><span>Client</span><span>'+(document.getElementById('nom').value||'—')+'</span></div>'+
   '<div class="ligne"><span>Date · heure</span><span>'+(c.d||'—')+' · '+(c.h||'—')+'</span></div>'+
-  '<div class="ligne"><span>Passagers</span><span>'+c.n+(c.van?' · van':' · berline')+(c.deux?' · 2 véhicules':'')+'</span></div>';
+  '<div class="ligne"><span>Passagers</span><span>'+c.n+(c.tpmr?' · van TPMR':(c.van?' · van':' · berline'))+(c.deux?' · 2 véhicules':'')+'</span></div>';
   document.getElementById('recap').innerHTML=r;
   affiche({set innerHTML(v){document.getElementById('recap').innerHTML+=v}},c,false)}
  window.scrollTo(0,0)}
 function confirmer(){var c=calc();
- document.getElementById('cmsg').textContent='Votre demande de transfert '+c.A.n+' → '+c.B.n+' ('+c.total+' € TTC, acompte '+c.acompte+' €) est bien enregistrée.';
+ document.getElementById('cmsg').textContent='Votre demande de transfert '+c.A.n+' → '+c.B.n+(c.tpmr?' en van TPMR (sur devis)':' ('+c.total+' € TTC)')+' est bien enregistrée.';
  document.getElementById('cref').textContent='RTS-'+new Date().getFullYear()+'-'+String(Math.floor(1000+Math.random()*9000));
  etape(4)}
 </script></body></html>
