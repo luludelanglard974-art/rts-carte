@@ -60,6 +60,31 @@ p.sous{font-size:15px;color:rgba(255,255,255,.82);margin:10px 0 18px;max-width:7
 .encours b{display:block;font-size:12px;letter-spacing:.8px;text-transform:uppercase;color:rgba(2,17,50,.55);margin-bottom:3px}
 .encours span{font-weight:700}
 .encours .ic{color:var(--roi);font-size:17px}
+/* ---- Panier du sejour : socle (transferts inclus) + options cochables + total en direct ---- */
+.panier .ttl{display:block;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;margin:14px 0 6px;color:rgba(2,17,50,.6)}
+.socle{background:var(--marine);color:var(--blanc);border-radius:12px;padding:10px 12px 8px;margin-top:14px}
+.socle .ttl{color:rgba(255,255,255,.72);margin:0 0 4px}
+.socle .ln{display:flex;align-items:center;gap:8px;padding:7px 0;border-top:1px solid rgba(255,255,255,.14);font-size:13.5px;line-height:1.3}
+.socle .ln:first-child{border-top:none}
+.socle .ln .lb{flex:1}.socle .ln .lb small{display:block;font-size:11.5px;color:rgba(255,255,255,.65)}
+.socle .ln .px{font-weight:800;white-space:nowrap}
+.socle .ln .inc{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--jaune);border:1px solid rgba(251,214,8,.6);border-radius:6px;padding:2px 5px;white-space:nowrap}
+.petit{font-size:12px;color:rgba(2,17,50,.55);margin-top:8px;line-height:1.4}
+.options .op{display:flex;align-items:center;gap:9px;padding:8px 0;border-top:1px solid rgba(2,17,50,.08);font-size:14px;cursor:pointer}
+.options .op:first-child{border-top:none}
+.options .op input{width:20px;height:20px;accent-color:var(--roi);flex:none;margin:0}
+.options .op .lb{flex:1;line-height:1.3}.options .op .lb small{display:block;font-size:11.5px;color:rgba(2,17,50,.55)}
+.options .op .lb small[hidden]{display:none}
+.options .op .px{font-weight:800;color:var(--roi);white-space:nowrap}
+.options .op.lock{cursor:default}.options .op.lock .lb small.verrou{color:var(--roi);font-weight:700}
+.total{margin-top:14px;background:var(--jaune);color:var(--marine);border-radius:12px;padding:12px 14px;box-shadow:0 4px 12px rgba(2,17,50,.25);background-image:linear-gradient(180deg,rgba(255,255,255,.35),rgba(255,255,255,0) 55%)}
+.total .lb{display:block;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.8px}
+.total strong{display:block;font-size:30px;font-weight:900;line-height:1.1;margin:2px 0 10px}
+.total .btn{width:100%}
+.legdet{margin-top:14px;border-top:1px solid rgba(2,17,50,.1)}
+.legdet summary{cursor:pointer;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:rgba(2,17,50,.6);padding:10px 0 6px;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.legdet summary::-webkit-details-marker{display:none}
+.legdet summary::after{content:'+';font-size:18px;line-height:1}.legdet[open] summary::after{content:'−'}
 .ctrl{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;align-items:center}
 .ctrl .info{font-size:14px;color:rgba(255,255,255,.85)}
 /* ---- 4. Deux portes de sortie ---- */
@@ -74,6 +99,8 @@ p.sous{font-size:15px;color:rgba(255,255,255,.82);margin:10px 0 18px;max-width:7
 .pasagence .sortie{gap:8px;padding:20px 18px}
 .pasagence .sortie:nth-child(2n){border-top-color:var(--roi)}
 .pasagence .sortie:nth-child(5){border-top-color:var(--jaune)}
+.pasagence .sortie .em{width:56px;height:56px;border-radius:16px;align-items:center;justify-content:center;color:var(--blanc);background-color:var(--roi);background-image:linear-gradient(180deg,rgba(255,255,255,.30),rgba(255,255,255,0) 55%);box-shadow:0 4px 10px rgba(1,65,172,.45),inset 0 1px 0 rgba(255,255,255,.35);font-size:28px;flex:none}
+.pasagence .sortie .em .ic{width:28px;height:28px}
 .pasagence .sortie h3{font-size:17px}
 .pasfin{margin:26px auto 0;max-width:760px;text-align:center;color:var(--blanc);font-size:clamp(18px,2.4vw,24px);font-weight:800;line-height:1.35;text-shadow:0 1px 3px rgba(0,0,0,.4)}
 /* ---- Les 5 formules : vignettes immersives (donnees lues dans le moteur de la carte) ---- */
@@ -132,10 +159,12 @@ footer.rts .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
 .et b,.et i{grid-column:2}
 .demo{grid-template-columns:1fr}
 .scene{aspect-ratio:auto;height:420px;scroll-margin-top:12px} /* hauteur fixe : le vh bouge avec la barre d'adresse du telephone */
-.legende{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;padding:12px 14px}
-.legende h3{grid-column:1/-1}
-.lg{padding:6px 0}.lg+.lg{border-top:none}.lg .trait{display:none}.lg .sw{width:30px;height:30px;font-size:15px}
-.encours{grid-column:1/-1;margin-top:6px;min-height:0}
+/* ecran etroit : panneau sous la carte ; le total et le bouton Reserver restent colles en bas de l'ecran */
+.legende{display:flex;flex-direction:column;padding:12px 14px}
+.legdet{order:8}
+.total{order:9;position:sticky;bottom:8px;z-index:5;margin-top:12px}
+.lg{padding:6px 0}.lg .trait{display:none}.lg .sw{width:30px;height:30px;font-size:15px}
+.encours{margin-top:6px;min-height:0}
 .sorties{grid-template-columns:1fr}
 .ctrl .btn{flex:1 1 auto}
 .trips{grid-template-columns:1fr}
@@ -185,13 +214,19 @@ footer.rts .co{font-size:14px}footer.rts .co a{display:inline-flex;align-items:c
   </div>
   <!-- Legende : les pastilles reprennent les couleurs telles que le moteur de carte.html trace les lignes
        (bleu roi transfert, vert sentier, orange bagages, violet box). Elles decrivent la carte, pas la page. -->
-  <aside class="legende" id="legende">
-   <h3>Légende</h3>
+  <aside class="legende panier" id="legende">
+   <h3>Votre séjour</h3>
+   <div class="encours" id="encours"><b>Étape en cours</b><span>En attente : appuyez sur « Lancer la démonstration ».</span></div>
+   <div class="socle"><span class="ttl">Compris dans le parcours</span><div id="socle"><div class="ln"><span class="lb">Chargement du parcours…</span></div></div></div>
+   <p class="petit">Aucun véhicule n'est basé en montagne : les transferts sont indispensables.</p>
+   <div class="options"><span class="ttl">Vos options</span><div id="options"></div></div>
+   <div class="total" id="total"><span class="lb">Total de votre séjour</span><strong id="totalVal">— €</strong><a class="btn marine" href="reservation.html">Réserver ce séjour</a></div>
+   <details class="legdet"><summary>Légende de la carte</summary>
    <div class="lg"><span class="sw" style="background-color:#0141AC"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8" /><path d="M7 14h.01" /><path d="M17 14h.01" /><rect width="18" height="8" x="3" y="10" rx="2" /><path d="M5 18v2" /><path d="M19 18v2" /></svg></span><span class="tx"><b>Transfert véhicule</b><i>Tracé bleu, avec le tarif</i></span><span class="trait" style="background:#0141AC"></span></div>
    <div class="lg"><span class="sw" style="background-color:#06651E"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5.5c0 3.11-2 5.66-2 8.68V16a2 2 0 1 1-4 0Z" /><path d="M20 20v-2.38c0-2.12 1.03-3.12 1-5.62-.03-2.72-1.49-6-4.5-6C14.63 6 14 7.8 14 9.5c0 3.11 2 5.66 2 8.68V20a2 2 0 1 0 4 0Z" /><path d="M16 17h4" /><path d="M4 13h4" /></svg></span><span class="tx"><b>Randonnée</b><i>Tracé vert pointillé</i></span><span class="trait" style="background:repeating-linear-gradient(90deg,#06651E 0 6px,transparent 6px 10px)"></span></div>
    <div class="lg"><span class="sw" style="background-color:#E87A1E"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2" /><path d="M8 18V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v14" /><path d="M10 20h4" /><circle cx="16" cy="20" r="2" /><circle cx="8" cy="20" r="2" /></svg></span><span class="tx"><b>Bagages</b><i>Tracé orange pointillé</i></span><span class="trait" style="background:repeating-linear-gradient(90deg,#E87A1E 0 8px,transparent 8px 12px)"></span></div>
    <div class="lg"><span class="sw" style="background-color:#6B4EA8"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="16" r="1" /><rect x="3" y="10" width="18" height="12" rx="2" /><path d="M7 10V7a5 5 0 0 1 10 0v3" /></svg></span><span class="tx"><b>Box sécurisé du Port</b><i>Marqueur violet permanent</i></span><span class="trait" style="background:#6B4EA8;width:22px;height:22px;border-radius:50%;border:2.5px solid #FFFFFF;box-shadow:0 2px 5px rgba(0,0,0,.35)"></span></div>
-   <div class="encours" id="encours"><b>Étape en cours</b><span>En attente : appuyez sur « Lancer la démonstration ».</span></div>
+   </details>
   </aside>
  </div>
 
@@ -254,7 +289,8 @@ function cadrer(pid){var P=parcours(pid);if(!P)return;cw.map.invalidateSize();cw
 var aBouge=false;['wheel','touchmove','keydown'].forEach(function(ev){window.addEventListener(ev,function(){aBouge=true},{passive:true})});
 fr.addEventListener('load',function(){cw=fr.contentWindow;cd=cw.document;if(!aBouge)window.scrollTo(0,0);setTimeout(function(){if(!aBouge)window.scrollTo(0,0)},500);
  var st=cd.createElement('style');st.textContent=CSS_CADRE;cd.head.appendChild(st);
- setTimeout(function(){try{cadrer(PID);construireFormules();pret=true}catch(e){info.textContent='La carte n\'a pas pu se charger.'}},450)});
+ setTimeout(function(){try{construirePanier(parcours(PID))}catch(e){}
+  try{cadrer(PID);construireFormules();pret=true}catch(e){info.textContent='La carte n\'a pas pu se charger.'}},450)});
 function marqueEtape(n,fait){document.querySelectorAll('.et').forEach(function(el){var k=parseInt(el.dataset.etape);el.classList.toggle('now',k===n);el.classList.toggle('fait',fait?k<=4:(n?k<n:false))})}
 function etapeDe(P,idx){var e=P.E[idx];if(!e)return 0;var port=cw.PT.lport;
  var estPort=function(x){return x&&x[0]===port[0]&&x[1]===port[1]};
@@ -277,7 +313,25 @@ function totalP(P){var t=0;P.E.forEach(function(e){if(e.p)t+=cw.PX(e.p)});return
 function lancerDemo(pid){if(!pret)return;PID=pid||PID;fini=false;var P=parcours(PID);
  rideau.hidden=true;btnPause.hidden=false;btnRejouer.hidden=true;btnPause.textContent='⏸ Pause';
  info.textContent=P.n+' · '+P.sub;document.getElementById('demoSous').textContent='Le point bleu suit la route, le vert marche sur les sentiers, l\'orange transporte les sacs.';
- cadrer(PID);cw.lancer(PID);marqueEtape(1,false);surveille();voirDemo()}
+ construirePanier(P);cadrer(PID);cw.lancer(PID);marqueEtape(1,false);surveille();voirDemo()}
+/* ---- Panier : socle = transferts du parcours (inclus, non decochables) ; options = box + livraisons de bagages du parcours ;
+   regle : une livraison cochee impose le gardiennage au box (coche et verrouille) ; total recalcule a chaque clic ---- */
+function lieuDe(ll){var PT=cw.PT;var eq=function(k){return PT[k]&&ll&&PT[k][0]===ll[0]&&PT[k][1]===ll[1]};
+ if(eq('ci'))return 'Cilaos';if(eq('bm'))return 'Bourg-Murat';if(eq('da'))return "Dos d'Âne";if(eq('hb'))return 'Hell-Bourg';if(eq('cb'))return 'Col des Bœufs';return null}
+var panierBase=0;
+function construirePanier(P){if(!P)return;var socle=document.getElementById('socle'),opts=document.getElementById('options');
+ var h='';panierBase=0;P.E.forEach(function(e){if(e.t==='r'){var px=e.p?cw.PX(e.p):null;if(px)panierBase+=px;
+  h+='<div class="ln"><span class="lb">'+(e.j?e.j+' · ':'')+e.n+'</span>'+(px?'<span class="px">'+px+' €</span>':'')+'<span class="inc">inclus</span></div>'}});
+ socle.innerHTML=h||'<div class="ln"><span class="lb">Aucun transfert sur ce parcours.</span></div>';
+ var o='<label class="op" id="opBox"><input type="checkbox" id="optBox" data-px="30"><span class="lb">Gardiennage au box du Port<small>Forfait groupe</small><small class="verrou" id="verrou" hidden>Les bagages partent du box du Port.</small></span><span class="px">30 €</span></label>';
+ var vus={};P.E.forEach(function(e){if(e.t==='b'&&e.p){var l=lieuDe(e.a);if(!l||vus[l])return;vus[l]=1;var px=cw.PX(e.p);
+  o+='<label class="op"><input type="checkbox" class="optLiv" data-px="'+px+'"><span class="lb">Livraison des bagages à '+l+'</span><span class="px">'+px+' €</span></label>'}});
+ opts.innerHTML=o;opts.querySelectorAll('input').forEach(function(c){c.addEventListener('change',majPanier)});majPanier()}
+function majPanier(){var box=document.getElementById('optBox'),op=document.getElementById('opBox'),v=document.getElementById('verrou');if(!box)return;
+ var livs=[].slice.call(document.querySelectorAll('.optLiv')),uneLiv=livs.some(function(c){return c.checked});
+ if(uneLiv){box.checked=true;box.disabled=true;op.classList.add('lock');v.hidden=false}else{box.disabled=false;op.classList.remove('lock');v.hidden=true}
+ var t=panierBase;document.querySelectorAll('#options input').forEach(function(c){if(c.checked)t+=parseInt(c.dataset.px)});
+ document.getElementById('totalVal').textContent=t+' €'}
 /* on cale toujours l'ecran sur la carte (jamais sur la legende), petite marge haute via scroll-margin-top, puis on redonne sa taille a Leaflet */
 function voirDemo(){document.querySelector('.scene').scrollIntoView({block:'start',behavior:'smooth'});setTimeout(function(){try{cw.map.invalidateSize()}catch(e){}},300)}
 btnLancer.onclick=function(){lancerDemo(PID)};
