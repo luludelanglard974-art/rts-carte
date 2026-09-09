@@ -5,6 +5,7 @@
 /* Palette RTS officielle, et rien d'autre : marine, bleu roi, rouge, jaune, blanc, creme */
 :root{--marine:#021132;--roi:#0141AC;--rouge:#DE0715;--jaune:#FBD608;--blanc:#FFFFFF;--creme:#FCF9F4;--l:rgba(2,17,50,.14)}
 *{margin:0;padding:0;box-sizing:border-box}
+.ic{width:1em;height:1em;display:inline-block;vertical-align:-.14em;flex:none}
 @keyframes fadeup{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 html{background:var(--marine)}
 /* fond en degrade vertical : bleu roi en haut, marine en bas, avec un relief de bandes fines */
@@ -24,17 +25,18 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .wrap{max-width:1100px;margin:0 auto;padding:30px clamp(14px,3vw,28px) 26px}
 h2.sect{font-size:clamp(20px,2.6vw,26px);font-weight:900;color:var(--blanc);margin-bottom:6px;padding-bottom:8px;border-bottom:3px solid var(--rouge);text-shadow:0 1px 3px rgba(0,0,0,.35)}
 p.sous{font-size:15px;color:rgba(255,255,255,.82);margin:10px 0 18px;max-width:720px;line-height:1.5}
-/* ---- 2. Le deroule en 4 etapes ---- */
-.etapes{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.et{position:relative;background:var(--blanc);border:1px solid var(--l);border-radius:16px;padding:22px 16px 18px;box-shadow:0 8px 20px rgba(0,0,0,.28);transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
-.et .num{position:absolute;top:-14px;left:16px;width:32px;height:32px;border-radius:10px;background:var(--rouge);color:var(--blanc);font-size:15px;font-weight:900;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(222,7,21,.45)}
-.et .pic{display:flex;gap:6px;line-height:1;margin:6px 0 12px}
-.et .pic span{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 3px 8px rgba(2,17,50,.25),inset 0 1px 0 rgba(255,255,255,.3);background-image:linear-gradient(180deg,rgba(255,255,255,.22),rgba(0,0,0,.14))}
-.et .pic .r{background-color:var(--roi)}.et .pic .w{background-color:var(--marine)}.et .pic .b{background-color:var(--rouge)}.et .pic .x{background-color:var(--jaune)}
-.et b{display:block;font-size:16px;line-height:1.3}
-.et i{display:block;font-style:normal;font-size:14px;line-height:1.5;color:rgba(2,17,50,.65);margin-top:6px}
-.et.now{border-color:var(--jaune);box-shadow:0 0 0 3px rgba(251,214,8,.55),0 10px 22px rgba(0,0,0,.3);transform:translateY(-3px)}
-.et.fait .num{background:var(--roi);box-shadow:0 3px 8px rgba(1,65,172,.45)}
+/* ---- 2. Le deroule : frise horizontale, 4 etapes reliees par un trait fin, icone au-dessus, texte dessous ---- */
+.frise{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;position:relative;padding-top:6px}
+.frise::before{content:'';position:absolute;left:12.5%;right:12.5%;top:36px;height:2px;background:rgba(255,255,255,.55)}
+.et{position:relative;text-align:center;padding:0 6px}
+.et .ico{position:relative;z-index:1;width:60px;height:60px;border-radius:18px;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;background:var(--blanc);color:var(--roi);border:2.5px solid var(--creme);box-shadow:0 6px 14px rgba(0,0,0,.35);transition:background .25s,color .25s,box-shadow .25s}
+.et .ico .ic{width:30px;height:30px}
+.et .num{display:block;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:5px}
+.et b{display:block;font-size:16px;line-height:1.3;color:var(--blanc);text-shadow:0 1px 3px rgba(0,0,0,.4)}
+.et i{display:block;font-style:normal;font-size:14px;line-height:1.5;color:rgba(255,255,255,.8);margin-top:6px}
+.et.now .ico{background:var(--jaune);color:var(--marine);box-shadow:0 0 0 4px rgba(251,214,8,.45),0 6px 14px rgba(0,0,0,.35)}
+.et.now .num{color:var(--jaune)}
+.et.fait .ico{background:var(--roi);color:var(--blanc)}
 /* ---- 3. La demo ---- */
 .demo{margin-top:36px;display:grid;grid-template-columns:1fr 300px;gap:18px;align-items:start}
 .scene{position:relative;background:var(--marine);border-radius:18px;overflow:hidden;box-shadow:0 10px 26px rgba(0,0,0,.35);border:3px solid var(--blanc);aspect-ratio:16/10;min-height:340px}
@@ -46,19 +48,20 @@ p.sous{font-size:15px;color:rgba(255,255,255,.82);margin:10px 0 18px;max-width:7
 .legende h3{font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:rgba(2,17,50,.6);padding-bottom:8px;border-bottom:2px solid var(--rouge);margin-bottom:8px}
 .lg{display:flex;gap:11px;align-items:center;padding:9px 0}
 .lg+.lg{border-top:1px solid rgba(2,17,50,.07)}
-.lg .sw{width:34px;height:34px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 2px 5px rgba(2,17,50,.25),inset 0 1px 0 rgba(255,255,255,.3);background-image:linear-gradient(180deg,rgba(255,255,255,.22),rgba(0,0,0,.14))}
+.lg .sw{width:34px;height:34px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--blanc);box-shadow:0 2px 5px rgba(2,17,50,.25),inset 0 1px 0 rgba(255,255,255,.3);background-image:linear-gradient(180deg,rgba(255,255,255,.22),rgba(0,0,0,.14))}
 .lg .tx{font-size:14px;line-height:1.35}.lg .tx b{display:block;font-size:15px}.lg .tx i{font-style:normal;color:rgba(2,17,50,.6)}
 .lg .trait{width:34px;height:6px;border-radius:3px;flex:none;margin-left:auto}
 .encours{margin-top:12px;padding:12px 13px;border-radius:12px;background:var(--creme);border-left:4px solid var(--rouge);font-size:14px;line-height:1.45;min-height:64px}
 .encours b{display:block;font-size:12px;letter-spacing:.8px;text-transform:uppercase;color:rgba(2,17,50,.55);margin-bottom:3px}
 .encours span{font-weight:700}
+.encours .ic{color:var(--roi);font-size:17px}
 .ctrl{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;align-items:center}
 .ctrl .info{font-size:14px;color:rgba(255,255,255,.85)}
 /* ---- 4. Deux portes de sortie ---- */
 .sorties{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px}
 .sortie{display:flex;flex-direction:column;gap:10px;background:var(--blanc);border:1px solid var(--l);border-radius:18px;padding:22px 20px;box-shadow:0 8px 20px rgba(0,0,0,.28);border-top:5px solid var(--rouge)}
 .sortie.carte{border-top-color:var(--jaune)}
-.sortie .em{font-size:30px}
+.sortie .em{font-size:30px;color:var(--roi);display:flex}
 .sortie h3{font-size:19px;font-weight:900}
 .sortie p{font-size:14.5px;line-height:1.5;color:rgba(2,17,50,.7);flex:1}
 /* ---- Les 5 formules : vignettes immersives (donnees lues dans le moteur de la carte) ---- */
@@ -80,7 +83,8 @@ p.sous{font-size:15px;color:rgba(255,255,255,.82);margin:10px 0 18px;max-width:7
 .vig.ouvert .det{display:block}
 .vig .det .ln{display:flex;gap:9px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(2,17,50,.08);font-size:14px;line-height:1.4}
 .vig .det .ln:last-of-type{border-bottom:none}
-.vig .det .ln .n{flex:none;width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;background:var(--marine)}
+.vig .det .ln .n{flex:none;width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--blanc);background:var(--marine)}
+.vig .det .ln .n.x{color:var(--marine)}
 .vig .det .ln .n.r{background:var(--roi)}.vig .det .ln .n.b{background:var(--rouge)}.vig .det .ln .n.x{background:var(--jaune)}
 .vig .det .ln .c{flex:1}.vig .det .ln .c b{display:block;font-weight:700}.vig .det .ln .c i{font-style:normal;color:rgba(2,17,50,.6)}
 .vig .det .ln .p{flex:none;font-weight:800;color:var(--roi)}
@@ -108,7 +112,12 @@ footer.rts .co a{color:var(--blanc);text-decoration:none}
 footer.rts .co a:hover{color:var(--jaune)}
 footer.rts .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
 @media(max-width:900px){
-.etapes{grid-template-columns:1fr 1fr}
+.frise{grid-template-columns:1fr;gap:0;padding-top:0}
+.frise::before{left:29px;right:auto;top:30px;bottom:30px;width:2px;height:auto}
+.et{display:grid;grid-template-columns:60px 1fr;column-gap:14px;text-align:left;padding:10px 0}
+.et .ico{margin:0;grid-row:1/4}
+.et .num{grid-column:2}
+.et b,.et i{grid-column:2}
 .demo{grid-template-columns:1fr}
 .scene{aspect-ratio:auto;height:min(58vh,560px)}
 .legende{order:-1;display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;padding:12px 14px}
@@ -121,7 +130,7 @@ footer.rts .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
 footer.rts .co{font-size:14px}footer.rts .co a{display:inline-flex;align-items:center;min-height:44px;padding:0 4px}footer.rts .lg{font-size:14px}
 .hero .sur small{font-size:14px}.encours b{font-size:14px}.legende h3{font-size:14px}.vig .ph .eur small{font-size:14px}
 }
-@media(max-width:600px){.etapes{grid-template-columns:1fr}.hero{height:min(58vh,480px);min-height:340px}.hero h1{max-width:none}.vig .ph .txt{right:140px}}
+@media(max-width:600px){.hero{height:min(58vh,480px);min-height:340px}.hero h1{max-width:none}.vig .ph .txt{right:140px}}
 </style></head><body>
 
 <section class="hero">
@@ -138,12 +147,12 @@ footer.rts .co{font-size:14px}footer.rts .co a{display:inline-flex;align-items:c
 <div class="wrap">
  <h2 class="sect">Comment ça marche, en quatre étapes</h2>
  <p class="sous">Le même cycle se répète à chaque changement de gîte : vous ne portez jamais votre gros sac, et il vous attend toujours à l'arrivée.</p>
- <div class="etapes" id="etapes">
-  <div class="et anim d1" data-etape="1"><span class="num">1</span><div class="pic"><span class="r">🚗</span></div><b>On vous dépose au départ du sentier</b><i>Accueil à l'aéroport ou à votre hébergement, puis transfert jusqu'au point de départ de la randonnée.</i></div>
-  <div class="et anim d2" data-etape="2"><span class="num">2</span><div class="pic"><span class="b">🧳</span><span class="x">📦</span></div><b>Vos bagages redescendent au box sécurisé du Port</b><i>Pendant que vous marchez, le chauffeur ramène vos valises au box sécurisé de RTS.</i></div>
-  <div class="et anim d3" data-etape="3"><span class="num">3</span><div class="pic"><span class="w">🥾</span><span class="b">🧳</span></div><b>Ils vous attendent à l'étape suivante de votre parcours</b><i>Le sac propre quitte le box et rejoint votre gîte par la route, avant que vous n'arriviez à pied.</i></div>
-  <div class="et anim d4" data-etape="4"><span class="num">4</span><div class="pic"><span class="r">🚗</span><span class="b">🧳</span></div><b>On vous récupère à l'arrivée, avec vos affaires</b><i>Dernier transfert : le chauffeur charge vos bagages au box et vous retrouve au bout du sentier.</i></div>
- </div>
+ <ol class="frise" id="etapes">
+  <li class="et anim d1" data-etape="1"><span class="ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8" /><path d="M7 14h.01" /><path d="M17 14h.01" /><rect width="18" height="8" x="3" y="10" rx="2" /><path d="M5 18v2" /><path d="M19 18v2" /></svg></span><span class="num">Étape 1</span><b>On vous dépose au départ du sentier</b><i>Accueil à l'aéroport ou à votre hébergement, puis transfert jusqu'au point de départ de la randonnée.</i></li>
+  <li class="et anim d2" data-etape="2"><span class="ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2" /><path d="M8 18V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v14" /><path d="M10 20h4" /><circle cx="16" cy="20" r="2" /><circle cx="8" cy="20" r="2" /></svg></span><span class="num">Étape 2</span><b>Vos bagages redescendent au box sécurisé du Port</b><i>Pendant que vous marchez, le chauffeur ramène vos valises au box sécurisé de RTS.</i></li>
+  <li class="et anim d3" data-etape="3"><span class="ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5.5c0 3.11-2 5.66-2 8.68V16a2 2 0 1 1-4 0Z" /><path d="M20 20v-2.38c0-2.12 1.03-3.12 1-5.62-.03-2.72-1.49-6-4.5-6C14.63 6 14 7.8 14 9.5c0 3.11 2 5.66 2 8.68V20a2 2 0 1 0 4 0Z" /><path d="M16 17h4" /><path d="M4 13h4" /></svg></span><span class="num">Étape 3</span><b>Ils vous attendent à l'étape suivante de votre parcours</b><i>Le sac propre quitte le box et rejoint votre gîte par la route, avant que vous n'arriviez à pied.</i></li>
+  <li class="et anim d4" data-etape="4"><span class="ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="16" r="1" /><rect x="3" y="10" width="18" height="12" rx="2" /><path d="M7 10V7a5 5 0 0 1 10 0v3" /></svg></span><span class="num">Étape 4</span><b>On vous récupère à l'arrivée, avec vos affaires</b><i>Dernier transfert : le chauffeur charge vos bagages au box et vous retrouve au bout du sentier.</i></li>
+ </ol>
 
  <div class="demo">
   <div>
@@ -166,10 +175,10 @@ footer.rts .co{font-size:14px}footer.rts .co a{display:inline-flex;align-items:c
        (bleu roi transfert, vert sentier, orange bagages, violet box). Elles decrivent la carte, pas la page. -->
   <aside class="legende" id="legende">
    <h3>Légende</h3>
-   <div class="lg"><span class="sw" style="background-color:#0141AC">🚗</span><span class="tx"><b>Transfert véhicule</b><i>Tracé bleu, avec le tarif</i></span><span class="trait" style="background:#0141AC"></span></div>
-   <div class="lg"><span class="sw" style="background-color:#06651E">🥾</span><span class="tx"><b>Randonnée</b><i>Tracé vert pointillé</i></span><span class="trait" style="background:repeating-linear-gradient(90deg,#06651E 0 6px,transparent 6px 10px)"></span></div>
-   <div class="lg"><span class="sw" style="background-color:#E87A1E">🧳</span><span class="tx"><b>Bagages</b><i>Tracé orange pointillé</i></span><span class="trait" style="background:repeating-linear-gradient(90deg,#E87A1E 0 8px,transparent 8px 12px)"></span></div>
-   <div class="lg"><span class="sw" style="background-color:#6B4EA8">📦</span><span class="tx"><b>Box sécurisé du Port</b><i>Marqueur violet permanent</i></span><span class="trait" style="background:#6B4EA8;width:22px;height:22px;border-radius:50%;border:2.5px solid #FFFFFF;box-shadow:0 2px 5px rgba(0,0,0,.35)"></span></div>
+   <div class="lg"><span class="sw" style="background-color:#0141AC"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8" /><path d="M7 14h.01" /><path d="M17 14h.01" /><rect width="18" height="8" x="3" y="10" rx="2" /><path d="M5 18v2" /><path d="M19 18v2" /></svg></span><span class="tx"><b>Transfert véhicule</b><i>Tracé bleu, avec le tarif</i></span><span class="trait" style="background:#0141AC"></span></div>
+   <div class="lg"><span class="sw" style="background-color:#06651E"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5.5c0 3.11-2 5.66-2 8.68V16a2 2 0 1 1-4 0Z" /><path d="M20 20v-2.38c0-2.12 1.03-3.12 1-5.62-.03-2.72-1.49-6-4.5-6C14.63 6 14 7.8 14 9.5c0 3.11 2 5.66 2 8.68V20a2 2 0 1 0 4 0Z" /><path d="M16 17h4" /><path d="M4 13h4" /></svg></span><span class="tx"><b>Randonnée</b><i>Tracé vert pointillé</i></span><span class="trait" style="background:repeating-linear-gradient(90deg,#06651E 0 6px,transparent 6px 10px)"></span></div>
+   <div class="lg"><span class="sw" style="background-color:#E87A1E"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2" /><path d="M8 18V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v14" /><path d="M10 20h4" /><circle cx="16" cy="20" r="2" /><circle cx="8" cy="20" r="2" /></svg></span><span class="tx"><b>Bagages</b><i>Tracé orange pointillé</i></span><span class="trait" style="background:repeating-linear-gradient(90deg,#E87A1E 0 8px,transparent 8px 12px)"></span></div>
+   <div class="lg"><span class="sw" style="background-color:#6B4EA8"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="16" r="1" /><rect x="3" y="10" width="18" height="12" rx="2" /><path d="M7 10V7a5 5 0 0 1 10 0v3" /></svg></span><span class="tx"><b>Box sécurisé du Port</b><i>Marqueur violet permanent</i></span><span class="trait" style="background:#6B4EA8;width:22px;height:22px;border-radius:50%;border:2.5px solid #FFFFFF;box-shadow:0 2px 5px rgba(0,0,0,.35)"></span></div>
    <div class="encours" id="encours"><b>Étape en cours</b><span>En attente : appuyez sur « Lancer la démonstration ».</span></div>
   </aside>
  </div>
@@ -177,8 +186,8 @@ footer.rts .co{font-size:14px}footer.rts .co a{display:inline-flex;align-items:c
  <h2 class="sect" style="margin-top:36px">Et maintenant ?</h2>
  <p class="sous">Deux façons de continuer, selon ce que vous cherchez.</p>
  <div class="sorties">
-  <div class="sortie"><span class="em">🥾</span><h3>Les formules Trek</h3><p>Cinq traversées clés en main, du court aller-retour à la grande traversée de douze jours, avec le détail des prestations RTS et leur tarif.</p><a class="btn rouge" id="btnFormules" href="#formules">Voir les formules Trek</a></div>
-  <div class="sortie carte"><span class="em">🗺️</span><h3>La carte par secteur</h3><p>Nord, Mafate, Cilaos, Salazie, Volcan : les sentiers, les transferts possibles et les hébergements, secteur par secteur.</p><a class="btn" href="carte.html">Explorer la carte par secteur</a></div>
+  <div class="sortie"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5.5c0 3.11-2 5.66-2 8.68V16a2 2 0 1 1-4 0Z" /><path d="M20 20v-2.38c0-2.12 1.03-3.12 1-5.62-.03-2.72-1.49-6-4.5-6C14.63 6 14 7.8 14 9.5c0 3.11 2 5.66 2 8.68V20a2 2 0 1 0 4 0Z" /><path d="M16 17h4" /><path d="M4 13h4" /></svg></span><h3>Les formules Trek</h3><p>Cinq traversées clés en main, du court aller-retour à la grande traversée de douze jours, avec le détail des prestations RTS et leur tarif.</p><a class="btn rouge" id="btnFormules" href="#formules">Voir les formules Trek</a></div>
+  <div class="sortie carte"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z" /><path d="M15 5.764v15" /><path d="M9 3.236v15" /></svg></span><h3>La carte par secteur</h3><p>Nord, Mafate, Cilaos, Salazie, Volcan : les sentiers, les transferts possibles et les hébergements, secteur par secteur.</p><a class="btn" href="carte.html">Explorer la carte par secteur</a></div>
  </div>
 
  <section class="formules" id="formules" hidden>
@@ -191,8 +200,8 @@ footer.rts .co{font-size:14px}footer.rts .co a{display:inline-flex;align-items:c
 
 <footer class="rts">
  <div class="co">
-  <span>📞 <a href="tel:0693911267">06 93 91 12 67</a></span>
-  <span>✉️ <a href="mailto:runtransfertsservices@gmail.com">runtransfertsservices@gmail.com</a></span>
+  <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /></svg> <a href="tel:0693911267">06 93 91 12 67</a></span>
+  <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /><rect x="2" y="4" width="20" height="16" rx="2" /></svg> <a href="mailto:runtransfertsservices@gmail.com">runtransfertsservices@gmail.com</a></span>
   <span><a href="https://www.facebook.com/share/1cknUjSFH1/" target="_blank" rel="noopener">Facebook</a></span>
   <span><a href="https://www.instagram.com/runtransfertservices/" target="_blank" rel="noopener">Instagram</a></span>
  </div>
@@ -204,6 +213,7 @@ footer.rts .co{font-size:14px}footer.rts .co a{display:inline-flex;align-items:c
    un cadre (iframe, meme origine), son interface est masquee par une feuille de style injectee, et
    ses fonctions (lancer, togglePause, map, PARCOURS, PX) sont appelees directement. Rien n'est recopie.
    Rien ne demarre au chargement : seul le bouton "Lancer la demonstration" appelle lancer(). */
+var ICO={r:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8" /><path d="M7 14h.01" /><path d="M17 14h.01" /><rect width="18" height="8" x="3" y="10" rx="2" /><path d="M5 18v2" /><path d="M19 18v2" /></svg>',b:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2" /><path d="M8 18V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v14" /><path d="M10 20h4" /><circle cx="16" cy="20" r="2" /><circle cx="8" cy="20" r="2" /></svg>',x:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="16" r="1" /><rect x="3" y="10" width="18" height="12" rx="2" /><path d="M7 10V7a5 5 0 0 1 10 0v3" /></svg>',w:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5.5c0 3.11-2 5.66-2 8.68V16a2 2 0 1 1-4 0Z" /><path d="M20 20v-2.38c0-2.12 1.03-3.12 1-5.62-.03-2.72-1.49-6-4.5-6C14.63 6 14 7.8 14 9.5c0 3.11 2 5.66 2 8.68V20a2 2 0 1 0 4 0Z" /><path d="M16 17h4" /><path d="M4 13h4" /></svg>'};function pico(e){return ICO[e.t==='r'?'r':(e.t==='b'?'b':(e.t==='x'?'x':'w'))]}
 var fr=document.getElementById('demoFrame'),cw=null,cd=null,pret=false,PID='tr',suivi=null,fini=false;
 var rideau=document.getElementById('rideau'),btnLancer=document.getElementById('btnLancer'),btnPause=document.getElementById('btnPause'),btnRejouer=document.getElementById('btnRejouer'),info=document.getElementById('demoInfo'),encours=document.getElementById('encours');
 var CSS_CADRE='.bar,.zones,.tiroir,.hud,.calq{display:none!important}.stage{position:absolute!important;inset:0}.mw{position:absolute!important;inset:0}.mw .leaflet-bottom{bottom:0!important}';
@@ -231,7 +241,7 @@ function etapeDe(P,idx){var e=P.E[idx];if(!e)return 0;var port=cw.PT.lport;
  return 3}
 function surveille(){clearInterval(suivi);var P=parcours(PID);
  suivi=setInterval(function(){var now=cd.querySelector('.step.now'),bp=cd.getElementById('bp');
-  if(now){var idx=parseInt(now.id.slice(2)),e=P.E[idx];var pic=e.t==='r'?'🚗':(e.t==='b'?'🧳':(e.t==='x'?'📦':'🥾'));
+  if(now){var idx=parseInt(now.id.slice(2)),e=P.E[idx];var pic=pico(e);
    encours.innerHTML='<b>Étape en cours</b>'+pic+' <span>'+(e.j?e.j+' · ':'')+e.n+'</span>'+(e.i?'<br>'+e.i:'');
    marqueEtape(etapeDe(P,idx),false)}
   if(bp&&bp.textContent.indexOf('Terminé')>=0&&!fini){fini=true;clearInterval(suivi);marqueEtape(0,true);
@@ -249,7 +259,7 @@ btnLancer.onclick=function(){lancerDemo(PID)};
 btnRejouer.onclick=function(){lancerDemo(PID)};
 btnPause.onclick=function(){cw.togglePause();var bp=cd.getElementById('bp');btnPause.textContent=(bp&&bp.textContent.indexOf('Reprendre')>=0)?'▶ Reprendre':'⏸ Pause'};
 /* deroule jour par jour d'une formule, lu dans les donnees du moteur */
-function deroule(P){var h='';P.E.forEach(function(e){var cl=e.t==='r'?'r':(e.t==='b'?'b':(e.t==='x'?'x':'w'));var pic=e.t==='r'?'🚗':(e.t==='b'?'🧳':(e.t==='x'?'📦':'🥾'));
+function deroule(P){var h='';P.E.forEach(function(e){var cl=e.t==='r'?'r':(e.t==='b'?'b':(e.t==='x'?'x':'w'));var pic=pico(e);
  h+='<div class="ln"><span class="n '+cl+'">'+pic+'</span><span class="c"><b>'+(e.j?e.j+' · ':'')+e.n+'</b>'+(e.i?'<i>'+e.i+'</i>':'')+(e.km?'<i>'+e.km+' km · +'+e.dp+' m · -'+e.dn+' m · '+e.h+'</i>':'')+'</span>'+(e.p?'<span class="p">'+cw.PX(e.p)+' €</span>':'')+'</div>'});
  return h+'<div class="tot"><b>Prestations RTS pendant le trek</b><span>'+totalP(P)+' €</span></div>'}
 function construireFormules(){var h='';cw.PARCOURS.forEach(function(P){var v=VIG[P.id]||['images/carte-trek.jpg','Randonnée à La Réunion','rouge'];var jours=0;P.E.forEach(function(e){if(e.j){var n=parseInt(e.j.replace('J',''));if(n>jours)jours=n}});

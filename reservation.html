@@ -2,10 +2,14 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Réservation — RTS</title>
 <style>
-:root{--marine:#021132;--roi:#0141AC;--rouge:#DE0715;--jaune:#FBD608;--vert:#06651E;--blanc:#FFFFFF;--creme:#FCF9F4;--l:rgba(2,17,50,.14)}
+/* Palette RTS officielle uniquement */
+:root{--marine:#021132;--roi:#0141AC;--rouge:#DE0715;--jaune:#FBD608;--blanc:#FFFFFF;--creme:#FCF9F4;--l:rgba(2,17,50,.14)}
+.ic{width:1em;height:1em;display:inline-block;vertical-align:-.14em;flex:none}
 *{margin:0;padding:0;box-sizing:border-box}
 @keyframes fadeup{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--creme);color:var(--marine);min-height:100vh}
+html{background:#021132}
+body{background-color:var(--marine);background-image:repeating-linear-gradient(180deg,rgba(255,255,255,.025) 0 2px,rgba(255,255,255,0) 2px 9px),linear-gradient(180deg,var(--roi) 0%,rgba(1,65,172,.55) 35%,var(--marine) 100%);background-attachment:fixed}
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:var(--marine);min-height:100vh}
 header{background:var(--marine);color:var(--blanc);padding:16px 16px 18px;border-bottom:3px solid var(--rouge);box-shadow:0 3px 12px rgba(2,17,50,.25)}
 header .top{display:flex;align-items:center;gap:12px;max-width:760px;margin:0 auto}
 header a.home{color:#fff;text-decoration:none;font-size:12.5px;font-weight:700;padding:7px 12px;border-radius:9px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
@@ -13,8 +17,10 @@ header h1{font-size:19px;font-weight:900}
 header p{font-size:12px;color:rgba(255,255,255,.85);max-width:760px;margin:6px auto 0}
 .wrap{max-width:760px;margin:0 auto;padding:16px 14px 44px}
 .etapes{display:flex;gap:6px;margin-bottom:16px}
-.et{flex:1;text-align:center;font-size:11.5px;font-weight:800;padding:8px 4px;border-radius:9px;background:rgba(2,17,50,.08);color:rgba(2,17,50,.5);box-shadow:inset 0 1px 2px rgba(2,17,50,.06)}
-.et.on{background:var(--roi);background-image:linear-gradient(180deg,rgba(255,255,255,.25),rgba(255,255,255,0) 55%);color:var(--blanc);box-shadow:0 3px 8px rgba(2,17,50,.3),inset 0 1px 0 rgba(255,255,255,.3)}
+/* onglets 1-2-3 : relief glossy RTS (recette du commit 98971e3), inactifs plats */
+.et{flex:1;text-align:center;font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.2px;padding:8px 6px;border-radius:14px;border:2.5px solid transparent;background:rgba(255,255,255,.14);color:rgba(255,255,255,.8);transition:.15s}
+.et.on{--c:var(--roi);color:var(--blanc);background-color:var(--roi);border-color:var(--creme);background-image:linear-gradient(180deg,rgba(255,255,255,.46) 0%,rgba(255,255,255,.34) 50%,rgba(255,255,255,0) 50%,rgba(0,0,0,.20) 84%,rgba(255,255,255,.14) 100%);box-shadow:0 4px 8px -1px var(--c),0 1px 2px rgba(2,17,50,.35);text-shadow:0 1px 1px rgba(0,0,0,.35)}
+@supports(color:color-mix(in srgb,red,blue)){.et.on{box-shadow:0 4px 8px -1px color-mix(in srgb,var(--c) 80%,transparent),0 1px 2px rgba(2,17,50,.35)}}
 .card{animation:fadeup .45s ease both;background:var(--blanc);border-radius:14px;border:1px solid var(--l);box-shadow:0 4px 14px rgba(2,17,50,.12);padding:18px 16px;margin-bottom:14px}
 .card h2{font-size:15px;color:var(--marine);margin-bottom:12px}
 label{display:block;font-size:12px;font-weight:700;color:rgba(2,17,50,.65);margin:10px 0 4px}
@@ -37,7 +43,7 @@ div.devis{animation:fadeup .5s ease both;background:var(--marine);color:var(--bl
 .recap .ligne.tot{color:var(--marine);border-color:var(--l)}
 .recap .ligne.ac{color:var(--roi)}
 .confirm{text-align:center;padding:30px 16px}
-.confirm .ok{font-size:52px}
+.confirm .ok{font-size:52px;color:var(--roi)}
 .confirm h2{color:var(--marine);margin:10px 0 8px}
 .confirm p{font-size:13.5px;color:rgba(2,17,50,.65);line-height:1.55;max-width:460px;margin:0 auto 6px}
 .confirm .ref{display:inline-block;margin-top:10px;font-size:15px;font-weight:900;letter-spacing:1px;padding:9px 18px;border-radius:9px;background:rgba(1,65,172,.08);color:var(--roi);border:1px dashed var(--roi)}
@@ -51,7 +57,7 @@ footer.rts .co a:hover{color:var(--jaune)}
 footer.rts .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
 </style></head><body>
 <header>
- <div class="top"><a class="home" href="index.html">← Accueil</a><h1>🚗 Réservation instantanée</h1></div>
+ <div class="top"><a class="home" href="index.html">← Accueil</a><h1><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8" /><path d="M7 14h.01" /><path d="M17 14h.01" /><rect width="18" height="8" x="3" y="10" rx="2" /><path d="M5 18v2" /><path d="M19 18v2" /></svg> Réservation instantanée</h1></div>
  <p>Maquette de démonstration : tarif calculé en direct, aucun paiement réel.</p>
 </header>
 <div class="wrap">
@@ -70,9 +76,9 @@ footer.rts .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
    </div>
    <label>Passagers</label><select id="pax"></select>
    <label>Options</label>
-   <label class="opt"><input type="checkbox" id="obag">🧳 Bagagerie (transport de bagages)<b>25 €</b></label>
-   <label class="opt"><input type="checkbox" id="obox">📦 Box sécurisé du Port<b>30 €</b></label>
-   <label class="opt"><input type="checkbox" id="osiege">👶 Siège enfant<b>Offert</b></label>
+   <label class="opt"><input type="checkbox" id="obag"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2" /><path d="M8 18V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v14" /><path d="M10 20h4" /><circle cx="16" cy="20" r="2" /><circle cx="8" cy="20" r="2" /></svg> Bagagerie (transport de bagages)<b>25 €</b></label>
+   <label class="opt"><input type="checkbox" id="obox"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="16" r="1" /><rect x="3" y="10" width="18" height="12" rx="2" /><path d="M7 10V7a5 5 0 0 1 10 0v3" /></svg> Box sécurisé du Port<b>30 €</b></label>
+   <label class="opt"><input type="checkbox" id="osiege"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5" /><path d="M15 12h.01" /><path d="M19.38 6.813A9 9 0 0 1 20.8 10.2a2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1" /><path d="M9 12h.01" /></svg> Siège enfant<b>Offert</b></label>
   </div>
   <div class="devis" id="devis"></div>
   <button class="btn" onclick="etape(2)">Continuer ▶</button>
@@ -100,7 +106,7 @@ footer.rts .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
 
  <div id="p4" hidden>
   <div class="card confirm">
-   <div class="ok">✅</div>
+   <div class="ok"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="m16 9-5.5 5.5L8 12" /></svg></div>
    <h2>Demande enregistrée</h2>
    <p id="cmsg"></p>
    <p>Un chauffeur de l'association vous recontacte pour confirmer la course et encaisser l'acompte.</p>
@@ -112,8 +118,8 @@ footer.rts .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
 </div>
 <footer class="rts">
  <div class="co">
-  <span>📞 <a href="tel:0693911267">06 93 91 12 67</a></span>
-  <span>✉️ <a href="mailto:runtransfertsservices@gmail.com">runtransfertsservices@gmail.com</a></span>
+  <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /></svg> <a href="tel:0693911267">06 93 91 12 67</a></span>
+  <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /><rect x="2" y="4" width="20" height="16" rx="2" /></svg> <a href="mailto:runtransfertsservices@gmail.com">runtransfertsservices@gmail.com</a></span>
   <span><a href="https://www.facebook.com/share/1cknUjSFH1/" target="_blank" rel="noopener">Facebook</a></span>
   <span><a href="https://www.instagram.com/runtransfertservices/" target="_blank" rel="noopener">Instagram</a></span>
  </div>
@@ -171,7 +177,7 @@ function affiche(el,c,fonce){
  c.lignes.forEach(function(l){html+='<div class="ligne"><span>'+l[0]+'</span><span>'+(typeof l[1]==='number'?l[1]+' €':l[1])+'</span></div>'});
  html+='<div class="ligne tot"><span>Total TTC</span><span>'+c.total+' €</span></div>';
  html+='<div class="ligne ac"><span>Acompte 30 % à la réservation</span><span>'+c.acompte+' €</span></div>';
- c.alertes.forEach(function(a){html+='<div class="alerte">⚠️ '+a+'</div>'});
+ c.alertes.forEach(function(a){html+='<div class="alerte"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /><path d="M12 9v4" /><path d="M12 17h.01" /></svg> '+a+'</div>'});
  if(fonce)html+='<div class="note">Tarifs TTC indicatifs. Dimanche et nuit : +20 €. Van (5 à 8 passagers) : +20 %. Maquette de démonstration.</div>';
  el.innerHTML=html}
 function maj(){var c=calc();if(c)affiche(document.getElementById('devis'),c,true)}

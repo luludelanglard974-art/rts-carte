@@ -2,43 +2,55 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Transport adapté — RTS</title>
 <style>
-:root{--marine:#021132;--roi:#0141AC;--rouge:#DE0715;--jaune:#FBD608;--vert:#06651E;--blanc:#FFFFFF;--creme:#FCF9F4;--l:rgba(2,17,50,.14)}
+/* Palette RTS officielle uniquement. Univers TPMR : jaune soleil, texte marine. */
+:root{--marine:#021132;--roi:#0141AC;--rouge:#DE0715;--jaune:#FBD608;--blanc:#FFFFFF;--creme:#FCF9F4;--l:rgba(2,17,50,.14)}
+.ic{width:1em;height:1em;display:inline-block;vertical-align:-.14em;flex:none}
 *{margin:0;padding:0;box-sizing:border-box}
 @keyframes fadeup{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--creme);color:var(--marine);min-height:100vh}
-header{background:var(--marine);color:var(--blanc);padding:16px 16px 18px;border-bottom:3px solid var(--rouge);box-shadow:0 3px 12px rgba(2,17,50,.25)}
+html{background:#021132}
+body{background-color:var(--marine);background-image:repeating-linear-gradient(180deg,rgba(255,255,255,.025) 0 2px,rgba(255,255,255,0) 2px 9px),linear-gradient(180deg,var(--roi) 0%,rgba(1,65,172,.55) 35%,var(--marine) 100%);background-attachment:fixed}
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:var(--marine);min-height:100vh}
+header{background:var(--jaune);background-image:linear-gradient(180deg,rgba(255,255,255,.35),rgba(255,255,255,0) 55%);color:var(--marine);padding:16px 16px 18px;border-bottom:3px solid var(--marine);box-shadow:0 3px 12px rgba(2,17,50,.35)}
 header .top{display:flex;align-items:center;gap:12px;max-width:760px;margin:0 auto}
-header a.home{color:#fff;text-decoration:none;font-size:12.5px;font-weight:700;padding:7px 12px;border-radius:9px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
+header a.home{color:#fff;text-decoration:none;font-size:12.5px;font-weight:700;padding:7px 12px;border-radius:9px;background:var(--marine);border:1px solid var(--marine);white-space:nowrap;box-shadow:0 2px 5px rgba(2,17,50,.3)}
 header h1{font-size:19px;font-weight:900}
-header p{font-size:12px;color:rgba(255,255,255,.85);max-width:760px;margin:6px auto 0}
+header p{font-size:12px;color:rgba(2,17,50,.8);font-weight:600;max-width:760px;margin:6px auto 0}
+header h1 .ic{color:var(--marine)}
 .wrap{max-width:760px;margin:0 auto;padding:16px 14px 44px}
 .card{animation:fadeup .45s ease both;background:var(--blanc);border-radius:14px;border:1px solid var(--l);box-shadow:0 4px 14px rgba(2,17,50,.12);padding:18px 16px;margin-bottom:14px}
-.card h2{font-size:16px;color:var(--rouge);margin-bottom:10px}
+.card h2{font-size:16px;color:var(--marine);margin-bottom:10px;padding-bottom:6px;border-bottom:3px solid var(--jaune)}
 .card p{font-size:13.5px;line-height:1.6;color:rgba(2,17,50,.75)}
 .veh{display:flex;align-items:center;gap:12px;padding:12px 12px;border:1px solid var(--l);border-radius:11px;margin-top:9px;background:var(--blanc);box-shadow:0 1px 4px rgba(2,17,50,.07)}
-.veh .em{width:44px;height:44px;border-radius:11px;background:var(--rouge);background-image:linear-gradient(180deg,rgba(255,255,255,.22),rgba(0,0,0,.12));color:#fff;display:flex;align-items:center;justify-content:center;font-size:21px;flex:none;box-shadow:0 2px 6px rgba(2,17,50,.25),inset 0 1px 0 rgba(255,255,255,.3)}
+.veh .em .ic{width:24px;height:24px}
+.veh .em{width:44px;height:44px;border-radius:11px;background:var(--jaune);background-image:linear-gradient(180deg,rgba(255,255,255,.35),rgba(0,0,0,.06));color:var(--marine);display:flex;align-items:center;justify-content:center;font-size:21px;flex:none;box-shadow:0 2px 6px rgba(2,17,50,.25),inset 0 1px 0 rgba(255,255,255,.3)}
 .veh b{display:block;font-size:13.5px;color:var(--marine)}
 .veh i{display:block;font-style:normal;font-size:12px;color:rgba(2,17,50,.55);margin-top:2px}
 .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}
-.tag{font-size:12px;font-weight:700;padding:7px 13px;border-radius:20px;background:rgba(222,7,21,.08);color:var(--rouge);border:1px solid rgba(222,7,21,.3)}
+.tag{font-size:12px;font-weight:700;padding:7px 13px;border-radius:20px;background:rgba(251,214,8,.28);color:var(--marine);border:1px solid rgba(251,214,8,.8);display:inline-flex;align-items:center;gap:6px}
 .exc{animation:fadeup .5s ease both;background:var(--blanc);border-radius:14px;border:1px solid var(--l);box-shadow:0 4px 14px rgba(2,17,50,.12);margin-bottom:16px;overflow:hidden}
-.exc .tete{display:flex;align-items:center;gap:11px;padding:14px 16px;background:var(--rouge);background-image:linear-gradient(180deg,rgba(255,255,255,.14),rgba(0,0,0,.10));color:var(--blanc)}
-.exc .tete .em{font-size:24px}
+.exc .tete{display:flex;align-items:center;gap:11px;padding:14px 16px;background:var(--jaune);background-image:linear-gradient(180deg,rgba(255,255,255,.35),rgba(0,0,0,.06));color:var(--marine);flex-wrap:wrap}
+.exc .tete .em{font-size:24px;display:flex}
+.exc .prix{font-size:15px;font-weight:900;padding:6px 12px;border-radius:10px;background:var(--marine);color:var(--jaune);white-space:nowrap;box-shadow:0 2px 5px rgba(2,17,50,.3)}
+.exc .prix small{font-weight:600;color:rgba(255,255,255,.85)}
+.tarif{background:var(--marine);color:var(--blanc);border-radius:14px;padding:16px 18px;margin-bottom:14px;box-shadow:0 4px 14px rgba(0,0,0,.3);border-left:6px solid var(--jaune);display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.tarif .gros{font-size:34px;font-weight:900;color:var(--jaune);line-height:1}
+.tarif .gros small{display:block;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.8)}
+.tarif p{flex:1;font-size:14px;line-height:1.5;color:rgba(255,255,255,.92);min-width:220px}
 .exc .tete h3{font-size:16px;font-weight:900;flex:1}
-.exc .duree{font-size:12px;font-weight:800;padding:6px 12px;border-radius:18px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
+.exc .duree{font-size:12px;font-weight:800;padding:6px 12px;border-radius:18px;background:rgba(2,17,50,.10);border:1px solid rgba(2,17,50,.3);white-space:nowrap}
 .exc img.photo{display:block;width:100%;height:230px;object-fit:cover;object-position:center 40%}
 .exc .corps{padding:14px 16px 16px}
 .arret{display:flex;gap:11px;padding:9px 0;border-bottom:1px solid rgba(2,17,50,.08);font-size:13px}
 .arret:last-of-type{border-bottom:none}
-.arret .t{flex:none;width:64px;font-weight:800;color:var(--rouge);font-size:12px;padding-top:1px}
+.arret .t{flex:none;width:64px;font-weight:800;color:var(--roi);font-size:12px;padding-top:1px}
 .arret b{display:block;color:var(--marine);font-size:13px}
 .arret i{display:block;font-style:normal;font-size:12px;color:rgba(2,17,50,.55);margin-top:2px;line-height:1.45}
-.arret.tpmr{background:rgba(222,7,21,.07);border-radius:9px;padding:9px 10px;border-bottom:none;margin:2px 0}
-.arret.tpmr .t{color:var(--rouge)}
+.arret.tpmr{background:rgba(251,214,8,.22);border-radius:9px;padding:9px 10px;border-bottom:none;margin:2px 0}
+.arret.tpmr .t{color:var(--marine)}
 .arret.alt{opacity:.92;background:var(--creme);border-radius:9px;padding:9px 10px;border-bottom:none;margin-top:6px}
 .arret.alt .t{color:rgba(2,17,50,.55);font-size:11px}
-.reserve{margin-top:11px;font-size:12px;color:rgba(2,17,50,.75);background:var(--creme);border:1px solid rgba(222,7,21,.25);border-left:3px solid var(--rouge);border-radius:9px;padding:9px 11px;line-height:1.5}
-.reserve b{color:var(--rouge)}
+.reserve{margin-top:11px;font-size:12px;color:rgba(2,17,50,.75);background:var(--creme);border:1px solid rgba(251,214,8,.8);border-left:4px solid var(--jaune);border-radius:9px;padding:9px 11px;line-height:1.5}
+.reserve b{color:var(--marine)}
 footer{text-align:center;font-size:11.5px;color:rgba(2,17,50,.45);padding:6px 12px 26px}
 footer.rts{background:var(--marine);color:var(--blanc);border-top:3px solid var(--rouge);margin-top:28px;padding:22px 16px 24px;text-align:center}
 footer.rts .co{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;font-size:13px;font-weight:600}
@@ -48,24 +60,25 @@ footer.rts .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
 @media(max-width:900px){.arret{font-size:14px}.arret i{font-size:14px}.arret .t{font-size:14px;width:72px}.arret b{font-size:15px}.arret.alt .t{font-size:14px}.card p{font-size:14.5px}.veh b{font-size:15px}.veh i{font-size:14px}.reserve{font-size:14px}.tag{min-height:44px;display:inline-flex;align-items:center;font-size:14px}.exc .duree{font-size:14px}header p{font-size:14px}header a.home{font-size:14px;min-height:44px;display:inline-flex;align-items:center}footer{font-size:14px}footer.rts .co{font-size:14px}footer.rts .co a{display:inline-flex;align-items:center;min-height:44px;padding:0 4px}footer.rts .lg{font-size:14px}}
 </style></head><body>
 <header>
- <div class="top"><a class="home" href="index.html">← Accueil</a><h1>♿ Transport adapté &amp; excursions</h1></div>
+ <div class="top"><a class="home" href="index.html">← Accueil</a><h1><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="16" cy="4" r="1" /><path d="m18 19 1-7-6 1" /><path d="m5 8 3-3 5.5 3-2.36 3.5" /><path d="M4.24 14.5a5 5 0 0 0 6.88 6" /><path d="M13.76 17.5a5 5 0 0 0-6.88-6" /></svg> Transport adapté &amp; excursions</h1></div>
  <p>Le transport pour tous les publics, partout sur l'île.</p>
 </header>
 <div class="wrap">
  <div class="card">
   <h2>Des chauffeurs formés, des véhicules équipés</h2>
   <p>Nos chauffeurs sont <b>diplômés accompagnateurs TPMR</b> (transport de personnes à mobilité réduite) : prise en charge à la porte, aide à l'installation, arrimage sécurisé des fauteuils, accompagnement pendant tout le trajet.</p>
-  <div class="tags"><span class="tag">♿ Fauteuil roulant</span><span class="tag">🦯 Déficience visuelle</span><span class="tag">🦽 Mobilité réduite</span><span class="tag">👵 Personnes âgées</span></div>
+  <div class="tags"><span class="tag"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="16" cy="4" r="1" /><path d="m18 19 1-7-6 1" /><path d="m5 8 3-3 5.5 3-2.36 3.5" /><path d="M4.24 14.5a5 5 0 0 0 6.88 6" /><path d="M13.76 17.5a5 5 0 0 0-6.88-6" /></svg> Fauteuil roulant</span><span class="tag"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49" /><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242" /><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143" /><path d="m2 2 20 20" /></svg> Déficience visuelle</span><span class="tag"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="1" /><path d="m9 20 3-6 3 6" /><path d="m6 8 6 2 6-2" /><path d="M12 10v4" /></svg> Mobilité réduite</span><span class="tag"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5" /><path d="M20 21a8 8 0 0 0-16 0" /></svg> Personnes âgées</span></div>
  </div>
  <div class="card">
   <h2>3 véhicules adaptés</h2>
-  <div class="veh"><span class="em">🚐</span><div><b>Grand van TPMR</b><i>Jusqu'à 4 fauteuils roulants transportés simultanément</i></div></div>
-  <div class="veh"><span class="em">🚐</span><div><b>Van TPMR</b><i>2 fauteuils roulants + accompagnants</i></div></div>
-  <div class="veh"><span class="em">🚙</span><div><b>Véhicule TPMR compact</b><i>1 fauteuil roulant + accompagnants</i></div></div>
+  <div class="veh"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6v6" /><path d="M15 6v6" /><path d="M2 12h19.6" /><path d="M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3" /><circle cx="7" cy="18" r="2" /><path d="M9 18h5" /><circle cx="16" cy="18" r="2" /></svg></span><div><b>Grand van TPMR</b><i>Jusqu'à 4 fauteuils roulants transportés simultanément</i></div></div>
+  <div class="veh"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6v6" /><path d="M15 6v6" /><path d="M2 12h19.6" /><path d="M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3" /><circle cx="7" cy="18" r="2" /><path d="M9 18h5" /><circle cx="16" cy="18" r="2" /></svg></span><div><b>Van TPMR</b><i>2 fauteuils roulants + accompagnants</i></div></div>
+  <div class="veh"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8" /><path d="M7 14h.01" /><path d="M17 14h.01" /><rect width="18" height="8" x="3" y="10" rx="2" /><path d="M5 18v2" /><path d="M19 18v2" /></svg></span><div><b>Véhicule TPMR compact</b><i>1 fauteuil roulant + accompagnants</i></div></div>
  </div>
+ <div class="tarif"><div class="gros">550 €<small>par excursion</small></div><p><b>Tarif unique, quel que soit le véhicule.</b> La manutention, l'installation sécurisée et l'accompagnement spécifique par un chauffeur diplômé TPMR sont compris dans chaque excursion. Journée d'environ 8 h, itinéraires réellement parcourus avant d'être proposés.</p></div>
  <div id="excursions">
   <div class="exc">
-   <div class="tete"><span class="em">🌋</span><h3>Le Volcan</h3><span class="duree">≈ 8 h</span></div>
+   <div class="tete"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4" /></svg></span><h3>Le Volcan</h3><span class="prix">550 € <small>tarif unique</small></span><span class="duree">≈ 8 h</span></div>
    <div class="corps">
     <div class="arret tpmr"><span class="t">20 min</span><div><b>Installation et sécurisation TPMR</b><i>Prise en charge à la porte, arrimage du fauteuil — la prestation commence ici</i></div></div>
     <div class="arret"><span class="t">1 h</span><div><b>Bois Court</b><i>Nouveau belvédère vitré, panorama sur Grand Bassin</i></div></div>
@@ -77,7 +90,7 @@ footer.rts .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
    </div>
   </div>
   <div class="exc">
-   <div class="tete"><span class="em">⛰️</span><h3>Cilaos</h3><span class="duree">≈ 8 h</span></div>
+   <div class="tete"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 3 4 8 5-5 5 15H2L8 3z" /><path d="M4.14 15.08c2.62-1.57 5.24-1.43 7.86.42 2.74 1.94 5.49 2 8.23.19" /></svg></span><h3>Cilaos</h3><span class="prix">550 € <small>tarif unique</small></span><span class="duree">≈ 8 h</span></div>
    <img class="photo" src="images/excursion-cilaos.jpg" loading="lazy" alt="L'église Notre-Dame-des-Neiges à Cilaos, La Réunion">
    <div class="corps">
     <div class="arret tpmr"><span class="t">20 min</span><div><b>Installation et sécurisation TPMR</b><i>Prise en charge à la porte, arrimage du fauteuil — la prestation commence ici</i></div></div>
@@ -90,7 +103,7 @@ footer.rts .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
    </div>
   </div>
   <div class="exc">
-   <div class="tete"><span class="em">🌊</span><h3>Tour de l'île TPMR</h3><span class="duree">≈ 8 h</span></div>
+   <div class="tete"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12q2.5 2 5 0t5 0 5 0 5 0" /><path d="M2 19q2.5 2 5 0t5 0 5 0 5 0" /><path d="M2 5q2.5 2 5 0t5 0 5 0 5 0" /></svg></span><h3>Tour de l'île TPMR</h3><span class="prix">550 € <small>tarif unique</small></span><span class="duree">≈ 8 h</span></div>
    <img class="photo" src="images/excursion-tour-ile.jpg" loading="lazy" alt="Le littoral de La Réunion lors du tour de l'île en véhicule adapté">
    <div class="corps">
     <div class="arret tpmr"><span class="t">20 min</span><div><b>Installation et sécurisation TPMR</b><i>Prise en charge à la porte, arrimage du fauteuil — la prestation commence ici</i></div></div>
@@ -108,8 +121,8 @@ footer.rts .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
 </div>
 <footer class="rts">
  <div class="co">
-  <span>📞 <a href="tel:0693911267">06 93 91 12 67</a></span>
-  <span>✉️ <a href="mailto:runtransfertsservices@gmail.com">runtransfertsservices@gmail.com</a></span>
+  <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /></svg> <a href="tel:0693911267">06 93 91 12 67</a></span>
+  <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /><rect x="2" y="4" width="20" height="16" rx="2" /></svg> <a href="mailto:runtransfertsservices@gmail.com">runtransfertsservices@gmail.com</a></span>
   <span><a href="https://www.facebook.com/share/1cknUjSFH1/" target="_blank" rel="noopener">Facebook</a></span>
   <span><a href="https://www.instagram.com/runtransfertservices/" target="_blank" rel="noopener">Instagram</a></span>
  </div>
