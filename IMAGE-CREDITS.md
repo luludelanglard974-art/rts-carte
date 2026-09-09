@@ -1,6 +1,6 @@
 # Crédits images — site RTS
 
-## État au 09/09/2026 : 11 photographies personnelles intégrées
+## État au 09/09/2026 : 17 photographies personnelles intégrées, 2 en réserve
 
 Toutes les images du site sont des photographies prises à La Réunion par le
 gérant de RTS. Aucune image tierce, aucune dépendance externe : les fichiers
@@ -24,6 +24,14 @@ Les paysages dessinés en SVG de la refonte précédente ont été retirés.
 | `images/excursion-cilaos.jpg` | Église Notre-Dame-des-Neiges, Cilaos | Transport adapté — fiche de l'excursion Cilaos | Ludovic de Langlard / RTS | Photographie personnelle, droits détenus par RTS | Septembre 2026 |
 | `images/piton-des-neiges.jpg` | Piton des Neiges | Carte — section « Les traversées » (accueil de la carte et liste des traversées) | Ludovic de Langlard / RTS | Photographie personnelle, droits détenus par RTS | Septembre 2026 |
 | `images/fin-de-sejour.jpg` | Coucher de soleil sur l'océan | Carte — bloc des trois sorties de fin de parcours | Ludovic de Langlard / RTS | Photographie personnelle, droits détenus par RTS | Septembre 2026 |
+| `images/parcours-nord-sud.jpg` | Crêtes de la traversée Nord-Sud | Trek — vignette de la formule « La Traversée du Nord au Sud » | Ludovic de Langlard / RTS | Photographie personnelle, droits détenus par RTS | Septembre 2026 |
+| `images/parcours-tour-cirques.jpg` | Remparts des cirques (Salazie, Cilaos, Mafate) | Trek — vignette de la formule « Le Tour des Cirques » | Ludovic de Langlard / RTS | Photographie personnelle, droits détenus par RTS | Septembre 2026 |
+| `images/parcours-salazie-nouvelle.jpg` | La Nouvelle, cirque de Mafate, depuis le Col des Bœufs | Trek — vignette de la formule « Salazie – La Nouvelle » | Ludovic de Langlard / RTS | Photographie personnelle, droits détenus par RTS | Septembre 2026 |
+| `images/parcours-roche-ecrite.jpg` | Sommet de la Roche Écrite | Trek — vignette de la formule « La Montée de la Roche Écrite » | Ludovic de Langlard / RTS | Photographie personnelle, droits détenus par RTS | Septembre 2026 |
+| `images/parcours-volcan-cascade.jpg` | Cascade de Grand-Galet, Langevin | Trek — vignette de la formule « Le Volcan et la cascade » | Ludovic de Langlard / RTS | Photographie personnelle, droits détenus par RTS | Septembre 2026 |
+| `images/excursion-tour-ile.jpg` | Littoral de La Réunion, tour de l'île | Transport adapté — bannière de l'excursion « Tour de l'île TPMR » | Ludovic de Langlard / RTS | Photographie personnelle, droits détenus par RTS | Septembre 2026 |
+| `images/cascade-niagara.jpg` | Cascade Niagara, Sainte-Suzanne | Déposée, pas encore placée dans une page | Ludovic de Langlard / RTS | Photographie personnelle, droits détenus par RTS | Septembre 2026 |
+| `images/route-cascade.jpg` | Route et cascade, La Réunion | Déposée, pas encore placée dans une page | Ludovic de Langlard / RTS | Photographie personnelle, droits détenus par RTS | Septembre 2026 |
 
 ## Règles pour toute image ajoutée plus tard
 

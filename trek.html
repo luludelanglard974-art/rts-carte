@@ -2,85 +2,106 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>RTS — Trek &amp; logistique bagages</title>
 <style>
-:root{--marine:#021132;--roi:#0141AC;--rouge:#DE0715;--jaune:#FBD608;--vert:#06651E;--orange:#E87A1E;--box:#6B4EA8;--blanc:#FFFFFF;--creme:#FCF9F4;--paper:#F7F4EC;--l:rgba(2,17,50,.14)}
+/* Palette RTS officielle, et rien d'autre : marine, bleu roi, rouge, jaune, blanc, creme */
+:root{--marine:#021132;--roi:#0141AC;--rouge:#DE0715;--jaune:#FBD608;--blanc:#FFFFFF;--creme:#FCF9F4;--l:rgba(2,17,50,.14)}
 *{margin:0;padding:0;box-sizing:border-box}
 @keyframes fadeup{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--creme);color:var(--marine);min-height:100vh;overflow-x:hidden}
+html{background:var(--marine)}
+/* fond en degrade vertical : bleu roi en haut, marine en bas, avec un relief de bandes fines */
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:var(--marine);min-height:100vh;overflow-x:hidden;
+ background-color:var(--marine);background-image:repeating-linear-gradient(180deg,rgba(255,255,255,.025) 0 2px,rgba(255,255,255,0) 2px 9px),linear-gradient(180deg,var(--roi) 0%,rgba(1,65,172,.55) 35%,var(--marine) 100%);background-attachment:fixed}
 button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .anim{animation:fadeup .5s ease both}.anim.d1{animation-delay:.08s}.anim.d2{animation-delay:.16s}.anim.d3{animation-delay:.24s}.anim.d4{animation-delay:.32s}
 /* ---- 1. La promesse ---- */
 .hero{position:relative;height:min(64vh,560px);min-height:380px;background:var(--marine);border-bottom:3px solid var(--rouge);overflow:hidden}
 .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 55%;display:block}
-.hero .voile{position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,17,50,.55) 0%,rgba(2,17,50,.22) 40%,rgba(2,17,50,.30) 65%,rgba(2,17,50,.80) 100%)}
-.hero .home{position:absolute;left:16px;top:14px;z-index:2;color:#fff;text-decoration:none;font-size:14px;font-weight:700;padding:9px 14px;min-height:44px;display:inline-flex;align-items:center;border-radius:10px;background:rgba(2,17,50,.55);border:1px solid rgba(255,255,255,.35);box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
+.hero .voile{position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,17,50,.55) 0%,rgba(2,17,50,.22) 40%,rgba(2,17,50,.30) 65%,rgba(2,17,50,.82) 100%)}
+.hero .home{position:absolute;left:16px;top:14px;z-index:2;color:var(--blanc);text-decoration:none;font-size:14px;font-weight:700;padding:9px 14px;min-height:44px;display:inline-flex;align-items:center;border-radius:10px;background:rgba(2,17,50,.55);border:1px solid rgba(255,255,255,.35);box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
 .hero .sur{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;padding:24px clamp(16px,5vw,64px) 36px;max-width:1100px;margin:0 auto}
 .hero .sur small{display:inline-block;font-size:14px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--jaune);text-shadow:0 1px 3px rgba(0,0,0,.6);margin-bottom:10px}
-.hero h1{font-size:clamp(28px,5vw,50px);font-weight:900;line-height:1.08;color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.55),0 0 24px rgba(2,17,50,.6);max-width:14ch}
+.hero h1{font-size:clamp(28px,5vw,50px);font-weight:900;line-height:1.08;color:var(--blanc);text-shadow:0 2px 6px rgba(0,0,0,.55),0 0 24px rgba(2,17,50,.6);max-width:14ch}
 .hero p{margin-top:14px;font-size:clamp(15px,1.8vw,19px);line-height:1.5;max-width:620px;color:rgba(255,255,255,.95);text-shadow:0 1px 3px rgba(0,0,0,.6)}
 .wrap{max-width:1100px;margin:0 auto;padding:30px clamp(14px,3vw,28px) 26px}
-h2.sect{font-size:clamp(20px,2.6vw,26px);font-weight:900;color:var(--marine);margin-bottom:6px}
-p.sous{font-size:15px;color:rgba(2,17,50,.65);margin-bottom:18px;max-width:720px;line-height:1.5}
+h2.sect{font-size:clamp(20px,2.6vw,26px);font-weight:900;color:var(--blanc);margin-bottom:6px;padding-bottom:8px;border-bottom:3px solid var(--rouge);text-shadow:0 1px 3px rgba(0,0,0,.35)}
+p.sous{font-size:15px;color:rgba(255,255,255,.82);margin:10px 0 18px;max-width:720px;line-height:1.5}
 /* ---- 2. Le deroule en 4 etapes ---- */
-.etapes{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;counter-reset:etape}
-.et{position:relative;background:var(--blanc);border:1px solid var(--l);border-radius:16px;padding:22px 16px 18px;box-shadow:0 5px 14px rgba(2,17,50,.10);transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
-.et .num{position:absolute;top:-14px;left:16px;width:32px;height:32px;border-radius:10px;background:var(--rouge);color:#fff;font-size:15px;font-weight:900;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(222,7,21,.45)}
-.et .pic{display:flex;gap:6px;font-size:30px;line-height:1;margin:6px 0 12px}
-.et .pic span{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;color:#fff;box-shadow:0 3px 8px rgba(2,17,50,.25),inset 0 1px 0 rgba(255,255,255,.3)}
-.et .pic .r{background:linear-gradient(180deg,#2E6FD8,var(--roi))}.et .pic .w{background:linear-gradient(180deg,#2E9E4B,var(--vert))}.et .pic .b{background:linear-gradient(180deg,#F09A45,var(--orange))}.et .pic .x{background:linear-gradient(180deg,#8A6BC8,var(--box))}
+.etapes{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.et{position:relative;background:var(--blanc);border:1px solid var(--l);border-radius:16px;padding:22px 16px 18px;box-shadow:0 8px 20px rgba(0,0,0,.28);transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.et .num{position:absolute;top:-14px;left:16px;width:32px;height:32px;border-radius:10px;background:var(--rouge);color:var(--blanc);font-size:15px;font-weight:900;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(222,7,21,.45)}
+.et .pic{display:flex;gap:6px;line-height:1;margin:6px 0 12px}
+.et .pic span{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 3px 8px rgba(2,17,50,.25),inset 0 1px 0 rgba(255,255,255,.3);background-image:linear-gradient(180deg,rgba(255,255,255,.22),rgba(0,0,0,.14))}
+.et .pic .r{background-color:var(--roi)}.et .pic .w{background-color:var(--marine)}.et .pic .b{background-color:var(--rouge)}.et .pic .x{background-color:var(--jaune)}
 .et b{display:block;font-size:16px;line-height:1.3}
 .et i{display:block;font-style:normal;font-size:14px;line-height:1.5;color:rgba(2,17,50,.65);margin-top:6px}
-.et.now{border-color:var(--jaune);box-shadow:0 0 0 3px rgba(251,214,8,.45),0 8px 18px rgba(2,17,50,.16);transform:translateY(-3px)}
-.et.fait .num{background:var(--vert);box-shadow:0 3px 8px rgba(6,101,30,.45)}
+.et.now{border-color:var(--jaune);box-shadow:0 0 0 3px rgba(251,214,8,.55),0 10px 22px rgba(0,0,0,.3);transform:translateY(-3px)}
+.et.fait .num{background:var(--roi);box-shadow:0 3px 8px rgba(1,65,172,.45)}
 /* ---- 3. La demo ---- */
 .demo{margin-top:36px;display:grid;grid-template-columns:1fr 300px;gap:18px;align-items:start}
-.scene{position:relative;background:var(--marine);border-radius:18px;overflow:hidden;box-shadow:0 8px 22px rgba(2,17,50,.28);border:3px solid var(--marine);aspect-ratio:16/10;min-height:340px}
-.scene iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;background:#dfe3d8}
+.scene{position:relative;background:var(--marine);border-radius:18px;overflow:hidden;box-shadow:0 10px 26px rgba(0,0,0,.35);border:3px solid var(--blanc);aspect-ratio:16/10;min-height:340px}
+.scene iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;background:var(--marine)}
 .scene .rideau{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:linear-gradient(180deg,rgba(2,17,50,.30),rgba(2,17,50,.55));text-align:center;padding:20px}
-.scene .rideau p{color:#fff;font-size:15px;font-weight:600;text-shadow:0 1px 3px rgba(0,0,0,.6);max-width:420px}
+.scene .rideau p{color:var(--blanc);font-size:15px;font-weight:600;text-shadow:0 1px 3px rgba(0,0,0,.6);max-width:420px}
 .scene .rideau[hidden]{display:none}
-.legende{background:var(--blanc);border:1px solid var(--l);border-radius:16px;padding:16px;box-shadow:0 5px 14px rgba(2,17,50,.10)}
-.legende h3{font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:rgba(2,17,50,.6);padding-bottom:8px;border-bottom:2px solid var(--marine);margin-bottom:8px}
+.legende{background:var(--blanc);border:1px solid var(--l);border-radius:16px;padding:16px;box-shadow:0 8px 20px rgba(0,0,0,.28)}
+.legende h3{font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:rgba(2,17,50,.6);padding-bottom:8px;border-bottom:2px solid var(--rouge);margin-bottom:8px}
 .lg{display:flex;gap:11px;align-items:center;padding:9px 0}
 .lg+.lg{border-top:1px solid rgba(2,17,50,.07)}
-.lg .sw{width:34px;height:34px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;font-size:17px;color:#fff;box-shadow:0 2px 5px rgba(2,17,50,.25),inset 0 1px 0 rgba(255,255,255,.3)}
+.lg .sw{width:34px;height:34px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 2px 5px rgba(2,17,50,.25),inset 0 1px 0 rgba(255,255,255,.3);background-image:linear-gradient(180deg,rgba(255,255,255,.22),rgba(0,0,0,.14))}
 .lg .tx{font-size:14px;line-height:1.35}.lg .tx b{display:block;font-size:15px}.lg .tx i{font-style:normal;color:rgba(2,17,50,.6)}
 .lg .trait{width:34px;height:6px;border-radius:3px;flex:none;margin-left:auto}
-.encours{margin-top:12px;padding:12px 13px;border-radius:12px;background:var(--paper);border-left:4px solid var(--jaune);font-size:14px;line-height:1.45;min-height:64px}
+.encours{margin-top:12px;padding:12px 13px;border-radius:12px;background:var(--creme);border-left:4px solid var(--rouge);font-size:14px;line-height:1.45;min-height:64px}
 .encours b{display:block;font-size:12px;letter-spacing:.8px;text-transform:uppercase;color:rgba(2,17,50,.55);margin-bottom:3px}
 .encours span{font-weight:700}
 .ctrl{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;align-items:center}
-.ctrl .info{font-size:14px;color:rgba(2,17,50,.6)}
+.ctrl .info{font-size:14px;color:rgba(255,255,255,.85)}
 /* ---- 4. Deux portes de sortie ---- */
 .sorties{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px}
-.sortie{display:flex;flex-direction:column;gap:10px;background:var(--blanc);border:1px solid var(--l);border-radius:18px;padding:22px 20px;box-shadow:0 6px 16px rgba(2,17,50,.12);border-top:5px solid var(--vert)}
-.sortie.carte{border-top-color:var(--roi)}
+.sortie{display:flex;flex-direction:column;gap:10px;background:var(--blanc);border:1px solid var(--l);border-radius:18px;padding:22px 20px;box-shadow:0 8px 20px rgba(0,0,0,.28);border-top:5px solid var(--rouge)}
+.sortie.carte{border-top-color:var(--jaune)}
 .sortie .em{font-size:30px}
 .sortie h3{font-size:19px;font-weight:900}
 .sortie p{font-size:14.5px;line-height:1.5;color:rgba(2,17,50,.7);flex:1}
-/* ---- Les 5 traversees (donnees lues dans le moteur de la carte) ---- */
+/* ---- Les 5 formules : vignettes immersives (donnees lues dans le moteur de la carte) ---- */
 .formules{margin-top:36px;scroll-margin-top:16px}
 .formules[hidden]{display:none}
-.trips{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
-.trip{text-align:left;background:var(--blanc);border:1px solid var(--l);border-left:5px solid var(--rouge);border-radius:12px;padding:15px 16px;box-shadow:0 3px 9px rgba(2,17,50,.10);display:flex;flex-direction:column;gap:5px;transition:transform .15s,box-shadow .15s}
-.trip:hover{transform:translateY(-2px);box-shadow:0 7px 16px rgba(2,17,50,.17)}
-.trip.star{border-left-color:var(--jaune);background:linear-gradient(90deg,#FFFBEA,#fff)}
-.trip b{font-size:16px}.trip i{font-style:normal;font-size:14px;color:rgba(2,17,50,.6)}
-.trip .bas{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:6px}
-.trip .eur{font-size:16px;font-weight:900;color:var(--roi)}.trip .eur small{display:block;font-size:12px;font-weight:600;color:rgba(2,17,50,.5)}
+.trips{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+.vig{--c:var(--rouge);border-radius:14px;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,.3);background:var(--blanc);border-left:6px solid var(--c)}
+.vig .ph{position:relative;height:140px;background:var(--marine);cursor:pointer;text-align:left;display:block;width:100%;color:var(--blanc)}
+.vig .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+.vig .ph:hover img{transform:scale(1.04)}
+.vig .ph .voile{position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,17,50,.08) 0%,rgba(2,17,50,.30) 45%,rgba(2,17,50,.88) 100%)}
+.vig .ph .txt{position:absolute;left:14px;right:150px;bottom:12px}
+.vig .ph b{display:block;font-size:17px;font-weight:900;line-height:1.2;text-shadow:0 2px 5px rgba(0,0,0,.65)}
+.vig .ph i{display:block;font-style:normal;font-size:14px;color:rgba(255,255,255,.92);margin-top:3px;text-shadow:0 1px 3px rgba(0,0,0,.65)}
+.vig .ph .eur{position:absolute;right:14px;top:12px;font-size:15px;font-weight:900;color:var(--blanc);background:rgba(2,17,50,.7);border:1px solid rgba(255,255,255,.35);padding:5px 10px;border-radius:9px;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+.vig .ph .eur small{font-size:12px;font-weight:600;color:rgba(255,255,255,.8)}
+.vig .ph .btn{position:absolute;right:14px;bottom:14px}
+.vig .det{display:none;background:var(--creme);border-top:2px solid var(--c);padding:12px 14px 14px}
+.vig.ouvert .det{display:block}
+.vig .det .ln{display:flex;gap:9px;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(2,17,50,.08);font-size:14px;line-height:1.4}
+.vig .det .ln:last-of-type{border-bottom:none}
+.vig .det .ln .n{flex:none;width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;background:var(--marine)}
+.vig .det .ln .n.r{background:var(--roi)}.vig .det .ln .n.b{background:var(--rouge)}.vig .det .ln .n.x{background:var(--jaune)}
+.vig .det .ln .c{flex:1}.vig .det .ln .c b{display:block;font-weight:700}.vig .det .ln .c i{font-style:normal;color:rgba(2,17,50,.6)}
+.vig .det .ln .p{flex:none;font-weight:800;color:var(--roi)}
+.vig .det .tot{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding:10px 12px;border-radius:9px;background:var(--marine);color:var(--blanc);font-size:14px;font-weight:700}
+.vig .det .tot span{font-size:18px;font-weight:900;color:var(--jaune)}
 /* ---- Relief glossy RTS (recette du commit 98971e3) ---- */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:12px 22px;font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:.3px;text-decoration:none;border-radius:14px;border:2.5px solid var(--paper);color:#fff;--c:var(--roi);background-color:var(--roi);
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:12px 22px;font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:.3px;text-decoration:none;border-radius:14px;border:2.5px solid var(--creme);color:var(--blanc);--c:var(--roi);background-color:var(--roi);
  background-image:linear-gradient(180deg,rgba(255,255,255,.46) 0%,rgba(255,255,255,.34) 50%,rgba(255,255,255,0) 50%,rgba(0,0,0,.20) 84%,rgba(255,255,255,.14) 100%);
  box-shadow:0 4px 8px -1px var(--c),0 1px 2px rgba(2,17,50,.35);text-shadow:0 1px 1px rgba(0,0,0,.35);transition:transform .15s ease,filter .15s ease;white-space:nowrap}
 @supports(color:color-mix(in srgb,red,blue)){.btn{box-shadow:0 4px 8px -1px color-mix(in srgb,var(--c) 80%,transparent),0 1px 2px rgba(2,17,50,.35)}}
 .btn:hover{filter:brightness(1.06);transform:translateY(-1px)}.btn:active{transform:translateY(1px);filter:brightness(.97)}
-.btn.jaune{background-color:#F5C518;--c:#E8A200;color:var(--marine);text-shadow:0 1px 0 rgba(255,255,255,.45)}
-.btn.vert{background-color:#1E8A3E;--c:var(--vert)}
-.btn.marine{background-color:#0A2358;--c:var(--roi)}
+.btn.jaune{background-color:var(--jaune);--c:var(--jaune);color:var(--marine);text-shadow:0 1px 0 rgba(255,255,255,.45)}
+.btn.rouge{background-color:var(--rouge);--c:var(--rouge)}
+.btn.marine{background-color:var(--marine);--c:var(--roi)}
 .btn.grand{min-height:58px;font-size:17px;padding:14px 30px}
-.btn.plat{background-image:none;background-color:rgba(2,17,50,.08);color:var(--marine);border-color:transparent;box-shadow:none;text-shadow:none}
-.btn.plat:hover{background-color:rgba(2,17,50,.14)}
+.btn.plat{background-image:none;background-color:rgba(255,255,255,.14);color:var(--blanc);border-color:rgba(255,255,255,.35);box-shadow:none;text-shadow:none}
+.btn.plat:hover{background-color:rgba(255,255,255,.22)}
 .btn[hidden]{display:none}
 .btn.petit{min-height:44px;font-size:14px;padding:8px 14px}
+.vig .ph .btn{--c:inherit;background-color:var(--c)} /* couleur de charte propre a chaque formule */
+.btn.j{color:var(--marine);text-shadow:0 1px 0 rgba(255,255,255,.45)}
 footer.rts{background:var(--marine);color:var(--blanc);border-top:3px solid var(--rouge);margin-top:36px;padding:22px 16px 24px;text-align:center}
 footer.rts .co{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;font-size:13px;font-weight:600}
 footer.rts .co a{color:var(--blanc);text-decoration:none}
@@ -96,10 +117,11 @@ footer.rts .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
 .encours{grid-column:1/-1;margin-top:6px;min-height:0}
 .sorties{grid-template-columns:1fr}
 .ctrl .btn{flex:1 1 auto}
+.trips{grid-template-columns:1fr}
 footer.rts .co{font-size:14px}footer.rts .co a{display:inline-flex;align-items:center;min-height:44px;padding:0 4px}footer.rts .lg{font-size:14px}
-.hero .sur small{font-size:14px}.encours b{font-size:14px}.trip .eur small{font-size:14px}.legende h3{font-size:14px}
+.hero .sur small{font-size:14px}.encours b{font-size:14px}.legende h3{font-size:14px}.vig .ph .eur small{font-size:14px}
 }
-@media(max-width:600px){.etapes{grid-template-columns:1fr}.hero{height:min(58vh,480px);min-height:340px}.hero h1{max-width:none}}
+@media(max-width:600px){.etapes{grid-template-columns:1fr}.hero{height:min(58vh,480px);min-height:340px}.hero h1{max-width:none}.vig .ph .txt{right:140px}}
 </style></head><body>
 
 <section class="hero">
@@ -140,12 +162,14 @@ footer.rts .co{font-size:14px}footer.rts .co a{display:inline-flex;align-items:c
     <span class="info" id="demoInfo"></span>
    </div>
   </div>
+  <!-- Legende : les pastilles reprennent les couleurs telles que le moteur de carte.html trace les lignes
+       (bleu roi transfert, vert sentier, orange bagages, violet box). Elles decrivent la carte, pas la page. -->
   <aside class="legende" id="legende">
    <h3>Légende</h3>
-   <div class="lg"><span class="sw" style="background:linear-gradient(180deg,#2E6FD8,#0141AC)">🚗</span><span class="tx"><b>Transfert véhicule</b><i>Tracé bleu, avec le tarif</i></span><span class="trait" style="background:#0141AC"></span></div>
-   <div class="lg"><span class="sw" style="background:linear-gradient(180deg,#2E9E4B,#06651E)">🥾</span><span class="tx"><b>Randonnée</b><i>Tracé vert pointillé</i></span><span class="trait" style="background:repeating-linear-gradient(90deg,#06651E 0 6px,transparent 6px 10px)"></span></div>
-   <div class="lg"><span class="sw" style="background:linear-gradient(180deg,#F09A45,#E87A1E)">🧳</span><span class="tx"><b>Bagages</b><i>Tracé orange pointillé</i></span><span class="trait" style="background:repeating-linear-gradient(90deg,#E87A1E 0 8px,transparent 8px 12px)"></span></div>
-   <div class="lg"><span class="sw" style="background:linear-gradient(180deg,#8A6BC8,#6B4EA8)">📦</span><span class="tx"><b>Box sécurisé du Port</b><i>Marqueur violet permanent</i></span><span class="trait" style="background:#6B4EA8;width:22px;height:22px;border-radius:50%;border:2.5px solid #fff;box-shadow:0 2px 5px rgba(0,0,0,.35)"></span></div>
+   <div class="lg"><span class="sw" style="background-color:#0141AC">🚗</span><span class="tx"><b>Transfert véhicule</b><i>Tracé bleu, avec le tarif</i></span><span class="trait" style="background:#0141AC"></span></div>
+   <div class="lg"><span class="sw" style="background-color:#06651E">🥾</span><span class="tx"><b>Randonnée</b><i>Tracé vert pointillé</i></span><span class="trait" style="background:repeating-linear-gradient(90deg,#06651E 0 6px,transparent 6px 10px)"></span></div>
+   <div class="lg"><span class="sw" style="background-color:#E87A1E">🧳</span><span class="tx"><b>Bagages</b><i>Tracé orange pointillé</i></span><span class="trait" style="background:repeating-linear-gradient(90deg,#E87A1E 0 8px,transparent 8px 12px)"></span></div>
+   <div class="lg"><span class="sw" style="background-color:#6B4EA8">📦</span><span class="tx"><b>Box sécurisé du Port</b><i>Marqueur violet permanent</i></span><span class="trait" style="background:#6B4EA8;width:22px;height:22px;border-radius:50%;border:2.5px solid #FFFFFF;box-shadow:0 2px 5px rgba(0,0,0,.35)"></span></div>
    <div class="encours" id="encours"><b>Étape en cours</b><span>En attente : appuyez sur « Lancer la démonstration ».</span></div>
   </aside>
  </div>
@@ -153,13 +177,13 @@ footer.rts .co{font-size:14px}footer.rts .co a{display:inline-flex;align-items:c
  <h2 class="sect" style="margin-top:36px">Et maintenant ?</h2>
  <p class="sous">Deux façons de continuer, selon ce que vous cherchez.</p>
  <div class="sorties">
-  <div class="sortie"><span class="em">🥾</span><h3>Les formules Trek</h3><p>Cinq traversées clés en main, du court aller-retour à la grande traversée de douze jours, avec le détail des prestations RTS et leur tarif.</p><a class="btn vert" id="btnFormules" href="#formules">Voir les formules Trek</a></div>
+  <div class="sortie"><span class="em">🥾</span><h3>Les formules Trek</h3><p>Cinq traversées clés en main, du court aller-retour à la grande traversée de douze jours, avec le détail des prestations RTS et leur tarif.</p><a class="btn rouge" id="btnFormules" href="#formules">Voir les formules Trek</a></div>
   <div class="sortie carte"><span class="em">🗺️</span><h3>La carte par secteur</h3><p>Nord, Mafate, Cilaos, Salazie, Volcan : les sentiers, les transferts possibles et les hébergements, secteur par secteur.</p><a class="btn" href="carte.html">Explorer la carte par secteur</a></div>
  </div>
 
  <section class="formules" id="formules" hidden>
   <h2 class="sect">Les cinq formules Trek</h2>
-  <p class="sous">Tarifs TTC berline, 1 à 4 passagers, indicatifs. Touchez une formule pour la dérouler sur la carte ci-dessus.</p>
+  <p class="sous">Tarifs TTC berline, 1 à 4 passagers, indicatifs. Touchez « Dérouler » pour jouer la formule sur la carte ci-dessus et lire son déroulé jour par jour.</p>
   <div class="trips" id="trips"></div>
   <p style="margin-top:14px"><a class="btn petit" href="carte.html">Ouvrir la carte complète</a></p>
  </section>
@@ -183,6 +207,13 @@ footer.rts .co{font-size:14px}footer.rts .co a{display:inline-flex;align-items:c
 var fr=document.getElementById('demoFrame'),cw=null,cd=null,pret=false,PID='tr',suivi=null,fini=false;
 var rideau=document.getElementById('rideau'),btnLancer=document.getElementById('btnLancer'),btnPause=document.getElementById('btnPause'),btnRejouer=document.getElementById('btnRejouer'),info=document.getElementById('demoInfo'),encours=document.getElementById('encours');
 var CSS_CADRE='.bar,.zones,.tiroir,.hud,.calq{display:none!important}.stage{position:absolute!important;inset:0}.mw{position:absolute!important;inset:0}.mw .leaflet-bottom{bottom:0!important}';
+/* vignettes : photo, texte alternatif et couleur de charte de chaque formule */
+var VIG={tr:['images/parcours-nord-sud.jpg',"Sentier de la traversée Nord-Sud sur les crêtes de La Réunion",'jaune'],
+ tc:['images/parcours-tour-cirques.jpg','Remparts du Tour des Cirques, entre Salazie, Cilaos et Mafate','roi'],
+ sal:['images/parcours-salazie-nouvelle.jpg',"L'îlet de La Nouvelle dans le cirque de Mafate, depuis le Col des Bœufs",'rouge'],
+ roche:['images/parcours-roche-ecrite.jpg','Le sommet de la Roche Écrite au-dessus de la forêt du Nord','jaune'],
+ gg:['images/parcours-volcan-cascade.jpg','La cascade de Grand-Galet, à Langevin, dans le Sud sauvage','rouge']};
+var COUL={jaune:'var(--jaune)',roi:'var(--roi)',rouge:'var(--rouge)'};
 function parcours(pid){var P=null;cw.PARCOURS.forEach(function(x){if(x.id===pid)P=x});return P}
 function bornes(P){var pts=[];P.E.forEach(function(e){if(e.de&&e.de.length===2)pts.push(e.de);if(e.a&&e.a.length===2)pts.push(e.a)});return cw.L.latLngBounds(pts)}
 function cadrer(pid){var P=parcours(pid);if(!P)return;cw.map.invalidateSize();cw.map.fitBounds(bornes(P),{padding:[26,26],animate:false})}
@@ -217,10 +248,21 @@ function voirDemo(){var cible=matchMedia('(max-width:900px)').matches?document.g
 btnLancer.onclick=function(){lancerDemo(PID)};
 btnRejouer.onclick=function(){lancerDemo(PID)};
 btnPause.onclick=function(){cw.togglePause();var bp=cd.getElementById('bp');btnPause.textContent=(bp&&bp.textContent.indexOf('Reprendre')>=0)?'▶ Reprendre':'⏸ Pause'};
-function construireFormules(){var h='';cw.PARCOURS.forEach(function(P,i){var jours=0;P.E.forEach(function(e){if(e.j){var n=parseInt(e.j.replace('J',''));if(n>jours)jours=n}});
- h+='<button class="trip'+(i<2?' star':'')+'" type="button" data-pid="'+P.id+'"><b>'+P.n+'</b><i>'+P.sub+'</i><span class="bas"><span class="eur">'+totalP(P)+' €<small>prestations RTS · '+jours+' jour'+(jours>1?'s':'')+'</small></span><span class="btn petit">▶ Dérouler</span></span></button>'});
+/* deroule jour par jour d'une formule, lu dans les donnees du moteur */
+function deroule(P){var h='';P.E.forEach(function(e){var cl=e.t==='r'?'r':(e.t==='b'?'b':(e.t==='x'?'x':'w'));var pic=e.t==='r'?'🚗':(e.t==='b'?'🧳':(e.t==='x'?'📦':'🥾'));
+ h+='<div class="ln"><span class="n '+cl+'">'+pic+'</span><span class="c"><b>'+(e.j?e.j+' · ':'')+e.n+'</b>'+(e.i?'<i>'+e.i+'</i>':'')+(e.km?'<i>'+e.km+' km · +'+e.dp+' m · -'+e.dn+' m · '+e.h+'</i>':'')+'</span>'+(e.p?'<span class="p">'+cw.PX(e.p)+' €</span>':'')+'</div>'});
+ return h+'<div class="tot"><b>Prestations RTS pendant le trek</b><span>'+totalP(P)+' €</span></div>'}
+function construireFormules(){var h='';cw.PARCOURS.forEach(function(P){var v=VIG[P.id]||['images/carte-trek.jpg','Randonnée à La Réunion','rouge'];var jours=0;P.E.forEach(function(e){if(e.j){var n=parseInt(e.j.replace('J',''));if(n>jours)jours=n}});
+ h+='<div class="vig" id="vig_'+P.id+'" style="--c:'+COUL[v[2]]+'"><div class="ph" role="button" tabindex="0" data-pid="'+P.id+'"><img src="'+v[0]+'" loading="lazy" alt="'+v[1]+'"><span class="voile"></span>'+
+  '<span class="eur">'+totalP(P)+' € <small>· '+jours+' jour'+(jours>1?'s':'')+'</small></span>'+
+  '<span class="txt"><b>'+P.n+'</b><i>'+P.sub+'</i></span>'+
+  '<button class="btn petit'+(v[2]==='jaune'?' coul j':'')+'" type="button" data-pid="'+P.id+'">▶ Dérouler</button></div>'+
+  '<div class="det">'+deroule(P)+'</div></div>'});
  var box=document.getElementById('trips');box.innerHTML=h;
- box.querySelectorAll('.trip').forEach(function(b){b.onclick=function(){lancerDemo(b.dataset.pid)}})}
+ box.querySelectorAll('.btn').forEach(function(b){b.onclick=function(ev){ev.stopPropagation();var vg=document.getElementById('vig_'+b.dataset.pid);
+  document.querySelectorAll('.vig').forEach(function(x){x.classList.toggle('ouvert',x===vg)});lancerDemo(b.dataset.pid)}});
+ box.querySelectorAll('.ph').forEach(function(ph){var bascule=function(){document.getElementById('vig_'+ph.dataset.pid).classList.toggle('ouvert')};
+  ph.onclick=bascule;ph.onkeydown=function(ev){if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();bascule()}}})}
 document.getElementById('btnFormules').onclick=function(e){e.preventDefault();var f=document.getElementById('formules');f.hidden=false;f.scrollIntoView({block:'start',behavior:'smooth'})};
 if(location.hash==='#formules')document.getElementById('formules').hidden=false;
 </script>
