@@ -8,6 +8,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .app{display:flex;flex-direction:column;height:100%}
 .bar{display:flex;align-items:center;gap:8px;padding:8px 12px;flex:none;background:linear-gradient(180deg,#0A2358,#021132);color:#fff;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,.4);flex-wrap:wrap}
 .bar b{font-size:13.5px;font-weight:700}.bar .r{color:var(--jaune)}
+.bar .home{color:#fff;text-decoration:none;font-size:12px;font-weight:700;padding:7px 12px;border-radius:9px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
 .veh{display:flex;gap:0;border-radius:6px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.35);margin-left:10px}
 .veh button{font-size:10.5px;font-weight:700;padding:6px 10px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.75);white-space:nowrap}
 .veh button small{display:block;font-size:8.5px;font-weight:500;opacity:.75}
@@ -148,40 +149,80 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .leaflet-control-attribution{font-size:9px!important}
 .leaflet-div-icon{background:none;border:none}
 @media(max-width:900px){
-.stage{position:relative;flex-direction:column}
+/* ---- tiroir : la carte occupe tout l'ecran, le panneau monte du bas ---- */
+.stage{position:relative;flex-direction:column;--tirh:34%}
 .mw{position:absolute;inset:0}
-.tiroir{display:flex;flex-direction:column;position:absolute;left:0;right:0;top:0;bottom:0;z-index:950;transform:translateY(66%);transition:transform .28s ease;will-change:transform}
-.tirette{display:flex;justify-content:center;align-items:center;height:32px;flex:none;background:var(--paper);border-radius:16px 16px 0 0;border-top:3px solid var(--marine);box-shadow:0 -4px 14px rgba(2,17,50,.28);cursor:grab;touch-action:none}
-.tirette span{width:52px;height:6px;border-radius:3px;background:rgba(2,17,50,.28)}
-.panel{width:100%;flex:1;min-height:0;border-left:none}
-.bar b{font-size:12px}
-.zones{scroll-behavior:smooth}
-.zb{font-size:14px;min-width:104px;min-height:44px;flex:none;padding:11px 12px}
-.trek{font-size:14px;padding:11px 15px;min-height:44px}
-.lead{font-size:14px}
-.sec h3{font-size:15px}
-.go2{min-height:48px}
-.go2 .tx b{font-size:14px}
-.link{min-height:44px;font-size:14px}
-.step .c{font-size:14px}
-.step .c i{font-size:12.5px}
-.bascule{display:flex}
+.mw .leaflet-bottom{bottom:var(--tirh)}
+.leaflet-bar a{width:44px!important;height:44px!important;line-height:44px!important;font-size:22px!important}
+.tiroir{display:flex;flex-direction:column;position:absolute;left:0;right:0;bottom:0;height:var(--tirh);z-index:1100;transition:height .28s ease;box-shadow:0 -6px 18px rgba(2,17,50,.3);border-radius:18px 18px 0 0;overflow:hidden;background:var(--paper)}
+.tiroir.drag{transition:none}
+.tirette{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;height:48px;flex:none;background:var(--paper);border-top:3px solid var(--marine);cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
+.tirette span{width:56px;height:6px;border-radius:3px;background:rgba(2,17,50,.32)}
+.tirette i{font-style:normal;font-size:14px;font-weight:700;color:rgba(2,17,50,.6);line-height:1}
+.panel{width:100%;flex:1;min-height:0;border-left:none;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+/* ---- barre du haut et secteurs ---- */
+.bar{padding:8px 10px}
+.bar b{font-size:14px}
+.bar .home{font-size:14px;min-height:44px;display:inline-flex;align-items:center}
+.veh button{font-size:14px;min-height:44px;padding:5px 12px}
+.veh button small{font-size:14px}
+.trek{font-size:15px;padding:11px 16px;min-height:44px}
+.tools{gap:6px}
+.tg{font-size:14px;min-height:44px;padding:8px 13px}
+.zones{scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain;padding:0 4px}
+.zones::-webkit-scrollbar{display:none}
+.zb{font-size:15px;min-width:112px;min-height:46px;flex:1 0 112px;padding:12px 14px;margin:6px 4px}
+/* ---- une seule liste a la fois ---- */
+.bascule{display:flex;position:sticky;top:0;z-index:5;background:var(--paper);padding:8px 0;margin:8px 0 6px;box-shadow:0 8px 8px -8px rgba(2,17,50,.25)}
+.bascule button{min-height:46px;font-size:15px}
 .panel[data-vue] .sec{display:none}
 .panel[data-vue="tr"] .sec.s-tr{display:block}
 .panel[data-vue="st"] .sec.s-st{display:block}
 .panel[data-vue="in"] .sec.s-in{display:block}
+.panel[data-vue]:not([data-vue="in"]) .lead.zl{display:none}
+/* ---- textes 14px minimum, cibles 44px minimum ---- */
+.pad{padding:14px 14px 30px}
+.h1{font-size:24px}
+.meta{font-size:14px}
+.lead{font-size:15px}
+.sec h3{font-size:16px}
+.svc .tx{font-size:15px}.svc .tx i{font-size:14px}.svc .eur{font-size:15px}
+.go2{min-height:52px;padding:11px 12px;gap:10px}
+.go2 .tx{font-size:14px}.go2 .tx b{font-size:15px}.go2 .tx i{font-size:14px}.go2 .eur{font-size:15px}.go2 .eur small{font-size:14px}.go2 .kv{font-size:14px}
+.play{font-size:14px;padding:6px 10px}
+.card .bd b{font-size:15px}.card .bd i{font-size:14px}.card .bd a{font-size:14px;min-height:44px;display:inline-flex;align-items:center;padding:8px 14px}.card .ph .tag{font-size:14px}
+.link{min-height:48px}.link .n{font-size:15px}.link .d{font-size:14px}.link .arr{font-size:15px}
+.chip{font-size:14px}
+.note{font-size:14px}
+.pick button{font-size:14px;min-height:44px}
+.trip{min-height:44px}.trip b{font-size:15px}.trip i{font-size:14px}.trip u{font-size:14px}
+.step .c{font-size:15px}.step .c i{font-size:14px}.step .c .kv{font-size:14px}.step .p{font-size:15px}.step .n{width:26px;height:26px;font-size:14px}
+.tot b{font-size:14px}.tot span{font-size:22px}
+.ctrl button{font-size:14px;min-height:44px}
+.lg .tx{font-size:15px}.lg .tx i{font-size:14px}.lg .sw{width:30px;height:30px;font-size:15px}
+.down{font-size:14px}
+.hud{font-size:14px;max-width:290px}
+.mk .pin{width:32px;height:32px;font-size:16px}
+.mk .nm{font-size:14px}.mk.on .nm{font-size:15px}
+.mk.loc .pin,.mk.gite .pin{width:30px;height:30px;font-size:15px}
+.mkbox{width:44px;height:44px;font-size:20px}
+.city{font-size:14px}
+.px{font-size:14px;padding:4px 10px}
+.pxc small{font-size:14px}.pxc b{font-size:15px}.pxc i{font-size:14px}
+.cq{font-size:16px}.cq small{font-size:14px}
+.leaflet-control-attribution{font-size:14px!important}
 }
-@media(min-width:601px) and (max-width:900px){.zb{min-width:140px;font-size:15px}}
 </style></head><body>
 <div class="app">
-<div class="bar"><a href="index.html" style="color:#fff;text-decoration:none;font-size:12px;font-weight:700;padding:7px 12px;border-radius:9px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.2)">← Accueil</a><b>Run Transfert <span class="r">&amp;</span> Services</b>
+<div class="bar"><a href="index.html" class="home">← Accueil</a><b>Run Transfert <span class="r">&amp;</span> Services</b>
 <div class="veh"><button class="on" id="vB">Berline<small>1 à 4 pers.</small></button><button id="vV">Van<small>5 à 8 pers.</small></button></div><button class="trek" id="btnTrek">Formules Trek</button>
 <div class="tools"><button class="tg on" id="t1">Plan</button><button class="tg" id="t2">Aérien</button><button class="tg on" id="t3">🥾</button><button class="tg on" id="t4">🚗</button><button class="tg on" id="t6">🚘</button><button class="tg on" id="t7">🏠</button></div></div>
 <div class="zones" id="zones"></div>
-<div class="stage"><div class="mw"><div id="map"></div><div class="hud" id="hud">Initialisation…</div></div><div class="tiroir" id="tiroir"><div class="tirette" id="tirette"><span></span></div><aside class="panel" id="panel"></aside></div></div></div>
+<div class="stage"><div class="mw"><div id="map"></div><div class="hud" id="hud">Initialisation…</div></div><div class="tiroir" id="tiroir"><div class="tirette" id="tirette"><span></span><i id="tirlib">▲ Glisser pour agrandir</i></div><aside class="panel" id="panel"></aside></div></div></div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 var VAN=false;
+var ETROIT=window.matchMedia('(max-width:900px)');
 function PX(p){return VAN?Math.round(p*1.2):p}
 function ph(s){return 'https://picsum.photos/seed/'+s+'/420/260'}
 function gmap(q){return 'https://www.google.com/maps/search/'+encodeURIComponent(q)}
@@ -481,7 +522,7 @@ ONGLETS.forEach(function(o){var b=document.createElement('button');b.className='
 function onglet(k){ONGLETS.forEach(function(o){var b=document.getElementById('zb_'+o.k);
  b.classList.toggle('on',o.k===k)});
  var bt=document.getElementById('btnTrek');if(bt)bt.classList.toggle('on',k==='parcours');
- if(window.matchMedia('(max-width:900px)').matches){var bz=document.getElementById('zb_'+k);if(bz)bz.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'})}}
+ if(ETROIT.matches){var bz=document.getElementById('zb_'+k);if(bz)bz.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'})}}
 var ck=null,lk=null,segs=[],M={},roads=[],anim=null,pause=false,vue='ile',vueArg=null;
 function stopAnim(){if(anim){cancelAnimationFrame(anim.raf);clearTimeout(anim.to);anim=null}}
 function masque(poly){gMask.clearLayers();if(!poly)return;
@@ -537,7 +578,7 @@ function ouvrir(k){vue='zone';vueArg=k;ck=k;lk=null;var z=C[k];M={};z.L.forEach(
  var wkHtml=z.P.map(function(x){var A=M[x.a]||ALL[x.a],B2=M[x.b]||ALL[x.b];if(!A||!B2)return '';
   return '<button class="go2" onclick="demo('+JSON.stringify(A.ll)+','+JSON.stringify(B2.ll)+',\'w\',\''+x.km+' km · '+x.h+'\')">'+
   '<span class="em">🥾</span><span class="tx"><b>'+A.n+' → '+B2.n+'</b><span class="kv"><span>'+x.km+' km</span><span>+'+x.dp+' m</span><span>-'+x.dn+' m</span><span>'+x.h+'</span><span class="chip '+x.d+'">'+x.d+'</span></span></span><span class="play w">▶ Tracé</span></button>'}).join('');
- panel.innerHTML='<div class="pad"><div class="h1" style="color:'+z.col+'">'+z.t.replace('&amp;','&')+'</div><div class="meta">'+z.s+'</div><p class="lead">'+z.lead+'</p>'+BASCULE+
+ panel.innerHTML='<div class="pad"><div class="h1" style="color:'+z.col+'">'+z.t.replace('&amp;','&')+'</div><div class="meta">'+z.s+'</div>'+BASCULE+'<p class="lead zl">'+z.lead+'</p>'+
  '<div class="sec s-tr"><h3>🚗 Transferts</h3>'+(trHtml||'<p class="lead" style="margin-top:0">Pas de transfert répertorié dans ce secteur.</p>')+'</div>'+
   '<div class="sec s-st"><h3>🥾 Sentiers</h3>'+(wkHtml||'<p class="lead" style="margin-top:0">Aucun sentier répertorié dans ce secteur.</p>')+'</div>'+
  '<div class="sec s-in"><h3>Liens utiles — '+z.n+'</h3>'+liens(z.n)+'</div>'+
@@ -546,7 +587,7 @@ function ouvrir(k){vue='zone';vueArg=k;ck=k;lk=null;var z=C[k];M={};z.L.forEach(
 function marq(){gMkW.clearLayers();gMkR.clearLayers();C[ck].L.forEach(function(l){
  var ic=l.a?(l.r.some(function(r){return r[0]==='🚙'})?'🚙':'🚗'):'🥾';
  var h='<div class="mk '+(l.a?'acc':'')+' '+(lk===l.id?'on':'')+'"><div class="pin">'+ic+'</div><div class="nm">'+l.n+'</div></div>';
- var m=L.marker(l.ll,{icon:L.divIcon({html:h,className:'',iconSize:[26,40],iconAnchor:[13,13]}),zIndexOffset:lk===l.id?600:0});
+ var ps=ETROIT.matches?32:26;var m=L.marker(l.ll,{icon:L.divIcon({html:h,className:'',iconSize:[ps,ps+14],iconAnchor:[ps/2,ps/2]}),zIndexOffset:lk===l.id?600:0});
  m.on('click',function(){choisir(l.id)});m.addTo(l.a?gMkR:gMkW)})}
 var EP=['https://overpass-api.de/api/interpreter?data=','https://overpass.kumi.systems/api/interpreter?data=','https://overpass.osm.ch/api/interpreter?data='];
 var chargeEnCours=false;
@@ -566,7 +607,7 @@ function aff(els){segs=[];gPath.clearLayers();els.forEach(function(w){
  p.bindTooltip('🥾 '+((w.tags&&w.tags.name)||'Sentier'),{sticky:true});p.addTo(gPath);
  segs.push({p:p,pts:pts})})}
 function demo(de,a,type,label){
- stopAnim();gTrip.clearLayers();gRoad.clearLayers();roads=[];
+ stopAnim();tiroirRepos();gTrip.clearLayers();gRoad.clearLayers();roads=[];
  var col=type==='r'?'#0141AC':'#06651E',cls=type==='r'?'':'w';
  function go(co,ap,hd,tl){
   var tir=type==='r'?(ap?'8 7':null):'6 6';
@@ -622,7 +663,7 @@ function choisir(id){vue='lieu';vueArg=id;var z=C[ck],l=M[id];lk=id;marq();
   var pr=r[3]?(r[3].indexOf('/pers')>0?r[3].replace('/pers','')+' € / pers.':PX(parseInt(r[3]))+' €'):'';
   return '<div class="svc"><span class="em">'+r[0]+'</span><span class="tx"><b>'+r[1]+'</b>'+(r[2]?'<i>'+r[2]+'</i>':'')+'</span>'+(pr?'<span class="eur">'+pr+'</span>':'')+'</div>'}).join(''):'<p class="lead" style="margin-top:0">Pas d\'intervention directe : ce lieu ne se rejoint qu\'à pied.</p>';
  panel.innerHTML='<div class="pad"><button class="tg" style="border-color:var(--l);color:var(--marine);background:#fff;margin-bottom:13px" onclick="ouvrir(\''+ck+'\')">← '+z.t.replace('&amp;','&')+'</button>'+
- '<div class="h1">'+l.n+'</div><div class="meta">'+(l.a?'🚗 Accessible en véhicule':'🥾 À pied uniquement')+'</div><p class="lead">'+l.d+'</p>'+BASCULE+
+ '<div class="h1">'+l.n+'</div><div class="meta">'+(l.a?'🚗 Accessible en véhicule':'🥾 À pied uniquement')+'</div>'+BASCULE+'<p class="lead zl">'+l.d+'</p>'+
  '<div class="sec s-tr"><h3>🚗 Transferts au départ d\'ici</h3>'+trHtml+'</div>'+
  '<div class="sec s-st"><h3>🥾 Sentiers au départ d\'ici</h3>'+wkHtml+'</div>'+
  '<div class="sec s-in"><h3>Ce que RTS fait ici</h3>'+rts+'</div>'+
@@ -636,7 +677,7 @@ function listeParcours(){vue='liste';clearAll();onglet('parcours');
  PARCOURS.map(function(p,i){return '<button class="trip'+(i<2?' star':'')+'" onclick="lancer(\''+p.id+'\')"><b>'+p.n+'</b><i>'+p.sub+'</i><u>▶ Dérouler</u></button>'}).join('')+'</div>';
  panel.removeAttribute('data-vue');panel.scrollTop=0}
 function lancer(pid){vue='parc';vueArg=pid;var P=null;PARCOURS.forEach(function(x){if(x.id===pid)P=x});if(!P)return;
- clearAll();onglet('parcours');pause=false;
+ clearAll();onglet('parcours');pause=false;tiroirRepos();
  var tot=0,km=0;P.E.forEach(function(e){if(e.p)tot+=PX(e.p);if(e.km)km+=e.km});
  var f=P.fin&&OUT[P.fin]?OUT[P.fin]:null;
  var finHtml=f?'<div class="sec fin"><h3>🏁 Et après ? Choisissez votre fin de séjour</h3><p class="lead" style="margin-top:0">Trois sorties possibles, votre chauffeur vous attend :</p>'+
@@ -707,22 +748,37 @@ panel.addEventListener('click',function(e){var b=e.target&&e.target.closest?e.ta
  panel.dataset.vue=b.dataset.v;
  panel.querySelectorAll('.bascule button').forEach(function(x){x.classList.toggle('on',x===b)})});
 /* ecran etroit : tiroir glissant, moins de marqueurs par defaut */
-var ETROIT=window.matchMedia('(max-width:900px)');
-(function(){var tir=document.getElementById('tiroir'),tt=document.getElementById('tirette');
- var pos=66;
- function pose(){if(!ETROIT.matches){tir.style.transform='';return}tir.style.transform='translateY('+pos+'%)';setTimeout(function(){map.invalidateSize()},320)}
- var y0=null,p0=0;
- tt.addEventListener('touchstart',function(e){y0=e.touches[0].clientY;p0=pos;tir.style.transition='none'},{passive:true});
- tt.addEventListener('touchmove',function(e){if(y0===null)return;
-  pos=Math.min(80,Math.max(0,p0+(e.touches[0].clientY-y0)/tir.offsetHeight*100));
-  tir.style.transform='translateY('+pos+'%)'},{passive:true});
- tt.addEventListener('touchend',function(){y0=null;tir.style.transition='';pos=pos<40?0:66;pose()});
- tt.addEventListener('click',function(){pos=pos>10?0:66;pose()});
+var tiroirPos=34,tiroirRepos=function(){};
+(function(){var tir=document.getElementById('tiroir'),tt=document.getElementById('tirette'),lib=document.getElementById('tirlib'),st=document.querySelector('.stage');
+ var CRANS=[34,64,100];
+ function libelle(){lib.textContent=tiroirPos>=100?'▼ Glisser pour voir la carte':(tiroirPos>50?'▲ Agrandir · ▼ Voir la carte':'▲ Glisser pour agrandir')}
+ function applique(h){st.style.setProperty('--tirh',h+'%')}
+ function pose(){if(!ETROIT.matches){st.style.removeProperty('--tirh');tir.classList.remove('drag');map.invalidateSize();return}
+  applique(tiroirPos);libelle();setTimeout(function(){map.invalidateSize()},320)}
+ function cran(h){var best=CRANS[0];CRANS.forEach(function(c){if(Math.abs(c-h)<Math.abs(best-h))best=c});return best}
+ window.tiroirVa=function(h){tiroirPos=cran(h);pose()};
+ tiroirRepos=function(){if(ETROIT.matches&&tiroirPos>34){tiroirPos=34;pose()}};
+ var y0=null,h0=0,hs=0,bouge=false;
+ function debut(y){y0=y;h0=tiroirPos;hs=st.offsetHeight||1;bouge=false;tir.classList.add('drag')}
+ function mouv(y){if(y0===null)return;var h=h0+(y0-y)/hs*100;if(Math.abs(y-y0)>6)bouge=true;
+  h=Math.min(100,Math.max(18,h));applique(h);tiroirPos=h}
+ function fin(){if(y0===null)return;y0=null;tir.classList.remove('drag');
+  if(!bouge){tiroirPos=h0>=100?34:100}else{tiroirPos=cran(tiroirPos)}
+  pose()}
+ if(window.PointerEvent){
+  tt.addEventListener('pointerdown',function(e){debut(e.clientY);try{tt.setPointerCapture(e.pointerId)}catch(x){}e.preventDefault()});
+  tt.addEventListener('pointermove',function(e){mouv(e.clientY)});
+  tt.addEventListener('pointerup',fin);tt.addEventListener('pointercancel',fin)}
+ else{
+  tt.addEventListener('touchstart',function(e){debut(e.touches[0].clientY)},{passive:true});
+  tt.addEventListener('touchmove',function(e){mouv(e.touches[0].clientY)},{passive:true});
+  tt.addEventListener('touchend',fin);tt.addEventListener('mousedown',function(e){debut(e.clientY)});
+  window.addEventListener('mousemove',function(e){mouv(e.clientY)});window.addEventListener('mouseup',fin)}
  if(ETROIT.addEventListener)ETROIT.addEventListener('change',pose);else ETROIT.addListener(pose);
  pose()})();
 if(ETROIT.matches){t6.click();t7.click()}
 window.ouvrir=ouvrir;window.choisir=choisir;window.vueIle=vueIle;window.lancer=lancer;window.listeParcours=listeParcours;window.togglePause=togglePause;
-setTimeout(function(){map.invalidateSize()},350);
+setTimeout(function(){map.invalidateSize();if(ETROIT.matches)map.panBy([0,Math.round(map.getSize().y*0.16)],{animate:false})},350);
 window.addEventListener('resize',function(){map.invalidateSize()});
 vueIle();
 setTimeout(function(){if(ok===0&&!basc){basc=true;map.removeLayer(plan);topo.addTo(map);eT='<span class="ko">IGN sans réponse</span> → OpenTopoMap';maj()}},6000);
