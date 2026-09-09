@@ -15,8 +15,8 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .veh button.on{background-color:#F5C518;--c:#E8A200;color:#021132;text-shadow:0 1px 0 rgba(255,255,255,.35)}
 .tools{margin-left:auto;display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
 .tg{font-size:11px;font-weight:700;padding:7px 11px;border-radius:5px;white-space:nowrap;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:rgba(255,255,255,.8);box-shadow:0 2px 4px rgba(0,0,0,.25);transition:.15s}
-.tg:hover{background:rgba(255,255,255,.18);transform:translateY(-1px)}
-.tg.on{color:#fff;border-color:transparent;box-shadow:0 3px 8px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.3)}
+.tg:hover{background:rgba(255,255,255,.18)}
+.tg.on{color:#fff}
 #t3.on{background-color:#1E8A3E;--c:#06651E}
 #t4.on{background-color:#2E6FD8;--c:#0141AC}
 #t6.on{background-color:#DE0715;--c:#C4101B}
@@ -28,24 +28,31 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .trek{font-size:13.5px;font-weight:800;padding:10px 18px;border-radius:11px;background-color:#F5C518;--c:#E8A200;color:#021132;white-space:nowrap;transition:.15s;text-shadow:0 1px 0 rgba(255,255,255,.35)}
 .trek:hover{filter:brightness(1.06)}
 .trek.on{transform:translateY(-1px)}
-/* ---- Relief charte (recette Pepite Pays) : degrade radial bombe clair en haut a gauche, reflet, ombre portee
-   teintee de la couleur du bouton, ombres internes, coins arrondis (jamais rond). Couleurs RTS uniquement. ---- */
-.zb,.trek,.veh button.on,.tg.on,.play,.go2.finbtn{--c:#0141AC;
- background-image:radial-gradient(130% 110% at 16% 10%,rgba(255,255,255,.62) 0%,rgba(255,255,255,.24) 24%,rgba(255,255,255,0) 56%),linear-gradient(180deg,rgba(255,255,255,.08) 0%,rgba(0,0,0,.05) 55%,rgba(0,0,0,.24) 100%);
- box-shadow:0 8px 16px -6px var(--c),0 2px 4px rgba(2,17,50,.22),inset 0 1px 0 rgba(255,255,255,.7),inset 1px 0 0 rgba(255,255,255,.28),inset 0 -3px 6px rgba(0,0,0,.24),inset 0 -1px 0 rgba(0,0,0,.28);
- border:none;transition:transform .15s ease,box-shadow .15s ease,filter .15s ease}
-@supports(color:color-mix(in srgb,red,blue)){.zb,.trek,.veh button.on,.tg.on,.play,.go2.finbtn{
- box-shadow:0 9px 18px -6px color-mix(in srgb,var(--c) 70%,transparent),0 2px 4px rgba(2,17,50,.2),inset 0 1px 0 rgba(255,255,255,.7),inset 1px 0 0 rgba(255,255,255,.28),inset 0 -3px 6px rgba(0,0,0,.24),inset 0 -1px 0 rgba(0,0,0,.28)}}
-.zb,.trek,.tg.on,.go2.finbtn{text-shadow:0 1px 1px rgba(0,0,0,.3)}
-.trek,.veh button.on{text-shadow:0 1px 0 rgba(255,255,255,.35)}
-.zb:hover,.trek:hover,.play:hover,.go2.finbtn:hover{filter:brightness(1.06);transform:translateY(-1px)}
-.zb:active,.trek:active,.veh button:active,.tg:active,.play:active,.go2.finbtn:active{transform:translateY(1px);filter:brightness(.97)}
-.zb.on,.trek.on{outline:2.5px solid #fff;outline-offset:-2.5px}
-.veh button{border-radius:10px;border:1px solid rgba(255,255,255,.22);box-shadow:inset 0 1px 2px rgba(0,0,0,.25)}
-.veh button.on{border-color:transparent}
-.tg{border-radius:10px}
-.tg.on{border-color:transparent}
-.go2.finbtn:hover{border-color:transparent}
+/* ---- Relief glossy (reference validee par le gerant) : bandeau clair net sur la moitie haute, moitie basse
+   plus foncee avec leger eclaircissement en bas, lisere blanc casse 2,5 px, ombre portee nette teintee de la
+   couleur du bouton, coins arrondis genereux, texte en majuscules. Les boutons inactifs restent plats. ---- */
+.zb,.trek,.veh button,.tg,.play,.go2.finbtn,.calq button{border:2.5px solid transparent;border-radius:14px;text-transform:uppercase;letter-spacing:.2px;transition:transform .15s ease,box-shadow .15s ease,filter .15s ease}
+.play{border-radius:10px}
+.zb.on,.trek,.veh button.on,.tg.on,.play,.go2.finbtn,.calq button.on{--c:#0141AC;color:#fff;
+ background-image:linear-gradient(180deg,rgba(255,255,255,.46) 0%,rgba(255,255,255,.34) 50%,rgba(255,255,255,0) 50%,rgba(0,0,0,.20) 84%,rgba(255,255,255,.14) 100%);
+ border-color:var(--paper);
+ box-shadow:0 4px 8px -1px var(--c),0 1px 2px rgba(2,17,50,.35);
+ text-shadow:0 1px 1px rgba(0,0,0,.35)}
+@supports(color:color-mix(in srgb,red,blue)){.zb.on,.trek,.veh button.on,.tg.on,.play,.go2.finbtn,.calq button.on{
+ box-shadow:0 4px 8px -1px color-mix(in srgb,var(--c) 80%,transparent),0 1px 2px rgba(2,17,50,.35)}}
+.trek,.veh button.on{color:#021132;text-shadow:0 1px 0 rgba(255,255,255,.45)} /* fond jaune : texte marine pour rester lisible */
+.zb.on:hover,.trek:hover,.play:hover,.go2.finbtn:hover,.calq button.on:hover{filter:brightness(1.06);transform:translateY(-1px)}
+.zb:active,.trek:active,.veh button:active,.tg:active,.play:active,.go2.finbtn:active,.calq button:active{transform:translateY(1px);filter:brightness(.97)}
+.zb:not(.on){opacity:.82;box-shadow:0 1px 2px rgba(0,0,0,.3)}
+.zb:not(.on):hover{opacity:1}
+.zb.on{opacity:1;transform:translateY(-1px)}
+.trek.on{border-color:#fff;filter:brightness(1.08)}
+.veh button{box-shadow:inset 0 1px 2px rgba(0,0,0,.25);background-color:rgba(255,255,255,.1)}
+.tg{box-shadow:none}
+/* colonne Loueurs / Gites : a droite de la carte sur ecran large, en haut du tiroir sur ecran etroit */
+.calq{position:absolute;right:12px;top:12px;z-index:800;display:flex;flex-direction:column;gap:10px}
+.calq button{min-height:46px;padding:10px 16px;font-size:13px;font-weight:800;white-space:nowrap;text-align:left;background-color:rgba(2,17,50,.82);color:#fff;box-shadow:0 1px 3px rgba(0,0,0,.35)}
+.calq button:not(.on):hover{background-color:rgba(2,17,50,.95)}
 .mkbox{width:30px;height:30px;border-radius:50%;background:linear-gradient(180deg,#8A6BC8,#6B4EA8);border:2.5px solid #fff;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 3px 8px rgba(0,0,0,.5);cursor:pointer}
 .mk.gite .pin{width:23px;height:23px;border-radius:7px;background:linear-gradient(180deg,#2E9E4B,#06651E);border:2px solid #fff;font-size:12px}
 .sec.fin{background:linear-gradient(180deg,#FFFBEA,#FFF4C9);border:1px solid rgba(251,214,8,.55);border-radius:9px;padding:13px 11px;box-shadow:0 3px 9px rgba(2,17,50,.14)}
@@ -181,6 +188,10 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .tirette span{width:56px;height:6px;border-radius:3px;background:rgba(2,17,50,.32)}
 .tirette i{font-style:normal;font-size:14px;font-weight:700;color:rgba(2,17,50,.6);line-height:1}
 .panel{width:100%;flex:1;min-height:0;border-left:none;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.tiroir .calq{position:static;flex:none;gap:6px;padding:6px 12px 8px;background:var(--paper);border-bottom:1px solid rgba(2,17,50,.1)}
+.tiroir .calq button{width:100%;min-height:44px;padding:6px 12px;font-size:14px;text-align:center}
+.tiroir .calq button:not(.on){background-color:rgba(2,17,50,.08);color:rgba(2,17,50,.6);box-shadow:none}
+.tiroir .calq button:not(.on):hover{background-color:rgba(2,17,50,.14)}
 /* ---- barre du haut et secteurs ---- */
 .bar{padding:8px 10px}
 .bar b{font-size:14px}
@@ -238,9 +249,9 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 <div class="app">
 <div class="bar"><a href="index.html" class="home">← Accueil</a><b>Run Transfert <span class="r">&amp;</span> Services</b>
 <div class="veh"><button class="on" id="vB">Berline<small>1 à 4 pers.</small></button><button id="vV">Van<small>5 à 8 pers.</small></button></div><button class="trek" id="btnTrek">Formules Trek</button>
-<div class="tools"><button class="tg on" id="t3">🥾</button><button class="tg on" id="t4">🚗</button><button class="tg" id="t6">🚘</button><button class="tg" id="t7">🏠</button></div></div>
+<div class="tools"><button class="tg on" id="t3">🥾</button><button class="tg on" id="t4">🚗</button></div></div>
 <div class="zones" id="zones"></div>
-<div class="stage"><div class="mw"><div id="map"></div><div class="hud" id="hud">Initialisation…</div></div><div class="tiroir" id="tiroir"><div class="tirette" id="tirette"><span></span><i id="tirlib">▲ Glisser pour agrandir</i></div><aside class="panel" id="panel"></aside></div></div></div>
+<div class="stage"><div class="mw"><div id="map"></div><div class="hud" id="hud">Initialisation…</div><div class="calq" id="calq"><button id="t6">🚘 Loueurs de voitures</button><button id="t7">🏠 Gîtes partenaires</button></div></div><div class="tiroir" id="tiroir"><div class="tirette" id="tirette"><span></span><i id="tirlib">▲ Glisser pour agrandir</i></div><aside class="panel" id="panel"></aside></div></div></div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 var VAN=false;
@@ -762,20 +773,23 @@ panel.addEventListener('click',function(e){var b=e.target&&e.target.closest?e.ta
 /* ecran etroit : tiroir glissant, moins de marqueurs par defaut */
 var tiroirPos=34,tiroirRepos=function(){};
 (function(){var tir=document.getElementById('tiroir'),tt=document.getElementById('tirette'),lib=document.getElementById('tirlib'),st=document.querySelector('.stage');
- var CRANS=[34,64,100];
- function libelle(){lib.textContent=tiroirPos>=100?'▼ Glisser pour voir la carte':(tiroirPos>50?'▲ Agrandir · ▼ Voir la carte':'▲ Glisser pour agrandir')}
+ var calq=document.getElementById('calq'),mw=document.querySelector('.mw'),panelEl=document.getElementById('panel');
+ /* cran de repos : un tiers pour le panneau, plus la bande Loueurs / Gites placee au-dessus sur ecran etroit */
+ function repos(){var hc=(ETROIT.matches&&calq.parentNode===tir)?calq.offsetHeight:0;return Math.min(48,Math.round(34+hc/(st.offsetHeight||1)*100))}
+ function CRANS(){return [repos(),64,100]}
+ function libelle(){lib.textContent=tiroirPos>=100?'▼ Glisser pour voir la carte':(tiroirPos>repos()+8?'▲ Agrandir · ▼ Voir la carte':'▲ Glisser pour agrandir')}
  function applique(h){st.style.setProperty('--tirh',h+'%')}
  function pose(){if(!ETROIT.matches){st.style.removeProperty('--tirh');tir.classList.remove('drag');map.invalidateSize();return}
   applique(tiroirPos);libelle();setTimeout(function(){map.invalidateSize()},320)}
- function cran(h){var best=CRANS[0];CRANS.forEach(function(c){if(Math.abs(c-h)<Math.abs(best-h))best=c});return best}
+ function cran(h){var cs=CRANS(),best=cs[0];cs.forEach(function(c){if(Math.abs(c-h)<Math.abs(best-h))best=c});return best}
  window.tiroirVa=function(h){tiroirPos=cran(h);pose()};
- tiroirRepos=function(){if(ETROIT.matches&&tiroirPos>34){tiroirPos=34;pose()}};
+ tiroirRepos=function(){if(ETROIT.matches&&tiroirPos>repos()){tiroirPos=repos();pose()}};
  var y0=null,h0=0,hs=0,bouge=false;
  function debut(y){y0=y;h0=tiroirPos;hs=st.offsetHeight||1;bouge=false;tir.classList.add('drag')}
  function mouv(y){if(y0===null)return;var h=h0+(y0-y)/hs*100;if(Math.abs(y-y0)>6)bouge=true;
   h=Math.min(100,Math.max(18,h));applique(h);tiroirPos=h}
  function fin(){if(y0===null)return;y0=null;tir.classList.remove('drag');
-  if(!bouge){tiroirPos=h0>=100?34:100}else{tiroirPos=cran(tiroirPos)}
+  if(!bouge){tiroirPos=h0>=100?repos():100}else{tiroirPos=cran(tiroirPos)}
   pose()}
  if(window.PointerEvent){
   tt.addEventListener('pointerdown',function(e){debut(e.clientY);try{tt.setPointerCapture(e.pointerId)}catch(x){}e.preventDefault()});
@@ -786,8 +800,10 @@ var tiroirPos=34,tiroirRepos=function(){};
   tt.addEventListener('touchmove',function(e){mouv(e.touches[0].clientY)},{passive:true});
   tt.addEventListener('touchend',fin);tt.addEventListener('mousedown',function(e){debut(e.clientY)});
   window.addEventListener('mousemove',function(e){mouv(e.clientY)});window.addEventListener('mouseup',fin)}
- if(ETROIT.addEventListener)ETROIT.addEventListener('change',pose);else ETROIT.addListener(pose);
- pose()})();
+ function placeCalq(){if(ETROIT.matches){if(calq.parentNode!==tir)tir.insertBefore(calq,panelEl)}else if(calq.parentNode!==mw)mw.appendChild(calq)}
+ function poseEtCalq(){placeCalq();if(tiroirPos<60)tiroirPos=repos();pose()}
+ if(ETROIT.addEventListener)ETROIT.addEventListener('change',poseEtCalq);else ETROIT.addListener(poseEtCalq);
+ poseEtCalq()})();
 window.ouvrir=ouvrir;window.choisir=choisir;window.vueIle=vueIle;window.lancer=lancer;window.listeParcours=listeParcours;window.togglePause=togglePause;
 setTimeout(function(){map.invalidateSize();if(ETROIT.matches)map.panBy([0,Math.round(map.getSize().y*0.16)],{animate:false})},350);
 window.addEventListener('resize',function(){map.invalidateSize()});
