@@ -104,6 +104,23 @@ a.presta i{color:var(--roi)}
 .infos a.pastille i{display:block;font-style:normal;font-weight:600;font-size:12px;color:rgba(255,255,255,.82);margin-top:1px}
 .infos .arr{color:var(--jaune);font-weight:900;font-size:16px;flex:none}
 .infos .avert{margin-top:12px;font-size:12.5px;color:rgba(255,255,255,.78)}
+/* ---- NOS PARTENAIRES : grille de cartes, donnees dans PARTENAIRES (script en bas de page) ---- */
+.partenaires{scroll-margin-top:16px}
+.pgrille{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.pcarte{display:flex;flex-direction:column;text-decoration:none;color:var(--marine);background:var(--blanc);border-radius:16px;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,.3);transition:transform .2s ease,box-shadow .2s ease}
+.pcarte:hover{transform:translateY(-3px);box-shadow:0 14px 28px rgba(0,0,0,.4)}
+.pcarte .pph{position:relative;height:150px;background:var(--marine)}
+.pcarte .pph img{width:100%;height:100%;object-fit:cover;display:block}
+.pcarte .ptype{position:absolute;left:10px;top:10px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;padding:5px 10px;border-radius:9px;background:var(--jaune);color:var(--marine);box-shadow:0 2px 6px rgba(0,0,0,.35)}
+.pcarte .pcorps{padding:12px 14px 14px;display:flex;flex-direction:column;gap:4px;flex:1}
+.pcarte b{font-size:16px;font-weight:900;line-height:1.25}
+.pcarte i{font-style:normal;font-size:13.5px;line-height:1.45;color:rgba(2,17,50,.68);flex:1}
+.pcarte .plien{margin-top:8px;display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:800;color:var(--roi)}
+.pcarte .plien .ic{color:var(--roi)}
+.pmention{margin-top:14px;padding:12px 14px;border-radius:12px;background:rgba(251,214,8,.16);border:1.5px solid var(--jaune);color:var(--blanc);font-size:14px;font-weight:700;line-height:1.45;display:flex;gap:10px;align-items:flex-start}
+.pmention .ic{color:var(--jaune);flex:none;font-size:20px;margin-top:1px}
+@media(max-width:900px){.pgrille{grid-template-columns:1fr 1fr;gap:10px}.pcarte .pph{height:130px}}
+@media(max-width:600px){.pgrille{grid-template-columns:1fr}}
 /* ---- UN RESEAU SUR TOUTE L'ILE : mini-carte Leaflet figee, cadre plus haut que large, points pleins et creux ---- */
 .reseau{max-width:620px;margin:0 auto;background:var(--creme);border-radius:18px;padding:18px 18px 16px;box-shadow:0 7px 20px rgba(2,17,50,.22);border-top:5px solid var(--roi)}
 .rmap{height:520px;border-radius:14px;overflow:hidden;background:var(--creme);border:3px solid var(--blanc);box-shadow:0 6px 16px rgba(2,17,50,.22)}
@@ -224,6 +241,13 @@ footer .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
  </div>
 </div>
 
+<div class="wrap partenaires" id="partenaires">
+ <h2 class="sect" data-i18n="idx.partT">Nos partenaires</h2>
+ <p class="sous" style="color:rgba(255,255,255,.85);font-size:15px;line-height:1.5;margin:10px 0 16px;max-width:760px" data-i18n="idx.partS">Hébergements, tables, loueurs et activités qui travaillent avec le réseau RTS : nous déposons et récupérons vos clients, ils profitent du reste.</p>
+ <div class="pgrille" id="pgrille"></div>
+ <div class="pmention"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4" /><path d="M12 8h.01" /></svg><span data-i18n="idx.partM">Exemples d'illustration — la liste officielle des partenaires sera intégrée prochainement.</span></div>
+</div>
+
 <footer>
  <div class="co">
   <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /></svg> <a href="tel:0693911267">06 93 91 12 67</a></span>
@@ -254,6 +278,20 @@ S1.forEach(function(p){L.circleMarker([p[1],p[2]],{radius:7,color:'#FFFFFF',weig
 var BB=L.latLngBounds([[-21.44,55.15],[-20.82,55.90]]);function cadre(){m.invalidateSize();m.fitBounds(BB,{padding:[0,0],animate:false})}
 cadre();setTimeout(cadre,400);window.addEventListener('resize',cadre);
 })();
+</script>
+<script>
+/* ---- Partenaires : UN SEUL tableau a remplacer par la liste officielle. Champs : nom, type (gite, chambre, restaurant, loueur, activite),
+   photo (dossier images/), lieu, lien externe. Les six entrees ci-dessous reprennent les exemples deja presents dans la carte. ---- */
+var PARTENAIRES=[
+ {nom:'Ti Kaz La Nouvelle',type:'gite',photo:'images/ilet-mafate.jpg',lieu:'La Nouvelle, Mafate',lien:'https://www.gites-de-france.com/fr/ocean-indien/la-reunion'},
+ {nom:'Lo Plato',type:'chambre',photo:'images/case-creole-hell-bourg.jpg',lieu:'La Nouvelle, Mafate',lien:'https://www.gites-de-france.com/fr/ocean-indien/la-reunion'},
+ {nom:'Kaz Taïbit',type:'gite',photo:'images/secteur-cilaos.jpg',lieu:'Marla, au pied du col du Taïbit',lien:'https://www.gites-de-france.com/fr/ocean-indien/la-reunion'},
+ {nom:'Lo Ker Marla',type:'restaurant',photo:'images/case-bambou-traditionnelle.jpg',lieu:'Marla, Mafate',lien:'https://www.google.com/maps/search/Marla%20Mafate'},
+ {nom:'Location Carrée',type:'loueur',photo:'images/carte-reservation.jpg',lieu:'Aéroport Roland Garros',lien:'https://www.google.com/maps/search/location%20voiture%20a%C3%A9roport%20Roland%20Garros'},
+ {nom:'Sentiers et traces de l\'île',type:'activite',photo:'images/parcours-nord-sud.jpg',lieu:'Toute l\'île',lien:'https://www.randopitons.re/'}];
+(function(){var g=document.getElementById('pgrille');if(!g)return;var T=function(k){return (window.RTS_I18N&&RTS_I18N.t)?RTS_I18N.t(k):k};
+ function rendre(){g.innerHTML=PARTENAIRES.map(function(p){return '<a class="pcarte" href="'+p.lien+'" target="_blank" rel="noopener"><span class="pph"><img src="'+p.photo+'" loading="lazy" alt="'+p.nom+', '+p.lieu+'"><span class="ptype">'+T('idx.pt_'+p.type)+'</span></span><span class="pcorps"><b>'+p.nom+'</b><i>'+p.lieu+'</i><span class="plien">'+T('idx.partL')+' <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></span></span></a>'}).join('')}
+ rendre();window.addEventListener('rts:lang',rendre)})();
 </script>
 <script src="vitrine.js"></script>
 <script>document.getElementById('vbBag').addEventListener('click',function(){if(window.RTS)RTS.ouvrir('rtsBag')});</script>
