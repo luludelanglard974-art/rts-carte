@@ -1,6 +1,7 @@
 <!DOCTYPE html><html lang="fr"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="stylesheet" href="vitrine.css">
 <title>Transferts aéroport &amp; courses — RTS</title>
 <style>
 /* Palette RTS officielle uniquement */
@@ -191,6 +192,8 @@ function maj(){var c=calc();if(c)affiche(document.getElementById('devis'),c,true
 ['dep','arr','date','heure','pax','veh','fauteuils','obag','obox','osiege'].forEach(function(id){
  document.getElementById(id).addEventListener('change',maj)});
 document.getElementById('veh').addEventListener('change',function(){document.getElementById('tpmrSub').hidden=this.value!=='t'});
+/* options pre-cochees depuis les pop-ups (?bag=1 bagagerie, ?box=1 box du Port) */
+(function(){var q=location.search;if(/[?&]bag=1/.test(q))document.getElementById('obag').checked=true;if(/[?&]box=1/.test(q))document.getElementById('obox').checked=true})();
 maj();
 function etape(n){
  for(var i=1;i<=4;i++){var p=document.getElementById('p'+i);if(p)p.hidden=(i!==n)}
@@ -206,4 +209,5 @@ function confirmer(){var c=calc();
  document.getElementById('cmsg').textContent='Votre demande de transfert '+c.A.n+' → '+c.B.n+(c.tpmr?' en van TPMR (sur devis)':' ('+c.total+' € TTC)')+' est bien enregistrée.';
  document.getElementById('cref').textContent='RTS-'+new Date().getFullYear()+'-'+String(Math.floor(1000+Math.random()*9000));
  etape(4)}
-</script></body></html>
+</script><script src="vitrine.js"></script>
+</body></html>
