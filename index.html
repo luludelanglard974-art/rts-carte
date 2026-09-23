@@ -34,6 +34,18 @@ body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:var(
 .hero .desc{margin-top:12px;font-size:14.5px;max-width:560px;line-height:1.55;color:rgba(255,255,255,.95);background:rgba(2,17,50,.42);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:8px 14px;text-shadow:0 1px 3px rgba(0,0,0,.5)}
 .hero .baseline{margin-top:12px;font-size:13px;font-style:italic;font-weight:600;color:var(--marine);background:var(--jaune);padding:6px 16px;border-radius:20px;box-shadow:0 2px 8px rgba(2,17,50,.2)}
 .wrap{max-width:1020px;margin:0 auto;padding:26px 14px 26px}
+/* ---- QUATRE BLOCS VITRINE (bagages, escale, transfert, partenaires) ---- */
+.vitrine{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:-34px 0 26px;position:relative;z-index:2}
+.vbloc{display:flex;flex-direction:column;align-items:flex-start;gap:10px;text-align:left;text-decoration:none;color:var(--blanc);background:linear-gradient(180deg,var(--roi) 0%,var(--marine) 100%);border:2.5px solid var(--creme);border-radius:18px;padding:18px 16px 16px;min-height:170px;box-shadow:0 10px 24px rgba(0,0,0,.35);cursor:pointer;font-family:inherit;transition:transform .2s ease,box-shadow .2s ease;position:relative;overflow:hidden}
+.vbloc::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.18) 0%,rgba(255,255,255,.06) 50%,rgba(255,255,255,0) 50%);pointer-events:none}
+.vbloc:hover{transform:translateY(-4px);box-shadow:0 16px 30px rgba(0,0,0,.45)}
+.vbloc .vic{width:52px;height:52px;border-radius:14px;background:var(--jaune);color:var(--marine);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.5)}
+.vbloc .vic .ic{width:28px;height:28px}
+.vbloc b{font-size:17px;font-weight:900;line-height:1.2;text-shadow:0 1px 3px rgba(0,0,0,.4)}
+.vbloc i{font-style:normal;font-size:13.5px;line-height:1.4;color:rgba(255,255,255,.88)}
+.vbloc .vgo{margin-top:auto;font-size:13px;font-weight:800;color:var(--jaune)}
+@media(max-width:900px){.vitrine{grid-template-columns:1fr 1fr;gap:10px;margin-top:-26px}.vbloc{min-height:150px;padding:14px 12px 12px}.vbloc b{font-size:15.5px}.vbloc i{font-size:14px}}
+@media(max-width:400px){.vbloc .vic{width:44px;height:44px}.vbloc .vic .ic{width:24px;height:24px}}
 /* ---- LES TROIS ENTREES ---- */
 .portes{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .porte{position:relative;display:block;text-decoration:none;color:var(--blanc);border-radius:18px;overflow:hidden;box-shadow:0 7px 20px rgba(2,17,50,.22);transition:transform .22s ease,box-shadow .22s ease;min-height:230px}
@@ -125,6 +137,12 @@ footer .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
 </div>
 
 <div class="wrap">
+ <div class="vitrine anim">
+  <button type="button" class="vbloc" id="vbBag"><span class="vic"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2" /><path d="M8 18V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v14" /><path d="M10 20h4" /><circle cx="16" cy="20" r="2" /><circle cx="8" cy="20" r="2" /></svg></span><b>Bagages &amp; box</b><i>Randonnez sans vos bagages : box sécurisé au Port, livraison à l'étape.</i><span class="vgo">Voir les formules ▶</span></button>
+  <a class="vbloc" href="escale.html"><span class="vic"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v2" /><path d="M12 9.189V13" /><path d="M19 12V6a2 2 0 00-2-2H7a2 2 0 00-2 2v6" /><path d="M19.38 19A11.6 11.6 0 0021 13l-8.188-3.639a2 2 0 00-1.624 0L3 13.001a11.6 11.6 0 002.81 7.76" /><path d="M2 20c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1s1.2 1 2.5 1c2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" /></svg></span><b>Escale croisière</b><i>Un chauffeur au pied du paquebot, au Port. Volcan, cirques ou tour de l'île.</i><span class="vgo">Préparer mon escale ▶</span></a>
+  <a class="vbloc" href="reservation.html"><span class="vic"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8" /><path d="M7 14h.01" /><path d="M17 14h.01" /><rect width="18" height="8" x="3" y="10" rx="2" /><path d="M5 18v2" /><path d="M19 18v2" /></svg></span><b>Transfert &amp; chauffeurs RTS</b><i>Un réseau de chauffeurs professionnels sur toute l'île, tarif calculé en direct.</i><span class="vgo">Réserver ▶</span></a>
+  <a class="vbloc" href="#partenaires"><span class="vic"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m11 17 2 2a1 1 0 1 0 3-3" /><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4" /><path d="m21 3 1 11h-2" /><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3" /><path d="M3 4h8" /></svg></span><b>Nos partenaires</b><i>Gîtes, restaurants, loueurs et activités qui travaillent avec le réseau.</i><span class="vgo">Découvrir ▶</span></a>
+ </div>
  <div class="portes">
   <a class="porte trek anim d1" href="trek.html">
    <img class="fond" src="images/carte-trek.jpg" loading="lazy" alt="Véhicule RTS sous les remparts, logistique bagages sur les sentiers de La Réunion">
@@ -237,4 +255,5 @@ cadre();setTimeout(cadre,400);window.addEventListener('resize',cadre);
 })();
 </script>
 <script src="vitrine.js"></script>
+<script>document.getElementById('vbBag').addEventListener('click',function(){if(window.RTS)RTS.ouvrir('rtsBag')});</script>
 </body></html>
