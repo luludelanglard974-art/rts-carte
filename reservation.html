@@ -200,7 +200,7 @@ document.getElementById('veh').addEventListener('change',function(){document.get
 (function(){var q=location.search;if(/[?&]bag=1/.test(q))document.getElementById('obag').checked=true;if(/[?&]box=1/.test(q))document.getElementById('obox').checked=true})();
 maj();
 /* changement de langue : recalcul du devis, du recapitulatif et des libelles de passagers */
-window.addEventListener('rts:lang',function(){var v=pax.value;for(var i=1;i<=10;i++)pax.options[i-1].text=i+' '+(i>1?T('resa.paxN'):T('resa.pax1'));pax.value=v;maj();if(!document.getElementById('p3').hidden)etape(3)});
+window.addEventListener('rts:lang',function(){var v=pax.value;for(var i=1;i<=10;i++)pax.options[i-1].text=i+' '+(i>1?T('resa.paxN'):T('resa.pax1'));pax.value=v;maj();if(!document.getElementById('p3').hidden)etape(3);if(!document.getElementById('p4').hidden)confirmer(true)});
 function etape(n){
  for(var i=1;i<=4;i++){var p=document.getElementById('p'+i);if(p)p.hidden=(i!==n)}
  for(var j=1;j<=3;j++)document.getElementById('e'+j).classList.toggle('on',j<=Math.min(n,3));
@@ -212,9 +212,10 @@ function etape(n){
   document.getElementById('recap').innerHTML=r;
   affiche({set innerHTML(v){document.getElementById('recap').innerHTML+=v}},c,false)}
  window.scrollTo(0,0)}
-function confirmer(){var c=calc();
+function confirmer(relangue){var c=calc();
  document.getElementById('cmsg').textContent=T('resa.cmsg').replace('{a}',c.A.n).replace('{b}',c.B.n).replace('{p}',c.tpmr?T('resa.cTpmr'):T('resa.cPrix').replace('{t}',c.total));
  var srcC=(window.RTS_I18N&&RTS_I18N.sourceLib)?RTS_I18N.sourceLib():'';var ps=document.getElementById('csrc');if(ps){ps.hidden=!srcC;ps.textContent=srcC?T('resa.src')+' : '+srcC:''}
+ if(relangue===true)return;
  document.getElementById('cref').textContent='RTS-'+new Date().getFullYear()+'-'+String(Math.floor(1000+Math.random()*9000));
  etape(4)}
 </script><script src="vitrine.js"></script>
