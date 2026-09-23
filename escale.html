@@ -1,0 +1,124 @@
+<!DOCTYPE html><html lang="fr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="stylesheet" href="vitrine.css">
+<title>Votre escale à La Réunion, avec chauffeur — RTS</title>
+<style>
+/* Palette RTS officielle uniquement : marine, bleu roi, rouge, jaune, blanc, creme */
+:root{--marine:#021132;--roi:#0141AC;--rouge:#DE0715;--jaune:#FBD608;--blanc:#FFFFFF;--creme:#FCF9F4;--l:rgba(2,17,50,.14)}
+*{margin:0;padding:0;box-sizing:border-box}
+.ic{width:1em;height:1em;display:inline-block;vertical-align:-.14em;flex:none}
+@keyframes fadeup{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+html{background:#021132}
+body{background-color:var(--marine);background-image:repeating-linear-gradient(180deg,rgba(255,255,255,.025) 0 2px,rgba(255,255,255,0) 2px 9px),linear-gradient(180deg,var(--roi) 0%,rgba(1,65,172,.55) 35%,var(--marine) 100%);background-attachment:fixed}
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:var(--marine);min-height:100vh;overflow-x:hidden}
+header{background:var(--marine);color:var(--blanc);padding:16px 16px 18px;border-bottom:3px solid var(--rouge);box-shadow:0 3px 12px rgba(0,0,0,.35)}
+header .top{display:flex;align-items:center;gap:12px;max-width:1000px;margin:0 auto;flex-wrap:wrap;padding-right:96px}
+header .logo{display:flex;align-items:center;flex:none}
+header .logo img{height:52px;width:auto;display:block;filter:drop-shadow(0 2px 4px rgba(0,0,0,.35))}
+header a.home{color:#fff;text-decoration:none;font-size:14px;font-weight:700;padding:9px 14px;min-height:44px;display:inline-flex;align-items:center;border-radius:10px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);white-space:nowrap}
+header h1{font-size:clamp(20px,3vw,28px);font-weight:900;display:flex;align-items:center;gap:10px;line-height:1.15}
+header h1 .ic{color:var(--jaune)}
+header p{font-size:15px;color:rgba(255,255,255,.88);max-width:1000px;margin:8px auto 0;line-height:1.5}
+.wrap{max-width:1000px;margin:0 auto;padding:22px clamp(14px,3vw,28px) 26px}
+h2.sect{font-size:clamp(20px,2.6vw,26px);font-weight:900;color:var(--blanc);margin:26px 0 6px;padding-bottom:8px;border-bottom:3px solid var(--rouge);text-shadow:0 1px 3px rgba(0,0,0,.35)}
+p.sous{font-size:15px;color:rgba(255,255,255,.85);margin:10px 0 16px;max-width:760px;line-height:1.5}
+/* principe : trois temps, un trait fin */
+.principe{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;position:relative;padding-top:6px}
+.principe::before{content:'';position:absolute;left:16.6%;right:16.6%;top:36px;height:2px;background:rgba(255,255,255,.55)}
+.principe li{position:relative;text-align:center;padding:0 6px}
+.principe .ico{position:relative;z-index:1;width:60px;height:60px;border-radius:18px;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;background:var(--jaune);color:var(--marine);border:2.5px solid var(--creme);box-shadow:0 6px 14px rgba(0,0,0,.35)}
+.principe .ico .ic{width:30px;height:30px}
+.principe b{display:block;font-size:16px;line-height:1.3;color:var(--blanc);text-shadow:0 1px 3px rgba(0,0,0,.4)}
+.principe i{display:block;font-style:normal;font-size:14px;line-height:1.5;color:rgba(255,255,255,.8);margin-top:6px}
+/* idees d'escale */
+.idees{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.idee{border-radius:18px;overflow:hidden;background:var(--blanc);box-shadow:0 12px 28px rgba(0,0,0,.35);display:flex;flex-direction:column;animation:fadeup .45s ease both}
+.idee .ph{position:relative;height:200px;background:var(--marine);color:var(--blanc)}
+.idee .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 65%;display:block}
+.idee .ph .voile{position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,17,50,0) 30%,rgba(2,17,50,.9) 100%)}
+.idee .ph h3{position:absolute;left:14px;right:14px;bottom:12px;font-size:20px;font-weight:900;display:flex;align-items:center;gap:8px;text-shadow:0 2px 6px rgba(0,0,0,.75)}
+.idee .ph h3 .ic{color:var(--jaune)}
+.idee .ph .duree{position:absolute;right:12px;top:12px;display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;background:rgba(2,17,50,.7);border:1px solid rgba(255,255,255,.35);padding:5px 10px;border-radius:9px}
+.idee .corps{padding:14px 16px 16px;display:flex;flex-direction:column;gap:12px;flex:1}
+.idee p{font-size:14.5px;line-height:1.5;flex:1}
+.idee .prix{display:flex;gap:14px;flex-wrap:wrap;padding:10px 12px;border-radius:12px;background:var(--marine);color:var(--blanc);border-left:5px solid var(--jaune)}
+.idee .prix span b{display:block;font-size:20px;font-weight:900;color:var(--jaune);line-height:1.1}
+.idee .prix span small{display:block;font-size:12px;font-weight:600;color:rgba(255,255,255,.9)}
+/* QR */
+.quai{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center;background:var(--blanc);border-radius:18px;padding:20px;box-shadow:0 12px 28px rgba(0,0,0,.35);border-left:6px solid var(--jaune);margin-top:16px}
+.quai .qr{width:180px;height:180px;display:block;border:6px solid var(--blanc);border-radius:10px;box-shadow:0 4px 12px rgba(2,17,50,.25)}
+.quai h3{font-size:20px;font-weight:900;display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.quai h3 .ic{color:var(--roi)}
+.quai p{font-size:14.5px;line-height:1.5;color:rgba(2,17,50,.75)}
+.quai .url{display:inline-block;margin-top:8px;font-size:13px;font-weight:800;color:var(--roi);word-break:break-all}
+.cta{margin:26px 0 8px;display:flex;justify-content:center}
+/* relief glossy RTS (recette du commit 98971e3) */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:12px 22px;font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:.3px;text-decoration:none;border-radius:14px;border:2.5px solid var(--creme);color:var(--blanc);--c:var(--roi);background-color:var(--roi);
+ background-image:linear-gradient(180deg,rgba(255,255,255,.46) 0%,rgba(255,255,255,.34) 50%,rgba(255,255,255,0) 50%,rgba(0,0,0,.20) 84%,rgba(255,255,255,.14) 100%);box-shadow:0 4px 8px -1px var(--c),0 1px 2px rgba(2,17,50,.35);text-shadow:0 1px 1px rgba(0,0,0,.35);transition:transform .15s ease,filter .15s ease;white-space:nowrap}
+@supports(color:color-mix(in srgb,red,blue)){.btn{box-shadow:0 4px 8px -1px color-mix(in srgb,var(--c) 80%,transparent),0 1px 2px rgba(2,17,50,.35)}}
+.btn:hover{filter:brightness(1.06);transform:translateY(-1px)}.btn:active{transform:translateY(1px);filter:brightness(.97)}
+.btn.jaune{background-color:var(--jaune);--c:var(--jaune);color:var(--marine);text-shadow:0 1px 0 rgba(255,255,255,.45)}
+.btn.grand{min-height:58px;font-size:17px;padding:14px 30px}
+.note{font-size:13px;color:rgba(255,255,255,.7);text-align:center;margin-top:12px;line-height:1.5}
+footer.rts{background:var(--marine);color:var(--blanc);border-top:3px solid var(--rouge);margin-top:36px;padding:22px 16px 24px;text-align:center}
+footer.rts .co{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;font-size:14px;font-weight:600}
+footer.rts .co a{color:var(--blanc);text-decoration:none;display:inline-flex;align-items:center;min-height:44px;padding:0 4px}
+footer.rts .co a:hover{color:var(--jaune)}
+footer.rts .lg{margin-top:12px;font-size:14px;color:rgba(255,255,255,.55)}
+@media(max-width:900px){.idees{grid-template-columns:1fr}.principe{grid-template-columns:1fr;gap:0;padding-top:0}.principe::before{left:29px;right:auto;top:30px;bottom:30px;width:2px;height:auto}.principe li{display:grid;grid-template-columns:60px 1fr;column-gap:14px;text-align:left;padding:10px 0}.principe .ico{margin:0;grid-row:1/3}.principe b,.principe i{grid-column:2}.quai{grid-template-columns:1fr;justify-items:center;text-align:center}.quai h3{justify-content:center}.btn.grand{width:100%}.idee .btn{width:100%}}
+@media(prefers-reduced-motion:reduce){.idee{animation:none}}
+</style></head><body>
+<header>
+ <div class="top"><a class="logo" href="index.html" title="Accueil"><img src="images/logo-rts.png" alt="Run Transfert &amp; Services"></a><a class="home" href="index.html">← Accueil</a><h1><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v2" /><path d="M12 9.189V13" /><path d="M19 12V6a2 2 0 00-2-2H7a2 2 0 00-2 2v6" /><path d="M19.38 19A11.6 11.6 0 0021 13l-8.188-3.639a2 2 0 00-1.624 0L3 13.001a11.6 11.6 0 002.81 7.76" /><path d="M2 20c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1s1.2 1 2.5 1c2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" /></svg> Votre escale à La Réunion, avec chauffeur</h1></div>
+ <p>Votre paquebot fait escale au Port. Un chauffeur du réseau RTS vous attend au pied de la passerelle et vous ramène à bord à l'heure convenue.</p>
+</header>
+<div class="wrap">
+ <h2 class="sect">Le principe</h2>
+ <p class="sous">Pas de comptoir, pas d'attente : votre chauffeur est là quand vous descendez.</p>
+ <ol class="principe">
+  <li><span class="ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v16" /><path d="m19 13 2-1a9 9 0 0 1-18 0l2 1" /><path d="M9 11h6" /><circle cx="12" cy="4" r="2" /></svg></span><b>Le paquebot accoste au Port</b><i>Vous réservez avant l'escale, ou depuis le quai en scannant le code ci-dessous.</i></li>
+  <li><span class="ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8" /><path d="M7 14h.01" /><path d="M17 14h.01" /><rect width="18" height="8" x="3" y="10" rx="2" /><path d="M5 18v2" /><path d="M19 18v2" /></svg></span><b>Votre chauffeur vous attend</b><i>Au pied du paquebot, avec votre nom. Véhicule climatisé, berline ou van.</i></li>
+  <li><span class="ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg></span><b>Retour à bord à l'heure</b><i>Le chauffeur connaît l'heure d'appareillage : vous êtes de retour avant.</i></li>
+ </ol>
+ <h2 class="sect">Trois idées d'escale</h2>
+ <p class="sous">Le véhicule entier, avec chauffeur, pour la journée. Même tarif pour les trois. Itinéraire personnalisable selon votre horaire d'escale.</p>
+ <div class="idees">
+  <article class="idee" id="esc_tour">
+   <div class="ph"><img src="images/excursion-tour-ile.jpg" loading="lazy" alt="Les falaises de lave du littoral, La Réunion"><span class="voile"></span><h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="19" r="3" /><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15" /><circle cx="18" cy="5" r="3" /></svg> Tour de l'île</h3><span class="duree"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg> Journée complète</span></div>
+   <div class="corps"><p>Une journée complète autour de l'île : côte est, Sud sauvage, plages de l'ouest, avec les arrêts que vous choisissez.</p>
+    <div class="prix"><span><b>380 €</b><small>berline · 1 à 4 places</small></span><span><b>420 €</b><small>van · 1 à 8 places</small></span></div>
+    <a class="btn jaune" href="reservation.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v16" /><path d="m19 13 2-1a9 9 0 0 1-18 0l2 1" /><path d="M9 11h6" /><circle cx="12" cy="4" r="2" /></svg> Réserver mon escale</a></div>
+  </article>
+  <article class="idee" id="esc_volcan">
+   <div class="ph"><img src="images/formica-leo-fournaise.jpg" loading="lazy" alt="Le cratère Formica Leo et l'Enclos du Piton de la Fournaise, La Réunion"><span class="voile"></span><h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4" /></svg> Volcan</h3><span class="duree"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg> Environ 8 h</span></div>
+   <div class="corps"><p>Plaine des Sables, cratère Dolomieu depuis le Pas de Bellecombe, belvédères, retour à l'heure du paquebot.</p>
+    <div class="prix"><span><b>380 €</b><small>berline · 1 à 4 places</small></span><span><b>420 €</b><small>van · 1 à 8 places</small></span></div>
+    <a class="btn jaune" href="reservation.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v16" /><path d="m19 13 2-1a9 9 0 0 1-18 0l2 1" /><path d="M9 11h6" /><circle cx="12" cy="4" r="2" /></svg> Réserver mon escale</a></div>
+  </article>
+  <article class="idee" id="esc_cilaos">
+   <div class="ph"><img src="images/cilaos-village.jpg" loading="lazy" alt="Le village de Cilaos niché au fond du cirque, sous les remparts, La Réunion"><span class="voile"></span><h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 3 4 8 5-5 5 15H2L8 3z" /><path d="M4.14 15.08c2.62-1.57 5.24-1.43 7.86.42 2.74 1.94 5.49 2 8.23.19" /></svg> Cirque de Cilaos</h3><span class="duree"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg> Environ 8 h</span></div>
+   <div class="corps"><p>La route aux 400 virages, le village, l'artisanat et les lentilles de Cilaos, un cirque classé au patrimoine mondial.</p>
+    <div class="prix"><span><b>380 €</b><small>berline · 1 à 4 places</small></span><span><b>420 €</b><small>van · 1 à 8 places</small></span></div>
+    <a class="btn jaune" href="reservation.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v16" /><path d="m19 13 2-1a9 9 0 0 1-18 0l2 1" /><path d="M9 11h6" /><circle cx="12" cy="4" r="2" /></svg> Réserver mon escale</a></div>
+  </article>
+ </div>
+ <h2 class="sect">Depuis le quai</h2>
+ <div class="quai">
+  <svg class="qr" role="img" aria-label="QR code vers https://rts-carte.vercel.app/escale.html" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33 33" shape-rendering="crispEdges"><path fill="#FFFFFF" d="M0 0h33v33H0z"/><path stroke="#021132" d="M2 2.5h7m2 0h1m2 0h2m2 0h1m1 0h3m1 0h7M2 3.5h1m5 0h1m4 0h2m2 0h1m4 0h1m1 0h1m5 0h1M2 4.5h1m1 0h3m1 0h1m1 0h1m2 0h1m4 0h1m2 0h1m2 0h1m1 0h3m1 0h1M2 5.5h1m1 0h3m1 0h1m1 0h2m3 0h2m2 0h1m4 0h1m1 0h3m1 0h1M2 6.5h1m1 0h3m1 0h1m1 0h5m1 0h1m2 0h4m1 0h1m1 0h3m1 0h1M2 7.5h1m5 0h1m1 0h2m1 0h1m2 0h3m5 0h1m5 0h1M2 8.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M10 9.5h4m3 0h2m1 0h2M2 10.5h1m1 0h5m2 0h3m1 0h3m1 0h2m1 0h1m1 0h5M5 11.5h1m1 0h1m1 0h1m2 0h1m2 0h1m2 0h9m3 0h1M8 12.5h2m3 0h2m1 0h2m1 0h1m2 0h2m1 0h2M2 13.5h1m3 0h1m7 0h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h1m1 0h1M7 14.5h2m1 0h1m1 0h5m2 0h1m7 0h2M3 15.5h2m1 0h1m2 0h4m2 0h1m2 0h1m1 0h5m1 0h1m3 0h1M2 16.5h1m2 0h2m1 0h2m1 0h4m1 0h3m1 0h1m2 0h1m1 0h1m1 0h2M3 17.5h1m3 0h1m1 0h2m1 0h2m3 0h1m3 0h2m3 0h1m2 0h1M2 18.5h1m1 0h7m1 0h3m2 0h1m1 0h1m2 0h1m2 0h1m1 0h2M2 19.5h1m2 0h2m7 0h2m2 0h1m2 0h2m1 0h3m1 0h1m1 0h1M2 20.5h1m4 0h3m1 0h1m1 0h6m1 0h1m2 0h1m2 0h1m1 0h1M2 21.5h1m1 0h1m4 0h2m2 0h3m4 0h7m2 0h1M2 22.5h1m3 0h1m1 0h5m1 0h1m1 0h2m1 0h1m1 0h6m1 0h3M10 23.5h2m1 0h2m3 0h1m3 0h1m3 0h5M2 24.5h7m2 0h1m1 0h2m2 0h2m1 0h3m1 0h1m1 0h3M2 25.5h1m5 0h1m1 0h2m1 0h2m1 0h1m3 0h1m1 0h1m3 0h1m2 0h1M2 26.5h1m1 0h3m1 0h1m1 0h1m6 0h4m1 0h5m1 0h3M2 27.5h1m1 0h3m1 0h1m1 0h2m1 0h1m2 0h1m1 0h4m3 0h1m1 0h4M2 28.5h1m1 0h3m1 0h1m1 0h2m3 0h1m1 0h3m1 0h1m2 0h6M2 29.5h1m5 0h1m2 0h4m1 0h3m3 0h1m4 0h1m1 0h1M2 30.5h7m1 0h1m3 0h1m2 0h1m1 0h1m1 0h1m1 0h1m2 0h3"/></svg>
+  <div><h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="5" height="5" x="3" y="3" rx="1" /><rect width="5" height="5" x="16" y="3" rx="1" /><rect width="5" height="5" x="3" y="16" rx="1" /><path d="M21 16h-3a2 2 0 0 0-2 2v3" /><path d="M21 21v.01" /><path d="M12 7v3a2 2 0 0 1-2 2H7" /><path d="M3 12h.01" /><path d="M12 3h.01" /><path d="M12 16v.01" /><path d="M16 12h1" /><path d="M21 12v.01" /><path d="M12 21v-1" /></svg> Scannez depuis le quai</h3><p>Ce code ouvre cette page sur votre téléphone. Choisissez votre escale, réservez, un chauffeur vous rappelle. Aucun paiement en ligne.</p><span class="url">rts-carte.vercel.app/escale.html</span></div>
+ </div>
+ <div class="cta"><a class="btn jaune grand" href="reservation.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v16" /><path d="m19 13 2-1a9 9 0 0 1-18 0l2 1" /><path d="M9 11h6" /><circle cx="12" cy="4" r="2" /></svg> Réserver mon escale</a></div>
+ <p class="note">Tarifs TTC indicatifs, pour le véhicule entier. Centrale de réservation T3P déclarée. Maquette de démonstration, aucun paiement.</p>
+</div>
+<footer class="rts">
+ <div class="co">
+  <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /></svg> <a href="tel:0693911267">06 93 91 12 67</a></span>
+  <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /><rect x="2" y="4" width="20" height="16" rx="2" /></svg> <a href="mailto:runtransfertsservices@gmail.com">runtransfertsservices@gmail.com</a></span>
+  <span><a href="https://www.facebook.com/share/1cknUjSFH1/" target="_blank" rel="noopener">Facebook</a></span>
+  <span><a href="https://www.instagram.com/runtransfertservices/" target="_blank" rel="noopener">Instagram</a></span>
+ </div>
+ <div class="lg">Maquette de démonstration — présentation Région Réunion · RTS, association loi 1901</div>
+</footer>
+<script src="vitrine.js"></script>
+</body></html>
