@@ -2,8 +2,9 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" type="image/png" href="images/favicon.png">
 <link rel="stylesheet" href="vitrine.css">
+<script src="i18n.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-<title>RTS — Run Transfert &amp; Services</title>
+<title data-i18n="idx.title">RTS — Run Transfert &amp; Services</title>
 <style>
 /* Charte RTS officielle + accents territoriaux secondaires (vegetation, terre volcanique, anthracite) */
 /* Palette RTS officielle uniquement : marine, bleu roi, rouge, jaune, blanc, creme */
@@ -129,97 +130,97 @@ footer .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
  <div class="sur">
   <a class="logo anim" href="index.html" title="Accueil"><img src="images/logo-rts.png" alt="Run Transfert &amp; Services"></a>
   <h1 class="anim d1">RUN TRANSFERT <span class="r">&amp;</span> SERVICES</h1>
-  <div class="baseline anim d2">« Des chauffeurs au service de La Réunion »</div>
-  <p class="slogan anim d3">La Réunion, notre métier, <em>votre sérénité.</em></p>
-  <div class="badges anim d4"><span class="badge">Centrale de réservation <b>T3P déclarée</b></span><span class="badge"><b>13</b> chauffeurs</span><span class="badge">Association <b>loi 1901</b></span></div>
-  <div class="tag anim d4">La mobilité réunionnaise, du littoral aux sentiers.</div>
+  <div class="baseline anim d2" data-i18n="idx.baseline">« Des chauffeurs au service de La Réunion »</div>
+  <p class="slogan anim d3" data-i18n="idx.slogan">La Réunion, notre métier, <em>votre sérénité.</em></p>
+  <div class="badges anim d4"><span class="badge" data-i18n="idx.badge1">Centrale de réservation <b>T3P déclarée</b></span><span class="badge" data-i18n="idx.badge2"><b>13</b> chauffeurs</span><span class="badge" data-i18n="idx.badge3">Association <b>loi 1901</b></span></div>
+  <div class="tag anim d4" data-i18n="idx.tag">La mobilité réunionnaise, du littoral aux sentiers.</div>
  </div>
 </div>
 
 <div class="wrap">
  <div class="vitrine anim">
-  <button type="button" class="vbloc" id="vbBag"><span class="vic"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2" /><path d="M8 18V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v14" /><path d="M10 20h4" /><circle cx="16" cy="20" r="2" /><circle cx="8" cy="20" r="2" /></svg></span><b>Bagages &amp; box</b><i>Randonnez sans vos bagages : box sécurisé au Port, livraison à l'étape.</i><span class="vgo">Voir les formules ▶</span></button>
-  <a class="vbloc" href="escale.html"><span class="vic"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v2" /><path d="M12 9.189V13" /><path d="M19 12V6a2 2 0 00-2-2H7a2 2 0 00-2 2v6" /><path d="M19.38 19A11.6 11.6 0 0021 13l-8.188-3.639a2 2 0 00-1.624 0L3 13.001a11.6 11.6 0 002.81 7.76" /><path d="M2 20c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1s1.2 1 2.5 1c2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" /></svg></span><b>Escale croisière</b><i>Un chauffeur au pied du paquebot, au Port. Volcan, cirques ou tour de l'île.</i><span class="vgo">Préparer mon escale ▶</span></a>
-  <a class="vbloc" href="reservation.html"><span class="vic"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8" /><path d="M7 14h.01" /><path d="M17 14h.01" /><rect width="18" height="8" x="3" y="10" rx="2" /><path d="M5 18v2" /><path d="M19 18v2" /></svg></span><b>Transfert &amp; chauffeurs RTS</b><i>Un réseau de chauffeurs professionnels sur toute l'île, tarif calculé en direct.</i><span class="vgo">Réserver ▶</span></a>
-  <a class="vbloc" href="#partenaires"><span class="vic"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m11 17 2 2a1 1 0 1 0 3-3" /><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4" /><path d="m21 3 1 11h-2" /><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3" /><path d="M3 4h8" /></svg></span><b>Nos partenaires</b><i>Gîtes, restaurants, loueurs et activités qui travaillent avec le réseau.</i><span class="vgo">Découvrir ▶</span></a>
+  <button type="button" class="vbloc" id="vbBag"><span class="vic"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2" /><path d="M8 18V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v14" /><path d="M10 20h4" /><circle cx="16" cy="20" r="2" /><circle cx="8" cy="20" r="2" /></svg></span><b data-i18n="idx.v1t">Bagages &amp; box</b><i data-i18n="idx.v1i">Randonnez sans vos bagages : box sécurisé au Port, livraison à l'étape.</i><span class="vgo" data-i18n="idx.v1g">Voir les formules ▶</span></button>
+  <a class="vbloc" href="escale.html"><span class="vic"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v2" /><path d="M12 9.189V13" /><path d="M19 12V6a2 2 0 00-2-2H7a2 2 0 00-2 2v6" /><path d="M19.38 19A11.6 11.6 0 0021 13l-8.188-3.639a2 2 0 00-1.624 0L3 13.001a11.6 11.6 0 002.81 7.76" /><path d="M2 20c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1s1.2 1 2.5 1c2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" /></svg></span><b data-i18n="idx.v2t">Escale croisière</b><i data-i18n="idx.v2i">Un chauffeur au pied du paquebot, au Port. Volcan, cirques ou tour de l'île.</i><span class="vgo" data-i18n="idx.v2g">Préparer mon escale ▶</span></a>
+  <a class="vbloc" href="reservation.html"><span class="vic"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8" /><path d="M7 14h.01" /><path d="M17 14h.01" /><rect width="18" height="8" x="3" y="10" rx="2" /><path d="M5 18v2" /><path d="M19 18v2" /></svg></span><b data-i18n="idx.v3t">Transfert &amp; chauffeurs RTS</b><i data-i18n="idx.v3i">Un réseau de chauffeurs professionnels sur toute l'île, tarif calculé en direct.</i><span class="vgo" data-i18n="idx.v3g">Réserver ▶</span></a>
+  <a class="vbloc" href="#partenaires"><span class="vic"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m11 17 2 2a1 1 0 1 0 3-3" /><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4" /><path d="m21 3 1 11h-2" /><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3" /><path d="M3 4h8" /></svg></span><b data-i18n="idx.v4t">Nos partenaires</b><i data-i18n="idx.v4i">Gîtes, restaurants, loueurs et activités qui travaillent avec le réseau.</i><span class="vgo" data-i18n="idx.v4g">Découvrir ▶</span></a>
  </div>
  <div class="portes">
   <a class="porte trek anim d1" href="trek.html">
    <img class="fond" src="images/carte-trek.jpg" loading="lazy" alt="Véhicule RTS sous les remparts, logistique bagages sur les sentiers de La Réunion">
    <span class="voile"></span><span class="ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5.5c0 3.11-2 5.66-2 8.68V16a2 2 0 1 1-4 0Z" /><path d="M20 20v-2.38c0-2.12 1.03-3.12 1-5.62-.03-2.72-1.49-6-4.5-6C14.63 6 14 7.8 14 9.5c0 3.11 2 5.66 2 8.68V20a2 2 0 1 0 4 0Z" /><path d="M16 17h4" /><path d="M4 13h4" /></svg></span>
    <div class="txt">
-    <h2>Trek &amp; logistique bagages</h2>
-    <p>La carte interactive des sentiers, des transferts et du box sécurisé.</p>
-    <span class="phrase">Vous marchez. RTS s'occupe du reste.</span><br>
-    <span class="go">Ouvrir la carte ▶</span>
+    <h2 data-i18n="idx.p1t">Trek &amp; logistique bagages</h2>
+    <p data-i18n="idx.p1p">La carte interactive des sentiers, des transferts et du box sécurisé.</p>
+    <span class="phrase" data-i18n="idx.p1f">Vous marchez. RTS s'occupe du reste.</span><br>
+    <span class="go" data-i18n="idx.p1g">Ouvrir la carte ▶</span>
    </div>
    <span class="bord"></span>
   </a>
   <a class="porte resa anim d2" href="reservation.html">
    <img class="fond" src="images/carte-reservation.jpg" loading="lazy" alt="Véhicule RTS sur une route de La Réunion">
    <span class="voile"></span><span class="ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8" /><path d="M7 14h.01" /><path d="M17 14h.01" /><rect width="18" height="8" x="3" y="10" rx="2" /><path d="M5 18v2" /><path d="M19 18v2" /></svg></span>
-   <div class="txt"><h2>Transferts aéroport &amp; courses</h2><p>Votre transfert en trois étapes, tarif calculé en direct.</p><span class="go">Réserver ▶</span></div>
+   <div class="txt"><h2 data-i18n="idx.p2t">Transferts aéroport &amp; courses</h2><p data-i18n="idx.p2p">Votre transfert en trois étapes, tarif calculé en direct.</p><span class="go" data-i18n="idx.v3g">Réserver ▶</span></div>
    <span class="bord"></span>
   </a>
   <a class="porte exc anim d3" href="excursions.html">
    <img class="fond" src="images/secteur-volcan.jpg" loading="lazy" alt="Le Piton de la Fournaise et les paysages du Volcan, La Réunion">
    <span class="voile"></span><span class="ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 3 4 8 5-5 5 15H2L8 3z" /></svg></span>
-   <div class="txt"><h2>Sept excursions guidées</h2><p>Volcan, cirques, Sud sauvage, Maïdo : une journée avec un chauffeur qui connaît l'île. 380 € berline · 420 € van.</p><span class="go">Découvrir ▶</span></div>
+   <div class="txt"><h2 data-i18n="idx.p3t">Sept excursions guidées</h2><p data-i18n="idx.p3p">Volcan, cirques, Sud sauvage, Maïdo : une journée avec un chauffeur qui connaît l'île. 380 € berline · 420 € van.</p><span class="go" data-i18n="idx.v4g">Découvrir ▶</span></div>
    <span class="bord"></span>
   </a>
  </div>
 
- <h2 class="sect">Les cirques, le volcan, le littoral. En fauteuil aussi.</h2>
+ <h2 class="sect" data-i18n="idx.s1">Les cirques, le volcan, le littoral. En fauteuil aussi.</h2>
  <div class="tpmrrow">
   <a class="porte tpmr " href="tpmr.html">
    <img class="fond" src="images/carte-tpmr.jpg" loading="lazy" alt="La plage de Grande Anse, dans le sud de La Réunion">
    <span class="voile"></span><span class="ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="16" cy="4" r="1" /><path d="m18 19 1-7-6 1" /><path d="m5 8 3-3 5.5 3-2.36 3.5" /><path d="M4.24 14.5a5 5 0 0 0 6.88 6" /><path d="M13.76 17.5a5 5 0 0 0-6.88-6" /></svg></span>
-   <div class="txt"><h2>Transport adapté &amp; excursions</h2><p>Chauffeurs accompagnateurs TPMR, véhicules adaptés, excursions pour tous.</p><span class="go">Découvrir ▶</span></div>
+   <div class="txt"><h2 data-i18n="idx.p4t">Transport adapté &amp; excursions</h2><p data-i18n="idx.p4p">Chauffeurs accompagnateurs TPMR, véhicules adaptés, excursions pour tous.</p><span class="go" data-i18n="idx.v4g">Découvrir ▶</span></div>
    <span class="bord"></span>
   </a>
  </div>
 
  <div class="chiffres anim d3">
-  <div class="ch"><b>13</b><span>chauffeurs partenaires<br>inscrits à l'association</span></div>
-  <div class="ch"><b>50+</b><span>chauffeurs mobilisables<br>dans le réseau élargi</span></div>
-  <div class="ch"><b>3</b><span>véhicules adaptés TPMR,<br>dont un pouvant transporter 4 fauteuils roulants</span></div>
+  <div class="ch"><b>13</b><span data-i18n="idx.c1">chauffeurs partenaires<br>inscrits à l'association</span></div>
+  <div class="ch"><b>50+</b><span data-i18n="idx.c2">chauffeurs mobilisables<br>dans le réseau élargi</span></div>
+  <div class="ch"><b>3</b><span data-i18n="idx.c3">véhicules adaptés TPMR,<br>dont un pouvant transporter 4 fauteuils roulants</span></div>
  </div>
 
- <h2 class="sect">Nos prestations</h2>
+ <h2 class="sect" data-i18n="idx.s2">Nos prestations</h2>
  <div class="prestas">
-  <div class="presta"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" /></svg></span><div><b>Transferts aéroport</b><i>Prise en charge et dépose à Roland Garros et Pierrefonds, à toute heure.</i></div></div>
-  <div class="presta"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8" /><path d="M7 14h.01" /><path d="M17 14h.01" /><rect width="18" height="8" x="3" y="10" rx="2" /><path d="M5 18v2" /><path d="M19 18v2" /></svg></span><div><b>Tous transferts sur La Réunion</b><i>D'un point à l'autre de l'île, côte comme Hauts, berline ou van.</i></div></div>
-  <a class="presta" href="excursions.html"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4" /></svg></span><div><b>Excursions touristiques avec guide chauffeur</b><i>Volcan, cirques, littoral : l'île commentée par un chauffeur qui la connaît. Sept excursions à 380 € berline · 420 € van ▶</i></div></a>
-  <div class="presta"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg></span><div><b>Mise à disposition</b><i>Un véhicule et son chauffeur à votre service, à l'heure ou à la journée.</i></div></div>
-  <div class="presta"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" /></svg></span><div><b>Voiture de mariage &amp; navettes invités</b><i>Véhicule de cérémonie avec chauffeur, et navettes pour acheminer vos invités. Sur devis.</i></div></div>
-  <div class="presta"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5.5c0 3.11-2 5.66-2 8.68V16a2 2 0 1 1-4 0Z" /><path d="M20 20v-2.38c0-2.12 1.03-3.12 1-5.62-.03-2.72-1.49-6-4.5-6C14.63 6 14 7.8 14 9.5c0 3.11 2 5.66 2 8.68V20a2 2 0 1 0 4 0Z" /><path d="M16 17h4" /><path d="M4 13h4" /></svg></span><div><b>Dépose et récupération sentiers rando et trail</b><i>Aux départs et arrivées de sentiers, y compris sur les routes forestières accessibles.</i></div></div>
-  <div class="presta"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 21 14 3" /><path d="M20.5 21 10 3" /><path d="M15.5 21 12 15l-3.5 6" /><path d="M2 21h20" /></svg></span><div><b>Logistique transport sur événements</b><i>Transport de personnes sur événements professionnels ou privés, coordonné par la centrale.</i></div></div>
-  <div class="presta"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2" /><path d="M8 18V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v14" /><path d="M10 20h4" /><circle cx="16" cy="20" r="2" /><circle cx="8" cy="20" r="2" /></svg></span><div><b>Bagagerie, conservation et transferts de bagages</b><i>Box sécurisé au Port, garde de bagages et livraison pendant que vous marchez.</i></div></div>
+  <div class="presta"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" /></svg></span><div><b data-i18n="idx.pr0t">Transferts aéroport</b><i data-i18n="idx.pr0i">Prise en charge et dépose à Roland Garros et Pierrefonds, à toute heure.</i></div></div>
+  <div class="presta"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8" /><path d="M7 14h.01" /><path d="M17 14h.01" /><rect width="18" height="8" x="3" y="10" rx="2" /><path d="M5 18v2" /><path d="M19 18v2" /></svg></span><div><b data-i18n="idx.pr1t">Tous transferts sur La Réunion</b><i data-i18n="idx.pr1i">D'un point à l'autre de l'île, côte comme Hauts, berline ou van.</i></div></div>
+  <a class="presta" href="excursions.html"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4" /></svg></span><div><b data-i18n="idx.pr2t">Excursions touristiques avec guide chauffeur</b><i data-i18n="idx.pr2i">Volcan, cirques, littoral : l'île commentée par un chauffeur qui la connaît. Sept excursions à 380 € berline · 420 € van ▶</i></div></a>
+  <div class="presta"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg></span><div><b data-i18n="idx.pr3t">Mise à disposition</b><i data-i18n="idx.pr3i">Un véhicule et son chauffeur à votre service, à l'heure ou à la journée.</i></div></div>
+  <div class="presta"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" /></svg></span><div><b data-i18n="idx.pr4t">Voiture de mariage &amp; navettes invités</b><i data-i18n="idx.pr4i">Véhicule de cérémonie avec chauffeur, et navettes pour acheminer vos invités. Sur devis.</i></div></div>
+  <div class="presta"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5.5c0 3.11-2 5.66-2 8.68V16a2 2 0 1 1-4 0Z" /><path d="M20 20v-2.38c0-2.12 1.03-3.12 1-5.62-.03-2.72-1.49-6-4.5-6C14.63 6 14 7.8 14 9.5c0 3.11 2 5.66 2 8.68V20a2 2 0 1 0 4 0Z" /><path d="M16 17h4" /><path d="M4 13h4" /></svg></span><div><b data-i18n="idx.pr5t">Dépose et récupération sentiers rando et trail</b><i data-i18n="idx.pr5i">Aux départs et arrivées de sentiers, y compris sur les routes forestières accessibles.</i></div></div>
+  <div class="presta"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 21 14 3" /><path d="M20.5 21 10 3" /><path d="M15.5 21 12 15l-3.5 6" /><path d="M2 21h20" /></svg></span><div><b data-i18n="idx.pr6t">Logistique transport sur événements</b><i data-i18n="idx.pr6i">Transport de personnes sur événements professionnels ou privés, coordonné par la centrale.</i></div></div>
+  <div class="presta"><span class="em"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2" /><path d="M8 18V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v14" /><path d="M10 20h4" /><circle cx="16" cy="20" r="2" /><circle cx="8" cy="20" r="2" /></svg></span><div><b data-i18n="idx.pr7t">Bagagerie, conservation et transferts de bagages</b><i data-i18n="idx.pr7i">Box sécurisé au Port, garde de bagages et livraison pendant que vous marchez.</i></div></div>
  </div>
 
  <div class="apropos" style="margin-top:24px">
-   <h3>Informations complémentaires</h3>
-   RTS — Run Transfert &amp; Services — est une association loi 1901 qui fédère les chauffeurs professionnels de La Réunion autour d'une centrale de réservation T3P déclarée. Notre spécialité : la logistique des séjours de randonnée (déposes en montagne, transport des bagages, box sécurisé au Port) et le transport adapté à tous les publics.
-  <div class="pastilles"><span class="pastille"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /><path d="m9 12 2 2 4-4" /></svg>Centrale de réservation T3P déclarée</span><span class="pastille"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>Association loi 1901</span><span class="pastille"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 10h2" /><path d="M16 14h2" /><path d="M6.17 15a3 3 0 0 1 5.66 0" /><circle cx="9" cy="11" r="2" /><rect x="2" y="5" width="20" height="14" rx="2" /></svg>Chauffeurs VTC titulaires de la carte professionnelle</span><span class="pastille"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>Paiement sécurisé</span></div>
+   <h3 data-i18n="idx.apT">Informations complémentaires</h3>
+   <span data-i18n="idx.apP">RTS — Run Transfert &amp; Services — est une association loi 1901 qui fédère les chauffeurs professionnels de La Réunion autour d'une centrale de réservation T3P déclarée. Notre spécialité : la logistique des séjours de randonnée (déposes en montagne, transport des bagages, box sécurisé au Port) et le transport adapté à tous les publics.</span>
+  <div class="pastilles"><span class="pastille"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /><path d="m9 12 2 2 4-4" /></svg>Centrale de réservation T3P déclarée</span><span class="pastille"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>Association loi 1901</span><span class="pastille"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 10h2" /><path d="M16 14h2" /><path d="M6.17 15a3 3 0 0 1 5.66 0" /><circle cx="9" cy="11" r="2" /><rect x="2" y="5" width="20" height="14" rx="2" /></svg>Chauffeurs VTC titulaires de la carte professionnelle</span><span class="pastille"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg><span data-i18n="idx.apPay">Paiement sécurisé</span></span></div>
   </div>
- <h2 class="sect">Informations pratiques</h2>
+ <h2 class="sect" data-i18n="idx.s3">Informations pratiques</h2>
  <div style="margin-top:0">
   <div class="infos">
    <div class="pastilles">
-    <a class="pastille" href="https://meteofrance.re/" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v2" /><path d="m4.93 4.93 1.41 1.41" /><path d="M20 12h2" /><path d="m19.07 4.93-1.41 1.41" /><path d="M15.947 12.65a4 4 0 0 0-5.925-4.128" /><path d="M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z" /></svg><span class="tx"><b>Météo-France Réunion</b><i>Prévisions et vigilances officielles</i></span><span class="arr">↗</span></a>
-    <a class="pastille" href="https://www.onf.fr/" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 10v.2A3 3 0 0 1 8.9 16H5a3 3 0 0 1-1-5.8V10a3 3 0 0 1 6 0Z" /><path d="M7 16v6" /><path d="M13 19v3" /><path d="M12 19h8.3a1 1 0 0 0 .7-1.7L18 14h.3a1 1 0 0 0 .7-1.7L16 9h.2a1 1 0 0 0 .8-1.7L13 3l-1.4 1.5" /></svg><span class="tx"><b>ONF — état des sentiers</b><i>Ouvertures et fermetures officielles</i></span><span class="arr">↗</span></a>
+    <a class="pastille" href="https://meteofrance.re/" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v2" /><path d="m4.93 4.93 1.41 1.41" /><path d="M20 12h2" /><path d="m19.07 4.93-1.41 1.41" /><path d="M15.947 12.65a4 4 0 0 0-5.925-4.128" /><path d="M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z" /></svg><span class="tx"><b>Météo-France Réunion</b><i data-i18n="idx.inf1i">Prévisions et vigilances officielles</i></span><span class="arr">↗</span></a>
+    <a class="pastille" href="https://www.onf.fr/" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 10v.2A3 3 0 0 1 8.9 16H5a3 3 0 0 1-1-5.8V10a3 3 0 0 1 6 0Z" /><path d="M7 16v6" /><path d="M13 19v3" /><path d="M12 19h8.3a1 1 0 0 0 .7-1.7L18 14h.3a1 1 0 0 0 .7-1.7L16 9h.2a1 1 0 0 0 .8-1.7L13 3l-1.4 1.5" /></svg><span class="tx"><b data-i18n="idx.inf2t">ONF — état des sentiers</b><i data-i18n="idx.inf2i">Ouvertures et fermetures officielles</i></span><span class="arr">↗</span></a>
    </div>
-   <div class="avert">Avant chaque randonnée, vérifiez la météo et l'état des sentiers auprès de ces sources officielles.</div>
+   <div class="avert" data-i18n="idx.avert">Avant chaque randonnée, vérifiez la météo et l'état des sentiers auprès de ces sources officielles.</div>
   </div>
  </div>
 </div>
 
 <div class="wrap">
- <h2 class="sect">Un réseau sur toute l'île</h2>
+ <h2 class="sect" data-i18n="idx.s4">Un réseau sur toute l'île</h2>
  <div class="reseau">
   <div class="rmap" id="reseauMap" role="img" aria-label="Carte de La Réunion : implantation du réseau RTS"></div>
-  <div class="leg"><span><i class="pl"></i>Chauffeurs partenaires inscrits à l'association</span><span><i class="cr"></i>Réseau élargi de chauffeurs mobilisables</span></div>
-  <p>Implantation du réseau RTS dans les principales communes et sur les grands axes de l'île.</p>
+  <div class="leg"><span><i class="pl"></i><span data-i18n="idx.leg1">Chauffeurs partenaires inscrits à l'association</span></span><span><i class="cr"></i><span data-i18n="idx.leg2">Réseau élargi de chauffeurs mobilisables</span></span></div>
+  <p data-i18n="idx.resP">Implantation du réseau RTS dans les principales communes et sur les grands axes de l'île.</p>
  </div>
 </div>
 
@@ -230,7 +231,7 @@ footer .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
   <span><a href="https://www.facebook.com/share/1cknUjSFH1/" target="_blank" rel="noopener">Facebook</a></span>
   <span><a href="https://www.instagram.com/runtransfertservices/" target="_blank" rel="noopener">Instagram</a></span>
  </div>
- <div class="lg">Maquette de démonstration — présentation Région Réunion · RTS, association loi 1901</div>
+ <div class="lg" data-i18n="foot.lg">Maquette de démonstration — présentation Région Réunion · RTS, association loi 1901</div>
 </footer>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>

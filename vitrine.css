@@ -51,6 +51,8 @@ body.rts-flottants{padding-bottom:96px}
 .rts-ok .rts-demo{font-size:13px;color:rgba(2,17,50,.5);margin-top:8px}
 .rts-note{font-size:12.5px;color:rgba(2,17,50,.55);margin-top:12px;line-height:1.45}
 /* selecteur de langue */
+header .top{padding-right:100px}
+@media(max-width:600px){header .top{padding-right:92px}}
 .rts-lang{position:fixed;top:10px;right:10px;z-index:950;display:flex;gap:2px;padding:3px;border-radius:999px;background:rgba(2,17,50,.82);border:1px solid rgba(255,255,255,.3);box-shadow:0 3px 10px rgba(0,0,0,.35)}
 .rts-lang button{min-width:40px;min-height:34px;padding:0 10px;border:none;border-radius:999px;background:transparent;color:rgba(255,255,255,.75);font-weight:800;font-size:13px;cursor:pointer;font-family:inherit}
 .rts-lang button[aria-pressed="true"]{background:var(--jaune);color:var(--marine)}
