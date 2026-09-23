@@ -1,0 +1,100 @@
+<!DOCTYPE html><html lang="fr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="stylesheet" href="vitrine.css">
+<script src="i18n.js"></script>
+<title>Mettre RTS en avant sur votre site — RTS</title>
+<style>
+:root{--marine:#021132;--roi:#0141AC;--rouge:#DE0715;--jaune:#FBD608;--blanc:#FFFFFF;--creme:#FCF9F4;--l:rgba(2,17,50,.14)}
+*{margin:0;padding:0;box-sizing:border-box}
+.ic{width:1em;height:1em;display:inline-block;vertical-align:-.14em;flex:none}
+html{background:#021132}
+body{background-color:var(--marine);background-image:repeating-linear-gradient(180deg,rgba(255,255,255,.025) 0 2px,rgba(255,255,255,0) 2px 9px),linear-gradient(180deg,var(--roi) 0%,rgba(1,65,172,.55) 35%,var(--marine) 100%);background-attachment:fixed}
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:var(--marine);min-height:100vh;overflow-x:hidden}
+header{background:var(--marine);color:var(--blanc);padding:16px 16px 18px;border-bottom:3px solid var(--rouge);box-shadow:0 3px 12px rgba(0,0,0,.35)}
+header .top{display:flex;align-items:center;gap:12px;max-width:1000px;margin:0 auto;flex-wrap:wrap}
+header .logo img{height:52px;width:auto;display:block;filter:drop-shadow(0 2px 4px rgba(0,0,0,.35))}
+header a.home{color:#fff;text-decoration:none;font-size:14px;font-weight:700;padding:9px 14px;min-height:44px;display:inline-flex;align-items:center;border-radius:10px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);white-space:nowrap}
+header h1{font-size:clamp(20px,3vw,28px);font-weight:900;line-height:1.15}
+header p{font-size:15px;color:rgba(255,255,255,.88);max-width:1000px;margin:8px auto 0;line-height:1.5}
+.wrap{max-width:1000px;margin:0 auto;padding:22px clamp(14px,3vw,28px) 26px}
+.intro{background:var(--blanc);border-radius:16px;padding:16px 18px;box-shadow:0 8px 20px rgba(0,0,0,.3);border-left:6px solid var(--jaune);font-size:14.5px;line-height:1.55}
+.intro ol{margin:8px 0 0 20px}.intro li{margin:4px 0}
+.format{margin-top:26px;background:var(--blanc);border-radius:18px;overflow:hidden;box-shadow:0 12px 28px rgba(0,0,0,.35)}
+.format h2{font-size:18px;font-weight:900;padding:14px 18px;background:var(--marine);color:var(--blanc);border-bottom:3px solid var(--rouge)}
+.apercu{padding:22px 18px;background:var(--creme);overflow-x:auto;display:flex;justify-content:center}
+.code{padding:14px 18px 18px}
+.code .barre{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:rgba(2,17,50,.6)}
+textarea{width:100%;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;line-height:1.45;padding:10px 12px;border:1px solid var(--l);border-radius:10px;background:#FCF9F4;color:var(--marine);resize:vertical;white-space:pre;overflow:auto}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:8px 16px;font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.3px;border-radius:14px;border:2.5px solid var(--creme);color:var(--marine);--c:var(--jaune);background-color:var(--jaune);cursor:pointer;font-family:inherit;
+ background-image:linear-gradient(180deg,rgba(255,255,255,.46) 0%,rgba(255,255,255,.34) 50%,rgba(255,255,255,0) 50%,rgba(0,0,0,.20) 84%,rgba(255,255,255,.14) 100%);box-shadow:0 4px 8px -1px var(--c),0 1px 2px rgba(2,17,50,.35);text-shadow:0 1px 0 rgba(255,255,255,.45);transition:transform .15s,filter .15s}
+.btn:hover{filter:brightness(1.06);transform:translateY(-1px)}.btn:active{transform:translateY(1px)}
+.btn.ok{background-color:var(--roi);--c:var(--roi);color:var(--blanc);text-shadow:0 1px 1px rgba(0,0,0,.35)}
+.suivi{margin-top:26px;background:var(--blanc);border-radius:16px;padding:16px 18px;box-shadow:0 8px 20px rgba(0,0,0,.3);font-size:14.5px;line-height:1.55}
+.suivi h2{font-size:17px;font-weight:900;margin-bottom:6px}
+.suivi code{font-family:ui-monospace,Menlo,Consolas,monospace;background:rgba(1,65,172,.08);padding:2px 6px;border-radius:6px;color:var(--roi);font-weight:700}
+footer.rts{background:var(--marine);color:var(--blanc);border-top:3px solid var(--rouge);margin-top:36px;padding:22px 16px 24px;text-align:center}
+footer.rts .co{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;font-size:14px;font-weight:600}
+footer.rts .co a{color:var(--blanc);text-decoration:none;display:inline-flex;align-items:center;min-height:44px;padding:0 4px}
+footer.rts .lg{margin-top:12px;font-size:14px;color:rgba(255,255,255,.55)}
+@media(max-width:600px){.apercu{padding:16px 12px;justify-content:flex-start}}
+</style></head><body>
+<header>
+ <div class="top"><a class="logo" href="index.html" title="Accueil"><img src="images/logo-rts.png" alt="Run Transfert &amp; Services"></a><a class="home" href="index.html">← Accueil</a><h1>Mettre RTS en avant sur votre site</h1></div>
+ <p>Trois formats prêts à intégrer, avec le code HTML à copier. Chaque lien contient <b>?source=irt</b> : les réservations qui en proviennent sont identifiées « apportées par IRT » dans le récapitulatif.</p>
+</header>
+<div class="wrap">
+ <div class="intro"><b>Mode d'emploi</b><ol><li>Choisissez un format ci-dessous.</li><li>Cliquez sur « Copier », puis collez le code dans une page de votre site (bloc HTML).</li><li>Le code est autonome : HTML et style intégrés, aucun script, aucune ressource externe à charger.</li></ol></div>
+  <section class="format" id="fmt_bandeau">
+   <h2>Bandeau horizontal</h2>
+   <div class="apercu"><a href="https://rts-carte.vercel.app/trek.html?source=irt" style="display:flex;align-items:center;gap:16px;max-width:900px;padding:16px 20px;border-radius:16px;background:linear-gradient(180deg,#0141AC 0%,#021132 100%);color:#FFFFFF;text-decoration:none;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;box-shadow:0 8px 20px rgba(2,17,50,.35)">
+  <span style="flex:none;width:52px;height:52px;border-radius:14px;background:#FBD608;display:flex;align-items:center;justify-content:center;font-size:20px;color:#021132;font-weight:900">RTS</span>
+  <span style="flex:1;min-width:0"><strong style="display:block;font-size:20px;line-height:1.2">Randonnez sans vos bagages — RTS</strong><span style="display:block;margin-top:4px;font-size:14px;color:rgba(255,255,255,.9)">Dépose au sentier, box sécurisé au Port, livraison à l'étape. Un réseau de chauffeurs réunionnais.</span></span>
+  <span style="flex:none;padding:10px 18px;border-radius:12px;background:#FBD608;color:#021132;font-weight:800;font-size:14px;white-space:nowrap">Découvrir ▶</span>
+</a></div>
+   <div class="code"><div class="barre"><span>Code HTML à coller</span><button type="button" class="btn copier" data-cible="code_bandeau"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></svg> Copier</button></div><textarea id="code_bandeau" readonly rows="6" spellcheck="false">&lt;a href=&quot;https://rts-carte.vercel.app/trek.html?source=irt&quot; style=&quot;display:flex;align-items:center;gap:16px;max-width:900px;padding:16px 20px;border-radius:16px;background:linear-gradient(180deg,#0141AC 0%,#021132 100%);color:#FFFFFF;text-decoration:none;font-family:system-ui,-apple-system,&#x27;Segoe UI&#x27;,Roboto,sans-serif;box-shadow:0 8px 20px rgba(2,17,50,.35)&quot;&gt;
+  &lt;span style=&quot;flex:none;width:52px;height:52px;border-radius:14px;background:#FBD608;display:flex;align-items:center;justify-content:center;font-size:20px;color:#021132;font-weight:900&quot;&gt;RTS&lt;/span&gt;
+  &lt;span style=&quot;flex:1;min-width:0&quot;&gt;&lt;strong style=&quot;display:block;font-size:20px;line-height:1.2&quot;&gt;Randonnez sans vos bagages — RTS&lt;/strong&gt;&lt;span style=&quot;display:block;margin-top:4px;font-size:14px;color:rgba(255,255,255,.9)&quot;&gt;Dépose au sentier, box sécurisé au Port, livraison à l&#x27;étape. Un réseau de chauffeurs réunionnais.&lt;/span&gt;&lt;/span&gt;
+  &lt;span style=&quot;flex:none;padding:10px 18px;border-radius:12px;background:#FBD608;color:#021132;font-weight:800;font-size:14px;white-space:nowrap&quot;&gt;Découvrir ▶&lt;/span&gt;
+&lt;/a&gt;</textarea></div>
+  </section>
+  <section class="format" id="fmt_encart">
+   <h2>Encart carré</h2>
+   <div class="apercu"><a href="https://rts-carte.vercel.app/escale.html?source=irt" style="display:block;width:300px;max-width:100%;padding:22px 20px;border-radius:18px;background:linear-gradient(180deg,#0141AC 0%,#021132 100%);color:#FFFFFF;text-decoration:none;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;box-shadow:0 8px 20px rgba(2,17,50,.35);text-align:center">
+  <span style="display:block;margin:0 auto 12px;width:64px;height:64px;border-radius:18px;background:#FBD608;color:#021132;font-size:24px;font-weight:900;line-height:64px">RTS</span>
+  <strong style="display:block;font-size:20px;line-height:1.2">Votre escale avec chauffeur — RTS</strong>
+  <span style="display:block;margin:8px 0 14px;font-size:14px;color:rgba(255,255,255,.9)">Un chauffeur au pied du paquebot, au Port. Volcan, cirques ou tour de l'île.</span>
+  <span style="display:inline-block;padding:10px 18px;border-radius:12px;background:#FBD608;color:#021132;font-weight:800;font-size:14px">Préparer mon escale ▶</span>
+</a></div>
+   <div class="code"><div class="barre"><span>Code HTML à coller</span><button type="button" class="btn copier" data-cible="code_encart"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></svg> Copier</button></div><textarea id="code_encart" readonly rows="6" spellcheck="false">&lt;a href=&quot;https://rts-carte.vercel.app/escale.html?source=irt&quot; style=&quot;display:block;width:300px;max-width:100%;padding:22px 20px;border-radius:18px;background:linear-gradient(180deg,#0141AC 0%,#021132 100%);color:#FFFFFF;text-decoration:none;font-family:system-ui,-apple-system,&#x27;Segoe UI&#x27;,Roboto,sans-serif;box-shadow:0 8px 20px rgba(2,17,50,.35);text-align:center&quot;&gt;
+  &lt;span style=&quot;display:block;margin:0 auto 12px;width:64px;height:64px;border-radius:18px;background:#FBD608;color:#021132;font-size:24px;font-weight:900;line-height:64px&quot;&gt;RTS&lt;/span&gt;
+  &lt;strong style=&quot;display:block;font-size:20px;line-height:1.2&quot;&gt;Votre escale avec chauffeur — RTS&lt;/strong&gt;
+  &lt;span style=&quot;display:block;margin:8px 0 14px;font-size:14px;color:rgba(255,255,255,.9)&quot;&gt;Un chauffeur au pied du paquebot, au Port. Volcan, cirques ou tour de l&#x27;île.&lt;/span&gt;
+  &lt;span style=&quot;display:inline-block;padding:10px 18px;border-radius:12px;background:#FBD608;color:#021132;font-weight:800;font-size:14px&quot;&gt;Préparer mon escale ▶&lt;/span&gt;
+&lt;/a&gt;</textarea></div>
+  </section>
+  <section class="format" id="fmt_bouton">
+   <h2>Bouton simple</h2>
+   <div class="apercu"><a href="https://rts-carte.vercel.app/reservation.html?source=irt" style="display:inline-block;padding:13px 22px;border-radius:14px;background:#FBD608;color:#021132;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-weight:800;font-size:15px;text-decoration:none;border:2.5px solid #FCF9F4;box-shadow:0 4px 10px rgba(2,17,50,.35)">Réserver avec RTS ▶</a></div>
+   <div class="code"><div class="barre"><span>Code HTML à coller</span><button type="button" class="btn copier" data-cible="code_bouton"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></svg> Copier</button></div><textarea id="code_bouton" readonly rows="6" spellcheck="false">&lt;a href=&quot;https://rts-carte.vercel.app/reservation.html?source=irt&quot; style=&quot;display:inline-block;padding:13px 22px;border-radius:14px;background:#FBD608;color:#021132;font-family:system-ui,-apple-system,&#x27;Segoe UI&#x27;,Roboto,sans-serif;font-weight:800;font-size:15px;text-decoration:none;border:2.5px solid #FCF9F4;box-shadow:0 4px 10px rgba(2,17,50,.35)&quot;&gt;Réserver avec RTS ▶&lt;/a&gt;</textarea></div>
+  </section>
+
+ <div class="suivi"><h2>Suivi des réservations apportées</h2>Le paramètre <code>?source=irt</code> est mémorisé le temps de la session du visiteur et apparaît dans son récapitulatif de réservation : « Réservation apportée par : IRT ». Vous pouvez utiliser une autre valeur pour distinguer vos supports, par exemple <code>?source=irt-newsletter</code>.</div>
+</div>
+<footer class="rts">
+ <div class="co">
+  <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /></svg> <a href="tel:0693911267">06 93 91 12 67</a></span>
+  <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /><rect x="2" y="4" width="20" height="16" rx="2" /></svg> <a href="mailto:runtransfertsservices@gmail.com">runtransfertsservices@gmail.com</a></span>
+ </div>
+ <div class="lg">Page destinée aux partenaires · RTS, association loi 1901 · centrale de réservation T3P déclarée</div>
+</footer>
+<script>
+/* copie du code : presse-papiers si disponible, sinon selection + execCommand */
+document.querySelectorAll('.copier').forEach(function(b){b.addEventListener('click',function(){var ta=document.getElementById(b.dataset.cible);var txt=ta.value;if(!b.dataset.orig)b.dataset.orig=b.innerHTML;
+ var fini=function(ok){b.classList.toggle('ok',ok);b.textContent=ok?'Copié ✓':'Sélectionnez et copiez';setTimeout(function(){b.classList.remove('ok');b.innerHTML=b.dataset.orig},2200)};
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){fini(true)},function(){ta.focus();ta.select();fini(document.execCommand&&document.execCommand('copy'))})}
+ else{ta.focus();ta.select();fini(document.execCommand&&document.execCommand('copy'))}})});
+</script>
+<script src="vitrine.js"></script>
+</body></html>

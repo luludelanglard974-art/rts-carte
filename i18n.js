@@ -16,7 +16,11 @@ function selecteur(){if(document.querySelector('.rts-lang'))return;
  d.innerHTML='<button type="button" data-lang="fr" lang="fr">FR</button><button type="button" data-lang="en" lang="en">EN</button>';
  d.addEventListener('click',function(e){var b=e.target.closest('button');if(b)set(b.getAttribute('data-lang'))});
  var bar=document.querySelector('.bar');if(bar){d.classList.add('dans-barre');bar.appendChild(d)}else document.body.appendChild(d)}
+/* lien suivi : ?source=irt (ou toute autre valeur) est memorise pour la session et affiche dans le recapitulatif de reservation */
+try{var src=(location.search.match(/[?&]source=([^&#]+)/)||[])[1];if(src)sessionStorage.setItem('rts_source',decodeURIComponent(src).slice(0,40))}catch(e){}
+function source(){try{return sessionStorage.getItem('rts_source')||''}catch(e){return ''}}
+function sourceLib(){var s=source();if(!s)return '';return s.length<=4?s.toUpperCase():s.charAt(0).toUpperCase()+s.slice(1)}
 function init(){selecteur();apply()}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
-window.RTS_I18N={t:t,apply:apply,set:set,lang:function(){return lang}};
+window.RTS_I18N={t:t,apply:apply,set:set,lang:function(){return lang},source:source,sourceLib:sourceLib};
 })();
