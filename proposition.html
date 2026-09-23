@@ -1,0 +1,353 @@
+<!DOCTYPE html><html lang="fr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="stylesheet" href="vitrine.css">
+<script src="i18n.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<title data-i18n="prop.title">Proposition de partenariat — RTS</title>
+<style>
+/* Palette RTS officielle uniquement : marine, bleu roi, rouge, jaune, blanc, creme */
+:root{--marine:#021132;--roi:#0141AC;--rouge:#DE0715;--jaune:#FBD608;--blanc:#FFFFFF;--creme:#FCF9F4;--l:rgba(2,17,50,.14);--g1:rgba(2,17,50,.06);--g2:rgba(2,17,50,.12);--g3:rgba(2,17,50,.2)}
+*{margin:0;padding:0;box-sizing:border-box}
+.ic{width:1em;height:1em;display:inline-block;vertical-align:-.14em;flex:none}
+html{background:#021132}
+body{background-color:var(--marine);background-image:repeating-linear-gradient(180deg,rgba(255,255,255,.025) 0 2px,rgba(255,255,255,0) 2px 9px),linear-gradient(180deg,var(--roi) 0%,rgba(1,65,172,.55) 35%,var(--marine) 100%);background-attachment:fixed}
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:var(--marine);min-height:100vh;overflow-x:hidden;line-height:1.5}
+img{max-width:100%}
+/* en-tete */
+header{background:var(--marine);color:var(--blanc);padding:18px 16px 22px;border-bottom:3px solid var(--rouge);box-shadow:0 3px 12px rgba(0,0,0,.35)}
+header .top{display:flex;align-items:center;gap:16px;max-width:1000px;margin:0 auto}
+header .logo img{height:64px;width:auto;display:block;filter:drop-shadow(0 2px 4px rgba(0,0,0,.35))}
+header .titres{min-width:0}
+header .sur{font-size:12.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--jaune)}
+header h1{font-size:clamp(22px,3.4vw,32px);font-weight:900;line-height:1.12;margin-top:2px}
+header h1 small{display:block;font-size:.58em;font-weight:700;color:rgba(255,255,255,.85);margin-top:4px}
+header .sub{max-width:1000px;margin:14px auto 0;font-size:15.5px;color:rgba(255,255,255,.9);display:flex;align-items:center;gap:8px}
+header .sub .ic{color:var(--jaune);font-size:18px}
+@media(max-width:600px){header .logo img{height:48px}header .top{gap:12px}}
+/* sections */
+.wrap{max-width:1000px;margin:0 auto;padding:0 clamp(14px,3vw,28px)}
+.sec{padding:34px 0 6px}
+.sec h2{color:var(--blanc);font-size:clamp(21px,2.8vw,27px);font-weight:900;line-height:1.2;text-shadow:0 2px 6px rgba(0,0,0,.4);display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.sec h2::before{content:'';flex:none;width:10px;height:30px;border-radius:4px;background:var(--jaune);box-shadow:0 2px 6px rgba(0,0,0,.35)}
+.sec .lead{color:rgba(255,255,255,.9);font-size:15.5px;max-width:760px;margin:-6px 0 16px}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
+.reveal.vu{opacity:1;transform:none}
+/* 1. ce que vous nous avez dit */
+.dit{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.carte{background:var(--blanc);border-radius:18px;padding:18px 16px 16px;box-shadow:0 10px 24px rgba(0,0,0,.32);border-top:5px solid var(--roi);display:flex;flex-direction:column;gap:8px}
+.carte .vic{width:50px;height:50px;border-radius:14px;background:var(--jaune);color:var(--marine);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(2,17,50,.25),inset 0 1px 0 rgba(255,255,255,.6)}
+.carte .vic .ic{width:26px;height:26px}
+.carte b{font-size:16px;line-height:1.25;font-weight:900}
+.carte i{font-style:normal;font-size:14px;line-height:1.45;color:rgba(2,17,50,.75)}
+@media(max-width:900px){.dit{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.dit{grid-template-columns:1fr}}
+/* 2. notre reponse */
+.rep{background:var(--marine);color:var(--blanc);border-radius:20px;padding:26px clamp(18px,4vw,40px);box-shadow:0 14px 34px rgba(0,0,0,.45);border-left:8px solid var(--jaune);position:relative;overflow:hidden}
+.rep::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.08) 0%,rgba(255,255,255,0) 60%);pointer-events:none}
+.rep p{font-size:clamp(17px,2.2vw,21px);line-height:1.5;font-weight:600;position:relative}
+.rep p strong{color:var(--jaune);font-weight:900}
+.rep .ic{position:absolute;right:18px;top:14px;font-size:56px;color:rgba(255,255,255,.1)}
+/* 3. deux options */
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+@media(max-width:900px){.opts{grid-template-columns:1fr}}
+.opt{background:var(--blanc);border-radius:20px;box-shadow:0 12px 30px rgba(0,0,0,.36);overflow:hidden;display:flex;flex-direction:column}
+.opt .oh{background:linear-gradient(180deg,var(--roi) 0%,var(--marine) 100%);color:var(--blanc);padding:16px 18px 18px;border-bottom:3px solid var(--rouge)}
+.opt .oh .tag{display:inline-block;background:var(--jaune);color:var(--marine);font-size:12px;font-weight:900;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:999px;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.opt .oh h3{font-size:21px;font-weight:900;line-height:1.2;margin-top:8px}
+.opt .oc{padding:16px 18px 18px;display:flex;flex-direction:column;gap:14px}
+.opt .oc p{font-size:14.5px;line-height:1.5}
+.opt ul.pts{list-style:none;display:grid;gap:8px}
+.opt ul.pts li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;line-height:1.4;background:var(--creme);border-radius:12px;padding:10px 12px;border-left:4px solid var(--roi)}
+.opt ul.pts li .ic{color:var(--roi);font-size:20px;margin-top:1px}
+.legende{font-size:12.5px;color:rgba(2,17,50,.6);text-align:center;font-style:italic;margin-top:-6px}
+.pm{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:480px){.pm{grid-template-columns:1fr}}
+.pm > div{border-radius:12px;padding:10px 12px;font-size:13.5px;line-height:1.4}
+.pm h4{font-size:12.5px;font-weight:900;text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.pm ul{list-style:none;display:grid;gap:4px}
+.pm li{display:flex;gap:6px;align-items:flex-start}.pm li .ic{margin-top:3px;flex:none}
+.pm .plus{background:rgba(1,65,172,.08);border:1px solid rgba(1,65,172,.25)}.pm .plus h4,.pm .plus li .ic{color:var(--roi)}
+.pm .att{background:rgba(222,7,21,.06);border:1px solid rgba(222,7,21,.25)}.pm .att h4,.pm .att li .ic{color:var(--rouge)}
+.opt .oc .btn{align-self:center}
+/* maquette neutre (site generique, sans identite) */
+.mock{background:var(--blanc);border:1px solid var(--g2);border-radius:14px;overflow:hidden;box-shadow:0 6px 16px rgba(2,17,50,.15);font-size:0}
+.mock .mk-bar{display:flex;align-items:center;gap:5px;padding:7px 10px;background:var(--g1);border-bottom:1px solid var(--g2)}
+.mock .mk-bar span{width:8px;height:8px;border-radius:50%;background:var(--g3)}
+.mock .mk-bar i{flex:1;height:10px;border-radius:5px;background:var(--blanc);border:1px solid var(--g2);margin-left:6px}
+.mock .mk-nav{display:flex;align-items:center;gap:8px;padding:9px 12px}
+.mock .mk-nav b{width:34px;height:12px;border-radius:4px;background:var(--g3)}
+.mock .mk-nav span{width:26px;height:6px;border-radius:3px;background:var(--g2)}
+.mock .mk-hero{margin:0 12px;height:54px;border-radius:8px;background:var(--g2);display:flex;flex-direction:column;justify-content:center;gap:6px;padding:0 14px}
+.mock .mk-hero em{display:block;width:55%;height:8px;border-radius:4px;background:var(--blanc)}.mock .mk-hero em.s{width:35%;height:6px}
+.mock .mk-txt{padding:10px 12px 6px;display:grid;gap:5px}
+.mock .mk-txt span{height:6px;border-radius:3px;background:var(--g2)}.mock .mk-txt span.s{width:60%}
+.mock .mb{margin:6px 12px;display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;background:linear-gradient(180deg,var(--roi) 0%,var(--marine) 100%)}
+.mock .mb-l,.mock .me-l{flex:none;width:22px;height:22px;border-radius:6px;background:var(--jaune);color:var(--marine);font-size:8px;font-weight:900;display:flex;align-items:center;justify-content:center}
+.mock .mb-t{flex:1;display:grid;gap:4px}.mock .mb-t b{display:block;height:7px;width:70%;border-radius:3px;background:var(--blanc)}.mock .mb-t i{display:block;height:5px;width:90%;border-radius:3px;background:rgba(255,255,255,.55)}
+.mock .mb-b{flex:none;width:34px;height:14px;border-radius:5px;background:var(--jaune)}
+.mock .mk-cols{display:grid;grid-template-columns:1.4fr 1fr;gap:10px;padding:8px 12px 12px}
+.mock .mk-col{display:grid;gap:5px;align-content:start}.mock .mk-col span{height:6px;border-radius:3px;background:var(--g2)}.mock .mk-col span.s{width:55%}
+.mock .me{border-radius:8px;padding:10px 8px;background:linear-gradient(180deg,var(--roi) 0%,var(--marine) 100%);display:flex;flex-direction:column;align-items:center;gap:4px}
+.mock .me-l{width:26px;height:26px;margin-bottom:2px}
+.mock .me b{display:block;height:6px;width:80%;border-radius:3px;background:var(--blanc)}.mock .me i{display:block;height:4px;width:90%;border-radius:3px;background:rgba(255,255,255,.55)}.mock .me i.c{width:60%}
+.mock .me-b{width:46px;height:12px;border-radius:5px;background:var(--jaune);margin-top:3px}
+/* formats prets a integrer */
+.formats{border-top:1px solid var(--l);padding-top:14px}
+.formats h4.ft{font-size:15px;font-weight:900;display:flex;align-items:center;gap:8px}.formats h4.ft .ic{color:var(--roi);font-size:20px}
+.formats .fs{font-size:13px;color:rgba(2,17,50,.65);margin:4px 0 10px}
+.format{border:1px solid var(--l);border-radius:14px;overflow:hidden;margin-top:10px}
+.format h4{font-size:14px;font-weight:900;padding:9px 12px;background:var(--marine);color:var(--blanc)}
+.apercu{padding:14px 12px;background:var(--creme);overflow-x:auto;display:flex;justify-content:center}
+.code{padding:10px 12px 12px}
+.code .barre{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:rgba(2,17,50,.6)}
+textarea{width:100%;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11.5px;line-height:1.45;padding:8px 10px;border:1px solid var(--l);border-radius:10px;background:var(--creme);color:var(--marine);resize:vertical;white-space:pre;overflow:auto}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:8px 16px;font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.3px;border-radius:14px;border:2.5px solid var(--creme);color:var(--marine);--c:var(--jaune);background-color:var(--jaune);cursor:pointer;font-family:inherit;text-decoration:none;
+ background-image:linear-gradient(180deg,rgba(255,255,255,.46) 0%,rgba(255,255,255,.34) 50%,rgba(255,255,255,0) 50%,rgba(0,0,0,.20) 84%,rgba(255,255,255,.14) 100%);box-shadow:0 4px 8px -1px var(--c),0 1px 2px rgba(2,17,50,.35);text-shadow:0 1px 0 rgba(255,255,255,.45);transition:transform .15s,filter .15s}
+.btn:hover{filter:brightness(1.06);transform:translateY(-1px)}.btn:active{transform:translateY(1px)}
+.btn.ok{background-color:var(--roi);--c:var(--roi);color:var(--blanc);text-shadow:0 1px 1px rgba(0,0,0,.35)}
+.btn.roi{background-color:var(--roi);--c:var(--roi);color:var(--blanc);text-shadow:0 1px 1px rgba(0,0,0,.35);font-size:15px;padding:10px 22px}
+.btn.copier{min-height:38px;padding:6px 12px;font-size:12.5px;border-radius:11px}
+/* telephone (option B) */
+.phone{width:230px;max-width:100%;margin:0 auto;background:var(--marine);border-radius:30px;padding:10px;box-shadow:0 14px 30px rgba(2,17,50,.4),inset 0 0 0 2px rgba(255,255,255,.15);position:relative}
+.phone .ph-notch{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:70px;height:14px;border-radius:0 0 10px 10px;background:var(--marine);z-index:2}
+.phone .ph-scr{background:var(--creme);border-radius:22px;overflow:hidden;font-size:0}
+.phone .ph-head{background:var(--marine);padding:16px 10px 8px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--rouge)}
+.phone .ph-head img{height:22px;width:auto}
+.phone .ph-lang{font-size:7px;font-weight:800;color:var(--blanc);background:rgba(255,255,255,.15);border-radius:999px;padding:2px 6px}
+.phone .ph-hero{position:relative;height:74px}
+.phone .ph-hero img{width:100%;height:100%;object-fit:cover;display:block}
+.phone .ph-hero b{position:absolute;left:8px;right:8px;bottom:6px;font-size:8.5px;line-height:1.2;color:var(--blanc);text-shadow:0 1px 3px rgba(0,0,0,.7);font-weight:900}
+.phone .ph-vit{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:8px}
+.phone .ph-vit span{display:flex;flex-direction:column;gap:4px;font-size:7.5px;font-weight:800;color:var(--blanc);background:linear-gradient(180deg,var(--roi) 0%,var(--marine) 100%);border:1.5px solid var(--creme);border-radius:8px;padding:7px 6px;min-height:46px;box-shadow:0 3px 6px rgba(2,17,50,.3)}
+.phone .ph-vit i{width:18px;height:18px;border-radius:5px;background:var(--jaune);color:var(--marine);display:flex;align-items:center;justify-content:center}.phone .ph-vit i .ic{width:11px;height:11px}
+.phone .ph-foot{height:16px;background:var(--marine);border-top:2px solid var(--rouge);margin-top:4px}
+.combo{margin-top:18px;background:var(--blanc);border-radius:16px;padding:14px 18px;text-align:center;font-size:16px;font-weight:700;box-shadow:0 8px 20px rgba(0,0,0,.3);border-left:6px solid var(--jaune);border-right:6px solid var(--jaune)}
+/* 4. resultats mesurables */
+.etapes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;counter-reset:et}
+.etapes .et{background:var(--blanc);border-radius:18px;padding:18px 16px;box-shadow:0 10px 24px rgba(0,0,0,.32);position:relative;display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.etapes .et .vic{width:52px;height:52px;border-radius:50%;background:var(--roi);color:var(--blanc);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(1,65,172,.45)}
+.etapes .et .vic .ic{width:26px;height:26px}
+.etapes .et .n{position:absolute;top:12px;right:14px;width:30px;height:30px;border-radius:50%;background:var(--jaune);color:var(--marine);font-weight:900;font-size:14px;display:flex;align-items:center;justify-content:center}
+.etapes .et b{font-size:16px;line-height:1.25}.etapes .et i{font-style:normal;font-size:14px;color:rgba(2,17,50,.75)}
+.etapes .et code{font-family:ui-monospace,Menlo,Consolas,monospace;background:rgba(1,65,172,.08);padding:1px 5px;border-radius:5px;color:var(--roi);font-weight:700;font-size:13px}
+@media(max-width:760px){.etapes{grid-template-columns:1fr}}
+/* 5. reseau */
+.chiffres{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
+.chiffres .ch{background:var(--blanc);border-radius:18px;padding:16px;text-align:center;box-shadow:0 10px 24px rgba(0,0,0,.32);border-bottom:5px solid var(--jaune)}
+.chiffres .ch b{display:block;font-size:34px;font-weight:900;color:var(--roi);line-height:1}
+.chiffres .ch span{display:block;margin-top:6px;font-size:14px;font-weight:700}
+@media(max-width:560px){.chiffres{grid-template-columns:1fr}.chiffres .ch{display:flex;align-items:center;gap:14px;text-align:left;padding:12px 16px}.chiffres .ch b{font-size:30px;min-width:64px}.chiffres .ch span{margin:0}}
+/* 6. prochaines etapes */
+.suite{list-style:none;display:grid;gap:10px;counter-reset:pe}
+.suite li{counter-increment:pe;display:flex;align-items:center;gap:14px;background:var(--blanc);border-radius:14px;padding:12px 16px;box-shadow:0 8px 20px rgba(0,0,0,.3);font-size:15.5px;font-weight:600}
+.suite li::before{content:counter(pe);flex:none;width:40px;height:40px;border-radius:50%;background:var(--roi);color:var(--blanc);font-weight:900;font-size:17px;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(1,65,172,.45)}
+/* pied de page */
+footer.rts{background:var(--marine);color:var(--blanc);border-top:3px solid var(--rouge);margin-top:40px;padding:26px 16px 28px;text-align:center}
+footer.rts .qui{font-size:18px;font-weight:900}
+footer.rts .co{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;font-size:15px;font-weight:600;margin-top:8px}
+footer.rts .co a{color:var(--blanc);text-decoration:none;display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 4px}
+footer.rts .co .ic{color:var(--jaune)}
+footer.rts .lg{margin-top:10px;font-size:14px;color:rgba(255,255,255,.65)}
+@media(max-width:600px){.apercu{padding:12px 10px;justify-content:flex-start}}
+/* apercu du bandeau dans une colonne etroite : empile logo, texte et bouton (le code a copier reste inchange) */
+@media(max-width:600px),(min-width:901px){#fmt_bandeau .apercu{justify-content:stretch}#fmt_bandeau .apercu > a{flex-direction:column;align-items:flex-start;width:100%}#fmt_bandeau .apercu > a > span:nth-child(2){width:100%}}
+@media(min-width:901px){#optB{position:sticky;top:16px}}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.btn{transition:none}}
+/* impression : fond blanc, pas de selecteur de langue, pas de zones de code, sections non coupees */
+@media print{
+ html,body{background:#fff!important;color:#000}
+ .rts-lang,.rts-flot,.rts-modal,.code,.opt .oc .btn{display:none!important}
+ .reveal{opacity:1!important;transform:none!important}
+ header,.rep,.opt .oh,.format h4,footer.rts{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .sec h2{color:#000;text-shadow:none}.sec .lead,.combo{color:#000}
+ .sec,.carte,.opt,.et,.ch,.suite li,.reseau,.format,.rep{break-inside:avoid;page-break-inside:avoid}
+ .opts{grid-template-columns:1fr}.carte,.opt,.et,.ch,.suite li,.combo,.reseau{box-shadow:none;border:1px solid #bbb}
+ .rmap{height:360px}a[href]::after{content:none}
+}
+</style></head><body>
+<header>
+ <div class="top"><a class="logo" href="index.html" title="Run Transfert &amp; Services"><img src="images/logo-rts.png" alt="Run Transfert &amp; Services"></a>
+  <div class="titres"><div class="sur" data-i18n="prop.sur">Run Transfert &amp; Services</div><h1><span data-i18n="prop.h1">Proposition de partenariat</span><small data-i18n="prop.h1b">Association de chauffeurs partenaires — La Réunion</small></h1></div>
+ </div>
+ <div class="sub"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v3" /><path d="M16 2v3" /><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M3 9h18" /><path d="M8 13h.01" /><path d="M12 13h.01" /><path d="M16 13h.01" /><path d="M8 17h.01" /><path d="M12 17h.01" /><path d="M16 17h.01" /></svg><span data-i18n="prop.sub">Suite à notre rencontre du 23 septembre 2026</span></div>
+</header>
+
+<section class="wrap sec reveal" id="dit">
+ <h2 data-i18n="prop.s1">Ce que vous nous avez dit</h2>
+ <div class="dit">
+  <div class="carte"><span class="vic"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2" /><path d="M8 18V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v14" /><path d="M10 20h4" /><circle cx="16" cy="20" r="2" /><circle cx="8" cy="20" r="2" /></svg></span><b data-i18n="prop.c1t">Des demandes de bagages sans solution</b><i data-i18n="prop.c1i">Vos visiteurs demandent où déposer, stocker ou faire suivre leurs bagages pendant une randonnée. Aujourd'hui, aucune réponse ne leur est proposée.</i></div>
+  <div class="carte"><span class="vic"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v2" /><path d="M12 9.189V13" /><path d="M19 12V6a2 2 0 00-2-2H7a2 2 0 00-2 2v6" /><path d="M19.38 19A11.6 11.6 0 0021 13l-8.188-3.639a2 2 0 00-1.624 0L3 13.001a11.6 11.6 0 002.81 7.76" /><path d="M2 20c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1s1.2 1 2.5 1c2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" /></svg></span><b data-i18n="prop.c2t">Des escales sans transport immédiat</b><i data-i18n="prop.c2i">À chaque escale de croisière au Port, des passagers cherchent un chauffeur sur-le-champ. Ces demandes restent souvent sans réponse.</i></div>
+  <div class="carte"><span class="vic"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 21-4.34-4.34" /><circle cx="11" cy="11" r="8" /></svg></span><b data-i18n="prop.c3t">Des chauffeurs difficiles à trouver</b><i data-i18n="prop.c3i">Parmi de nombreuses fiches, le visiteur peine à identifier un chauffeur disponible et adapté à son besoin.</i></div>
+  <div class="carte"><span class="vic"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18" /><path d="m19 8 3 8a5 5 0 0 1-6 0zV7" /><path d="M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1" /><path d="m5 8 3 8a5 5 0 0 1-6 0zV7" /><path d="M7 21h10" /></svg></span><b data-i18n="prop.c4t">Une charte qui interdit de favoriser un prestataire</b><i data-i18n="prop.c4i">Votre charte vous impose la neutralité : impossible de mettre en avant un chauffeur plutôt qu'un autre.</i></div>
+ </div>
+</section>
+
+<section class="wrap sec reveal" id="reponse">
+ <h2 data-i18n="prop.s2">Notre réponse</h2>
+ <div class="rep"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><path d="M16 3.128a4 4 0 0 1 0 7.744" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><circle cx="9" cy="7" r="4" /></svg>
+  <p data-i18n="prop.rep"><strong>RTS n'est pas un chauffeur de plus.</strong> RTS est une association loi 1901, centrale de réservation T3P déclarée, qui regroupe les chauffeurs du réseau. Les courses sont réparties à l'équité entre tous les membres. Mettre RTS en avant ne favorise personne : cela donne de la visibilité à tous les chauffeurs à la fois.</p>
+ </div>
+</section>
+
+<section class="wrap sec reveal" id="options">
+ <h2 data-i18n="prop.s3">Deux façons de travailler ensemble</h2>
+ <div class="opts">
+  <article class="opt" id="optA">
+   <div class="oh"><span class="tag">Option A</span><h3 data-i18n="prop.at">RTS directement sur votre site</h3></div>
+   <div class="oc">
+    <p data-i18n="prop.ai">Vous intégrez RTS dans vos pages, là où vos visiteurs en ont besoin :</p>
+    <ul class="pts">
+     <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2" /><path d="M8 18V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v14" /><path d="M10 20h4" /><circle cx="16" cy="20" r="2" /><circle cx="8" cy="20" r="2" /></svg><span data-i18n="prop.a1">Une rubrique « Bagages &amp; consigne »</span></li>
+     <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z" /><path d="M15 5.764v15" /><path d="M9 3.236v15" /></svg><span data-i18n="prop.a2">Des encarts RTS dans vos pages randonnée et croisière</span></li>
+     <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8" /><path d="M7 14h.01" /><path d="M17 14h.01" /><rect width="18" height="8" x="3" y="10" rx="2" /><path d="M5 18v2" /><path d="M19 18v2" /></svg><span data-i18n="prop.a3">Un bouton « Réserver avec RTS » sur les fiches des chauffeurs membres</span></li>
+    </ul>
+    <div class="mock" aria-hidden="true">
+      <div class="mk-bar"><span></span><span></span><span></span><i></i></div>
+      <div class="mk-nav"><b></b><span></span><span></span><span></span><span></span></div>
+      <div class="mk-hero"><em></em><em class="s"></em></div>
+      <div class="mk-txt"><span></span><span></span><span class="s"></span></div>
+      <div class="mb"><span class="mb-l">RTS</span><span class="mb-t"><b></b><i></i></span><span class="mb-b"></span></div>
+      <div class="mk-cols"><div class="mk-col"><span></span><span></span><span></span><span class="s"></span><span></span><span class="s"></span></div><div class="mk-col"><div class="me"><span class="me-l">RTS</span><b></b><i></i><i class="c"></i><span class="me-b"></span></div></div></div>
+     </div>
+    <div class="legende" data-i18n="prop.acap">Exemple d’intégration — illustration non contractuelle</div>
+    <div class="pm">
+     <div class="plus"><h4><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="m16 9-5.5 5.5L8 12" /></svg><span data-i18n="prop.plus">Avantages</span></h4><ul>
+      <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span data-i18n="prop.aa1">Le visiteur reste sur votre site</span></li>
+      <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span data-i18n="prop.aa2">Visibilité maximale pour le réseau</span></li>
+      <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span data-i18n="prop.aa3">Un nouveau service pour vos visiteurs</span></li></ul></div>
+     <div class="att"><h4><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></svg><span data-i18n="prop.att">Points d’attention</span></h4><ul>
+      <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /></svg><span data-i18n="prop.ab1">Nécessite une intervention sur votre site</span></li>
+      <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /></svg><span data-i18n="prop.ab2">Compatibilité avec votre charte à valider</span></li></ul></div>
+    </div>
+    <div class="formats">
+     <h4 class="ft"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 18 6-6-6-6" /><path d="m8 6-6 6 6 6" /></svg><span data-i18n="prop.ft">Trois formats prêts à intégrer</span></h4>
+     <p class="fs" data-i18n="prop.fs">Code HTML autonome, à coller dans un bloc de votre site. Chaque lien contient <b>?source=irt</b>.</p>
+    <div class="format" id="fmt_bandeau">
+     <h4 data-i18n="prop.f1">Bandeau horizontal</h4>
+     <div class="apercu"><a href="https://rts-carte.vercel.app/trek.html?source=irt" style="display:flex;align-items:center;gap:16px;max-width:900px;padding:16px 20px;border-radius:16px;background:linear-gradient(180deg,#0141AC 0%,#021132 100%);color:#FFFFFF;text-decoration:none;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;box-shadow:0 8px 20px rgba(2,17,50,.35)">
+  <span style="flex:none;width:52px;height:52px;border-radius:14px;background:#FBD608;display:flex;align-items:center;justify-content:center;font-size:20px;color:#021132;font-weight:900">RTS</span>
+  <span style="flex:1;min-width:0"><strong style="display:block;font-size:20px;line-height:1.2">Randonnez sans vos bagages — RTS</strong><span style="display:block;margin-top:4px;font-size:14px;color:rgba(255,255,255,.9)">Dépose au sentier, box sécurisé au Port, livraison à l'étape. Un réseau de chauffeurs réunionnais.</span></span>
+  <span style="flex:none;padding:10px 18px;border-radius:12px;background:#FBD608;color:#021132;font-weight:800;font-size:14px;white-space:nowrap">Découvrir ▶</span>
+</a></div>
+     <div class="code"><div class="barre"><span data-i18n="prop.codeL">Code HTML à coller</span><button type="button" class="btn copier" data-cible="code_bandeau"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></svg> <span data-i18n="prop.copier">Copier</span></button></div><textarea id="code_bandeau" readonly rows="5" spellcheck="false" aria-label="Bandeau horizontal">&lt;a href=&quot;https://rts-carte.vercel.app/trek.html?source=irt&quot; style=&quot;display:flex;align-items:center;gap:16px;max-width:900px;padding:16px 20px;border-radius:16px;background:linear-gradient(180deg,#0141AC 0%,#021132 100%);color:#FFFFFF;text-decoration:none;font-family:system-ui,-apple-system,&#x27;Segoe UI&#x27;,Roboto,sans-serif;box-shadow:0 8px 20px rgba(2,17,50,.35)&quot;&gt;
+  &lt;span style=&quot;flex:none;width:52px;height:52px;border-radius:14px;background:#FBD608;display:flex;align-items:center;justify-content:center;font-size:20px;color:#021132;font-weight:900&quot;&gt;RTS&lt;/span&gt;
+  &lt;span style=&quot;flex:1;min-width:0&quot;&gt;&lt;strong style=&quot;display:block;font-size:20px;line-height:1.2&quot;&gt;Randonnez sans vos bagages — RTS&lt;/strong&gt;&lt;span style=&quot;display:block;margin-top:4px;font-size:14px;color:rgba(255,255,255,.9)&quot;&gt;Dépose au sentier, box sécurisé au Port, livraison à l&#x27;étape. Un réseau de chauffeurs réunionnais.&lt;/span&gt;&lt;/span&gt;
+  &lt;span style=&quot;flex:none;padding:10px 18px;border-radius:12px;background:#FBD608;color:#021132;font-weight:800;font-size:14px;white-space:nowrap&quot;&gt;Découvrir ▶&lt;/span&gt;
+&lt;/a&gt;</textarea></div>
+    </div>
+    <div class="format" id="fmt_encart">
+     <h4 data-i18n="prop.f2">Encart carré</h4>
+     <div class="apercu"><a href="https://rts-carte.vercel.app/escale.html?source=irt" style="display:block;width:300px;max-width:100%;padding:22px 20px;border-radius:18px;background:linear-gradient(180deg,#0141AC 0%,#021132 100%);color:#FFFFFF;text-decoration:none;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;box-shadow:0 8px 20px rgba(2,17,50,.35);text-align:center">
+  <span style="display:block;margin:0 auto 12px;width:64px;height:64px;border-radius:18px;background:#FBD608;color:#021132;font-size:24px;font-weight:900;line-height:64px">RTS</span>
+  <strong style="display:block;font-size:20px;line-height:1.2">Votre escale avec chauffeur — RTS</strong>
+  <span style="display:block;margin:8px 0 14px;font-size:14px;color:rgba(255,255,255,.9)">Un chauffeur au pied du paquebot, au Port. Volcan, cirques ou tour de l'île.</span>
+  <span style="display:inline-block;padding:10px 18px;border-radius:12px;background:#FBD608;color:#021132;font-weight:800;font-size:14px">Préparer mon escale ▶</span>
+</a></div>
+     <div class="code"><div class="barre"><span data-i18n="prop.codeL">Code HTML à coller</span><button type="button" class="btn copier" data-cible="code_encart"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></svg> <span data-i18n="prop.copier">Copier</span></button></div><textarea id="code_encart" readonly rows="5" spellcheck="false" aria-label="Encart carré">&lt;a href=&quot;https://rts-carte.vercel.app/escale.html?source=irt&quot; style=&quot;display:block;width:300px;max-width:100%;padding:22px 20px;border-radius:18px;background:linear-gradient(180deg,#0141AC 0%,#021132 100%);color:#FFFFFF;text-decoration:none;font-family:system-ui,-apple-system,&#x27;Segoe UI&#x27;,Roboto,sans-serif;box-shadow:0 8px 20px rgba(2,17,50,.35);text-align:center&quot;&gt;
+  &lt;span style=&quot;display:block;margin:0 auto 12px;width:64px;height:64px;border-radius:18px;background:#FBD608;color:#021132;font-size:24px;font-weight:900;line-height:64px&quot;&gt;RTS&lt;/span&gt;
+  &lt;strong style=&quot;display:block;font-size:20px;line-height:1.2&quot;&gt;Votre escale avec chauffeur — RTS&lt;/strong&gt;
+  &lt;span style=&quot;display:block;margin:8px 0 14px;font-size:14px;color:rgba(255,255,255,.9)&quot;&gt;Un chauffeur au pied du paquebot, au Port. Volcan, cirques ou tour de l&#x27;île.&lt;/span&gt;
+  &lt;span style=&quot;display:inline-block;padding:10px 18px;border-radius:12px;background:#FBD608;color:#021132;font-weight:800;font-size:14px&quot;&gt;Préparer mon escale ▶&lt;/span&gt;
+&lt;/a&gt;</textarea></div>
+    </div>
+    <div class="format" id="fmt_bouton">
+     <h4 data-i18n="prop.f3">Bouton simple</h4>
+     <div class="apercu"><a href="https://rts-carte.vercel.app/reservation.html?source=irt" style="display:inline-block;padding:13px 22px;border-radius:14px;background:#FBD608;color:#021132;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-weight:800;font-size:15px;text-decoration:none;border:2.5px solid #FCF9F4;box-shadow:0 4px 10px rgba(2,17,50,.35)">Réserver avec RTS ▶</a></div>
+     <div class="code"><div class="barre"><span data-i18n="prop.codeL">Code HTML à coller</span><button type="button" class="btn copier" data-cible="code_bouton"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></svg> <span data-i18n="prop.copier">Copier</span></button></div><textarea id="code_bouton" readonly rows="5" spellcheck="false" aria-label="Bouton simple">&lt;a href=&quot;https://rts-carte.vercel.app/reservation.html?source=irt&quot; style=&quot;display:inline-block;padding:13px 22px;border-radius:14px;background:#FBD608;color:#021132;font-family:system-ui,-apple-system,&#x27;Segoe UI&#x27;,Roboto,sans-serif;font-weight:800;font-size:15px;text-decoration:none;border:2.5px solid #FCF9F4;box-shadow:0 4px 10px rgba(2,17,50,.35)&quot;&gt;Réserver avec RTS ▶&lt;/a&gt;</textarea></div>
+    </div>
+    </div>
+   </div>
+  </article>
+  <article class="opt" id="optB">
+   <div class="oh"><span class="tag">Option B</span><h3 data-i18n="prop.bt">Un lien vers notre site</h3></div>
+   <div class="oc">
+    <p data-i18n="prop.bi">Un simple lien depuis votre site vers un espace RTS dédié à vos visiteurs : bagages, escales, transferts, course immédiate. En échange, vos partenaires sont présentés sur notre site.</p>
+    <div class="phone" aria-hidden="true">
+      <div class="ph-notch"></div>
+      <div class="ph-scr">
+       <div class="ph-head"><img src="images/logo-rts.png" alt=""><span class="ph-lang">FR EN</span></div>
+       <div class="ph-hero"><img src="images/hero-salazie.jpg" alt=""><b>La Réunion, notre métier, votre sérénité.</b></div>
+       <div class="ph-vit">
+        <span><i><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2" /><path d="M8 18V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v14" /><path d="M10 20h4" /><circle cx="16" cy="20" r="2" /><circle cx="8" cy="20" r="2" /></svg></i>Bagages &amp; box</span><span><i><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v2" /><path d="M12 9.189V13" /><path d="M19 12V6a2 2 0 00-2-2H7a2 2 0 00-2 2v6" /><path d="M19.38 19A11.6 11.6 0 0021 13l-8.188-3.639a2 2 0 00-1.624 0L3 13.001a11.6 11.6 0 002.81 7.76" /><path d="M2 20c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1s1.2 1 2.5 1c2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" /></svg></i>Escale croisière</span><span><i><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8" /><path d="M7 14h.01" /><path d="M17 14h.01" /><rect width="18" height="8" x="3" y="10" rx="2" /><path d="M5 18v2" /><path d="M19 18v2" /></svg></i>Transfert &amp; chauffeurs</span><span><i><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m11 17 2 2a1 1 0 1 0 3-3" /><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4" /><path d="m21 3 1 11h-2" /><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3" /><path d="M3 4h8" /></svg></i>Nos partenaires</span>
+       </div>
+       <div class="ph-foot"></div>
+      </div>
+     </div>
+    <div class="legende" data-i18n="prop.bcap">Page d’accueil RTS — aperçu</div>
+    <a class="btn roi" href="index.html?source=irt"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6" /><path d="M10 14 21 3" /><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /></svg> <span data-i18n="prop.bvoir">Voir la page</span></a>
+    <div class="pm">
+     <div class="plus"><h4><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="m16 9-5.5 5.5L8 12" /></svg><span data-i18n="prop.plus2">Avantages</span></h4><ul>
+      <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span data-i18n="prop.ba1">Immédiat : opérationnel dès aujourd’hui</span></li>
+      <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span data-i18n="prop.ba2">Aucun développement de votre côté</span></li>
+      <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg><span data-i18n="prop.ba3">Chaque réservation venue de votre site est comptée</span></li></ul></div>
+     <div class="att"><h4><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></svg><span data-i18n="prop.att2">Points d’attention</span></h4><ul>
+      <li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /></svg><span data-i18n="prop.bb1">Un clic supplémentaire pour le visiteur</span></li></ul></div>
+    </div>
+   </div>
+  </article>
+ </div>
+ <div class="combo" data-i18n="prop.combo">Les deux options peuvent se combiner : l’option B dès maintenant, l’option A dès que votre charte le permet.</div>
+</section>
+
+<section class="wrap sec reveal" id="resultats">
+ <h2 data-i18n="prop.s4">Des résultats mesurables</h2>
+ <p class="lead" data-i18n="prop.s4i">Chaque lien depuis votre site porte le paramètre <b>?source=irt</b>. Le parcours du visiteur est suivi de bout en bout :</p>
+ <div class="etapes">
+  <div class="et"><span class="n">1</span><span class="vic"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4.1 12 6" /><path d="m5.1 8-2.9-.8" /><path d="m6 12-1.9 2" /><path d="M7.2 2.2 8 5.1" /><path d="M9.037 9.69a.498.498 0 0 1 .653-.653l11 4.5a.5.5 0 0 1-.074.949l-4.349 1.041a1 1 0 0 0-.74.739l-1.04 4.35a.5.5 0 0 1-.95.074z" /></svg></span><b data-i18n="prop.e1t">Le visiteur clique depuis votre site</b><i data-i18n="prop.e1i">L’origine de la visite est mémorisée pour toute la session, quelle que soit la page consultée ensuite.</i></div>
+  <div class="et"><span class="n">2</span><span class="vic"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v3" /><path d="M16 2v3" /><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M3 9h18" /><path d="m9 15 2 2 4-4" /></svg></span><b data-i18n="prop.e2t">Il réserve sur RTS</b><i data-i18n="prop.e2i">Son récapitulatif indique « Réservation apportée par : IRT ».</i></div>
+  <div class="et"><span class="n">3</span><span class="vic"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16" /><path d="M18 17V9" /><path d="M13 17V5" /><path d="M8 17v-3" /></svg></span><b data-i18n="prop.e3t">La réservation est comptée et rapportée</b><i data-i18n="prop.e3i">Un bilan mensuel vous est transmis : nombre de réservations et services concernés.</i></div>
+ </div>
+</section>
+
+<section class="wrap sec reveal" id="reseau">
+ <h2 data-i18n="prop.s5">Notre réseau</h2>
+ <div class="reseau">
+  <div class="rmap" id="reseauMap" role="img" aria-label="Carte de La Réunion : implantation du réseau RTS"></div>
+  <div class="leg"><span><i class="pl"></i><span data-i18n="idx.leg1">Chauffeurs partenaires inscrits à l'association</span></span><span><i class="cr"></i><span data-i18n="idx.leg2">Réseau élargi de chauffeurs mobilisables</span></span></div>
+  <p data-i18n="idx.resP">Implantation du réseau RTS dans les principales communes et sur les grands axes de l'île.</p>
+ </div>
+ <div class="chiffres">
+  <div class="ch"><b>15+</b><span data-i18n="prop.n1">chauffeurs membres</span></div>
+  <div class="ch"><b>50+</b><span data-i18n="prop.n2">chauffeurs mobilisables</span></div>
+  <div class="ch"><b>3</b><span data-i18n="prop.n3">véhicules adaptés TPMR</span></div>
+ </div>
+</section>
+
+<section class="wrap sec reveal" id="suite">
+ <h2 data-i18n="prop.s6">Prochaines étapes</h2>
+ <ol class="suite">
+  <li><span data-i18n="prop.p1">Choix de l’option : A, B ou les deux</span></li>
+  <li><span data-i18n="prop.p2">Transmission de la liste officielle des partenaires</span></li>
+  <li><span data-i18n="prop.p3">Transmission du calendrier des escales de croisière</span></li>
+  <li><span data-i18n="prop.p4">Site en ligne en français et en anglais avant décembre 2026</span></li>
+ </ol>
+</section>
+
+<footer class="rts">
+ <div class="qui">Ludovic de Langlard, <span data-i18n="prop.pres">Président</span></div>
+ <div class="co">
+  <a href="tel:+262693911267"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /></svg> 0693 91 12 67</a>
+  <a href="mailto:runtransfertsservices@gmail.com"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /><rect x="2" y="4" width="20" height="16" rx="2" /></svg> runtransfertsservices@gmail.com</a>
+ </div>
+ <div class="lg" data-i18n="prop.lg">Association loi 1901 — centrale de réservation T3P déclarée</div>
+</footer>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="reseau.js"></script>
+<script>
+/* apparition des sections au defilement ; desactivee si l'utilisateur prefere moins d'animations ou sans IntersectionObserver */
+(function(){var els=document.querySelectorAll('.reveal');var reduit=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ if(reduit||!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('vu')});return}
+ var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('vu');io.unobserve(x.target)}})},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+ els.forEach(function(e){io.observe(e)});
+ window.addEventListener('beforeprint',function(){els.forEach(function(e){e.classList.add('vu')})});
+})();
+/* copie du code : presse-papiers si disponible, sinon selection + execCommand */
+document.querySelectorAll('.copier').forEach(function(b){b.addEventListener('click',function(){var ta=document.getElementById(b.dataset.cible);var txt=ta.value;if(!b.dataset.orig)b.dataset.orig=b.innerHTML;
+ var T=function(k){return window.RTS_I18N?RTS_I18N.t(k):k};
+ var fini=function(ok){b.classList.toggle('ok',ok);b.textContent=ok?T('prop.copie'):T('prop.copieKo');setTimeout(function(){b.classList.remove('ok');b.innerHTML=b.dataset.orig;if(window.RTS_I18N)RTS_I18N.apply(b)},2200)};
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){fini(true)},function(){ta.focus();ta.select();fini(document.execCommand&&document.execCommand('copy'))})}
+ else{ta.focus();ta.select();fini(document.execCommand&&document.execCommand('copy'))}})});
+</script>
+</body></html>
