@@ -78,7 +78,11 @@ p.sous{font-size:15px;color:rgba(255,255,255,.82);margin:10px 0 18px;max-width:7
 .options .op .px{font-weight:800;color:var(--roi);white-space:nowrap}
 .options .op .px small.est{display:block;font-size:10px;font-weight:600;color:rgba(2,17,50,.5);text-align:right;text-transform:lowercase}
 .retour .petit{margin-top:4px}
-.options .op.lock{cursor:default}.options .op.lock .lb small.verrou{color:var(--roi);font-weight:700}
+.options .op.lock .lb small.verrou{color:var(--roi);font-weight:700}
+.options .op.cpt{justify-content:space-between;cursor:default}
+.options .op .step{display:inline-flex;border:1px solid var(--l);border-radius:10px;overflow:hidden;background:var(--blanc)}
+.options .op .step button{width:40px;height:40px;font-size:20px;font-weight:900;color:var(--roi);background:rgba(1,65,172,.08);border:none;cursor:pointer;font-family:inherit}
+.options .op .step output{min-width:44px;text-align:center;font-weight:900;line-height:40px;color:var(--marine)}
 .total{margin-top:14px;background:var(--jaune);color:var(--marine);border-radius:12px;padding:12px 14px;box-shadow:0 4px 12px rgba(2,17,50,.25);background-image:linear-gradient(180deg,rgba(255,255,255,.35),rgba(255,255,255,0) 55%)}
 .total .lb{display:block;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.8px}
 .total strong{display:block;font-size:30px;font-weight:900;line-height:1.1;margin:2px 0 10px}
@@ -279,6 +283,7 @@ footer.rts .co{font-size:14px}footer.rts .co a{display:inline-flex;align-items:c
  <div class="lg">Maquette de démonstration — présentation Région Réunion · RTS, association loi 1901</div>
 </footer>
 
+<script src="tarifs.js"></script>
 <script>
 /* La demonstration reutilise le moteur d'animation de carte.html tel quel : la carte est chargee dans
    un cadre (iframe, meme origine), son interface est masquee par une feuille de style injectee, et
@@ -327,8 +332,12 @@ function lancerDemo(pid){if(!pret)return;PID=pid||PID;fini=false;var P=parcours(
  rideau.hidden=true;btnPause.hidden=false;btnRejouer.hidden=true;btnPause.textContent='⏸ Pause';
  info.textContent=P.n+' · '+P.sub;document.getElementById('demoSous').textContent='Le point bleu suit la route, le vert marche sur les sentiers, l\'orange transporte les sacs.';
  construirePanier(P);cadrer(PID);cw.lancer(PID);marqueEtape(1,false);surveille();voirDemo()}
-/* ---- Panier : socle = transferts du parcours (inclus, non decochables) ; options = box + livraisons de bagages du parcours ;
-   regle : une livraison cochee impose le gardiennage au box (coche et verrouille) ; total recalcule a chaque clic ---- */
+/* ---- Panier : socle = transferts du parcours (inclus, non decochables) ; options = consigne au box (decochee par defaut,
+   prix par bagage selon le palier deduit du nombre de jours de la formule, tarifs.js) + livraisons de bagages du parcours ;
+   regles : cocher une livraison coche la consigne ; decocher la consigne decoche toutes les livraisons ---- */
+function joursDe(P){var j=0;P.E.forEach(function(e){if(e.j){var n=parseInt(e.j.replace('J',''));if(n>j)j=n}});return j||1}
+function consigneInfo(P){var jours=joursDe(P),pal=(typeof RTS_palierDe==='function')?RTS_palierDe(jours):null;
+ return {jours:jours,pal:pal,unit:pal?RTS_consigne(pal,true):0,prix:function(n){return pal?RTS_consigneTransfert(pal,n):0}}}
 function lieuDe(ll){var PT=cw.PT;var eq=function(k){return PT[k]&&ll&&PT[k][0]===ll[0]&&PT[k][1]===ll[1]};
  if(eq('ci'))return 'Cilaos';if(eq('bm'))return 'Bourg-Murat';if(eq('da'))return "Dos d'Âne";if(eq('hb'))return 'Hell-Bourg';if(eq('cb'))return 'Col des Bœufs';return null}
 var panierBase=0;
@@ -336,21 +345,33 @@ function construirePanier(P){if(!P)return;var socle=document.getElementById('soc
  var h='';panierBase=0;P.E.forEach(function(e){if(e.t==='r'){var px=e.p?cw.PX(e.p):null;if(px)panierBase+=px;
   h+='<div class="ln"><span class="lb">'+(e.j?e.j+' · ':'')+e.n+'</span>'+(px?'<span class="px">'+px+' €</span>':'')+'<span class="inc">inclus</span></div>'}});
  socle.innerHTML=h||'<div class="ln"><span class="lb">Aucun transfert sur ce parcours.</span></div>';
- var o='<label class="op" id="opBox"><input type="checkbox" id="optBox" data-px="30"><span class="lb">Gardiennage au box du Port<small>Forfait groupe</small><small class="verrou" id="verrou" hidden>Les bagages partent du box du Port.</small></span><span class="px">30 €</span></label>';
+ var ci=consigneInfo(P);
+ var o='<label class="op" id="opBox"><input type="checkbox" id="optBox"'+(ci.pal?'':' disabled')+'><span class="lb">Consigne au box (association RTS)<small id="boxPalier">'+(ci.pal?ci.jours+' jour'+(ci.jours>1?'s':'')+' · '+ci.unit+' € / bagage':'Plus d\'un mois ? Contactez-nous : 0693 91 12 67')+'</small><small class="verrou" id="verrou" hidden>Les bagages partent du box du Port.</small></span><span class="px" id="boxPx">'+ci.prix(1)+' €</span></label>'+
+  '<div class="op cpt" id="boxCpt" hidden><span class="lb">Nombre de bagages</span><span class="step"><button type="button" id="bagMoins" aria-label="Un bagage de moins">−</button><output id="bagN">1</output><button type="button" id="bagPlus" aria-label="Un bagage de plus">+</button></span></div>';
  var vus={};P.E.forEach(function(e){if(e.t==='b'&&e.p){var l=lieuDe(e.a);if(!l||vus[l])return;vus[l]=1;var px=cw.PX(e.p);
   o+='<label class="op"><input type="checkbox" class="optLiv" data-px="'+px+'"><span class="lb">Livraison des bagages à '+l+'</span><span class="px">'+px+' €</span></label>'}});
- opts.innerHTML=o;opts.querySelectorAll('input').forEach(function(c){c.addEventListener('change',majPanier)});
+ opts.innerHTML=o;opts.dataset.pid=P.id;
+ opts.querySelectorAll('input').forEach(function(c){c.addEventListener('change',function(){
+  if(c.id==='optBox'&&!c.checked)opts.querySelectorAll('.optLiv').forEach(function(d){d.checked=false}); /* decocher la consigne decoche les livraisons */
+  if(c.classList.contains('optLiv')&&c.checked){var b=document.getElementById('optBox');if(b&&!b.disabled)b.checked=true} /* une livraison coche la consigne */
+  majPanier()})});
+ document.getElementById('bagMoins').onclick=function(){var n=document.getElementById('bagN');n.textContent=Math.max(1,parseInt(n.textContent)-1);majPanier()};
+ document.getElementById('bagPlus').onclick=function(){var n=document.getElementById('bagN');n.textContent=Math.min(20,parseInt(n.textContent)+1);majPanier()};
  /* retours : trois sorties exclusives entre elles, aucune cochee par defaut, tarif via retours() du moteur (van +20 % par PX) */
  var ret=document.getElementById('retours'),r='';(cw.retours?cw.retours(P):[]).forEach(function(x){
   r+='<label class="op"><input type="checkbox" class="optRet" data-k="'+x.k+'" data-px="'+cw.PX(x.p)+'"><span class="lb">Retour vers '+(x.k==='rg'?"l'aéroport Roland Garros":x.n)+'<small>'+x.i+'</small></span><span class="px">'+cw.PX(x.p)+' €'+(x.est?'<small class="est">estimé</small>':'')+'</span></label>'});
  ret.innerHTML=r;ret.querySelectorAll('input').forEach(function(c){c.addEventListener('change',function(){
   if(c.checked)ret.querySelectorAll('input').forEach(function(d){if(d!==c)d.checked=false});majPanier()})});
  majPanier()}
-function majPanier(){var box=document.getElementById('optBox'),op=document.getElementById('opBox'),v=document.getElementById('verrou');if(!box)return;
+function majPanier(){var box=document.getElementById('optBox'),op=document.getElementById('opBox'),v=document.getElementById('verrou'),cpt=document.getElementById('boxCpt');if(!box)return;
  var livs=[].slice.call(document.querySelectorAll('.optLiv')),uneLiv=livs.some(function(c){return c.checked});
- if(uneLiv){box.checked=true;box.disabled=true;op.classList.add('lock');v.hidden=false}else{box.disabled=false;op.classList.remove('lock');v.hidden=true}
+ if(uneLiv&&!box.disabled)box.checked=true;
+ op.classList.toggle('lock',uneLiv);v.hidden=!uneLiv;cpt.hidden=!box.checked;
+ var P=parcours(document.getElementById('options').dataset.pid),ci=consigneInfo(P),n=parseInt(document.getElementById('bagN').textContent)||1;
+ box.dataset.px=ci.prix(n);document.getElementById('boxPx').textContent=ci.prix(n)+' €';
  var t=panierBase;document.querySelectorAll('#options input,#retours input').forEach(function(c){if(c.checked)t+=parseInt(c.dataset.px)});
  document.getElementById('totalVal').textContent=t+' €'}
+window.RTS_PANIER={maj:majPanier,consigne:consigneInfo,jours:joursDe};
 /* on cale toujours l'ecran sur la carte (jamais sur la legende), petite marge haute via scroll-margin-top, puis on redonne sa taille a Leaflet */
 function voirDemo(){document.querySelector('.scene').scrollIntoView({block:'start',behavior:'smooth'});setTimeout(function(){try{cw.map.invalidateSize()}catch(e){}},300)}
 btnLancer.onclick=function(){lancerDemo(PID)};
