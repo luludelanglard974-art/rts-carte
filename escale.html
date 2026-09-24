@@ -1,0 +1,268 @@
+<!DOCTYPE html><html lang="fr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<title>Votre escale à La Réunion, avec chauffeur — RTS</title>
+<style>
+/* Palette RTS officielle uniquement : marine, bleu roi, rouge, jaune, blanc, creme */
+:root{--marine:#021132;--roi:#0141AC;--rouge:#DE0715;--jaune:#FBD608;--blanc:#FFFFFF;--creme:#FCF9F4;--l:rgba(2,17,50,.14)}
+*{margin:0;padding:0;box-sizing:border-box}
+.ic{width:1em;height:1em;display:inline-block;vertical-align:-.14em;flex:none}
+@keyframes fadeup{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+html{background:#021132}
+body{background-color:var(--marine);background-image:repeating-linear-gradient(180deg,rgba(255,255,255,.025) 0 2px,rgba(255,255,255,0) 2px 9px),linear-gradient(180deg,var(--roi) 0%,rgba(1,65,172,.55) 35%,var(--marine) 100%);background-attachment:fixed}
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:var(--marine);min-height:100vh;overflow-x:hidden;line-height:1.45}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+img{max-width:100%}
+header{background:var(--marine);color:var(--blanc);padding:16px 16px 18px;border-bottom:3px solid var(--rouge);box-shadow:0 3px 12px rgba(0,0,0,.35)}
+header .top{display:flex;align-items:center;gap:12px;max-width:900px;margin:0 auto;flex-wrap:wrap;padding-right:96px}
+header .logo img{height:52px;width:auto;display:block;filter:drop-shadow(0 2px 4px rgba(0,0,0,.35))}
+header a.home{color:#fff;text-decoration:none;font-size:14px;font-weight:700;padding:9px 14px;min-height:44px;display:inline-flex;align-items:center;border-radius:10px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);white-space:nowrap}
+header h1{font-size:clamp(21px,3vw,28px);font-weight:900;line-height:1.15;display:flex;align-items:center;gap:10px;flex-basis:100%}
+header h1 .ic{color:var(--jaune);flex:none}
+header p.sous{font-size:15px;color:rgba(255,255,255,.88);max-width:900px;margin:8px auto 0;line-height:1.5}
+@media(max-width:600px){header .logo img{height:44px}header .top{padding-right:0}}
+.wrap{max-width:900px;margin:0 auto;padding:18px clamp(12px,3vw,24px) 30px}
+/* boutons : relief glossy (recette du commit 98971e3) sur les actifs, inactifs plats */
+.glossy{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:10px 18px;font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:.3px;border-radius:14px;border:2.5px solid var(--creme);color:var(--blanc);--c:var(--roi);background-color:var(--roi);text-decoration:none;
+ background-image:linear-gradient(180deg,rgba(255,255,255,.46) 0%,rgba(255,255,255,.34) 50%,rgba(255,255,255,0) 50%,rgba(0,0,0,.20) 84%,rgba(255,255,255,.14) 100%);box-shadow:0 4px 8px -1px var(--c),0 1px 2px rgba(2,17,50,.35);text-shadow:0 1px 1px rgba(0,0,0,.35);transition:transform .15s,filter .15s}
+@supports(color:color-mix(in srgb,red,blue)){.glossy{box-shadow:0 4px 8px -1px color-mix(in srgb,var(--c) 80%,transparent),0 1px 2px rgba(2,17,50,.35)}}
+.glossy.jaune{background-color:var(--jaune);--c:var(--jaune);color:var(--marine);text-shadow:0 1px 0 rgba(255,255,255,.45)}
+.glossy.rouge{background-color:var(--rouge);--c:var(--rouge)}
+.glossy:hover{filter:brightness(1.06);transform:translateY(-1px)}.glossy:active{transform:translateY(1px)}
+.glossy[disabled]{filter:grayscale(.6) brightness(.9);opacity:.6;cursor:not-allowed;transform:none}
+.plat{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:8px 14px;font-size:14px;font-weight:800;border-radius:12px;border:1.5px solid rgba(255,255,255,.35);color:rgba(255,255,255,.85);background:rgba(255,255,255,.12)}
+.card{animation:fadeup .45s ease both;background:var(--blanc);border-radius:16px;box-shadow:0 8px 20px rgba(0,0,0,.3);padding:16px;margin-top:14px}
+.card h2{font-size:17px;font-weight:900;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.card h2 .ic{color:var(--roi)}
+label{display:block;font-size:13px;font-weight:700;color:rgba(2,17,50,.65);margin:10px 0 4px}
+select,input{width:100%;min-height:46px;padding:10px 11px;font-size:15px;border:1px solid var(--l);border-radius:10px;background:var(--blanc);font-family:inherit;color:var(--marine)}
+.deux{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:420px){.deux.serre{grid-template-columns:1fr}}
+/* compteur - / + */
+.step{display:flex;align-items:center;gap:0;border:1px solid var(--l);border-radius:10px;overflow:hidden;background:var(--blanc);width:max-content}
+.step button{width:46px;height:46px;font-size:22px;font-weight:900;color:var(--roi);background:rgba(1,65,172,.08)}
+.step button:hover{background:rgba(1,65,172,.16)}
+.step output{min-width:56px;text-align:center;font-size:17px;font-weight:900;color:var(--marine)}
+/* total en direct : bloc jaune soleil, texte marine */
+.total{background:var(--jaune);color:var(--marine);border-radius:16px;padding:14px 16px;margin-top:14px;box-shadow:0 8px 20px rgba(0,0,0,.3);border:2.5px solid var(--creme)}
+.total h3{font-size:13px;text-transform:uppercase;letter-spacing:.8px;font-weight:900;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.total .ligne{display:flex;justify-content:space-between;gap:12px;font-size:14px;padding:4px 0;border-bottom:1px solid rgba(2,17,50,.12)}
+.total .ligne span:last-child{font-weight:800;white-space:nowrap}
+.total .ligne.tot{border:none;margin-top:6px;padding-top:8px;font-size:22px;font-weight:900}
+.total .msg{margin-top:8px;font-size:13.5px;font-weight:700;background:rgba(2,17,50,.08);border-radius:10px;padding:8px 10px;display:flex;gap:8px;align-items:flex-start}
+.total .msg .ic{color:var(--roi);font-size:18px;margin-top:2px}
+.total .msg.ko{background:rgba(222,7,21,.1);color:var(--rouge)}
+.total .msg.ko .ic{color:var(--rouge)}
+.total .go{margin-top:12px;display:flex}
+.total .go .glossy{flex:1;min-height:54px;font-size:16px}
+.adresse{margin-top:12px;display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700;background:var(--creme);border-left:5px solid var(--roi);border-radius:10px;padding:10px 12px}
+.adresse .ic{color:var(--roi);font-size:20px}
+.expl{font-size:14.5px;line-height:1.5;color:rgba(2,17,50,.8);margin-top:10px}
+.mention{font-size:12.5px;color:rgba(255,255,255,.7);text-align:center;margin-top:16px;line-height:1.45}
+footer.rts{background:var(--marine);color:var(--blanc);border-top:3px solid var(--rouge);margin-top:30px;padding:22px 16px 24px;text-align:center}
+footer.rts .co{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;font-size:14px;font-weight:600}
+footer.rts .co a{color:var(--blanc);text-decoration:none;display:inline-flex;align-items:center;gap:6px;min-height:44px}
+footer.rts .co .ic{color:var(--jaune)}
+footer.rts .lg{margin-top:10px;font-size:12.5px;color:rgba(255,255,255,.6);line-height:1.5}
+[hidden]{display:none!important}
+
+/* selecteur de langue */
+.lang{position:fixed;top:10px;right:10px;z-index:950;display:flex;gap:2px;padding:3px;border-radius:999px;background:rgba(2,17,50,.82);border:1px solid rgba(255,255,255,.3);box-shadow:0 3px 10px rgba(0,0,0,.35)}
+.lang button{min-width:40px;min-height:34px;padding:0 10px;border-radius:999px;color:rgba(255,255,255,.75);font-weight:800;font-size:13px}
+.lang button[aria-pressed="true"]{background:var(--jaune);color:var(--marine)}
+@media(max-width:600px){header .top{padding-right:96px}}
+/* infos escale */
+.veh{margin-top:10px;font-size:14px;font-weight:800;display:flex;align-items:center;gap:8px;background:rgba(1,65,172,.08);border-radius:10px;padding:9px 12px;color:var(--roi)}
+.veh .ic{font-size:20px}
+.rdv{margin-top:12px;display:flex;align-items:center;gap:10px;font-size:14.5px;font-weight:800;background:var(--marine);color:var(--blanc);border-radius:12px;padding:11px 14px;box-shadow:0 6px 14px rgba(0,0,0,.3)}
+.rdv .ic{color:var(--jaune);font-size:22px}
+/* offres */
+h2.sect{color:var(--blanc);font-size:19px;font-weight:900;margin:22px 0 6px;text-shadow:0 1px 3px rgba(0,0,0,.4);display:flex;align-items:center;gap:8px}
+h2.sect .ic{color:var(--jaune)}
+p.sous2{color:rgba(255,255,255,.85);font-size:14px;margin-bottom:12px;display:flex;gap:8px;align-items:center}
+p.sous2 .ic{color:var(--jaune);flex:none}
+.offres{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:700px){.offres{grid-template-columns:1fr}}
+.offre{background:var(--blanc);border-radius:16px;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,.3);border:2.5px solid transparent;transition:border-color .2s,transform .2s;position:relative}
+.offre.on{border-color:var(--jaune);box-shadow:0 0 0 3px rgba(251,214,8,.45),0 8px 20px rgba(0,0,0,.3)}
+.offre.off{filter:grayscale(1);opacity:.62}
+.offre .ph{position:relative;height:150px;background:var(--marine)}
+.offre .ph img{width:100%;height:100%;object-fit:cover;display:block}
+.offre .ph .v{position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,17,50,0) 30%,rgba(2,17,50,.85) 100%)}
+.offre .ph h3{position:absolute;left:12px;right:12px;bottom:10px;color:var(--blanc);font-size:17px;font-weight:900;line-height:1.2;text-shadow:0 2px 5px rgba(0,0,0,.6)}
+.offre .ph .dur{position:absolute;top:10px;left:10px;font-size:12px;font-weight:800;background:rgba(2,17,50,.75);color:var(--blanc);border-radius:8px;padding:4px 8px;border:1px solid rgba(255,255,255,.35)}
+.offre .corps{padding:12px 14px 14px}
+.offre .s{font-size:13.5px;color:rgba(2,17,50,.78);line-height:1.45}
+.offre .prix{display:flex;gap:14px;margin-top:8px;align-items:baseline}
+.offre .prix span{font-size:20px;font-weight:900;color:rgba(2,17,50,.35);line-height:1.1}
+.offre .prix span.on{color:var(--roi)}
+.offre .prix small{display:block;font-size:11.5px;font-weight:700;color:rgba(2,17,50,.55)}
+.offre .lg{margin-top:8px;font-size:12.5px;font-weight:700;display:flex;gap:6px;align-items:center;color:var(--roi)}
+.offre .lg .ic{flex:none}
+.offre .choix{margin-top:10px;width:100%;min-height:48px;justify-content:center}
+.offre .motif{margin-top:10px;font-size:13px;font-weight:800;color:var(--rouge);background:rgba(222,7,21,.08);border-radius:10px;padding:8px 10px;display:flex;gap:6px;align-items:flex-start}
+.offre .motif .ic{margin-top:2px;flex:none}
+.offre .det{margin-top:10px;background:var(--creme);border-radius:12px;padding:10px 12px;border-left:4px solid var(--jaune)}
+.offre .det label{margin:6px 0 3px}
+.offre .det .prog{font-size:13px;color:rgba(2,17,50,.75);margin-top:6px;line-height:1.45}
+.offre .det .radio{display:flex;align-items:flex-start;gap:8px;font-size:13.5px;font-weight:700;padding:7px 0;cursor:pointer;color:var(--marine)}
+.offre .det .radio input{width:20px;height:20px;min-height:0;margin-top:1px;accent-color:var(--roi);flex:none}
+.offre .det .radio small{display:block;font-weight:500;font-size:12.5px;color:rgba(2,17,50,.7)}
+.meme{margin-top:10px;font-size:13px;font-weight:700;color:var(--marine);background:rgba(251,214,8,.25);border-radius:10px;padding:8px 10px;display:flex;gap:6px;align-items:center}
+.meme .ic{color:var(--roi)}
+.legal{font-size:12.5px;color:rgba(255,255,255,.65);text-align:center;margin-top:18px;line-height:1.5}
+/* QR */
+.qrbloc{margin-top:22px;background:var(--blanc);border-radius:16px;padding:16px;text-align:center;box-shadow:0 8px 20px rgba(0,0,0,.3);display:flex;flex-direction:column;align-items:center;gap:8px}
+.qrbloc svg{width:170px;height:170px;border:6px solid var(--blanc);border-radius:10px;box-shadow:0 0 0 2px var(--roi)}
+.qrbloc b{font-size:15px;font-weight:900}
+.qrbloc i{font-style:normal;font-size:12.5px;color:rgba(2,17,50,.6)}
+.vide{font-size:14px;color:rgba(2,17,50,.7)}
+</style></head><body>
+<div class="lang" role="group" aria-label="Langue / Language"><button type="button" data-lang="fr" lang="fr">FR</button><button type="button" data-lang="en" lang="en">EN</button></div>
+<header>
+ <div class="top"><a class="logo" href="index.html" title="Run Transfert &amp; Services"><img src="images/logo-rts.png" alt="Run Transfert &amp; Services"></a><a class="home" href="index.html" data-i18n="home">← Accueil</a><h1><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v2" /><path d="M12 9.189V13" /><path d="M19 12V6a2 2 0 00-2-2H7a2 2 0 00-2 2v6" /><path d="M19.38 19A11.6 11.6 0 0021 13l-8.188-3.639a2 2 0 00-1.624 0L3 13.001a11.6 11.6 0 002.81 7.76" /><path d="M2 20c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1s1.2 1 2.5 1c2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" /></svg> <span data-i18n="h1">Votre escale à La Réunion, avec chauffeur</span></h1></div>
+ <p class="sous" data-i18n="sous">Un chauffeur vous attend à la sortie du terminal. Transferts, mise à disposition et excursions, calés sur les horaires de votre bateau.</p>
+</header>
+<div class="wrap">
+ <div class="card" style="margin-top:4px">
+  <h2><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v16" /><path d="m19 13 2-1a9 9 0 0 1-18 0l2 1" /><path d="M9 11h6" /><circle cx="12" cy="4" r="2" /></svg> <span data-i18n="escale">Votre escale</span></h2>
+  <div id="bateauBloc" hidden><label for="bateau" data-i18n="bateau">Votre bateau</label><select id="bateau"></select></div>
+  <label for="dateE" data-i18n="date">Date de l’escale</label><input type="date" id="dateE">
+  <div class="deux">
+   <div><label for="arrE" data-i18n="arr">Arrivée du bateau</label><input type="time" id="arrE" value="08:00"></div>
+   <div><label for="depE" data-i18n="dep">Départ du bateau</label><input type="time" id="depE" value="18:00"></div>
+  </div>
+  <label for="paxE" data-i18n="pax">Nombre de passagers</label><select id="paxE"></select>
+  <div class="veh" id="vehE"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8" /><path d="M7 14h.01" /><path d="M17 14h.01" /><rect width="18" height="8" x="3" y="10" rx="2" /><path d="M5 18v2" /><path d="M19 18v2" /></svg> <span></span></div>
+  <div class="rdv"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /><circle cx="12" cy="10" r="3" /></svg> <span data-i18n="rdv">Point de rendez-vous : Sortie du terminal croisière, Le Port</span></div>
+ </div>
+
+ <h2 class="sect"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" /><path d="m9 12 2 2 4-4" /></svg> <span data-i18n="offres">Vos offres</span></h2>
+ <p class="sous2"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4" /><path d="M12 8h.01" /></svg> <span data-i18n="offresS">Cochez une ou plusieurs offres. Prix par véhicule complet, jusqu’à 4 passagers en berline, 8 en van.</span></p>
+ <div class="offres" id="offres"></div>
+
+ <div class="total" id="totE"></div>
+ <p class="legal" data-i18n="legal">Service de VTC sur réservation préalable. Chaque réservation porte sur un véhicule complet, aller et retour avec le même chauffeur.</p>
+ <div class="qrbloc"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 35" shape-rendering="crispEdges"><path fill="#FFFFFF" d="M0 0h35v35H0z"/><path stroke="#021132" d="M1 1.5h7m1 0h2m2 0h2m2 0h6m1 0h1m2 0h7M1 2.5h1m5 0h1m1 0h1m1 0h2m1 0h1m2 0h1m1 0h1m1 0h2m1 0h2m1 0h1m5 0h1M1 3.5h1m1 0h3m1 0h1m2 0h1m1 0h2m2 0h1m1 0h1m4 0h2m2 0h1m1 0h3m1 0h1M1 4.5h1m1 0h3m1 0h1m1 0h1m3 0h1m1 0h1m1 0h1m3 0h1m1 0h1m3 0h1m1 0h3m1 0h1M1 5.5h1m1 0h3m1 0h1m5 0h1m1 0h1m2 0h1m2 0h1m3 0h1m1 0h1m1 0h3m1 0h1M1 6.5h1m5 0h1m2 0h2m2 0h2m2 0h1m1 0h2m1 0h1m1 0h1m1 0h1m5 0h1M1 7.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M9 8.5h1m2 0h1m5 0h2m1 0h1m1 0h3M1 9.5h1m1 0h2m1 0h3m3 0h2m1 0h1m1 0h6m4 0h1m2 0h1m1 0h2M1 10.5h2m5 0h1m1 0h1m1 0h2m1 0h1m3 0h6m2 0h2m1 0h2m1 0h1M5 11.5h7m3 0h1m2 0h1m3 0h1m1 0h3m1 0h3m1 0h2M1 12.5h1m2 0h3m5 0h1m1 0h2m1 0h1m1 0h3m3 0h1m2 0h1m1 0h1M2 13.5h2m1 0h4m2 0h3m2 0h1m2 0h1m3 0h2m1 0h1m1 0h3M1 14.5h2m5 0h1m1 0h2m1 0h2m2 0h3m5 0h1m2 0h1m2 0h2M1 15.5h3m2 0h2m1 0h1m2 0h1m1 0h1m1 0h2m1 0h1m2 0h2m1 0h1m1 0h1m1 0h1M1 16.5h4m4 0h2m1 0h1m1 0h1m2 0h1m2 0h3m1 0h1m1 0h2m2 0h2M1 17.5h1m1 0h1m1 0h1m1 0h1m2 0h2m2 0h4m1 0h5m2 0h2m1 0h3M3 18.5h3m2 0h2m1 0h3m2 0h1m1 0h1m2 0h1m2 0h1m2 0h1m1 0h2m1 0h2M1 19.5h2m1 0h2m1 0h2m2 0h2m1 0h1m1 0h1m1 0h1m3 0h2m2 0h4m1 0h2M2 20.5h3m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m4 0h1m2 0h1m3 0h1m1 0h1m2 0h1M4 21.5h1m2 0h3m1 0h1m1 0h1m1 0h1m3 0h2m1 0h2m2 0h1m1 0h1m1 0h3M1 22.5h5m4 0h4m2 0h1m1 0h2m2 0h3m1 0h2m2 0h2m1 0h1M4 23.5h2m1 0h1m3 0h1m1 0h1m3 0h3m1 0h1m1 0h3m1 0h1m4 0h2M2 24.5h2m2 0h1m1 0h2m2 0h1m1 0h2m1 0h1m5 0h2m1 0h2m4 0h2M1 25.5h1m1 0h1m1 0h3m5 0h7m1 0h1m1 0h1m1 0h5M9 26.5h1m2 0h1m2 0h4m1 0h1m1 0h1m2 0h1m3 0h2M1 27.5h7m1 0h1m1 0h5m4 0h1m3 0h2m1 0h1m1 0h1M1 28.5h1m5 0h1m1 0h1m1 0h2m1 0h3m3 0h6m3 0h5M1 29.5h1m1 0h3m1 0h1m3 0h1m3 0h1m2 0h1m1 0h1m1 0h8m1 0h1m1 0h1M1 30.5h1m1 0h3m1 0h1m1 0h2m1 0h3m3 0h2m1 0h1m6 0h1m1 0h2m1 0h1M1 31.5h1m1 0h3m1 0h1m1 0h4m1 0h2m2 0h1m2 0h8M1 32.5h1m5 0h1m2 0h1m1 0h7m2 0h1m1 0h1m1 0h2m1 0h2m3 0h1M1 33.5h7m1 0h3m1 0h8m1 0h3m2 0h1m1 0h1m1 0h1"/></svg><b data-i18n="qr">Scannez pour réserver votre escale</b><i data-i18n="qri">rts-carte.vercel.app/escale.html</i></div>
+ <p class="mention" data-i18n="demo">Maquette de démonstration — tarifs indicatifs, aucun paiement réel.</p>
+</div>
+<footer class="rts">
+ <div class="co">
+  <a href="tel:+262693911267"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /></svg> 0693 91 12 67</a>
+  <a href="mailto:runtransfertsservices@gmail.com"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /><rect x="2" y="4" width="20" height="16" rx="2" /></svg> runtransfertsservices@gmail.com</a>
+ </div>
+ <div class="lg"><span data-i18n="demo">Maquette de démonstration — tarifs indicatifs, aucun paiement réel.</span><br>RTS, association loi 1901 · centrale de réservation T3P déclarée</div>
+</footer>
+<script src="tarifs.js"></script>
+<script src="ticket.js"></script>
+<script>
+/* ---- Module Escale : tous les prix viennent de tarifs.js (RTS_TARIFS.ESCALE). Aucun prix ecrit en dur ici.
+   Bilingue FR / EN ; anglais par defaut si la langue du navigateur n'est pas le francais. ---- */
+(function(){
+var I={"fr": {"title": "Votre escale à La Réunion, avec chauffeur — RTS", "h1": "Votre escale à La Réunion, avec chauffeur", "sous": "Un chauffeur vous attend à la sortie du terminal. Transferts, mise à disposition et excursions, calés sur les horaires de votre bateau.", "home": "← Accueil", "escale": "Votre escale", "bateau": "Votre bateau", "date": "Date de l’escale", "arr": "Arrivée du bateau", "dep": "Départ du bateau", "pax": "Nombre de passagers", "pax1": "passager", "paxn": "passagers", "berline": "Berline · 1 à 4 passagers", "van": "Van · 5 à 8 passagers (automatique au-delà de 4)", "rdv": "Point de rendez-vous : Sortie du terminal croisière, Le Port", "offres": "Vos offres", "offresS": "Cochez une ou plusieurs offres. Prix par véhicule complet, jusqu’à 4 passagers en berline, 8 en van.", "meme": "Le même chauffeur vous dépose et vous ramène au bateau.", "choisir": "Choisir", "choisi": "Choisi ✓", "aller": "Aller (départ du Port)", "retour": "Retour (départ vers le Port)", "debut": "Heure de prise en charge", "itin": "Votre itinéraire", "trad": "Traduction instantanée à bord (oreillettes)", "anglo": "Chauffeur anglophone / English-speaking driver", "tarif": "Votre tarif en direct", "total": "Total", "payer": "Réserver et payer", "rien": "Cochez au moins une offre pour obtenir votre tarif.", "fin": "Fin prévue", "h": "h", "duree": "~{n} h", "ar": "aller-retour", "m_passe": "Date passée", "m_veille": "Réservation close — à réserver la veille avant 20 h", "m_fin": "Ne peut pas se terminer 1 h 30 avant le départ du bateau", "m_tard": "Plus de créneau aujourd’hui : prise en charge au plus tôt 1 h après la réservation, fin 1 h 30 avant le départ du bateau", "m_dates": "Indiquez la date et les horaires de votre bateau.", "legal": "Service de VTC sur réservation préalable. Chaque réservation porte sur un véhicule complet, aller et retour avec le même chauffeur.", "qr": "Scannez pour réserver votre escale", "qri": "rts-carte.vercel.app/escale.html", "demo": "Maquette de démonstration — tarifs indicatifs, aucun paiement réel.", "o": {"sg": {"t": "Transfert aller-retour Port ↔ Saint-Gilles", "s": "Plages, lagon et front de mer de Saint-Gilles-les-Bains. Vous choisissez vos heures d’aller et de retour."}, "sd": {"t": "Transfert aller-retour Port ↔ Saint-Denis", "s": "Le centre historique, le Barachois et le Jardin de l’État. Vous choisissez vos heures d’aller et de retour."}, "dispo4": {"t": "Chauffeur à disposition 4 h", "s": "Votre programme, votre rythme : un véhicule et son chauffeur pendant 4 heures."}, "demi": {"t": "Demi-excursion (~5 h)", "s": "Une demi-journée hors du Port, au choix parmi trois itinéraires."}, "journee": {"t": "Excursion journée (~7 h)", "s": "Une grande journée dans l’île, au choix parmi deux itinéraires. À réserver la veille avant 20 h."}}, "c": {"maido": ["Belvédère du Maïdo et Hauts de l’Ouest", "Route du Maïdo à travers la forêt de tamarins, panorama sur le cirque de Mafate"], "ouest": ["Côte Ouest", "Saint-Paul, Cap La Houssaye, Saint-Gilles : la baie, les falaises et les plages"], "sdh": ["Saint-Denis historique", "Le Barachois, la rue de Paris et ses cases créoles, le Jardin de l’État"], "salazie": ["Cirque de Salazie et Hell-Bourg", "Route de Salazie et cascade du Voile de la Mariée · Hell-Bourg, village classé : cases créoles et jardins · Point de vue sur le Piton d’Anchaing"], "patrimoine": ["Patrimoine créole et Hauts de l’Ouest", "Route du Maïdo à travers la forêt de tamarins · Belvédère du Maïdo, panorama sur Mafate · Petite-France, distillerie de géranium · Saint-Gilles-les-Hauts, Musée de Villèle (entrée non incluse)"]}}, "en": {"title": "Your stopover in Reunion Island, with a private driver — RTS", "h1": "Your stopover in Reunion Island, with a private driver", "sous": "A driver is waiting for you at the terminal exit. Transfers, driver at your disposal and excursions, all timed to your ship’s schedule.", "home": "← Home", "escale": "Your stopover", "bateau": "Your ship", "date": "Stopover date", "arr": "Ship arrival", "dep": "Ship departure", "pax": "Number of passengers", "pax1": "passenger", "paxn": "passengers", "berline": "Sedan · 1 to 4 passengers", "van": "Van · 5 to 8 passengers (automatic above 4)", "rdv": "Meeting point: Cruise terminal exit, Le Port", "offres": "Your options", "offresS": "Tick one or more options. Prices are per full vehicle, up to 4 passengers in a sedan, 8 in a van.", "meme": "The same driver drops you off and brings you back to the ship.", "choisir": "Select", "choisi": "Selected ✓", "aller": "Outbound (leaving Le Port)", "retour": "Return (leaving for Le Port)", "debut": "Pick-up time", "itin": "Your itinerary", "trad": "Instant translation on board (earpieces)", "anglo": "Chauffeur anglophone / English-speaking driver", "tarif": "Your live price", "total": "Total", "payer": "Book and pay", "rien": "Tick at least one option to see your price.", "fin": "Expected end", "h": ":00", "duree": "~{n} h", "ar": "round trip", "m_passe": "Past date", "m_veille": "Booking closed — must be booked the day before, by 8 pm", "m_fin": "Cannot end 1 h 30 before the ship departs", "m_tard": "No slot left today: pick-up at the earliest 1 h after booking, ending 1 h 30 before the ship departs", "m_dates": "Enter your ship’s date and times.", "legal": "Private hire service, advance booking only. Each booking covers a full vehicle, out and back with the same driver.", "qr": "Scan to book your stopover", "qri": "rts-carte.vercel.app/escale.html", "demo": "Demonstration mock-up — indicative prices, no real payment.", "o": {"sg": {"t": "Round-trip transfer Le Port ↔ Saint-Gilles", "s": "Beaches, lagoon and seafront of Saint-Gilles-les-Bains. You choose your outbound and return times."}, "sd": {"t": "Round-trip transfer Le Port ↔ Saint-Denis", "s": "The historic centre, the Barachois and the Jardin de l’État. You choose your outbound and return times."}, "dispo4": {"t": "Driver at your disposal, 4 h", "s": "Your programme, your pace: a vehicle and its driver for 4 hours."}, "demi": {"t": "Half-day excursion (~5 h)", "s": "Half a day away from Le Port, with a choice of three itineraries."}, "journee": {"t": "Full-day excursion (~7 h)", "s": "A full day across the island, with a choice of two itineraries. Must be booked the day before, by 8 pm."}}, "c": {"maido": ["Maïdo viewpoint and the Western Heights", "Maïdo road through the tamarind forest, panorama over the Mafate cirque"], "ouest": ["West Coast", "Saint-Paul, Cap La Houssaye, Saint-Gilles: the bay, the cliffs and the beaches"], "sdh": ["Historic Saint-Denis", "The Barachois, rue de Paris and its Creole houses, the Jardin de l’État"], "salazie": ["Salazie cirque and Hell-Bourg", "Salazie road and the Bridal Veil waterfall · Hell-Bourg, listed village: Creole houses and gardens · Viewpoint over the Piton d’Anchaing"], "patrimoine": ["Creole heritage and the Western Heights", "Maïdo road through the tamarind forest · Maïdo viewpoint, panorama over Mafate · Petite-France, geranium distillery · Saint-Gilles-les-Hauts, Villèle Museum (entry not included)"]}}};
+var T=RTS_TARIFS,$=function(id){return document.getElementById(id)};
+/* Bateaux attendus : tableau vide pour l'instant. Quand il sera rempli ({nom,date,arrivee,depart}), le client choisit son bateau
+   dans une liste et la date et les heures se remplissent toutes seules. Vide : saisie manuelle. */
+var BATEAUX=[];
+var OFFRES=[
+ {id:'sg',type:'transfert',photo:'fin-de-sejour.jpg',alt:'Coucher de soleil sur la côte ouest'},
+ {id:'sd',type:'transfert',photo:'chapelle-patrimoine.jpg',alt:'Patrimoine de Saint-Denis'},
+ {id:'dispo4',type:'dispo',dur:240,photo:'carte-reservation.jpg',alt:'Véhicule RTS'},
+ {id:'demi',type:'exc',dur:300,photo:'maido-belvedere.jpg',alt:'Belvédère du Maïdo',choix:['maido','ouest','sdh']},
+ {id:'journee',type:'exc',dur:420,photo:'hell-bourg-village.jpg',alt:'Hell-Bourg, Salazie',choix:['salazie','patrimoine'],veille:true}
+];
+var ICO={info:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4" /><path d="M12 8h.01" /></svg>',ko:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /><path d="M12 9v4" /><path d="M12 17h.01" /></svg>',ok:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" /><path d="M7 12h5" /><path d="M15 9.4a4 4 0 1 0 0 5.2" /></svg>',check:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>',lang:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 8 6 6" /><path d="m4 14 6-6 2-3" /><path d="M2 5h12" /><path d="M7 2h1" /><path d="m22 22-5-10-5 10" /><path d="M14 18h6" /></svg>',ear:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3" /></svg>',clock:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>',pay:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="5" rx="2" /><line x1="2" x2="22" y1="10" y2="10" /><path d="M6 14h2" /></svg>',user:'<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5" /><path d="M20 21a8 8 0 0 0-16 0" /></svg>'};
+/* ---- langue ---- */
+var lang='fr';
+try{var nav=(navigator.language||navigator.userLanguage||'fr').toLowerCase();if(nav.indexOf('fr')!==0)lang='en'}catch(e){}
+try{var m=localStorage.getItem('rts_escale_lang');if(m==='fr'||m==='en')lang=m}catch(e){}
+function t(k){var d=I[lang]||I.fr;return d[k]!==undefined?d[k]:(I.fr[k]!==undefined?I.fr[k]:k)}
+function to(id){return (I[lang].o[id]||I.fr.o[id])}
+function tc(id){return (I[lang].c[id]||I.fr.c[id])}
+function appliquer(){document.querySelectorAll('[data-i18n]').forEach(function(e){e.innerHTML=t(e.getAttribute('data-i18n'))});
+ document.documentElement.lang=lang;document.title=t('title');
+ document.querySelectorAll('.lang button').forEach(function(b){b.setAttribute('aria-pressed',b.getAttribute('data-lang')===lang?'true':'false')});
+ paxOptions();rendre()}
+document.querySelector('.lang').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;lang=b.getAttribute('data-lang');try{localStorage.setItem('rts_escale_lang',lang)}catch(x){}appliquer()});
+/* ---- temps ---- */
+function mn(h){if(!h)return null;var p=h.split(':');return parseInt(p[0])*60+parseInt(p[1])}
+function hh(m){return (lang==='en')?(('0'+Math.floor(m/60)).slice(-2)+':'+('0'+(m%60)).slice(-2)):(Math.floor(m/60)+' h'+(m%60?('0'+(m%60)).slice(-2):''))}
+function ceilH(m){return Math.ceil(m/60)*60}function floorH(m){return Math.floor(m/60)*60}
+function iso(d){return d.toISOString().slice(0,10)}
+function dateLib(s){if(!s)return '—';var p=s.split('-');return lang==='en'?(p[0]+'-'+p[1]+'-'+p[2]):(p[2]+'/'+p[1]+'/'+p[0])}
+/* heure actuelle a La Reunion (Indian/Reunion, UTC+4 sans heure d'ete) */
+function maintenant(){try{var s=new Date().toLocaleString('sv-SE',{timeZone:'Indian/Reunion'});return {d:s.slice(0,10),m:parseInt(s.slice(11,13))*60+parseInt(s.slice(14,16))}}
+ catch(e){var x=new Date(Date.now()+4*3600000);return {d:x.toISOString().slice(0,10),m:x.getUTCHours()*60+x.getUTCMinutes()}}}
+function demain(d){var x=new Date(d+'T12:00:00');x.setDate(x.getDate()+1);return iso(x)}
+/* ---- etat ---- */
+var sel={}; /* id -> {aller,retour,debut,choix} */
+var d0=new Date();d0.setDate(d0.getDate()+2);$('dateE').value=iso(d0);
+function paxOptions(){var v=$('paxE').value||'2';$('paxE').innerHTML='';for(var i=1;i<=8;i++)$('paxE').add(new Option(i+' '+(i>1?t('paxn'):t('pax1')),i));$('paxE').value=v}
+if(BATEAUX.length){$('bateauBloc').hidden=false;BATEAUX.forEach(function(b,i){$('bateau').add(new Option(b.nom+' · '+b.date+' · '+b.arrivee+'–'+b.depart,i))});
+ $('bateau').addEventListener('change',function(){var b=BATEAUX[this.value];if(!b)return;$('dateE').value=b.date;$('arrE').value=b.arrivee;$('depE').value=b.depart;rendre()});
+ var b0=BATEAUX[0];$('dateE').value=b0.date;$('arrE').value=b0.arrivee;$('depE').value=b0.depart}
+['dateE','arrE','depE','paxE'].forEach(function(id){$(id).addEventListener('change',rendre);$(id).addEventListener('input',rendre)});
+function van(){return parseInt($('paxE').value)>4}
+function prix(o){var p=T.ESCALE[o.id];return van()?p.v:p.b}
+/* ---- disponibilite d'une offre selon la date, les horaires du bateau et l'heure actuelle ---- */
+function cadre(){var d=$('dateE').value,a=mn($('arrE').value),p=mn($('depE').value);if(!d||a===null||p===null)return null;
+ var now=maintenant();var premier=ceilH(a+60);if(d===now.d)premier=Math.max(premier,ceilH(now.m+60));
+ return {d:d,a:a,p:p,now:now,premier:premier,dernierFin:p-90,passe:d<now.d,ajd:d===now.d,veille:d===demain(now.d)}}
+function dispo(o,c){if(!c)return {ok:false,motif:t('m_dates')};
+ if(c.passe)return {ok:false,motif:t('m_passe')};
+ if(o.veille&&(c.ajd||(c.veille&&c.now.m>=20*60)))return {ok:false,motif:t('m_veille')};
+ var slots=[];
+ if(o.type==='transfert'){var dernierRetour=floorH(c.dernierFin);for(var h=c.premier;h+120<=dernierRetour;h+=60)slots.push(h);
+  if(!slots.length)return {ok:false,motif:c.ajd?t('m_tard'):t('m_fin')};
+  var retours=[];for(var r=c.premier+120;r<=dernierRetour;r+=60)retours.push(r);
+  return {ok:true,allers:slots,dernierRetour:dernierRetour}}
+ var dernierDebut=floorH(c.dernierFin-o.dur);for(var s=c.premier;s<=dernierDebut;s+=60)slots.push(s);
+ if(!slots.length)return {ok:false,motif:c.ajd?t('m_tard'):t('m_fin')};
+ return {ok:true,debuts:slots}}
+function retoursPour(dv,aller){var r=[];for(var x=aller+120;x<=dv.dernierRetour;x+=60)r.push(x);return r}
+/* ---- rendu des cartes ---- */
+function opts(list,val){return list.map(function(m){return '<option value="'+m+'"'+(m===val?' selected':'')+'>'+hh(m)+'</option>'}).join('')}
+function rendre(){var c=cadre(),v=van();
+ $('vehE').querySelector('span').textContent=v?t('van'):t('berline');
+ var h='';
+ OFFRES.forEach(function(o){var dv=dispo(o,c),on=!!sel[o.id]&&dv.ok;if(sel[o.id]&&!dv.ok)delete sel[o.id];
+  var L=to(o.id),p=T.ESCALE[o.id];
+  h+='<article class="offre'+(on?' on':'')+(dv.ok?'':' off')+'" id="of_'+o.id+'" aria-disabled="'+(!dv.ok)+'">';
+  h+='<div class="ph"><img src="images/'+o.photo+'" loading="lazy" alt="'+o.alt+'"><span class="v"></span>'+(o.dur?'<span class="dur">'+t('duree').replace('{n}',o.dur/60)+'</span>':'<span class="dur">'+t('ar')+'</span>')+'<h3>'+L.t+'</h3></div>';
+  h+='<div class="corps"><p class="s">'+L.s+'</p>';
+  h+='<div class="prix"><span class="'+(v?'':'on')+'">'+p.b+' €<small>'+I[lang].berline.split('·')[0].trim()+' · 1–4</small></span><span class="'+(v?'on':'')+'">'+p.v+' €<small>Van · 5–8</small></span></div>';
+  h+='<div class="lg">'+(o.type==='exc'?ICO.user+' '+t('anglo'):ICO.ear+' '+t('trad'))+'</div>';
+  if(o.type==='transfert')h+='<div class="meme">'+ICO.check+' '+t('meme')+'</div>';
+  if(!dv.ok)h+='<div class="motif">'+ICO.ko+' <span>'+dv.motif+'</span></div>';
+  else{h+='<button type="button" class="'+(on?'glossy jaune':'plat')+' choix" data-id="'+o.id+'" aria-pressed="'+on+'" style="'+(on?'':'color:var(--roi);border-color:var(--roi);background:rgba(1,65,172,.06)')+'">'+(on?ICO.check+' '+t('choisi'):t('choisir'))+'</button>';
+   if(on){var s=sel[o.id];h+='<div class="det">';
+    if(o.type==='transfert'){if(s.aller===undefined||dv.allers.indexOf(s.aller)<0)s.aller=dv.allers[0];var rets=retoursPour(dv,s.aller);if(s.retour===undefined||rets.indexOf(s.retour)<0)s.retour=rets[rets.length-1];
+     h+='<div class="deux"><div><label>'+t('aller')+'</label><select data-sel="aller" data-id="'+o.id+'">'+opts(dv.allers,s.aller)+'</select></div><div><label>'+t('retour')+'</label><select data-sel="retour" data-id="'+o.id+'">'+opts(rets,s.retour)+'</select></div></div>'}
+    else{if(s.debut===undefined||dv.debuts.indexOf(s.debut)<0)s.debut=dv.debuts[0];
+     h+='<label>'+t('debut')+'</label><select data-sel="debut" data-id="'+o.id+'">'+opts(dv.debuts,s.debut)+'</select><div class="prog">'+ICO.clock+' '+t('fin')+' : '+hh(s.debut+o.dur)+'</div>';
+     if(o.choix){if(!s.choix)s.choix=o.choix[0];h+='<label>'+t('itin')+'</label>';o.choix.forEach(function(k){var C=tc(k);h+='<label class="radio"><input type="radio" name="ch_'+o.id+'" value="'+k+'"'+(s.choix===k?' checked':'')+' data-sel="choix" data-id="'+o.id+'"><span>'+C[0]+'<small>'+C[1]+'</small></span></label>'})}}
+    h+='</div>'}}
+  h+='</div></article>'});
+ $('offres').innerHTML=h;total(c)}
+$('offres').addEventListener('click',function(e){var b=e.target.closest('.choix');if(!b)return;var id=b.dataset.id;if(sel[id])delete sel[id];else sel[id]={};rendre()});
+$('offres').addEventListener('change',function(e){var el=e.target;if(!el.dataset.sel)return;var s=sel[el.dataset.id];if(!s)return;var k=el.dataset.sel;s[k]=k==='choix'?el.value:parseInt(el.value);rendre()});
+/* ---- total ---- */
+function lignes(){var L=[];OFFRES.forEach(function(o){var s=sel[o.id];if(!s)return;var lib=to(o.id).t;
+ if(o.type==='transfert')lib+=' · '+hh(s.aller)+' → '+hh(s.retour);else{lib+=' · '+hh(s.debut)+' → '+hh(s.debut+o.dur);if(o.choix&&s.choix)lib+=' · '+tc(s.choix)[0]}
+ L.push([lib,prix(o)])});return L}
+function total(c){var L=lignes(),tot=0;L.forEach(function(l){tot+=l[1]});
+ var h='<h3>'+ICO.ok+' '+t('tarif')+'</h3>';
+ if(!L.length)h+='<div class="msg">'+ICO.info+'<span>'+t('rien')+'</span></div>';
+ L.forEach(function(l){h+='<div class="ligne"><span>'+l[0]+'</span><span>'+Math.round(l[1])+' €</span></div>'});
+ h+='<div class="ligne tot"><span>'+t('total')+'</span><span>'+Math.round(tot)+' €</span></div>';
+ h+='<div class="go"><button type="button" class="glossy jaune" id="payE"'+(L.length?'':' disabled')+'>'+ICO.pay+' '+t('payer')+'</button></div>';
+ $('totE').innerHTML=h;if(L.length)$('payE').addEventListener('click',function(){ticket(L,tot,c)})}
+function ticket(L,tot,c){var noms=[],hor=[];OFFRES.forEach(function(o){var s=sel[o.id];if(!s)return;var n=to(o.id).t;if(o.choix&&s.choix)n+=' — '+tc(s.choix)[0];noms.push(n);
+ if(o.type==='transfert')hor.push((lang==='en'?'out ':'aller ')+hh(s.aller)+' · '+(lang==='en'?'back ':'retour ')+hh(s.retour));else hor.push(hh(s.debut)+' → '+hh(s.debut+o.dur))});
+ RTS_TICKET.ouvrir({lang:lang,prestation:noms.join(' + '),date:dateLib(c.d)+(lang==='en'?' · ship ':' · bateau ')+hh(c.a)+' – '+hh(c.p),horaires:hor.join(' ; '),pax:$('paxE').value,vehicule:van()?'Van (5–8)':(lang==='en'?'Sedan (1–4)':'Berline (1–4)'),
+  rdv:lang==='en'?'Cruise terminal exit, Le Port':'Sortie du terminal croisière, Le Port',total:tot})}
+appliquer();
+window.RTS_ESC={sel:sel,rendre:rendre,dispo:dispo,cadre:cadre,setLang:function(l){lang=l;appliquer()},offres:OFFRES,lignes:lignes};
+})();
+</script>
+</body></html>
