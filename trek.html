@@ -1,8 +1,6 @@
 <!DOCTYPE html><html lang="fr"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" type="image/png" href="images/favicon.png">
-<link rel="stylesheet" href="vitrine.css">
-<script src="i18n.js"></script>
 <title>RTS — Trek &amp; logistique bagages</title>
 <style>
 /* Palette RTS officielle, et rien d'autre : marine, bleu roi, rouge, jaune, blanc, creme */
@@ -380,5 +378,4 @@ function construireFormules(){var h='';cw.PARCOURS.forEach(function(P){var v=VIG
 document.getElementById('btnFormules').onclick=function(e){e.preventDefault();var f=document.getElementById('formules');f.hidden=false;f.scrollIntoView({block:'start',behavior:'smooth'})};
 if(location.hash==='#formules')document.getElementById('formules').hidden=false;
 </script>
-<script src="vitrine.js"></script>
 </body></html>
