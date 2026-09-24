@@ -38,6 +38,8 @@ function ouvrir(o){style();var L=S[o.lang==='en'?'en':'fr'],lang=o.lang==='en'?'
  if(o.pax)lignes.push([L.pax,o.pax]);
  if(o.vehicule)lignes.push([L.veh,o.vehicule]);
  if(o.bagages)lignes.push([L.bag,o.bagages]);
+ /* detail des lignes du tarif (optionnel) : libelle + montant */
+ if(o.lignes&&o.lignes.length)o.lignes.forEach(function(l){lignes.push(['· '+l[0],Math.round(l[1])+' €'])});
  lignes.push([L.rdv,o.rdv||'']);
  lignes.push([L.chauf,L.attrib]);
  lignes.push([L.rts,'0693 91 12 67']);
@@ -78,7 +80,7 @@ function png(t){var W=720,pad=36,y=0,lh=44;var n=t.lignes.length;var H=250+n*lh+
   g.fillStyle='#0141AC';g.font='800 20px system-ui,sans-serif';g.fillText(t.num,pad+120,yy+40);
   g.fillStyle='#DE0715';g.fillRect(pad,yy+90,W-2*pad,4);
   y=yy+112;
-  t.lignes.forEach(function(l){g.fillStyle='rgba(2,17,50,.6)';g.font='700 18px system-ui,sans-serif';g.textAlign='left';g.fillText(l[0],pad,y+10);
+  t.lignes.forEach(function(l){g.fillStyle='rgba(2,17,50,.6)';g.font='700 18px system-ui,sans-serif';g.textAlign='left';var k=String(l[0]);while(g.measureText(k).width>W-2*pad-250&&k.length>6)k=k.slice(0,-2);if(k!==String(l[0]))k+='…';g.fillText(k,pad,y+10);
    g.fillStyle='#021132';g.font='700 19px system-ui,sans-serif';g.textAlign='right';var v=String(l[1]);while(g.measureText(v).width>W-2*pad-220&&v.length>4)v=v.slice(0,-2);if(v!==String(l[1]))v+='…';g.fillText(v,W-pad,y+10);
    g.fillStyle='rgba(2,17,50,.1)';g.fillRect(pad,y+lh-4,W-2*pad,1);y+=lh});
   g.fillStyle='#FBD608';roundRect(g,pad,y+10,W-2*pad,56,12);g.fill();
