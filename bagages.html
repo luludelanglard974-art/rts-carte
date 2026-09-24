@@ -89,8 +89,25 @@ footer.rts .lg{margin-top:10px;font-size:12.5px;color:rgba(255,255,255,.6);line-
 .ville .coche{position:absolute;top:8px;right:8px;width:26px;height:26px;border-radius:50%;background:var(--jaune);color:var(--marine);display:none;align-items:center;justify-content:center;font-size:16px}
 .ville.on .coche{display:flex}
 @media(max-width:900px){.villes{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:901px){.villes{grid-template-columns:repeat(5,1fr)}.villes .ville:nth-child(n+6){grid-column:span 1}}
 @media(max-width:560px){.villes{grid-template-columns:1fr 1fr;gap:8px}.ville{min-height:130px}}
 .choisir{color:rgba(255,255,255,.85);font-size:14px;margin-top:12px}
+.bandeau{margin-top:12px;background:var(--jaune);color:var(--marine);border-radius:12px;padding:10px 14px;font-size:15px;font-weight:900;display:flex;align-items:center;gap:10px;box-shadow:0 6px 16px rgba(0,0,0,.3);border:2.5px solid var(--creme)}
+.bandeau .ic{font-size:22px;flex:none}
+/* duree : 4 gros boutons, actif en relief glossy, inactifs plats */
+.durees{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:4px}
+.durees button{min-height:54px;padding:6px 8px;border-radius:14px;border:2.5px solid transparent;background:rgba(2,17,50,.06);color:var(--marine);font-size:14px;font-weight:800;line-height:1.15;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.durees button small{font-size:11.5px;font-weight:700;opacity:.7}
+.durees button.on{--c:var(--roi);color:var(--blanc);background-color:var(--roi);border-color:var(--creme);background-image:linear-gradient(180deg,rgba(255,255,255,.46) 0%,rgba(255,255,255,.34) 50%,rgba(255,255,255,0) 50%,rgba(0,0,0,.20) 84%,rgba(255,255,255,.14) 100%);box-shadow:0 4px 8px -1px var(--c),0 1px 2px rgba(2,17,50,.35);text-shadow:0 1px 1px rgba(0,0,0,.35)}
+.durees button.on small{opacity:.9}
+.bloc-rouge .durees button{background:rgba(255,255,255,.16);color:var(--blanc);border-color:rgba(255,255,255,.35)}
+.bloc-rouge .durees button.on{--c:var(--jaune);background-color:var(--jaune);color:var(--marine);border-color:var(--creme);text-shadow:0 1px 0 rgba(255,255,255,.45)}
+@media(max-width:480px){.durees{grid-template-columns:1fr 1fr}}
+.plus{margin-top:8px;font-size:13px;color:rgba(2,17,50,.7);display:flex;gap:6px;align-items:center}
+.plus a{color:var(--roi);font-weight:800;text-decoration:none}
+.bloc-rouge .plus{color:rgba(255,255,255,.9)}.bloc-rouge .plus a{color:var(--jaune)}
+.retour{margin-top:12px;display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:10px 14px;border-radius:14px;background:var(--blanc);color:var(--roi);font-size:15px;font-weight:900;text-decoration:none;border:2.5px solid var(--roi);box-shadow:0 6px 14px rgba(0,0,0,.25)}
+.retour .ic{font-size:20px}
 /* onglet B : bloc rouge RTS */
 .bloc-rouge{background:var(--rouge);color:var(--blanc);border-radius:16px;padding:16px;margin-top:14px;box-shadow:0 10px 24px rgba(0,0,0,.35);border:2.5px solid var(--creme)}
 .bloc-rouge h2{font-size:18px;font-weight:900;display:flex;align-items:center;gap:8px;margin-bottom:4px}
@@ -122,13 +139,18 @@ footer.rts .lg{margin-top:10px;font-size:12.5px;color:rgba(255,255,255,.6);line-
  </div>
 
  <section id="pA" role="tabpanel" aria-labelledby="tabA">
-  <p class="choisir">Choisissez votre ville de séjour : le prix « à partir de » comprend l'aller, le retour et la consigne d'un bagage pour 8 à 14 jours.</p>
+  <div class="bandeau"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" /><path d="m15 9-6 6" /><path d="M9 9h.01" /><path d="M15 15h.01" /></svg> <span>Jusqu'à −10 € par bagage quand vous réservez votre transfert</span></div>
+  <p class="choisir">Choisissez votre destination : le prix « à partir de » comprend le transfert depuis l'aéroport et la consigne d'un bagage pour 1 à 3 jours.</p>
   <div class="villes" id="villes">
    <button type="button" class="ville" data-ville="Saint-Denis"><img src="images/chapelle-patrimoine.jpg" loading="lazy" alt="Saint-Denis, La Réunion"><span class="v"></span><span class="coche"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg></span><span class="t"><b>Saint-Denis</b><i>Chef-lieu, Barachois et jardins</i><span class="px" data-px="Saint-Denis">à partir de … €</span></span></button>
    <button type="button" class="ville" data-ville="Saint-Paul"><img src="images/lever-soleil-maido.jpg" loading="lazy" alt="Saint-Paul, La Réunion"><span class="v"></span><span class="coche"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg></span><span class="t"><b>Saint-Paul</b><i>Baie, marché et route du Maïdo</i><span class="px" data-px="Saint-Paul">à partir de … €</span></span></button>
-   <button type="button" class="ville" data-ville="Saint-Gilles"><img src="images/fin-de-sejour.jpg" loading="lazy" alt="Saint-Gilles, La Réunion"><span class="v"></span><span class="coche"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg></span><span class="t"><b>Saint-Gilles</b><i>Plages et lagon de l'Ouest</i><span class="px" data-px="Saint-Gilles">à partir de … €</span></span></button>
+   <button type="button" class="ville" data-ville="Saint-Gilles"><img src="images/fin-de-sejour.jpg" loading="lazy" alt="Saint-Gilles, La Réunion"><span class="v"></span><span class="coche"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg></span><span class="t"><b>Saint-Gilles</b><i>Plages de l'Ouest</i><span class="px" data-px="Saint-Gilles">à partir de … €</span></span></button>
    <button type="button" class="ville" data-ville="Saint-Leu"><img src="images/cote-sud-lave.jpg" loading="lazy" alt="Saint-Leu, La Réunion"><span class="v"></span><span class="coche"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg></span><span class="t"><b>Saint-Leu</b><i>Côte sauvage et Souffleur</i><span class="px" data-px="Saint-Leu">à partir de … €</span></span></button>
    <button type="button" class="ville" data-ville="Saint-Pierre"><img src="images/excursion-tour-ile.jpg" loading="lazy" alt="Saint-Pierre, La Réunion"><span class="v"></span><span class="coche"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg></span><span class="t"><b>Saint-Pierre</b><i>Front de mer du Sud</i><span class="px" data-px="Saint-Pierre">à partir de … €</span></span></button>
+   <button type="button" class="ville" data-ville="Saint-Benoît"><img src="images/bassin-la-paix.jpg" loading="lazy" alt="Saint-Benoît, La Réunion"><span class="v"></span><span class="coche"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg></span><span class="t"><b>Saint-Benoît</b><i>L'Est et ses bassins</i><span class="px" data-px="Saint-Benoît">à partir de … €</span></span></button>
+   <button type="button" class="ville" data-ville="Bourg-Murat"><img src="images/cratere-commerson.jpg" loading="lazy" alt="Bourg-Murat, La Réunion"><span class="v"></span><span class="coche"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg></span><span class="t"><b>Bourg-Murat</b><i>Plaine des Cafres, porte du volcan</i><span class="px" data-px="Bourg-Murat">à partir de … €</span></span></button>
+   <button type="button" class="ville" data-ville="Gîte du Volcan"><img src="images/formica-leo-fournaise.jpg" loading="lazy" alt="Gîte du Volcan, La Réunion"><span class="v"></span><span class="coche"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg></span><span class="t"><b>Gîte du Volcan</b><i>Départ de la marche du volcan</i><span class="px" data-px="Gîte du Volcan">à partir de … €</span></span></button>
+   <button type="button" class="ville" data-ville="Cilaos"><img src="images/cilaos-village.jpg" loading="lazy" alt="Cilaos, La Réunion"><span class="v"></span><span class="coche"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg></span><span class="t"><b>Cilaos</b><i>Le cirque, à 1 200 m</i><span class="px" data-px="Cilaos">à partir de … €</span></span></button>
   </div>
   <div class="card" id="formA" hidden>
    <h2><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v3" /><path d="M16 2v3" /><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M3 9h18" /><path d="M8 13h.01" /><path d="M12 13h.01" /><path d="M16 13h.01" /><path d="M8 17h.01" /><path d="M12 17h.01" /><path d="M16 17h.01" /></svg> Votre séjour à <span id="villeNom"></span></h2>
@@ -136,15 +158,17 @@ footer.rts .lg{margin-top:10px;font-size:12.5px;color:rgba(255,255,255,.6);line-
     <div><label for="paxA">Nombre de passagers</label><select id="paxA"></select></div>
     <div><label>Nombre de bagages</label><div class="step"><button type="button" data-step="bagA" data-d="-1" aria-label="Un bagage de moins">−</button><output id="bagA">2</output><button type="button" data-step="bagA" data-d="1" aria-label="Un bagage de plus">+</button></div></div>
    </div>
-   <label>Arrivée</label>
+   <label>Arrivée du vol</label>
    <div class="deux"><input type="date" id="arrD" aria-label="Date d'arrivée"><input type="time" id="arrH" value="10:00" aria-label="Heure du vol d'arrivée"></div>
-   <label>Départ</label>
-   <div class="deux"><input type="date" id="depD" aria-label="Date de départ"><input type="time" id="depH" value="14:00" aria-label="Heure du vol retour"></div>
+   <label>Durée de la consigne</label>
+   <div class="durees" id="dureesA" role="radiogroup" aria-label="Durée de la consigne"></div>
+   <div class="plus"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /></svg> <span>Plus d'un mois ? Contactez-nous : <a href="tel:+262693911267">0693 91 12 67</a></span></div>
    <div class="van" id="vanA" hidden><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6v6" /><path d="M15 6v6" /><path d="M2 12h19.6" /><path d="M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3" /><circle cx="7" cy="18" r="2" /><path d="M9 18h5" /><circle cx="16" cy="18" r="2" /></svg> <span>Un van est prévu pour votre groupe et vos bagages</span></div>
-   <p class="expl">À votre arrivée, votre chauffeur vous dépose et emporte vos bagages au box. Au départ, ils vous attendent dans le coffre de votre transfert retour.</p>
+   <p class="expl">À votre arrivée, votre chauffeur vous dépose et emporte vos bagages au box. Pour votre départ, réservez votre transfert retour : vos bagages vous attendent dans le coffre.</p>
    <div class="adresse"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg> <span>Box sécurisé — 45 rue des Marins Pêcheurs, Le Port</span></div>
   </div>
   <div class="total" id="totA" hidden></div>
+  <a class="retour" id="lienRetour" href="reservation.html" hidden><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8" /><path d="M7 14h.01" /><path d="M17 14h.01" /><rect width="18" height="8" x="3" y="10" rx="2" /><path d="M5 18v2" /><path d="M19 18v2" /></svg> Réservez aussi votre transfert retour ▶</a>
  </section>
 
  <section id="pB" role="tabpanel" aria-labelledby="tabB" hidden>
@@ -152,10 +176,10 @@ footer.rts .lg{margin-top:10px;font-size:12.5px;color:rgba(255,255,255,.6);line-
    <h2><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg> Consigne seule</h2>
    <p>Vos bagages gardés au box sécurisé du Port, sans transfert de passagers.</p>
    <label>Nombre de bagages</label><div class="step"><button type="button" data-step="bagB" data-d="-1" aria-label="Un bagage de moins">−</button><output id="bagB">3</output><button type="button" data-step="bagB" data-d="1" aria-label="Un bagage de plus">+</button></div>
-   <div class="deux">
-    <div><label for="depoD">Date de dépôt</label><input type="date" id="depoD"></div>
-    <div><label for="retD">Date de retrait</label><input type="date" id="retD"></div>
-   </div>
+   <label>Durée de la consigne</label>
+   <div class="durees" id="dureesB" role="radiogroup" aria-label="Durée de la consigne"></div>
+   <div class="plus"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /></svg> <span>Plus d'un mois ? Contactez-nous : <a href="tel:+262693911267">0693 91 12 67</a></span></div>
+   <label for="depoD">Date de dépôt</label><input type="date" id="depoD">
    <div class="palier" id="palierB"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v3" /><path d="M16 2v3" /><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M3 9h18" /><path d="M8 13h.01" /><path d="M12 13h.01" /><path d="M16 13h.01" /><path d="M8 17h.01" /><path d="M12 17h.01" /><path d="M16 17h.01" /></svg> <span></span></div>
    <label class="opt"><input type="checkbox" id="optDepot" checked> Dépôt de mes bagages : aéroport → box <b id="pxDepot"></b></label>
    <label class="opt"><input type="checkbox" id="optResti" checked> Restitution : box → aéroport <b id="pxResti"></b></label>
@@ -163,7 +187,7 @@ footer.rts .lg{margin-top:10px;font-size:12.5px;color:rgba(255,255,255,.6);line-
   </div>
   <div class="total" id="totB"></div>
   <div class="vers-a">
-   <p><b>Besoin d'un chauffeur à l'arrivée ?</b> Avec Transfert + consigne, la restitution est comprise dans votre transfert retour.</p>
+   <p><b>Besoin d'un chauffeur à l'arrivée ?</b> Avec votre transfert, la consigne coûte jusqu'à 10 € de moins par bagage.</p>
    <button type="button" class="glossy jaune" id="versA"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8" /><path d="M7 14h.01" /><path d="M17 14h.01" /><rect width="18" height="8" x="3" y="10" rx="2" /><path d="M5 18v2" /><path d="M19 18v2" /></svg> Voir Transfert + consigne</button>
   </div>
   <div class="card" style="margin-top:14px"><div class="adresse" style="margin-top:0"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg> <span>Box sécurisé — 45 rue des Marins Pêcheurs, Le Port</span></div></div>
@@ -185,10 +209,10 @@ footer.rts .lg{margin-top:10px;font-size:12.5px;color:rgba(255,255,255,.6);line-
 var T=RTS_TARIFS,$=function(id){return document.getElementById(id)};
 var ICO_INFO='<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4" /><path d="M12 8h.01" /></svg>',ICO_KO='<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" /><path d="M12 9v4" /><path d="M12 17h.01" /></svg>',ICO_OK='<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" /><path d="M7 12h5" /><path d="M15 9.4a4 4 0 1 0 0 5.2" /></svg>';
 function eur(x){return Math.round(x)+' €'}
-function jours(a,b){if(!a||!b)return null;var d=(new Date(b+'T12:00:00')-new Date(a+'T12:00:00'))/86400000;return Math.ceil(d)}
 function dateFr(s){if(!s)return '—';var p=s.split('-');return p[2]+'/'+p[1]+'/'+p[0]}
 function plur(n,s){return n+' '+s+(n>1?'s':'')}
 function iso(d){return d.toISOString().slice(0,10)}
+function palierMax(id){var P=T.PALIERS;for(var i=0;i<P.length;i++)if(P[i].id===id)return P[i].max;return 0}
 /* onglets */
 var onglet='A';
 function montrer(o){onglet=o;$('tabA').classList.toggle('on',o==='A');$('tabB').classList.toggle('on',o==='B');
@@ -199,59 +223,59 @@ $('versA').addEventListener('click',function(){montrer('A');window.scrollTo({top
 /* compteurs */
 document.querySelectorAll('[data-step]').forEach(function(b){b.addEventListener('click',function(){var o=$(b.dataset.step),v=parseInt(o.value||o.textContent)+parseInt(b.dataset.d);v=Math.max(1,Math.min(20,v));o.textContent=v;o.value=v;if(b.dataset.step==='bagA')calcA();else calcB()})});
 function bags(id){return parseInt($(id).textContent)}
+/* boutons de duree (4 paliers de tarifs.js) */
+var duree={A:'8-14',B:'4-7'};
+function durees(id,cle,avec){var h='';T.PALIERS.forEach(function(p){var px=RTS_consigne(p.id,avec);
+ h+='<button type="button" role="radio" data-palier="'+p.id+'" aria-checked="'+(duree[cle]===p.id)+'" class="'+(duree[cle]===p.id?'on':'')+'">'+RTS_palierLib(p.id)+'<small>'+px+' € / bagage</small></button>'});
+ $(id).innerHTML=h;$(id).querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){duree[cle]=b.dataset.palier;durees(id,cle,avec);if(cle==='A')calcA();else calcB()})})}
+durees('dureesA','A',true);durees('dureesB','B',false);
 /* ===== onglet A : transfert + consigne ===== */
 var ville=null;
 for(var i=1;i<=8;i++)$('paxA').add(new Option(i+(i>1?' passagers':' passager'),i));
 $('paxA').value=2;
-var j0=new Date();j0.setDate(j0.getDate()+7);var j1=new Date(j0);j1.setDate(j1.getDate()+12);
-$('arrD').value=iso(j0);$('depD').value=iso(j1);
-/* prix "a partir de" : aller + retour + consigne 1 bagage 8-14 jours */
-document.querySelectorAll('[data-px]').forEach(function(e){var v=e.dataset.px;e.textContent='à partir de '+eur(2*T.TRANSFERTS_AEROPORT[v]+RTS_gardiennage(8))});
+var j0=new Date();j0.setDate(j0.getDate()+7);$('arrD').value=iso(j0);
+/* prix "a partir de" : transfert berline + consigne 1 bagage 1-3 jours (minimum par reservation applique) */
+document.querySelectorAll('[data-px]').forEach(function(e){var v=e.dataset.px;e.textContent='à partir de '+eur(T.TRANSFERTS_AEROPORT[v]+RTS_consigneTransfert('1-3',1))});
 document.querySelectorAll('.ville').forEach(function(b){b.addEventListener('click',function(){ville=b.dataset.ville;
  document.querySelectorAll('.ville').forEach(function(x){x.classList.toggle('on',x===b);x.setAttribute('aria-pressed',x===b)});
- $('villeNom').textContent=ville;$('formA').hidden=false;$('totA').hidden=false;calcA();
+ $('villeNom').textContent=ville;$('formA').hidden=false;$('totA').hidden=false;$('lienRetour').hidden=false;calcA();
  setTimeout(function(){$('formA').scrollIntoView({behavior:'smooth',block:'start'})},60)})});
-['paxA','arrD','arrH','depD','depH'].forEach(function(id){$(id).addEventListener('change',calcA);$(id).addEventListener('input',calcA)});
+['paxA','arrD','arrH'].forEach(function(id){$(id).addEventListener('change',calcA);$(id).addEventListener('input',calcA)});
 function calcA(){if(!ville)return null;
- var pax=parseInt($('paxA').value),nb=bags('bagA'),van=pax>4||nb>4;
- var a=$('arrD').value,d=$('depD').value,n=jours(a,d);
- var L=[],erreur=null;
- if(n===null)erreur='Indiquez vos dates d\'arrivée et de départ.';
- else if(n<1)erreur='La date de départ doit être postérieure à la date d\'arrivée.';
- var t=T.TRANSFERTS_AEROPORT[ville],det=T.DETOUR_BOX[ville]||0;
- L.push(['Transfert aller · aéroport → '+ville+(van?' (van)':' (berline)'),Math.round(t*(van?1+T.VAN_MAJORATION:1))]);
- L.push(['Transfert retour · '+ville+' → aéroport'+(van?' (van)':' (berline)'),Math.round(t*(van?1+T.VAN_MAJORATION:1))]);
- if(det)L.push(['Détour par le box du Port (aller et retour)',2*det]);
- var nj=Math.max(1,n||1),g=RTS_gardiennage(nj);
- L.push(['Consigne (association RTS) · '+plur(nb,'bagage')+' · '+RTS_palier(nj)+(n>=1?' ('+plur(n,'jour')+')':''),g*nb]);
- var total=0;L.forEach(function(l){total+=l[1]});
+ var pax=parseInt($('paxA').value),nb=bags('bagA'),van=pax>4||nb>4,pal=duree.A;
+ var a=$('arrD').value,erreur=a?null:'Indiquez la date d\'arrivée de votre vol.';
+ var t=T.TRANSFERTS_AEROPORT[ville],tr=Math.round(t*(van?1+T.VAN_MAJORATION:1));
+ var cons=RTS_consigneTransfert(pal,nb),unit=RTS_consigne(pal,true),mini=cons>unit*nb;
+ var L=[['Transfert · aéroport → '+ville+(van?' (van)':' (berline)'),tr],
+        ['Consigne (association RTS) · '+plur(nb,'bagage')+' · '+RTS_palierLib(pal)+(mini?' · minimum par réservation':' · '+unit+' € / bagage'),cons]];
+ var total=tr+cons;
  $('vanA').hidden=!van;
  var h='<h3>'+ICO_OK+' Votre tarif en direct</h3>';
  L.forEach(function(l){h+='<div class="ligne"><span>'+l[0]+'</span><span>'+eur(l[1])+'</span></div>'});
  h+='<div class="ligne tot"><span>Total</span><span>'+eur(total)+'</span></div>';
- if(van)h+='<div class="msg">'+ICO_INFO+'<span>Un van est prévu pour votre groupe et vos bagages (transferts +'+Math.round(T.VAN_MAJORATION*100)+' %).</span></div>';
+ if(van)h+='<div class="msg">'+ICO_INFO+'<span>Un van est prévu pour votre groupe et vos bagages (transfert +'+Math.round(T.VAN_MAJORATION*100)+' %, consigne inchangée).</span></div>';
  if(erreur)h+='<div class="msg ko">'+ICO_KO+'<span>'+erreur+'</span></div>';
  h+='<div class="go"><button type="button" class="glossy jaune" id="payA"'+(erreur?' disabled':'')+'><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="5" rx="2" /><line x1="2" x2="22" y1="10" y2="10" /><path d="M6 14h2" /></svg> Réserver et payer</button></div>';
  $('totA').innerHTML=h;
- var r={lignes:L,total:total,pax:pax,nb:nb,van:van,a:a,d:d,n:n};
+ var r={lignes:L,total:total,pax:pax,nb:nb,van:van,a:a,pal:pal};
  if(!erreur)$('payA').addEventListener('click',function(){ticketA(r)});
  return r}
-function ticketA(r){RTS_TICKET.ouvrir({lang:'fr',prestation:'Aéroport ↔ '+ville+' + consigne '+plur(r.nb,'bagage'),date:dateFr(r.a)+' → '+dateFr(r.d)+' ('+plur(r.n,'jour')+')',
- horaires:'Arrivée '+dateFr(r.a)+' '+($('arrH').value||'—')+' · Départ '+dateFr(r.d)+' '+($('depH').value||'—'),pax:r.pax,vehicule:r.van?'Van (5 à 8 places)':'Berline (1 à 4 places)',bagages:r.nb,
+function ticketA(r){RTS_TICKET.ouvrir({lang:'fr',prestation:'Transfert aéroport → '+ville+' + consigne '+plur(r.nb,'bagage')+' ('+RTS_palierLib(r.pal)+')',date:dateFr(r.a),
+ horaires:'Arrivée du vol '+dateFr(r.a)+' à '+($('arrH').value||'—'),pax:r.pax,vehicule:r.van?'Van (5 à 8 places)':'Berline (1 à 4 places)',bagages:r.nb,lignes:r.lignes,
  rdv:'Aéroport Roland Garros, hall des arrivées · box : '+T.BOX_ADRESSE,total:r.total})}
 /* ===== onglet B : consigne seule ===== */
-var b0=new Date();b0.setDate(b0.getDate()+3);var b1=new Date(b0);b1.setDate(b1.getDate()+5);
-$('depoD').value=iso(b0);$('retD').value=iso(b1);
-['depoD','retD','optDepot','optResti'].forEach(function(id){$(id).addEventListener('change',calcB);$(id).addEventListener('input',calcB)});
-function calcB(){var nb=bags('bagB'),van=nb>4;
- var a=$('depoD').value,d=$('retD').value,n=jours(a,d),erreur=null;
- if(n===null)erreur='Indiquez les dates de dépôt et de retrait.';else if(n<1)erreur='La date de retrait doit être postérieure à la date de dépôt.';
- var nj=Math.max(1,n||1),g=RTS_gardiennage(nj);
+var b0=new Date();b0.setDate(b0.getDate()+3);$('depoD').value=iso(b0);
+['depoD','optDepot','optResti'].forEach(function(id){$(id).addEventListener('change',calcB);$(id).addEventListener('input',calcB)});
+function calcB(){var nb=bags('bagB'),van=nb>4,pal=duree.B;
+ var a=$('depoD').value,erreur=a?null:'Indiquez la date de dépôt.';
+ /* date de retrait : fin du palier choisi */
+ var ret='';if(a){var d=new Date(a+'T12:00:00');d.setDate(d.getDate()+palierMax(pal));ret=iso(d)}
+ var unit=RTS_consigne(pal,false);
  /* course bagages seuls : course normale aeroport <-> box, -30 %, +20 % en van si plus de 4 bagages */
  var course=Math.round(T.COURSE_AEROPORT_BOX*(1-T.BAGAGES_SEULS_REMISE)*(van?1+T.VAN_MAJORATION:1));
  $('pxDepot').textContent=eur(course);$('pxResti').textContent=eur(course);
- $('palierB').querySelector('span').textContent='Durée : '+RTS_palier(nj)+(n>=1?' ('+plur(n,'jour')+')':'')+' · '+eur(g)+' par bagage';
- var L=[['Consigne (association RTS) · '+plur(nb,'bagage')+' · '+RTS_palier(nj),g*nb]];
+ $('palierB').querySelector('span').textContent='Retrait au plus tard le '+dateFr(ret)+' · '+RTS_palierLib(pal)+' · '+unit+' € par bagage';
+ var L=[['Consigne (association RTS) · '+plur(nb,'bagage')+' · '+RTS_palierLib(pal),unit*nb]];
  if($('optDepot').checked)L.push(['Dépôt de vos bagages : aéroport → box'+(van?' (van)':''),course]);
  if($('optResti').checked)L.push(['Restitution : box → aéroport'+(van?' (van)':''),course]);
  var total=0;L.forEach(function(l){total+=l[1]});
@@ -262,15 +286,15 @@ function calcB(){var nb=bags('bagB'),van=nb>4;
  if(erreur)h+='<div class="msg ko">'+ICO_KO+'<span>'+erreur+'</span></div>';
  h+='<div class="go"><button type="button" class="glossy jaune" id="payB"'+(erreur?' disabled':'')+'><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="5" rx="2" /><line x1="2" x2="22" y1="10" y2="10" /><path d="M6 14h2" /></svg> Réserver et payer</button></div>';
  $('totB').innerHTML=h;
- var r={lignes:L,total:total,nb:nb,van:van,a:a,d:d,n:n,depot:$('optDepot').checked,resti:$('optResti').checked};
+ var r={lignes:L,total:total,nb:nb,van:van,a:a,ret:ret,pal:pal,depot:$('optDepot').checked,resti:$('optResti').checked};
  if(!erreur)$('payB').addEventListener('click',function(){ticketB(r)});
  return r}
-function ticketB(r){var p='Consigne seule · '+plur(r.nb,'bagage')+' ('+plur(r.n,'jour')+')';
+function ticketB(r){var p='Consigne seule · '+plur(r.nb,'bagage')+' ('+RTS_palierLib(r.pal)+')';
  if(r.depot&&r.resti)p+=' + dépôt et restitution aéroport';else if(r.depot)p+=' + dépôt aéroport → box';else if(r.resti)p+=' + restitution box → aéroport';
- RTS_TICKET.ouvrir({lang:'fr',prestation:p,date:dateFr(r.a)+' → '+dateFr(r.d),horaires:'Dépôt le '+dateFr(r.a)+' · Retrait le '+dateFr(r.d),bagages:r.nb,vehicule:(r.depot||r.resti)?(r.van?'Van':'Berline'):'',
+ RTS_TICKET.ouvrir({lang:'fr',prestation:p,date:dateFr(r.a)+' → '+dateFr(r.ret),horaires:'Dépôt le '+dateFr(r.a)+' · Retrait au plus tard le '+dateFr(r.ret),bagages:r.nb,vehicule:(r.depot||r.resti)?(r.van?'Van':'Berline'):'',lignes:r.lignes,
  rdv:(r.depot?'Aéroport Roland Garros, hall des arrivées':'Box sécurisé — '+T.BOX_ADRESSE),total:r.total})}
 calcB();
-window.RTS_BAG={calcA:calcA,calcB:calcB,montrer:montrer};
+window.RTS_BAG={calcA:calcA,calcB:calcB,montrer:montrer,duree:function(c,p){duree[c]=p;durees(c==='A'?'dureesA':'dureesB',c,c==='A');if(c==='A')calcA();else calcB()}};
 })();
 </script>
 </body></html>
