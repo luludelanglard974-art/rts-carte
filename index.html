@@ -34,7 +34,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:var(
 .hero .baseline{margin-top:12px;font-size:13px;font-style:italic;font-weight:600;color:var(--marine);background:var(--jaune);padding:6px 16px;border-radius:20px;box-shadow:0 2px 8px rgba(2,17,50,.2)}
 .wrap{max-width:1020px;margin:0 auto;padding:26px 14px 26px}
 /* ---- LES TROIS ENTREES ---- */
-.portes{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.portes{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
 .porte{position:relative;display:block;text-decoration:none;color:var(--blanc);border-radius:18px;overflow:hidden;box-shadow:0 7px 20px rgba(2,17,50,.22);transition:transform .22s ease,box-shadow .22s ease;min-height:230px}
 .porte:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(2,17,50,.32)}
 .porte img.fond{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
@@ -46,12 +46,19 @@ body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:var(
 .porte p{margin-top:4px;font-size:13px;color:rgba(255,255,255,.92);text-shadow:0 1px 3px rgba(0,0,0,.4)}
 .porte .go{display:inline-block;margin-top:11px;font-size:12.5px;font-weight:800;padding:8px 16px;border-radius:9px;background:var(--blanc);color:var(--marine);box-shadow:0 2px 7px rgba(0,0,0,.3);transition:.18s}
 .porte:hover .go{background:var(--jaune)}
-.porte.trek{grid-column:1/-1;min-height:280px}
-.porte.resa,.porte.exc{min-height:230px}
-.porte.trek h2{font-size:24px}
+/* Trek et Bagages & box partagent la meme photo, coupee en deux (moitie gauche / moitie droite) : une seule image continue */
+.porte.trek,.porte.resa,.porte.bag{min-height:250px}
+.porte .moitie{position:absolute;inset:0;background-image:url(images/carte-trek.jpg);background-size:200% auto;background-repeat:no-repeat;transition:transform .5s ease}
+.porte.trek .moitie{background-position:left center}
+.porte.bag .moitie{background-position:right center}
+.porte:hover .moitie{transform:scale(1.045)}
+.porte.exc{grid-column:1/-1;min-height:200px}
+.porte.trek h2{font-size:20px}
 .porte.trek .phrase{display:inline-block;margin-top:6px;font-size:14px;font-weight:800;color:var(--jaune);text-shadow:0 1px 3px rgba(0,0,0,.5)}
 .porte .bord{position:absolute;top:0;left:0;right:0;height:5px}
 .porte.trek .bord{background:var(--roi)}
+.porte.bag .bord{background:var(--jaune)}
+.porte.escale .bord{background:var(--roi)}
 .porte.resa .bord{background:var(--rouge)}
 .porte.exc .bord{background:var(--roi)}
 .porte.tpmr .bord{background:var(--jaune)}
@@ -71,6 +78,7 @@ a.presta i{color:var(--roi)}
 .presta .em{width:38px;height:38px;border-radius:10px;background:var(--marine);color:var(--blanc);display:flex;align-items:center;justify-content:center;font-size:18px;flex:none;box-shadow:0 2px 5px rgba(2,17,50,.25),inset 0 1px 0 rgba(255,255,255,.2)}
 .presta b{display:block;font-size:13.5px;color:var(--marine)}
 .presta i{display:block;font-style:normal;font-size:12px;color:rgba(2,17,50,.62);margin-top:2px;line-height:1.45}
+.tpmrrow{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .tpmrrow .porte{min-height:210px}
 .deuxcol{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px}
 .apropos,.infos{background:var(--blanc);border-radius:14px;padding:18px;box-shadow:0 4px 12px rgba(2,17,50,.10);border:1px solid var(--l);font-size:13.5px;line-height:1.6;color:rgba(2,17,50,.78)}
@@ -105,7 +113,7 @@ footer .co{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;font-size
 footer .co a{color:var(--blanc);text-decoration:none}
 footer .co a:hover{color:var(--jaune)}
 footer .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
-@media(max-width:760px){.portes{grid-template-columns:1fr}.porte{min-height:200px}.deuxcol{grid-template-columns:1fr}.hero{height:min(62vh,560px);min-height:400px}
+@media(max-width:760px){.portes,.tpmrrow{grid-template-columns:1fr}.porte,.porte.trek,.porte.resa,.porte.bag{min-height:200px}.porte .moitie{background-size:cover}.porte.trek .moitie{background-position:left center}.porte.bag .moitie{background-position:right center}.deuxcol{grid-template-columns:1fr}.hero{height:min(62vh,560px);min-height:400px}
 .porte p{font-size:14px}.presta b{font-size:14.5px}.presta i{font-size:14px}.ch span{font-size:14px}.infos a.pastille{min-height:44px}footer .co{font-size:14px}}
 @media(max-width:900px){.badge{font-size:14px;min-height:32px;display:inline-flex;align-items:center}.hero .desc{font-size:14px}.hero .baseline{font-size:14px}.porte p{font-size:14px}.porte .go{font-size:14px;min-height:44px;display:inline-flex;align-items:center}.presta b{font-size:15px}.presta i{font-size:14px}.ch span{font-size:14px}.apropos,.infos{font-size:14px}.infos a.pastille{min-height:44px}.infos a.pastille i{font-size:14px}.infos .avert{font-size:14px}footer .co{font-size:14px}footer .co a{display:inline-flex;align-items:center;min-height:44px;padding:0 4px}footer .lg{font-size:14px}}
 </style></head><body>
@@ -126,11 +134,11 @@ footer .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
 <div class="wrap">
  <div class="portes">
   <a class="porte trek anim d1" href="trek.html">
-   <img class="fond" src="images/carte-trek.jpg" loading="lazy" alt="Véhicule RTS sous les remparts, logistique bagages sur les sentiers de La Réunion">
+   <span class="moitie" role="img" aria-label="Véhicule RTS sous les remparts, logistique bagages sur les sentiers de La Réunion (moitié gauche de la photo)"></span>
    <span class="voile"></span><span class="ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5.5c0 3.11-2 5.66-2 8.68V16a2 2 0 1 1-4 0Z" /><path d="M20 20v-2.38c0-2.12 1.03-3.12 1-5.62-.03-2.72-1.49-6-4.5-6C14.63 6 14 7.8 14 9.5c0 3.11 2 5.66 2 8.68V20a2 2 0 1 0 4 0Z" /><path d="M16 17h4" /><path d="M4 13h4" /></svg></span>
    <div class="txt">
-    <h2>Trek &amp; logistique bagages</h2>
-    <p>La carte interactive des sentiers, des transferts et du box sécurisé.</p>
+    <h2>Trek</h2>
+    <p>La carte interactive des sentiers et des transferts.</p>
     <span class="phrase">Vous marchez. RTS s'occupe du reste.</span><br>
     <span class="go">Ouvrir la carte ▶</span>
    </div>
@@ -139,10 +147,16 @@ footer .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
   <a class="porte resa anim d2" href="reservation.html">
    <img class="fond" src="images/carte-reservation.jpg" loading="lazy" alt="Véhicule RTS sur une route de La Réunion">
    <span class="voile"></span><span class="ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8" /><path d="M7 14h.01" /><path d="M17 14h.01" /><rect width="18" height="8" x="3" y="10" rx="2" /><path d="M5 18v2" /><path d="M19 18v2" /></svg></span>
-   <div class="txt"><h2>Transferts aéroport &amp; courses</h2><p>Votre transfert en trois étapes, tarif calculé en direct.</p><span class="go">Réserver ▶</span></div>
+   <div class="txt"><h2>Course</h2><p>Transferts aéroport et courses : tarif calculé en direct.</p><span class="go">Réserver ▶</span></div>
    <span class="bord"></span>
   </a>
-  <a class="porte exc anim d3" href="excursions.html">
+  <a class="porte bag anim d3" href="bagages.html">
+   <span class="moitie" role="img" aria-label="Véhicule RTS sous les remparts, logistique bagages (moitié droite de la photo)"></span>
+   <span class="voile"></span><span class="ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2" /><path d="M8 18V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v14" /><path d="M10 20h4" /><circle cx="16" cy="20" r="2" /><circle cx="8" cy="20" r="2" /></svg></span>
+   <div class="txt"><h2>Bagages &amp; box</h2><p>Vos bagages en sécurité au box du Port, rendus au bon moment.</p><span class="go">Voyager léger ▶</span></div>
+   <span class="bord"></span>
+  </a>
+  <a class="porte exc anim d4" href="excursions.html">
    <img class="fond" src="images/secteur-volcan.jpg" loading="lazy" alt="Le Piton de la Fournaise et les paysages du Volcan, La Réunion">
    <span class="voile"></span><span class="ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 3 4 8 5-5 5 15H2L8 3z" /></svg></span>
    <div class="txt"><h2>Sept excursions guidées</h2><p>Volcan, cirques, Sud sauvage, Maïdo : une journée avec un chauffeur qui connaît l'île. 380 € berline · 420 € van.</p><span class="go">Découvrir ▶</span></div>
@@ -156,6 +170,12 @@ footer .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
    <img class="fond" src="images/carte-tpmr.jpg" loading="lazy" alt="La plage de Grande Anse, dans le sud de La Réunion">
    <span class="voile"></span><span class="ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="16" cy="4" r="1" /><path d="m18 19 1-7-6 1" /><path d="m5 8 3-3 5.5 3-2.36 3.5" /><path d="M4.24 14.5a5 5 0 0 0 6.88 6" /><path d="M13.76 17.5a5 5 0 0 0-6.88-6" /></svg></span>
    <div class="txt"><h2>Transport adapté &amp; excursions</h2><p>Chauffeurs accompagnateurs TPMR, véhicules adaptés, excursions pour tous.</p><span class="go">Découvrir ▶</span></div>
+   <span class="bord"></span>
+  </a>
+  <a class="porte escale" href="escale.html">
+   <img class="fond" src="images/fin-de-sejour.jpg" loading="lazy" alt="Coucher de soleil sur l'océan, côte ouest de La Réunion">
+   <span class="voile"></span><span class="ico"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v2" /><path d="M12 9.189V13" /><path d="M19 12V6a2 2 0 00-2-2H7a2 2 0 00-2 2v6" /><path d="M19.38 19A11.6 11.6 0 0021 13l-8.188-3.639a2 2 0 00-1.624 0L3 13.001a11.6 11.6 0 002.81 7.76" /><path d="M2 20c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1s1.2 1 2.5 1c2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1" /></svg></span>
+   <div class="txt"><h2>Escale croisière</h2><p>Un chauffeur à la sortie du terminal, transferts et excursions le temps de l'escale.</p><span class="go">Réserver mon escale ▶</span></div>
    <span class="bord"></span>
   </a>
  </div>
