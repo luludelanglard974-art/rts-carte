@@ -1,74 +1,60 @@
 <!DOCTYPE html><html lang="fr" translate="no"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="google" content="notranslate"><title>RTS - Sentiers &amp; transferts</title><link rel="icon" type="image/png" href="images/favicon.png">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <style>
-:root{--marine:#021132;--roi:#0141AC;--rouge:#DE0715;--jaune:#FBD608;--vert:#06651E;--orange:#E87A1E;--paper:#F7F4EC;--paper2:#EBE5D6;--l:rgba(2,17,50,.14)}
+:root{--marine:#021132;--roi:#0141AC;--rouge:#DE0715;--jaune:#FBD608;--blanc:#FFFFFF;--creme:#FCF9F4;--paper:#FCF9F4;--paper2:rgba(2,17,50,.06);--l:rgba(2,17,50,.14)}
 *{box-sizing:border-box;margin:0;padding:0}html,body{height:100%;overflow:hidden}
 body{font-family:system-ui,-apple-system,Roboto,sans-serif;color:var(--marine);background:var(--marine)}
 button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .app{display:flex;flex-direction:column;height:100%}
-.bar{display:flex;align-items:center;gap:8px;padding:8px 12px;flex:none;background:linear-gradient(180deg,#0A2358,#021132);color:#fff;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,.4);flex-wrap:wrap}
+.bar{display:flex;align-items:center;gap:8px;padding:8px 12px;flex:none;background:linear-gradient(180deg,rgba(1,65,172,.45),rgba(1,65,172,0)),var(--marine);color:#fff;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,.4);flex-wrap:wrap}
 .bar b{font-size:13.5px;font-weight:700}.bar .r{color:var(--jaune)}
 .bar .logo{display:flex;align-items:center;flex:none;margin-right:2px}
 .bar .logo img{height:36px;width:auto;display:block;filter:drop-shadow(0 1px 3px rgba(0,0,0,.5))}
 .bar .home{color:#fff;text-decoration:none;font-size:12px;font-weight:700;padding:7px 12px;border-radius:9px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
 .veh{display:flex;gap:6px;margin-left:10px}
-.veh button{font-size:10.5px;font-weight:700;padding:6px 10px;background-color:rgba(255,255,255,.1);color:rgba(255,255,255,.75);white-space:nowrap}
+.veh button{font-size:10.5px;font-weight:700;padding:6px 10px;white-space:nowrap}
 .veh button small{display:block;font-size:8.5px;font-weight:500;opacity:.75}
-.veh button.on{background-color:var(--jaune);--c:var(--jaune);color:#021132;text-shadow:0 1px 0 rgba(255,255,255,.35)}
 /* groupe de droite de la ligne 1 : Berline/Van, Formules Trek, icones ; passe en dessous sur ecran etroit */
 .droite{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
 .tools{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
-.tg{font-size:11px;font-weight:700;padding:7px 11px;border-radius:5px;white-space:nowrap;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:rgba(255,255,255,.8);box-shadow:0 2px 4px rgba(0,0,0,.25);transition:.15s}
-.tg:hover{background:rgba(255,255,255,.18)}
-.tg.on{color:#fff}
-#t3.on{background-color:#1E8A3E;--c:#06651E}
-#t4.on{background-color:#2E6FD8;--c:#0141AC}
-#t6.on{background-color:#DE0715;--c:#C4101B}
-#t7.on{background-color:#2E9E4B;--c:#06651E}
-.zones{display:flex;flex:none;background:#03194A;overflow-x:auto;box-shadow:0 3px 8px rgba(0,0,0,.35);z-index:990}
-.zb{flex:1;min-width:62px;margin:5px 3px;padding:9px 8px;font-size:12px;font-weight:800;color:#fff;border-radius:10px;white-space:nowrap;text-align:center;transition:.15s;opacity:.9}
-.zb:hover{opacity:1}
-.zb.on{opacity:1;transform:translateY(-1px)}
-.trek{font-size:13px;font-weight:800;padding:8px 16px;border-radius:11px;background-color:var(--jaune);--c:var(--jaune);color:#021132;white-space:nowrap;transition:.15s;text-shadow:0 1px 0 rgba(255,255,255,.35)}
-.trek:hover{filter:brightness(1.06)}
+.tg{font-size:11px;font-weight:700;padding:7px 11px;white-space:nowrap}
+.zones{display:flex;flex:none;background:var(--marine);overflow-x:auto;box-shadow:0 3px 8px rgba(0,0,0,.35);z-index:990}
+.zb{flex:1;min-width:62px;margin:5px 3px;padding:9px 8px;font-size:12px;font-weight:800;white-space:nowrap;text-align:center}
+.zb.on{transform:translateY(-1px)}
+.trek{font-size:13px;font-weight:800;padding:8px 16px;white-space:nowrap}
 .trek.on{transform:translateY(-1px)}
 /* ---- Relief glossy (reference validee par le gerant) : bandeau clair net sur la moitie haute, moitie basse
    plus foncee avec leger eclaircissement en bas, lisere blanc casse 2,5 px, ombre portee nette teintee de la
    couleur du bouton, coins arrondis genereux, texte en majuscules. Les boutons inactifs restent plats. ---- */
-.zb,.trek,.veh button,.tg,.play,.go2.finbtn,.calq button{border:2.5px solid transparent;border-radius:14px;text-transform:uppercase;letter-spacing:.2px;transition:transform .15s ease,box-shadow .15s ease,filter .15s ease}
-.play{border-radius:10px}
-.zb.on,.trek,.veh button.on,.tg.on,.play,.go2.finbtn,.calq button.on{--c:#0141AC;color:#fff;
+.zb,.trek,.veh button,.tg,.play,.go2.finbtn,.calq button,#btnRetour{border:2.5px solid var(--paper);border-radius:14px;text-transform:uppercase;letter-spacing:.2px;transition:transform .15s ease,box-shadow .15s ease,filter .15s ease;
+ --c:var(--roi);color:#fff;background-color:var(--marine);
  background-image:linear-gradient(180deg,rgba(255,255,255,.46) 0%,rgba(255,255,255,.34) 50%,rgba(255,255,255,0) 50%,rgba(0,0,0,.20) 84%,rgba(255,255,255,.14) 100%);
- border-color:var(--paper);
  box-shadow:0 4px 8px -1px var(--c),0 1px 2px rgba(2,17,50,.35);
  text-shadow:0 1px 1px rgba(0,0,0,.35)}
-@supports(color:color-mix(in srgb,red,blue)){.zb.on,.trek,.veh button.on,.tg.on,.play,.go2.finbtn,.calq button.on{
+.play{border-radius:10px}
+@supports(color:color-mix(in srgb,red,blue)){.zb,.trek,.veh button,.tg,.play,.go2.finbtn,.calq button,#btnRetour{
  box-shadow:0 4px 8px -1px color-mix(in srgb,var(--c) 80%,transparent),0 1px 2px rgba(2,17,50,.35)}}
-.trek,.veh button.on{color:#021132;text-shadow:0 1px 0 rgba(255,255,255,.45)} /* fond jaune : texte marine pour rester lisible */
-.zb.on:hover,.trek:hover,.play:hover,.go2.finbtn:hover,.calq button.on:hover{filter:brightness(1.06);transform:translateY(-1px)}
-.zb:active,.trek:active,.veh button:active,.tg:active,.play:active,.go2.finbtn:active,.calq button:active{transform:translateY(1px);filter:brightness(.97)}
-.zb:not(.on){opacity:.9;box-shadow:0 1px 2px rgba(0,0,0,.3);background-image:linear-gradient(180deg,rgba(255,255,255,.30) 0%,rgba(255,255,255,.22) 50%,rgba(0,0,0,.10) 50%,rgba(0,0,0,.20) 100%)} /* deux tons a plat, sans relief */
-.zb:not(.on):hover{opacity:1}
-.zb.on{opacity:1;transform:translateY(-1px)}
-.trek.on{border-color:#fff;filter:brightness(1.08)}
-.veh button{box-shadow:inset 0 1px 2px rgba(0,0,0,.25);background-color:rgba(255,255,255,.1)}
-.tg{box-shadow:none}
+/* selection (secteur actif, Berline/Van, onglet Formules Trek, bascules, Loueurs/Gites) : jaune glossy, texte marine */
+.zb.on,.trek.on,.veh button.on,.tg.on,.calq button.on{background-color:var(--jaune);--c:var(--jaune);color:#021132;text-shadow:0 1px 0 rgba(255,255,255,.45)}
+/* actions (trace, fin de sejour) : rouge glossy, texte blanc */
+.play,.go2.finbtn{background-color:var(--rouge);--c:var(--rouge);color:#fff}
+.zb:hover,.trek:hover,.veh button:hover,.tg:hover,.play:hover,.go2.finbtn:hover,.calq button:hover,#btnRetour:hover{filter:brightness(1.06);transform:translateY(-1px)}
+.zb:active,.trek:active,.veh button:active,.tg:active,.play:active,.go2.finbtn:active,.calq button:active,#btnRetour:active{transform:translateY(1px);filter:brightness(.97)}
 /* colonne Loueurs / Gites : a droite de la carte sur ecran large, en haut du tiroir sur ecran etroit */
 .calq{position:absolute;right:12px;top:12px;z-index:800;display:flex;flex-direction:column;gap:10px}
-.calq button{min-height:46px;padding:10px 16px;font-size:13px;font-weight:800;white-space:nowrap;text-align:left;background-color:rgba(2,17,50,.82);color:#fff;box-shadow:0 1px 3px rgba(0,0,0,.35)}
-.calq button:not(.on):hover{background-color:rgba(2,17,50,.95)}
-.mkbox{width:30px;height:30px;border-radius:50%;background:linear-gradient(180deg,#FFE55C,#FBD608);border:2.5px solid #021132;color:#021132;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 3px 8px rgba(0,0,0,.5);cursor:pointer}
-.mk.gite .pin{width:23px;height:23px;border-radius:7px;background:linear-gradient(180deg,#2E9E4B,#06651E);border:2px solid #fff;font-size:12px}
+.calq button{min-height:46px;padding:10px 16px;font-size:13px;font-weight:800;white-space:nowrap;text-align:left}
+.mkbox{width:30px;height:30px;border-radius:50%;background:linear-gradient(180deg,rgba(255,255,255,.35),rgba(255,255,255,0)),var(--jaune);border:2.5px solid #021132;color:#021132;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 3px 8px rgba(0,0,0,.5);cursor:pointer}
+.mk.gite .pin{width:23px;height:23px;border-radius:7px;background:linear-gradient(180deg,rgba(255,255,255,.3),rgba(255,255,255,0)),var(--roi);border:2px solid #fff;font-size:12px}
 .est{font-size:10px;font-weight:600;color:rgba(2,17,50,.55);text-transform:lowercase;white-space:nowrap}
-.sec.fin{background:linear-gradient(180deg,#FFFBEA,#FFF4C9);border:1px solid rgba(251,214,8,.55);border-radius:9px;padding:13px 11px;box-shadow:0 3px 9px rgba(2,17,50,.14)}
-.go2.finbtn{padding:14px 12px;border:none;background-color:#0A2358;--c:#0141AC;color:#fff;border-radius:12px}
+.sec.fin{background:linear-gradient(180deg,rgba(251,214,8,.12),rgba(251,214,8,.32)),#fff;border:1px solid rgba(251,214,8,.55);border-radius:9px;padding:13px 11px;box-shadow:0 3px 9px rgba(2,17,50,.14)}
+.go2.finbtn{padding:14px 12px;border-radius:12px}
 .go2.finbtn .em{font-size:22px}
 .go2.finbtn .tx b{font-size:14px}
 .go2.finbtn .tx i{color:rgba(255,255,255,.72)}
 .go2.finbtn .eur{color:#FBD608;font-size:15px;font-weight:800}
 .stage{flex:1;display:flex;min-height:0}
 .mw{flex:1;position:relative;min-width:0;min-height:0}
-#map{position:absolute;inset:0;background:#dfe3d8}
+#map{position:absolute;inset:0;background:var(--creme)}
 .tiroir{display:contents}
 .tirette{display:none}
 .bascule{display:none;gap:6px;margin:4px 0 10px}
@@ -78,7 +64,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 @keyframes fadepad{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .pad{animation:fadepad .3s ease}
 .pad{padding:16px}
-.photo{height:150px;border-radius:10px;overflow:hidden;margin:12px 0 2px;box-shadow:0 4px 12px rgba(2,17,50,.22);background:#2a3a30}
+.photo{height:150px;border-radius:10px;overflow:hidden;margin:12px 0 2px;box-shadow:0 4px 12px rgba(2,17,50,.22);background:var(--marine)}
 .photo img{width:100%;height:100%;object-fit:cover;display:block}
 .sec.fin .photo{margin:0 0 12px;height:118px}
 .h1{font-size:23px;font-weight:700;line-height:1.12}
@@ -102,11 +88,10 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .go2 .eur{font-weight:700;font-size:13.5px;color:var(--roi);flex:none;text-align:right}
 .go2 .eur small{display:block;font-size:9px;font-weight:600;color:rgba(2,17,50,.45)}
 .go2 .kv{display:flex;gap:6px;flex-wrap:wrap;margin-top:3px;font-size:10px;font-weight:600;color:rgba(2,17,50,.55)}
-.go2 .kv span{background:rgba(6,101,30,.1);padding:2px 5px;border-radius:2px}
-.play{font-size:9.5px;font-weight:800;color:#fff;background-color:var(--roi);--c:var(--roi);padding:5px 10px;border-radius:8px;flex:none;white-space:nowrap}
-.play.w{background-color:var(--vert);--c:var(--vert)}
+.go2 .kv span{background:rgba(1,65,172,.08);padding:2px 5px;border-radius:2px}
+.play{font-size:9.5px;font-weight:800;padding:5px 10px;flex:none;white-space:nowrap}
 .card{border:1px solid var(--l);border-radius:5px;overflow:hidden;margin-bottom:10px;background:#fff}
-.card .ph{height:112px;background:linear-gradient(135deg,#1d3a2a,#3d6b4a);position:relative;overflow:hidden}
+.card .ph{height:112px;background:linear-gradient(135deg,var(--marine),var(--roi));position:relative;overflow:hidden}
 .card .ph img{width:100%;height:100%;object-fit:cover;display:block}
 .card .ph .tag{position:absolute;left:8px;top:8px;background:rgba(2,17,50,.85);color:#fff;font-size:9.5px;font-weight:700;padding:3px 8px;border-radius:11px}
 .card .bd{padding:11px 12px}
@@ -119,8 +104,8 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .link .d{font-size:11px;color:rgba(2,17,50,.5)}
 .link .arr{font-size:13px;color:var(--roi);font-weight:700;flex:none}
 .chip{font-size:9.5px;font-weight:700;padding:2px 6px;border-radius:2px}
-.chip.facile{background:rgba(6,101,30,.15);color:var(--vert)}
-.chip.moyen{background:rgba(251,214,8,.3);color:#8A6600}
+.chip.facile{background:rgba(1,65,172,.12);color:var(--roi)}
+.chip.moyen{background:rgba(251,214,8,.3);color:var(--marine)}
 .chip.difficile{background:rgba(222,7,21,.12);color:var(--rouge)}
 .note{margin-top:18px;padding:11px 13px;background:var(--paper2);border-left:3px solid var(--jaune);font-size:11.5px;line-height:1.55;color:rgba(2,17,50,.75);border-radius:0 4px 4px 0}
 .note b{color:var(--marine)}
@@ -129,34 +114,34 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .pick button.on{background:var(--marine);color:#fff;border-color:var(--marine)}
 .trip{width:100%;text-align:left;padding:13px 14px;margin-bottom:8px;border:1px solid var(--l);border-left:4px solid var(--rouge);border-radius:5px;background:#fff;display:block;box-shadow:0 1px 4px rgba(2,17,50,.09);transition:.15s}
 .trip:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(2,17,50,.17)}
-.trip.star{border-left-color:var(--jaune);background:linear-gradient(90deg,#FFFBEA,#fff)}
+.trip.star{border-left-color:var(--jaune);background:linear-gradient(90deg,rgba(251,214,8,.14),rgba(251,214,8,0)),#fff}
 .trip b{font-size:13.5px;display:block}
 .trip i{font-style:normal;font-size:11.5px;color:rgba(2,17,50,.55);display:block;margin-top:3px}
 .trip u{text-decoration:none;font-size:12px;font-weight:700;color:var(--roi);display:block;margin-top:5px}
 .step{display:flex;gap:9px;padding:9px 0;border-bottom:1px solid rgba(2,17,50,.07);opacity:.3;transition:opacity .35s}
 .step.on{opacity:1}
-.step.on:not(.now) .c b::after{content:' ✓';color:var(--vert);font-weight:800}
-.step.now{background:#FFF8DC;margin:0 -8px;padding:9px 8px;border-radius:6px;border-left:3px solid #DE0715;box-shadow:0 2px 8px rgba(2,17,50,.12)}
+.step.on:not(.now) .c b::after{content:' ✓';color:var(--roi);font-weight:800}
+.step.now{background:rgba(251,214,8,.22);margin:0 -8px;padding:9px 8px;border-radius:6px;border-left:3px solid #DE0715;box-shadow:0 2px 8px rgba(2,17,50,.12)}
 .step .n{width:21px;height:21px;border-radius:50%;background:var(--marine);color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;flex:none}
-.step.bag .n{background:var(--orange)}.step.walk .n{background:var(--vert)}.step.box .n{background:#FBD608;color:#021132}
+.step.bag .n{background:var(--jaune);color:#021132}.step.walk .n{background:var(--rouge)}.step.box .n{background:#FBD608;color:#021132}
 .step .c{flex:1;font-size:12.5px;line-height:1.4}
 .step .c b{font-weight:600;display:block}
 .step .c i{font-style:normal;font-size:11px;color:rgba(2,17,50,.5)}
 .step .c .kv{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;font-size:10px;color:rgba(2,17,50,.6);font-weight:600}
-.step .c .kv span{background:rgba(6,101,30,.1);padding:2px 5px;border-radius:2px}
+.step .c .kv span{background:rgba(1,65,172,.08);padding:2px 5px;border-radius:2px}
 .step .p{font-weight:700;font-size:12.5px;color:var(--roi);flex:none}
-.tot{display:flex;justify-content:space-between;align-items:center;padding:13px 14px;background:linear-gradient(180deg,#0A2358,#021132);color:#fff;border-radius:5px;margin-top:12px;box-shadow:0 3px 10px rgba(2,17,50,.3)}
+.tot{display:flex;justify-content:space-between;align-items:center;padding:13px 14px;background:linear-gradient(180deg,rgba(1,65,172,.45),rgba(1,65,172,0)),var(--marine);color:#fff;border-radius:5px;margin-top:12px;box-shadow:0 3px 10px rgba(2,17,50,.3)}
 .tot b{font-size:12.5px}.tot span{font-size:19px;font-weight:700;color:var(--jaune)}
 .ctrl{display:flex;gap:6px;margin-top:10px}
 .ctrl button{flex:1;border:1px solid var(--marine);color:var(--marine);padding:9px;font-size:12px;font-weight:700;border-radius:5px;background:#fff}
-.ctrl button.go{background:linear-gradient(180deg,#0A2358,#021132);color:#fff;border-color:transparent}
+.ctrl button.go{background:linear-gradient(180deg,rgba(1,65,172,.45),rgba(1,65,172,0)),var(--marine);color:#fff;border-color:transparent}
 .lg{display:flex;gap:10px;align-items:flex-start;padding:9px 0}
 .lg+.lg{border-top:1px solid rgba(2,17,50,.07)}
 .lg .sw{width:26px;height:26px;border-radius:6px;flex:none;display:flex;align-items:center;justify-content:center;font-size:13px;box-shadow:0 2px 4px rgba(2,17,50,.2)}
 .lg .tx{font-size:12.5px;line-height:1.42}
 .lg .tx b{font-weight:700;display:block}
 .lg .tx i{font-style:normal;font-size:11px;color:rgba(2,17,50,.55)}
-.down{text-align:center;padding:14px 12px;margin-top:16px;background:linear-gradient(180deg,#FFFBEA,#FFF4C9);border:1px solid rgba(251,214,8,.5);border-radius:6px;font-size:12.5px;font-weight:600;line-height:1.45}
+.down{text-align:center;padding:14px 12px;margin-top:16px;background:linear-gradient(180deg,rgba(251,214,8,.12),rgba(251,214,8,.32)),#fff;border:1px solid rgba(251,214,8,.5);border-radius:6px;font-size:12.5px;font-weight:600;line-height:1.45}
 .down span{display:block;font-size:19px;margin-top:5px}
 /* coin haut-gauche de la carte : accroche (disparait au premier clic sur un secteur) puis etat des fonds */
 .coin{position:absolute;left:8px;top:8px;z-index:700;display:flex;flex-direction:column;align-items:flex-start;gap:6px;pointer-events:none}
@@ -164,27 +149,28 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .hud.accroche b{display:block;font-size:14px;font-weight:900;color:#fff}
 .hud.accroche span{display:block;color:rgba(255,255,255,.85);margin-top:2px}
 .hud{position:static;background:rgba(2,17,50,.9);color:#fff;font-size:10.5px;line-height:1.6;padding:7px 10px;border-radius:4px;max-width:230px}
-.hud .ok{color:#7BE08F}.hud .ko{color:#FF9A8A}.hud[hidden]{display:none}
+.hud .ok{color:var(--jaune)}.hud .ko{color:rgba(255,255,255,.65)}.hud[hidden]{display:none}
 .mk{text-align:center}
 .mk .pin{width:26px;height:26px;border-radius:50%;background:#fff;border:2.5px solid var(--marine);display:flex;align-items:center;justify-content:center;font-size:13px;box-shadow:0 2px 6px rgba(0,0,0,.45);margin:0 auto;transition:transform .15s}
 .mk.acc .pin{background:var(--jaune)}
 .mk.on .pin{background:var(--roi);border-color:#fff;transform:scale(1.28);box-shadow:0 0 0 4px rgba(1,65,172,.35)}
-.mk.loc .pin{width:23px;height:23px;border-radius:4px;background:linear-gradient(180deg,#F0453C,#C4101B);border:2px solid #fff;font-size:12px}
+.mk.loc .pin{width:23px;height:23px;border-radius:4px;background:linear-gradient(180deg,rgba(255,255,255,.3),rgba(255,255,255,0)),var(--rouge);border:2px solid #fff;font-size:12px}
 .mk .nm{font-size:10.5px;font-weight:700;color:#fff;margin-top:1px;white-space:nowrap;text-shadow:0 0 3px #021132,0 0 4px #021132,0 1px 2px #000}
 .mk.on .nm{color:var(--jaune);font-size:11.5px}
 .city{font-size:11px;font-weight:700;color:#fff;white-space:nowrap;text-shadow:0 0 3px #021132,0 0 5px #021132,0 1px 2px #000}
 .px{background:var(--roi);color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:11px;white-space:nowrap;box-shadow:0 2px 5px rgba(0,0,0,.45);border:1.5px solid #fff}
-.px.bag{background:var(--orange)}
+.px.bag{background:var(--jaune);color:#021132;border-color:#021132}
 .pxc{background:#fff;border:1px solid rgba(2,17,50,.15);border-left:3px solid #0141AC;border-radius:8px;padding:5px 10px;box-shadow:0 3px 10px rgba(2,17,50,.3);white-space:nowrap;text-align:left;line-height:1.3}
 .pxc small{display:block;font-size:8.5px;font-weight:800;letter-spacing:.4px;color:#0141AC;text-transform:uppercase}
 .pxc b{display:block;font-size:13px;font-weight:800;color:#021132}
 .pxc i{display:block;font-style:normal;font-size:9.5px;color:rgba(2,17,50,.55)}
 .dot{width:19px;height:19px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 3px rgba(1,65,172,.4),0 3px 9px rgba(0,0,0,.5);background:var(--roi)}
-.dot.w{background:var(--vert);box-shadow:0 0 0 3px rgba(6,101,30,.4),0 3px 9px rgba(0,0,0,.5)}
-.dot.b{background:var(--orange);box-shadow:0 0 0 3px rgba(232,122,30,.4),0 3px 9px rgba(0,0,0,.5)}
+.dot.w{background:var(--rouge);box-shadow:0 0 0 3px rgba(222,7,21,.4),0 3px 9px rgba(0,0,0,.5)}
+.dot.b{background:var(--jaune);border-color:#021132;box-shadow:0 0 0 3px rgba(251,214,8,.5),0 3px 9px rgba(0,0,0,.5)}
 .cq{font-size:14px;font-weight:800;color:#fff;text-shadow:0 0 4px #021132,0 0 7px #021132;white-space:nowrap}
 .cq small{display:block;font-size:9.5px;font-weight:600}
 .leaflet-control-attribution{font-size:9px!important}
+#btnRetour{display:none;position:absolute;left:10px;top:10px;z-index:1300;min-height:46px;padding:10px 16px;font-size:15px;font-weight:800;align-items:center;gap:6px}
 .leaflet-div-icon{background:none;border:none}
 @media(max-width:900px){
 /* ---- tiroir : la carte occupe tout l'ecran, le panneau monte du bas ---- */
@@ -200,8 +186,6 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .panel{width:100%;flex:1;min-height:0;border-left:none;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 .tiroir .calq{position:static;flex:none;gap:6px;padding:6px 12px 8px;background:var(--paper);border-bottom:1px solid rgba(2,17,50,.1)}
 .tiroir .calq button{width:100%;min-height:44px;padding:6px 12px;font-size:14px;text-align:center}
-.tiroir .calq button:not(.on){background-color:rgba(2,17,50,.08);color:rgba(2,17,50,.6);box-shadow:none}
-.tiroir .calq button:not(.on):hover{background-color:rgba(2,17,50,.14)}
 /* ---- barre du haut et secteurs ---- */
 .bar{padding:8px 10px}
 .bar b{font-size:14px}
@@ -258,14 +242,21 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .px{font-size:14px;padding:4px 10px}
 .pxc small{font-size:14px}.pxc b{font-size:15px}.pxc i{font-size:14px}
 .cq{font-size:16px}.cq small{font-size:14px}
-.leaflet-control-attribution{font-size:14px!important}
+.leaflet-control-attribution{font-size:10px!important;line-height:1.3;padding:2px 6px;background:rgba(255,255,255,.72)!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:calc(100vw - 16px)}
+#hud{display:none!important}
+/* ---- mode demo plein ecran : la carte prend tout l'ecran, seuls le trace et son etiquette restent, bouton Retour en haut a gauche ---- */
+body.demo-plein .bar,body.demo-plein .zones,body.demo-plein #accroche,body.demo-plein #hud,body.demo-plein .calq,body.demo-plein .tiroir{display:none!important}
+body.demo-plein .app{height:100dvh}
+body.demo-plein .stage{--tirh:0px}
+body.demo-plein .mw .leaflet-bottom{bottom:0}
+body.demo-plein #btnRetour{display:inline-flex}
 }
 </style></head><body>
 <div class="app">
 <div class="bar"><a class="logo" href="index.html" title="Accueil"><img src="images/logo-rts.png" alt="Run Transfert &amp; Services"></a><a href="index.html" class="home">← Accueil</a><b>Run Transfert <span class="r">&amp;</span> Services</b>
 <div class="droite"><div class="veh"><button class="on" id="vB">Berline<small>1 à 4 pers.</small></button><button id="vV">Van<small>5 à 8 pers.</small></button></div><button class="trek" id="btnTrek">Formules Trek</button><div class="tools"><button class="tg on" id="t3">🥾</button><button class="tg on" id="t4">🚗</button></div></div></div>
 <div class="zones" id="zones"></div>
-<div class="stage"><div class="mw"><div id="map"></div><div class="coin"><div class="hud accroche" id="accroche"><b>Créez votre séjour. RTS vous accompagne.</b><span>Sélectionnez vos randonnées selon votre niveau. RTS met à disposition les outils et la logistique.</span></div><div class="hud" id="hud">Initialisation…</div></div><div class="calq" id="calq"><button id="t6">🚘 Loueurs de voitures</button><button id="t7">🏠 Gîtes partenaires</button></div></div><div class="tiroir" id="tiroir"><div class="tirette" id="tirette"><span></span><i id="tirlib">▲ Glisser pour agrandir</i></div><aside class="panel" id="panel"></aside></div></div></div>
+<div class="stage"><div class="mw"><div id="map"></div><div class="coin"><div class="hud accroche" id="accroche"><b>Créez votre séjour. RTS vous accompagne.</b><span>Sélectionnez vos randonnées selon votre niveau. RTS met à disposition les outils et la logistique.</span></div><div class="hud" id="hud">Initialisation…</div></div><button id="btnRetour" type="button" aria-label="Quitter le mode plein écran">✕ Retour</button><div class="calq" id="calq"><button id="t6">🚘 Loueurs de voitures</button><button id="t7">🏠 Gîtes partenaires</button></div></div><div class="tiroir" id="tiroir"><div class="tirette" id="tirette"><span></span><i id="tirlib">▲ Glisser pour agrandir</i></div><aside class="panel" id="panel"></aside></div></div></div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 var VAN=false;
@@ -312,7 +303,7 @@ var POLY_CILAOS=[PN].concat(R_SC,[
 [-21.1260,55.4120],[-21.1120,55.4200]
 ],revR(R_MC));
 var C={
-nord:{n:'Nord',t:'Roche Écrite',s:'Par la route',col:'#021132',c:[-20.930,55.415],z:12.4,
+nord:{n:'Nord',t:'Roche Écrite',s:'Par la route',col:'#0141AC',c:[-20.930,55.415],z:12.4,
 poly:[[-20.878,55.442],[-20.888,55.462],[-20.906,55.470],[-20.924,55.466],[-20.938,55.452],[-20.948,55.436],[-20.956,55.418],[-20.962,55.400],[-20.960,55.382],[-20.950,55.368],[-20.936,55.362],[-20.920,55.368],[-20.906,55.382],[-20.894,55.400],[-20.884,55.420]],
 bb:'-20.980,55.355,-20.875,55.475',
 lead:"Le massif de la Roche Écrite, au-dessus de Saint-Denis. Départ de la grande traversée. Nous déposons jusqu'à Mamode Camp, ce qui évite deux heures de montée sur route forestière.",
@@ -350,7 +341,7 @@ L:[{id:'cb',n:'Col des Bœufs',ll:[-21.0575,55.4972],a:1,d:"Porte d'entrée est,
 {id:'lport',n:'Le Port',ll:[-20.9397,55.2925],a:1,d:"Base logistique côtière RTS. Deux prestations distinctes : le gardiennage au box sécurisé, et la livraison des bagages facturée en plus selon la destination. Dans tous les autres cas, les bagages voyagent dans le véhicule avec les clients.",r:[['📦','Gardiennage au box sécurisé','Stockage · forfait groupe','30'],['🧳','Livraison bagages vers Cilaos','En plus du gardiennage','105'],['🧳','Livraison bagages vers Bourg-Murat','En plus du gardiennage','126'],['🧳',"Livraison bagages vers Dos d'Âne",'En plus du gardiennage','84']]}],
 P:[{a:'cb',b:'pt',km:2.5,dp:40,dn:200,h:'0 h 50',d:'facile'},{a:'pt',b:'ln',km:2.5,dp:60,dn:200,h:'0 h 55',d:'facile'},{a:'ln',b:'ma',km:5.5,dp:350,dn:300,h:'2 h 15',d:'moyen'},{a:'ln',b:'rp',km:7,dp:400,dn:700,h:'3 h 00',d:'moyen'},{a:'ln',b:'bel',km:9,dp:550,dn:750,h:'4 h 00',d:'moyen'},{a:'ma',b:'rp',km:8,dp:450,dn:600,h:'3 h 30',d:'moyen'},{a:'rp',b:'md',km:8,dp:1200,dn:200,h:'4 h 30',d:'difficile'},{a:'rp',b:'io',km:5,dp:250,dn:350,h:'2 h 15',d:'moyen'},{a:'ln',b:'ib',km:4.5,dp:250,dn:400,h:'2 h 00',d:'moyen'},{a:'ib',b:'gp',km:3.5,dp:200,dn:300,h:'1 h 30',d:'moyen'},{a:'gp',b:'im',km:3,dp:300,dn:200,h:'1 h 30',d:'moyen'},{a:'im',b:'au',km:2.5,dp:200,dn:200,h:'1 h 15',d:'moyen'},{a:'gp',b:'ca',km:3,dp:150,dn:250,h:'1 h 15',d:'facile'},{a:'ca',b:'lt',km:3,dp:200,dn:250,h:'1 h 30',d:'moyen'},{a:'lt',b:'io',km:4,dp:350,dn:200,h:'2 h 00',d:'moyen'},{a:'ca',b:'db',km:5,dp:100,dn:600,h:'2 h 15',d:'moyen'},{a:'gp',b:'db',km:6,dp:150,dn:800,h:'2 h 45',d:'moyen'},{a:'au',b:'da',km:7,dp:800,dn:600,h:'4 h 00',d:'difficile'},{a:'ma',b:'tbd',km:6,dp:460,dn:820,h:'3 h 30',d:'difficile'}],
 R:[{de:'rg',a:'cb',p:168,src:1},{de:'rg',a:'ss',p:162},{de:'rg',a:'md',p:148},{de:'lp',a:'rg2',p:41}]},
-cilaos:{n:'Cilaos',t:'Cirque de Cilaos',s:'Par la route',col:'#6B4EA8',c:[-21.140,55.462],z:12.5,
+cilaos:{n:'Cilaos',t:'Cirque de Cilaos',s:'Par la route',col:'#0141AC',c:[-21.140,55.462],z:12.5,
 /* au sud du Piton des Neiges, descend par le Bras de Cilaos vers Saint-Louis, avancee au Dimitile */
 poly:POLY_CILAOS,
 bb:'-21.205,55.400,-21.080,55.550',
@@ -365,7 +356,7 @@ L:[{id:'ci',n:'Cilaos',ll:[-21.1361,55.4714],a:1,d:"Ville thermale à 1 200 m, t
 {id:'mab',n:'Mare à Boue',ll:[-21.1550,55.5350],a:1,d:"Sur la descente de la Caverne Dufour vers la Plaine des Cafres. Dernier accès véhicule avant Bourg-Murat.",r:[['🚗','Récupération sur la route forestière','','80'],['🧳','Acheminement des bagages','','25']]}],
 P:[{a:'ci',b:'tb',km:4,dp:850,dn:50,h:'2 h 30',d:'difficile'},{a:'ci',b:'ic',km:9,dp:200,dn:350,h:'3 h 00',d:'moyen'},{a:'ci',b:'bl',km:3,dp:250,dn:50,h:'1 h 15',d:'facile'},{a:'bl',b:'cd',km:5,dp:1300,dn:0,h:'3 h 30',d:'difficile'},{a:'bl',b:'pn',km:8,dp:1700,dn:30,h:'5 h 30',d:'difficile'},{a:'cd',b:'mab',km:9,dp:100,dn:1100,h:'3 h 30',d:'moyen'},{a:'tbd',b:'ma',km:6,dp:820,dn:460,h:'4 h 00',d:'difficile'}],
 R:[{de:'rg',a:'ci',p:205,src:1},{de:'sp',a:'ci',p:153,src:1}]},
-salazie:{n:'Salazie',t:'Salazie &amp; Bélouve',s:'Par la route',col:'#06651E',c:[-21.020,55.560],z:12.5,
+salazie:{n:'Salazie',t:'Salazie &amp; Bélouve',s:'Par la route',col:'#0141AC',c:[-21.020,55.560],z:12.5,
 /* au nord-est du Piton des Neiges, s'ouvre au nord-est par la Riviere du Mat vers Saint-Andre */
 poly:POLY_SALAZIE,
 bb:'-21.105,55.450,-20.950,55.665',
@@ -376,7 +367,7 @@ L:[{id:'hb',n:'Hell-Bourg',ll:[-21.0664,55.5192],a:1,d:"Village classé, à 900 
 {id:'sa',n:'Salazie',ll:[-21.0289,55.5397],a:1,d:"Chef-lieu du cirque, entrée depuis Saint-André.",r:[['🚗','Transfert RTS','']]}],
 P:[{a:'hb',b:'be',km:4,dp:600,dn:50,h:'2 h 00',d:'moyen'},{a:'hb',b:'gi',km:11,dp:400,dn:300,h:'4 h 00',d:'moyen'}],
 R:[{de:'rg',a:'hb',p:147,src:1},{de:'pp',a:'be',p:110},{de:'rg',a:'gi',p:155},{de:'rg',a:'sa',p:130,src:0}]},
-volcan:{n:'Volcan',t:'Volcan &amp; Sud sauvage',s:'Par la route',col:'#DE0715',c:[-21.245,55.745],z:11.4,
+volcan:{n:'Volcan',t:'Volcan &amp; Sud sauvage',s:'Par la route',col:'#0141AC',c:[-21.245,55.745],z:11.4,
 /* Enclos Fouque : fer a cheval ouvert vers l'est, cote en retrait vers le Grand Brule */
 poly:[[-21.2130,55.6780],[-21.2090,55.7060],[-21.2110,55.7340],[-21.2060,55.7620],[-21.2100,55.7900],[-21.2020,55.8180],[-21.2280,55.8260],[-21.2600,55.7980],[-21.2820,55.8080],[-21.3020,55.7900],[-21.2960,55.7620],[-21.2900,55.7360],[-21.2920,55.7100],[-21.2840,55.6900],[-21.2660,55.6740],[-21.2400,55.6680]],
 bb:'-21.395,55.520,-21.140,55.835',
@@ -583,10 +574,10 @@ function lacets(a,b){
 function traceMarche(a,b,cb,essai){essai=essai||0;
  if(!segs.length&&chargeEnCours&&essai<24){setTimeout(function(){traceMarche(a,b,cb,essai+1)},500);return}
  var ch=cheminPieton(a,b);cb(ch||lacets(a,b))}
-/* couleur d'onglet = couleur exacte du contour du secteur (C[k].col) ; ile et parcours n'ont pas de contour */
-var ONGLETS=[{k:'ile',n:"Toute l'île",c:'#5E6C84'},{k:'nord',n:'Nord',c:'#021132'},{k:'mafate',n:'Mafate',c:'#0141AC'},{k:'cilaos',n:'Cilaos',c:'#6B4EA8'},{k:'salazie',n:'Salazie',c:'#06651E'},{k:'volcan',n:'Volcan',c:'#DE0715'}];
+/* onglets de secteur : tous le meme bouton (marine glossy au repos, jaune quand actif) ; les contours de secteur sont bleu roi */
+var ONGLETS=[{k:'ile',n:"Toute l'île"},{k:'nord',n:'Nord'},{k:'mafate',n:'Mafate'},{k:'cilaos',n:'Cilaos'},{k:'salazie',n:'Salazie'},{k:'volcan',n:'Volcan'}];
 ONGLETS.forEach(function(o){var b=document.createElement('button');b.className='zb';b.id='zb_'+o.k;
- b.textContent=o.n;var col=(C[o.k]?C[o.k].col:o.c);b.style.backgroundColor=col;b.style.setProperty('--c',col);
+ b.textContent=o.n;
  b.onclick=function(){var ac=document.getElementById('accroche');if(ac)ac.hidden=true;o.k==='ile'?vueIle():(o.k==='parcours'?listeParcours():ouvrir(o.k))};zones.appendChild(b)});
 function onglet(k){ONGLETS.forEach(function(o){var b=document.getElementById('zb_'+o.k);
  b.classList.toggle('on',o.k===k)});
@@ -609,16 +600,16 @@ function vueIle(){vue='ile';ck=null;lk=null;clearAll();onglet('ile');
  for(var k in C){(function(k){var z=C[k];
   var p=L.polygon(z.poly,{color:z.col,weight:3,opacity:.95,fillColor:z.col,fillOpacity:.16,lineJoin:'round',smoothFactor:.4});
   p.on('click',function(){ouvrir(k)});p.addTo(gZone);
-  var m=L.marker(z.c,{icon:L.divIcon({html:'<div class="cq">'+z.n+'<small style="color:'+z.col+'">'+z.s+'</small></div>',className:'',iconSize:[120,32],iconAnchor:[60,16]})});
+  var m=L.marker(z.c,{icon:L.divIcon({html:'<div class="cq">'+z.n+'<small style="color:#FBD608">'+z.s+'</small></div>',className:'',iconSize:[120,32],iconAnchor:[60,16]})});
   m.on('click',function(){ouvrir(k)});m.addTo(gMkR)})(k)}
  panel.innerHTML='<div class="pad"><div class="h1">La Réunion</div><div class="meta">Sentiers, transferts et logistique bagages</div>'+
  '<p class="lead">Cette carte montre où nous intervenons sur un séjour de randonnée : déposes, récupérations, et surtout l\'acheminement des bagages pendant que vous marchez.</p>'+
  '<div class="sec"><h3>Comment lire la carte</h3>'+
- '<div class="lg"><span class="sw" style="background:linear-gradient(180deg,#2E9E4B,#06651E);color:#fff">🥾</span><span class="tx"><b>Les sentiers, en vert</b><i>Chemins réels issus des données OpenStreetMap</i></span></div>'+
- '<div class="lg"><span class="sw" style="background:linear-gradient(180deg,#2E6FD8,#0141AC);color:#fff">🚗</span><span class="tx"><b>Nos transferts, en bleu</b><i>Tracé routier réel, avec le tarif affiché</i></span></div>'+
- '<div class="lg"><span class="sw" style="background:linear-gradient(180deg,#F09A45,#E87A1E);color:#fff">🧳</span><span class="tx"><b>Le trajet des bagages, en orange</b><i>Votre sac voyage par la route pendant que vous marchez</i></span></div>'+
- '<div class="lg"><span class="sw" style="background:linear-gradient(180deg,#FFE55C,#FBD608);color:#021132;border:2px solid #021132">📦</span><span class="tx"><b>Box RTS sécurisé</b><i>Stockage en zone sûre · forfait groupe 30 €</i></span></div>'+
- '<div class="lg"><span class="sw" style="background:linear-gradient(180deg,#F0453C,#C4101B);color:#fff;border-radius:4px">🚘</span><span class="tx"><b>Location de véhicule</b><i>11 points sur la côte et dans les cirques</i></span></div>'+
+ '<div class="lg"><span class="sw" style="background:var(--rouge);color:#fff">🥾</span><span class="tx"><b>Les sentiers, en rouge pointillé</b><i>Chemins réels issus des données OpenStreetMap, comme sur les cartes IGN</i></span></div>'+
+ '<div class="lg"><span class="sw" style="background:linear-gradient(180deg,rgba(255,255,255,.3),rgba(255,255,255,0)),var(--roi);color:#fff">🚗</span><span class="tx"><b>Nos transferts, en bleu</b><i>Tracé routier réel, avec le tarif affiché</i></span></div>'+
+ '<div class="lg"><span class="sw" style="background:var(--jaune);color:#021132;border:2px solid #021132">🧳</span><span class="tx"><b>Le trajet des bagages, en jaune</b><i>Votre sac voyage par la route pendant que vous marchez</i></span></div>'+
+ '<div class="lg"><span class="sw" style="background:var(--jaune);color:#021132;border:2px solid #021132">📦</span><span class="tx"><b>Box RTS sécurisé</b><i>Stockage en zone sûre · forfait groupe 30 €</i></span></div>'+
+ '<div class="lg"><span class="sw" style="background:var(--rouge);color:#fff;border-radius:4px">🚘</span><span class="tx"><b>Location de véhicule</b><i>11 points sur la côte et dans les cirques</i></span></div>'+
  '<div class="lg"><span class="sw" style="background:var(--jaune)">🚙</span><span class="tx"><b>Relais 4x4</b><i>Partenaire agréé vers Deux Bras · 14 € par personne</i></span></div></div>'+
  '<div class="sec"><h3>Explorer</h3><p class="lead" style="margin-top:0">Choisissez un secteur en haut de l\'écran, ou touchez-le sur la carte. Chaque lieu vous donne les sentiers au départ, les transferts possibles et les hébergements. Touchez une ligne pour voir le tracé s\'animer.</p></div>'+
  '<div class="down">Ou déroulez une traversée complète<span>↓</span></div>'+
@@ -661,13 +652,22 @@ function charge(bb,i){i=i||0;chargeEnCours=true;eS='chargement…';maj();hud.hid
 function aff(els){segs=[];gPath.clearLayers();els.forEach(function(w){
  if(!w.geometry||w.geometry.length<2)return;
  var pts=w.geometry.map(function(g){return [g.lat,g.lon]});
- L.polyline(pts,{color:'#06651E',weight:4.5,opacity:.3}).addTo(gPath);
- var p=L.polyline(pts,{color:'#3FA85C',weight:2.6,opacity:.95});
+ L.polyline(pts,{color:'#fff',weight:4.5,opacity:.45}).addTo(gPath);
+ var p=L.polyline(pts,{color:'#DE0715',weight:2.6,opacity:.95,dashArray:'6 5'});
  p.bindTooltip('🥾 '+((w.tags&&w.tags.name)||'Sentier'),{sticky:true});p.addTo(gPath);
  segs.push({p:p,pts:pts})})}
+/* mode demo plein ecran sur telephone : classe sur body, la carte reprend toute la hauteur, Retour retablit la mise en page */
+function pleinEcran(on){if(on&&!ETROIT.matches)return;document.body.classList.toggle('demo-plein',!!on);map.invalidateSize();setTimeout(function(){map.invalidateSize()},60)}
+window.pleinEcran=pleinEcran;
+document.getElementById('btnRetour').onclick=function(){pleinEcran(false);tiroirRepos();setTimeout(function(){map.invalidateSize();recadrerRetour()},340)};
+var dernierTrace=null;
+function cadrerTrace(co){if(!co||co.length<2)return;dernierTrace=co;if(!document.body.classList.contains('demo-plein'))return;map.invalidateSize();map.fitBounds(L.latLngBounds(co),{padding:[44,44],animate:false})}
+/* au retour : le trace reste visible au-dessus du tiroir */
+function recadrerRetour(){if(!dernierTrace)return;var st=document.querySelector('.stage'),h=Math.round((st.offsetHeight||0)*tiroirPos/100);map.fitBounds(L.latLngBounds(dernierTrace),{paddingTopLeft:[30,30],paddingBottomRight:[30,h+30],animate:false})}
 function demo(de,a,type,label){
  stopAnim();tiroirRepos();gTrip.clearLayers();gRoad.clearLayers();roads=[];
- var col=type==='r'?'#0141AC':'#06651E',cls=type==='r'?'':'w';
+ if(ETROIT.matches)pleinEcran(true);
+ var col=type==='r'?'#0141AC':'#DE0715',cls=type==='r'?'':'w';
  function go(co,ap,hd,tl){
   var tir=type==='r'?(ap?'8 7':null):'6 6';
   if(type==='r'&&!ap)L.polyline(co,{color:'#fff',weight:7,opacity:.4}).addTo(gTrip);
@@ -676,6 +676,7 @@ function demo(de,a,type,label){
   if(tl)L.polyline(tl,{color:col,weight:4,opacity:.9,dashArray:'6 6'}).addTo(gTrip);
   var trace=L.polyline([],{color:col,weight:5,opacity:1,dashArray:tir}).addTo(gTrip);
   if(ap)trace.bindTooltip('Tracé approximatif',{sticky:true});
+  cadrerTrace(co);
   var pt=L.marker(co[0],{icon:L.divIcon({html:'<div class="dot '+cls+'"></div>',className:'',iconSize:[19,19],iconAnchor:[9,9]}),zIndexOffset:900}).addTo(gTrip);
   var t0=null,dur=2200;
   function tick(ts){if(!t0)t0=ts;var pr=Math.min((ts-t0)/dur,1);
@@ -694,7 +695,7 @@ function demo(de,a,type,label){
 window.demo=demo;
 function choisir(id){vue='lieu';vueArg=id;var z=C[ck],l=M[id];lk=id;marq();
  segs.forEach(function(s){var pr=s.pts.some(function(pt){return map.distance(pt,l.ll)<2600});
-  s.p.setStyle(pr?{color:'#5BD97C',weight:4.5,opacity:1}:{color:'#3FA85C',weight:2.6,opacity:.3});if(pr)s.p.bringToFront()});
+  s.p.setStyle(pr?{color:'#DE0715',weight:4.5,opacity:1,dashArray:'7 5'}:{color:'#DE0715',weight:2.6,opacity:.3,dashArray:'6 5'});if(pr)s.p.bringToFront()});
  roads.forEach(function(r){var on=(r.a===id);
   r.pl.setStyle({opacity:on?1:.12,weight:on?6:3});if(r.cas)r.cas.setStyle({opacity:on?.75:.08});r.lab.setOpacity(on?1:.18)});
  var LLs=JSON.stringify(l.ll),TR2=[];
@@ -752,7 +753,7 @@ function lancer(pid){vue='parc';vueArg=pid;var P=null;PARCOURS.forEach(function(
   var kv=e.km?'<span class="kv"><span>'+e.km+' km</span><span>+'+e.dp+' m</span><span>-'+e.dn+' m</span><span>'+e.h+'</span><span class="chip '+e.d+'">'+e.d+'</span></span>':'';
   return '<div class="step '+cl+'" id="st'+i+'"><span class="n">'+ic+'</span><span class="c"><b>'+(e.j?e.j+' · ':'')+e.n+'</b><i>'+e.i+'</i>'+kv+'</span>'+(e.p?'<span class="p">'+PX(e.p)+' €</span>':'')+'</div>'}).join('')+
  '<div class="tot"><b>Prestations RTS pendant le trek</b><span>'+tot+' €</span></div></div>'+finHtml+
- '<div class="note"><b>Le point bleu suit la vraie route.</b> Le vert marche sur les sentiers, l\'orange transporte les bagages. Tarifs TTC '+(VAN?'van, 5 à 8 passagers':'berline, 1 à 4 passagers')+', indicatifs.</div></div>';
+ '<div class="note"><b>Le point bleu suit la vraie route.</b> Le rouge marche sur les sentiers, le jaune transporte les bagages. Tarifs TTC '+(VAN?'van, 5 à 8 passagers':'berline, 1 à 4 passagers')+', indicatifs.</div></div>';
  panel.removeAttribute('data-vue');panel.scrollTop=0;
  var i=0;
  function suivante(){
@@ -773,9 +774,10 @@ function lancer(pid){vue='parc';vueArg=pid;var P=null;PARCOURS.forEach(function(
    else traceMarche(e.de,e.a,function(co){go(co,false)})
   }catch(_){passe()}}
  function joue(e,co,ap,hd,tl){
-  var col=e.t==='r'?'#0141AC':(e.t==='b'?'#E87A1E':'#06651E');
+  var col=e.t==='r'?'#0141AC':(e.t==='b'?'#FBD608':'#DE0715');
   var cls=e.t==='r'?'':(e.t==='b'?'b':'w');
   var tir=e.t==='b'?'9 6':(e.t==='w'?'6 6':(ap?'8 7':null));
+  if(e.t==='b')L.polyline(co,{color:'#021132',weight:7,opacity:.45}).addTo(gTrip); /* lisere marine sous le jaune */
   if(e.t!=='r'||ap)L.polyline(co,{color:col,weight:4.5,opacity:.22,dashArray:tir}).addTo(gTrip);
   else L.polyline(co,{color:'#fff',weight:7,opacity:.35}).addTo(gTrip);
   if(hd)L.polyline(hd,{color:col,weight:4,opacity:.9,dashArray:'6 6'}).addTo(gTrip);
@@ -792,7 +794,7 @@ function lancer(pid){vue='parc';vueArg=pid;var P=null;PARCOURS.forEach(function(
    trace.setLatLngs(co.slice(0,idx+1));pt.setLatLng(co[idx]);
    if(pr<1){anim={raf:requestAnimationFrame(tick),to:null}}
    else{map.removeLayer(pt);
-    L.circleMarker(e.a,{radius:5.5,color:'#fff',weight:2.5,fillColor:col,fillOpacity:1}).addTo(gTrip);
+    L.circleMarker(e.a,{radius:5.5,color:e.t==='b'?'#021132':'#fff',weight:2.5,fillColor:col,fillOpacity:1}).addTo(gTrip);
     if(e.p){var kmj=0;for(var q3=1;q3<co.length;q3++)kmj+=map.distance(co[q3-1],co[q3]);kmj=Math.round(kmj/1000);
      var lblj=e.t==='r'
       ?'<div class="pxc"><small>Transfert RTS</small><b>'+PX(e.p)+' €</b><i>'+kmj+' km · ≈'+Math.round(kmj*1.5)+' min</i></div>'
@@ -841,7 +843,10 @@ var tiroirPos=34,tiroirRepos=function(){};
   window.addEventListener('mousemove',function(e){mouv(e.clientY)});window.addEventListener('mouseup',fin)}
  function placeCalq(){if(ETROIT.matches){if(calq.parentNode!==tir)tir.insertBefore(calq,panelEl)}else if(calq.parentNode!==mw)mw.appendChild(calq)}
  function poseEtCalq(){placeCalq();if(tiroirPos<60)tiroirPos=repos();pose()}
- if(ETROIT.addEventListener)ETROIT.addEventListener('change',poseEtCalq);else ETROIT.addListener(poseEtCalq);
+ function sortiePlein(){if(!ETROIT.matches&&document.body.classList.contains('demo-plein'))pleinEcran(false)}
+ if(ETROIT.addEventListener){ETROIT.addEventListener('change',poseEtCalq);ETROIT.addEventListener('change',sortiePlein)}else{ETROIT.addListener(poseEtCalq);ETROIT.addListener(sortiePlein)}
+ /* l'accroche disparait au premier toucher sur la carte */
+ ['pointerdown','touchstart'].forEach(function(ev){document.getElementById('map').addEventListener(ev,function(){var ac=document.getElementById('accroche');if(ac)ac.hidden=true},{once:true,passive:true})});
  poseEtCalq()})();
 window.ouvrir=ouvrir;window.choisir=choisir;window.vueIle=vueIle;window.lancer=lancer;window.listeParcours=listeParcours;window.togglePause=togglePause;
 setTimeout(function(){map.invalidateSize();if(ETROIT.matches)map.panBy([0,Math.round(map.getSize().y*0.16)],{animate:false})},350);
