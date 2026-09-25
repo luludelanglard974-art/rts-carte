@@ -102,9 +102,9 @@ p.sous{font-size:15px;color:rgba(255,255,255,.82);margin:10px 0 18px;max-width:7
 .sortie p{font-size:14.5px;line-height:1.5;color:rgba(2,17,50,.7);flex:1}
 /* ---- RTS n'est pas une agence de voyage : 5 cartes, memes composants que les portes de sortie ---- */
 .pasagence{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));grid-auto-rows:1fr;align-items:stretch;gap:16px}
-/* lisere : bleu roi par defaut, vert pour les gites, jaune pour les prix ; la pastille d'icone reprend la couleur du lisere (--c) */
+/* lisere : bleu roi par defaut, rouge pour les gites, jaune pour les prix ; la pastille d'icone reprend la couleur du lisere (--c) */
 .pasagence .sortie{--c:var(--roi);border-top-color:var(--c);gap:8px;padding:20px 18px 24px;min-width:0;height:100%}
-.pasagence .sortie.vert{--c:#06651E}
+.pasagence .sortie.vert{--c:var(--rouge)}
 .pasagence .sortie.jaune{--c:var(--jaune)}
 /* pastille glossy carree 56 px (recette du commit 98971e3) : bandeau clair sur la moitie haute, arret net a 50 %, lisere creme 2,5 px, ombre teintee */
 .pasagence .sortie .em{width:56px;height:56px;border-radius:14px;align-items:center;justify-content:center;color:var(--blanc);background-color:var(--c);border:2.5px solid var(--creme);
@@ -181,7 +181,7 @@ footer.rts .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
 .total{order:9;position:sticky;bottom:8px;z-index:5;margin-top:12px}
 .lg{padding:6px 0}.lg .trait{display:none}.lg .sw{width:30px;height:30px;font-size:15px}
 .encours{margin-top:6px;min-height:0}
-.sorties{grid-template-columns:1fr}
+.sorties{grid-template-columns:1fr}.sortie{min-width:0}.sortie .btn{white-space:normal;text-align:center}
 .ctrl .btn{flex:1 1 auto}
 .trips{grid-template-columns:1fr}
 footer.rts .co{font-size:14px}footer.rts .co a{display:inline-flex;align-items:center;min-height:44px;padding:0 4px}footer.rts .lg{font-size:14px}
@@ -214,11 +214,11 @@ footer.rts .co{font-size:14px}footer.rts .co a{display:inline-flex;align-items:c
  <div class="demo">
   <div>
    <h2 class="sect" style="margin-top:36px">La démonstration sur la carte</h2>
-   <p class="sous" id="demoSous">Le point bleu suit la route, le vert marche sur les sentiers, l'orange transporte les sacs. La démonstration ne démarre qu'à votre signal.</p>
+   <p class="sous" id="demoSous">Le point bleu suit la route, le rouge marche sur les sentiers, le jaune transporte les sacs. La démonstration ne démarre qu'à votre signal.</p>
    <div class="scene">
     <iframe id="demoFrame" src="carte.html" title="Carte RTS : démonstration d'une traversée"></iframe>
     <div class="rideau" id="rideau">
-     <button class="btn jaune grand" id="btnLancer" type="button">▶ Lancer la démonstration</button>
+     <button class="btn rouge grand" id="btnLancer" type="button">▶ Lancer la démonstration</button>
      <p>La grande traversée du Nord au Sud : douze jours de marche, cinq interventions RTS.</p>
     </div>
    </div>
@@ -229,7 +229,7 @@ footer.rts .co{font-size:14px}footer.rts .co a{display:inline-flex;align-items:c
    </div>
   </div>
   <!-- Legende : les pastilles reprennent les couleurs telles que le moteur de carte.html trace les lignes
-       (bleu roi transfert, vert sentier, orange bagages, jaune box). Elles decrivent la carte, pas la page. -->
+       (bleu roi transfert, rouge sentier, jaune bagages, jaune box). Elles decrivent la carte, pas la page. -->
   <aside class="legende panier" id="legende">
    <h3>Votre séjour</h3>
    <div class="encours" id="encours"><b>Étape en cours</b><span>En attente : appuyez sur « Lancer la démonstration ».</span></div>
@@ -237,11 +237,11 @@ footer.rts .co{font-size:14px}footer.rts .co a{display:inline-flex;align-items:c
    <p class="petit">Aucun véhicule n'est basé en montagne : les transferts sont indispensables.</p>
    <div class="options"><span class="ttl">Vos options</span><div id="options"></div></div>
    <div class="options retour"><span class="ttl">Votre retour</span><div id="retours"></div><p class="petit">Tarifs de retour indicatifs, confirmés lors de la réservation.</p></div>
-   <div class="total" id="total"><span class="lb">Total de votre séjour</span><strong id="totalVal">— €</strong><a class="btn marine" href="reservation.html">Réserver ce séjour</a></div>
+   <div class="total" id="total"><span class="lb">Total de votre séjour</span><strong id="totalVal">— €</strong><a class="btn rouge" href="reservation.html">Réserver ce séjour</a></div>
    <details class="legdet"><summary>Légende de la carte</summary>
    <div class="lg"><span class="sw" style="background-color:#0141AC"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 8-2 2-1.5-3.7A2 2 0 0 0 15.646 5H8.4a2 2 0 0 0-1.903 1.257L5 10 3 8" /><path d="M7 14h.01" /><path d="M17 14h.01" /><rect width="18" height="8" x="3" y="10" rx="2" /><path d="M5 18v2" /><path d="M19 18v2" /></svg></span><span class="tx"><b>Transfert véhicule</b><i>Tracé bleu, avec le tarif</i></span><span class="trait" style="background:#0141AC"></span></div>
-   <div class="lg"><span class="sw" style="background-color:#06651E"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5.5c0 3.11-2 5.66-2 8.68V16a2 2 0 1 1-4 0Z" /><path d="M20 20v-2.38c0-2.12 1.03-3.12 1-5.62-.03-2.72-1.49-6-4.5-6C14.63 6 14 7.8 14 9.5c0 3.11 2 5.66 2 8.68V20a2 2 0 1 0 4 0Z" /><path d="M16 17h4" /><path d="M4 13h4" /></svg></span><span class="tx"><b>Randonnée</b><i>Tracé vert pointillé</i></span><span class="trait" style="background:repeating-linear-gradient(90deg,#06651E 0 6px,transparent 6px 10px)"></span></div>
-   <div class="lg"><span class="sw" style="background-color:#E87A1E"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2" /><path d="M8 18V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v14" /><path d="M10 20h4" /><circle cx="16" cy="20" r="2" /><circle cx="8" cy="20" r="2" /></svg></span><span class="tx"><b>Bagages</b><i>Tracé orange pointillé</i></span><span class="trait" style="background:repeating-linear-gradient(90deg,#E87A1E 0 8px,transparent 8px 12px)"></span></div>
+   <div class="lg"><span class="sw" style="background-color:#DE0715"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5.5c0 3.11-2 5.66-2 8.68V16a2 2 0 1 1-4 0Z" /><path d="M20 20v-2.38c0-2.12 1.03-3.12 1-5.62-.03-2.72-1.49-6-4.5-6C14.63 6 14 7.8 14 9.5c0 3.11 2 5.66 2 8.68V20a2 2 0 1 0 4 0Z" /><path d="M16 17h4" /><path d="M4 13h4" /></svg></span><span class="tx"><b>Randonnée</b><i>Tracé rouge pointillé</i></span><span class="trait" style="background:repeating-linear-gradient(90deg,#DE0715 0 6px,transparent 6px 10px)"></span></div>
+   <div class="lg"><span class="sw" style="background-color:#FBD608;color:#021132;border:2px solid #021132"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2" /><path d="M8 18V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v14" /><path d="M10 20h4" /><circle cx="16" cy="20" r="2" /><circle cx="8" cy="20" r="2" /></svg></span><span class="tx"><b>Bagages</b><i>Tracé jaune pointillé</i></span><span class="trait" style="background:repeating-linear-gradient(90deg,#FBD608 0 8px,transparent 8px 12px)"></span></div>
    <div class="lg"><span class="sw" style="background-color:#FBD608;color:#021132;border:2px solid #021132"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="16" r="1" /><rect x="3" y="10" width="18" height="12" rx="2" /><path d="M7 10V7a5 5 0 0 1 10 0v3" /></svg></span><span class="tx"><b>Box sécurisé du Port</b><i>Marqueur jaune permanent</i></span><span class="trait" style="background:#FBD608;width:22px;height:22px;border-radius:50%;border:2.5px solid #021132;box-shadow:0 2px 5px rgba(0,0,0,.35)"></span></div>
    </details>
   </aside>
@@ -330,7 +330,7 @@ function surveille(){clearInterval(suivi);var P=parcours(PID);
 function totalP(P){var t=0;P.E.forEach(function(e){if(e.p)t+=cw.PX(e.p)});return t}
 function lancerDemo(pid){if(!pret)return;PID=pid||PID;fini=false;var P=parcours(PID);
  rideau.hidden=true;btnPause.hidden=false;btnRejouer.hidden=true;btnPause.textContent='⏸ Pause';
- info.textContent=P.n+' · '+P.sub;document.getElementById('demoSous').textContent='Le point bleu suit la route, le vert marche sur les sentiers, l\'orange transporte les sacs.';
+ info.textContent=P.n+' · '+P.sub;document.getElementById('demoSous').textContent='Le point bleu suit la route, le rouge marche sur les sentiers, le jaune transporte les sacs.';
  construirePanier(P);cadrer(PID);cw.lancer(PID);marqueEtape(1,false);surveille();voirDemo()}
 /* ---- Panier : socle = transferts du parcours (inclus, non decochables) ; options = consigne au box (decochee par defaut,
    prix par bagage selon le palier deduit du nombre de jours de la formule, tarifs.js) + livraisons de bagages du parcours ;
@@ -389,7 +389,7 @@ function construireFormules(){var h='';cw.PARCOURS.forEach(function(P){var v=VIG
  h+='<div class="vig" id="vig_'+P.id+'" style="--c:'+COUL[v[2]]+'"><div class="ph" role="button" tabindex="0" data-pid="'+P.id+'"><img src="'+v[0]+'" loading="lazy" alt="'+v[1]+'"><span class="voile"></span>'+
   '<span class="eur">'+totalP(P)+' € <small>· '+jours+' jour'+(jours>1?'s':'')+'</small></span>'+
   '<span class="txt"><b>'+P.n+'</b><i>'+P.sub+'</i></span>'+
-  '<button class="btn petit'+(v[2]==='jaune'?' coul j':'')+'" type="button" data-pid="'+P.id+'">▶ Dérouler</button></div>'+
+  '<button class="btn petit rouge" type="button" data-pid="'+P.id+'">▶ Dérouler</button></div>'+
   '<div class="det">'+deroule(P)+'</div></div>'});
  var box=document.getElementById('trips');box.innerHTML=h;
  box.querySelectorAll('.btn').forEach(function(b){b.onclick=function(ev){ev.stopPropagation();var vg=document.getElementById('vig_'+b.dataset.pid);
