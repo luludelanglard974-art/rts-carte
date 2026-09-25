@@ -26,19 +26,19 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 /* ---- Relief glossy (reference validee par le gerant) : bandeau clair net sur la moitie haute, moitie basse
    plus foncee avec leger eclaircissement en bas, lisere blanc casse 2,5 px, ombre portee nette teintee de la
    couleur du bouton, coins arrondis genereux, texte en majuscules. Les boutons inactifs restent plats. ---- */
-.zb,.trek,.veh button,.tg,.play,.go2.finbtn,.calq button,#btnRetour{border:2.5px solid var(--paper);border-radius:14px;text-transform:uppercase;letter-spacing:.2px;transition:transform .15s ease,box-shadow .15s ease,filter .15s ease;
+.zb,.trek,.veh button,.tg,.play,.go2.finbtn,.calq button,#btnRetour,#btnOptions{border:2.5px solid var(--paper);border-radius:14px;text-transform:uppercase;letter-spacing:.2px;transition:transform .15s ease,box-shadow .15s ease,filter .15s ease;
  --c:var(--roi);color:#fff;background-color:var(--marine);
  background-image:linear-gradient(180deg,rgba(255,255,255,.46) 0%,rgba(255,255,255,.34) 50%,rgba(255,255,255,0) 50%,rgba(0,0,0,.20) 84%,rgba(255,255,255,.14) 100%);
  box-shadow:0 4px 8px -1px var(--c),0 1px 2px rgba(2,17,50,.35);
  text-shadow:0 1px 1px rgba(0,0,0,.35)}
 .play{border-radius:10px}
-@supports(color:color-mix(in srgb,red,blue)){.zb,.trek,.veh button,.tg,.play,.go2.finbtn,.calq button,#btnRetour{
+@supports(color:color-mix(in srgb,red,blue)){.zb,.trek,.veh button,.tg,.play,.go2.finbtn,.calq button,#btnRetour,#btnOptions{
  box-shadow:0 4px 8px -1px color-mix(in srgb,var(--c) 80%,transparent),0 1px 2px rgba(2,17,50,.35)}}
 /* selection (secteur actif, Berline/Van, onglet Formules Trek, bascules, Loueurs/Gites) : jaune glossy, texte marine */
 .zb.on,.trek.on,.veh button.on,.tg.on,.calq button.on{background-color:var(--jaune);--c:var(--jaune);color:#021132;text-shadow:0 1px 0 rgba(255,255,255,.45)}
 /* actions (trace, fin de sejour) : rouge glossy, texte blanc */
 .play,.go2.finbtn{background-color:var(--rouge);--c:var(--rouge);color:#fff}
-.zb:hover,.trek:hover,.veh button:hover,.tg:hover,.play:hover,.go2.finbtn:hover,.calq button:hover,#btnRetour:hover{filter:brightness(1.06);transform:translateY(-1px)}
+.zb:hover,.trek:hover,.veh button:hover,.tg:hover,.play:hover,.go2.finbtn:hover,.calq button:hover,#btnRetour:hover,#btnOptions:hover{filter:brightness(1.06);transform:translateY(-1px)}
 .zb:active,.trek:active,.veh button:active,.tg:active,.play:active,.go2.finbtn:active,.calq button:active,#btnRetour:active{transform:translateY(1px);filter:brightness(.97)}
 /* colonne Loueurs / Gites : a droite de la carte sur ecran large, en haut du tiroir sur ecran etroit */
 .calq{position:absolute;right:12px;top:12px;z-index:800;display:flex;flex-direction:column;gap:10px}
@@ -170,6 +170,8 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .cq{font-size:14px;font-weight:800;color:#fff;text-shadow:0 0 4px #021132,0 0 7px #021132;white-space:nowrap}
 .cq small{display:block;font-size:9.5px;font-weight:600}
 .leaflet-control-attribution{font-size:9px!important}
+/* menu mobile (telephone uniquement) : bandeau logo + Accueil + Options, panneau deroulant depuis le haut */
+.mmenu,.mpanel{display:none}
 #btnRetour{display:none;position:absolute;left:10px;top:10px;z-index:1300;min-height:46px;padding:10px 16px;font-size:15px;font-weight:800;align-items:center;gap:6px}
 .leaflet-div-icon{background:none;border:none}
 @media(max-width:900px){
@@ -250,17 +252,42 @@ body.demo-plein .app{height:100dvh}
 body.demo-plein .stage{--tirh:0px}
 body.demo-plein .mw .leaflet-bottom{bottom:0}
 body.demo-plein #btnRetour{display:inline-flex}
+/* ---- menu deroulant : par defaut seuls la carte et le bouton Options sont visibles ---- */
+body.menu-mobile .bar,body.menu-mobile .zones,body.menu-mobile .coin{display:none}
+body.menu-mobile .mmenu{display:flex;position:absolute;top:0;left:0;right:0;z-index:1250;align-items:center;gap:8px;padding:8px 10px;pointer-events:none}
+.mmenu>*{pointer-events:auto}
+.mmenu .mlogo img{height:40px;width:auto;display:block;filter:drop-shadow(0 1px 3px rgba(0,0,0,.55))}
+.mmenu .mhome{color:#fff;text-decoration:none;font-size:13px;font-weight:700;min-height:40px;display:inline-flex;align-items:center;padding:6px 10px;border-radius:10px;background:rgba(2,17,50,.86);border:1px solid rgba(255,255,255,.3);white-space:nowrap}
+#btnOptions{margin-left:auto;min-height:46px;padding:10px 16px;font-size:15px;font-weight:800;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+body.menu-mobile .mpanel{display:block;position:absolute;top:0;left:0;right:0;z-index:1240;max-height:70vh;max-height:70dvh;overflow:auto;background:var(--paper);border-radius:0 0 18px 18px;box-shadow:0 10px 26px rgba(2,17,50,.45);padding:64px 12px 16px;animation:mpDown .22s ease;overscroll-behavior:contain}
+body.menu-mobile .mpanel[hidden]{display:none}
+@keyframes mpDown{from{transform:translateY(-14px);opacity:0}to{transform:none;opacity:1}}
+.mp-sec{margin-top:12px}.mp-sec:first-child{margin-top:0}
+.mp-sec b{display:block;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:rgba(2,17,50,.6);margin-bottom:6px}
+.mpanel .veh{display:flex;gap:8px;margin:0}.mpanel .veh button{flex:1;min-height:48px;font-size:14px;padding:6px 8px}
+.mpanel .trek{width:100%;min-height:48px;font-size:14px;padding:8px 12px}
+body.menu-mobile .mpanel .zones{display:flex;flex-wrap:wrap;gap:8px;background:none;box-shadow:none;overflow:visible;padding:0}
+.mpanel .zb{flex:1 1 30%;min-width:96px;min-height:46px;margin:0;padding:10px 8px;font-size:14px}
+.mpanel .tools{display:flex;gap:8px}.mpanel .tg{flex:1;min-height:48px;font-size:18px;padding:8px}
+.mpanel .calq{position:static;display:flex;flex-direction:column;gap:8px}.mpanel .calq button{width:100%;min-height:48px;text-align:center;font-size:14px}
+/* carte vierge : tant que rien n'est choisi, le tiroir reste cache */
+body.menu-mobile.vierge .tiroir{display:none}
+body.menu-mobile.vierge .mw .leaflet-bottom{bottom:0}
+body.demo-plein .mmenu,body.demo-plein .mpanel{display:none!important}
 }
 </style></head><body>
 <div class="app">
 <div class="bar"><a class="logo" href="index.html" title="Accueil"><img src="images/logo-rts.png" alt="Run Transfert &amp; Services"></a><a href="index.html" class="home">← Accueil</a><b>Run Transfert <span class="r">&amp;</span> Services</b>
 <div class="droite"><div class="veh"><button class="on" id="vB">Berline<small>1 à 4 pers.</small></button><button id="vV">Van<small>5 à 8 pers.</small></button></div><button class="trek" id="btnTrek">Formules Trek</button><div class="tools"><button class="tg on" id="t3">🥾</button><button class="tg on" id="t4">🚗</button></div></div></div>
 <div class="zones" id="zones"></div>
-<div class="stage"><div class="mw"><div id="map"></div><div class="coin"><div class="hud accroche" id="accroche"><b>Créez votre séjour. RTS vous accompagne.</b><span>Sélectionnez vos randonnées selon votre niveau. RTS met à disposition les outils et la logistique.</span></div><div class="hud" id="hud">Initialisation…</div></div><button id="btnRetour" type="button" aria-label="Quitter le mode plein écran">✕ Retour</button><div class="calq" id="calq"><button id="t6">🚘 Loueurs de voitures</button><button id="t7">🏠 Gîtes partenaires</button></div></div><div class="tiroir" id="tiroir"><div class="tirette" id="tirette"><span></span><i id="tirlib">▲ Glisser pour agrandir</i></div><aside class="panel" id="panel"></aside></div></div></div>
+<div class="stage"><div class="mw"><div id="map"></div><div class="coin"><div class="hud accroche" id="accroche"><b>Créez votre séjour. RTS vous accompagne.</b><span>Sélectionnez vos randonnées selon votre niveau. RTS met à disposition les outils et la logistique.</span></div><div class="hud" id="hud">Initialisation…</div></div><button id="btnRetour" type="button" aria-label="Quitter le mode plein écran">✕ Retour</button><div class="mmenu" id="mmenu"><a class="mlogo" href="index.html" title="Accueil"><img src="images/logo-rts.png" alt="Run Transfert &amp; Services"></a><a class="mhome" href="index.html">← Accueil</a><button id="btnOptions" type="button" aria-expanded="false" aria-controls="mpanel">☰ Options ▾</button></div><div class="mpanel" id="mpanel" hidden><div class="mp-sec"><b>Véhicule</b><div data-slot="veh"></div></div><div class="mp-sec"><b>Formules</b><div data-slot="trek"></div></div><div class="mp-sec"><b>Secteurs</b><div data-slot="zones"></div></div><div class="mp-sec"><b>Sentiers · Transferts</b><div data-slot="tools"></div></div><div class="mp-sec"><b>Partenaires</b><div data-slot="calq"></div></div></div><div class="calq" id="calq"><button id="t6">🚘 Loueurs de voitures</button><button id="t7">🏠 Gîtes partenaires</button></div></div><div class="tiroir" id="tiroir"><div class="tirette" id="tirette"><span></span><i id="tirlib">▲ Glisser pour agrandir</i></div><aside class="panel" id="panel"></aside></div></div></div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 var VAN=false;
 var ETROIT=window.matchMedia('(max-width:900px)');
+/* dans un cadre (trek.html), l'interface est deja masquee par la page hote : pas de menu mobile */
+var ENCADRE=(function(){try{return window.self!==window.top}catch(e){return true}})();
+function quitteVierge(){if(document.body.classList.contains('vierge')){document.body.classList.remove('vierge');setTimeout(function(){map.invalidateSize()},60)}}
 function PX(p){return VAN?Math.round(p*1.2):p}
 /* photos locales des hebergements, choisies selon le secteur du gite (Mafate, Cilaos, Salazie, Volcan, autres) : aucun appel externe */
 var PH_LOCAL={g1:'ilet-mafate',g2:'secteur-mafate',g3:'mafate-maido-aube',g4:'ilet-mafate',g5:'secteur-mafate',g7:'mafate-maido-aube',g8:'ilet-mafate',g10:'cilaos-village',g11:'mare-a-joncs',g22:'secteur-cilaos',g24:'cilaos-village',g13:'hell-bourg-village',g14:'case-creole-hell-bourg',g15:'secteur-salazie',g16:'secteur-volcan',g18:'plaine-des-sables',g26:'case-bambou-traditionnelle',g27:'chapelle-patrimoine',g23:'case-bambou-traditionnelle'};
@@ -578,7 +605,7 @@ function traceMarche(a,b,cb,essai){essai=essai||0;
 var ONGLETS=[{k:'ile',n:"Toute l'île"},{k:'nord',n:'Nord'},{k:'mafate',n:'Mafate'},{k:'cilaos',n:'Cilaos'},{k:'salazie',n:'Salazie'},{k:'volcan',n:'Volcan'}];
 ONGLETS.forEach(function(o){var b=document.createElement('button');b.className='zb';b.id='zb_'+o.k;
  b.textContent=o.n;
- b.onclick=function(){var ac=document.getElementById('accroche');if(ac)ac.hidden=true;o.k==='ile'?vueIle():(o.k==='parcours'?listeParcours():ouvrir(o.k))};zones.appendChild(b)});
+ b.onclick=function(){var ac=document.getElementById('accroche');if(ac)ac.hidden=true;quitteVierge();o.k==='ile'?vueIle():(o.k==='parcours'?listeParcours():ouvrir(o.k))};zones.appendChild(b)});
 function onglet(k){ONGLETS.forEach(function(o){var b=document.getElementById('zb_'+o.k);
  b.classList.toggle('on',o.k===k)});
  var bt=document.getElementById('btnTrek');if(bt)bt.classList.toggle('on',k==='parcours');
@@ -617,7 +644,7 @@ function vueIle(){vue='ile';ck=null;lk=null;clearAll();onglet('ile');
  '<div class="sec"><h3>Liens utiles</h3>'+liens('')+'</div>'+
  '<div class="vueille"></div><div class="note"><b>Maquette de démonstration.</b> Les hébergements et loueurs illustrent le fonctionnement : ils ne constituent pas une offre commerciale. Tarifs TTC indicatifs '+(VAN?'van 5 à 8 personnes':'berline 1 à 4 personnes')+'. Fond IGN, sentiers OpenStreetMap (ODbL). RTS n\'organise pas la randonnée et n\'accompagne pas sur les sentiers.</div></div>';
  panel.removeAttribute('data-vue');panel.scrollTop=0}
-function ouvrir(k){vue='zone';vueArg=k;ck=k;lk=null;var z=C[k];M={};z.L.forEach(function(l){M[l.id]=l});
+function ouvrir(k){quitteVierge();vue='zone';vueArg=k;ck=k;lk=null;var z=C[k];M={};z.L.forEach(function(l){M[l.id]=l});
  clearAll();onglet(k);masque(z.poly);
  L.polygon(z.poly,{color:z.col,weight:4,opacity:1,fill:false,lineJoin:'round',smoothFactor:.4}).addTo(gZone);
  /* carte epuree : les transferts ne se dessinent qu'au clic sur ▶ Tracé (fonction demo) */
@@ -657,7 +684,7 @@ function aff(els){segs=[];gPath.clearLayers();els.forEach(function(w){
  p.bindTooltip('🥾 '+((w.tags&&w.tags.name)||'Sentier'),{sticky:true});p.addTo(gPath);
  segs.push({p:p,pts:pts})})}
 /* mode demo plein ecran sur telephone : classe sur body, la carte reprend toute la hauteur, Retour retablit la mise en page */
-function pleinEcran(on){if(on&&!ETROIT.matches)return;document.body.classList.toggle('demo-plein',!!on);map.invalidateSize();setTimeout(function(){map.invalidateSize()},60)}
+function pleinEcran(on){if(on&&!ETROIT.matches)return;if(on&&window.optionsOuvrir)optionsOuvrir(false);document.body.classList.toggle('demo-plein',!!on);map.invalidateSize();setTimeout(function(){map.invalidateSize()},60)}
 window.pleinEcran=pleinEcran;
 document.getElementById('btnRetour').onclick=function(){pleinEcran(false);tiroirRepos();setTimeout(function(){map.invalidateSize();recadrerRetour()},340)};
 var dernierTrace=null;
@@ -693,7 +720,7 @@ function demo(de,a,type,label){
  if(type==='r')routeReelle(de,a,go);
  else traceMarche(de,a,function(co){go(co,false)})}
 window.demo=demo;
-function choisir(id){vue='lieu';vueArg=id;var z=C[ck],l=M[id];lk=id;marq();
+function choisir(id){quitteVierge();vue='lieu';vueArg=id;var z=C[ck],l=M[id];lk=id;marq();
  segs.forEach(function(s){var pr=s.pts.some(function(pt){return map.distance(pt,l.ll)<2600});
   s.p.setStyle(pr?{color:'#DE0715',weight:4.5,opacity:1,dashArray:'7 5'}:{color:'#DE0715',weight:2.6,opacity:.3,dashArray:'6 5'});if(pr)s.p.bringToFront()});
  roads.forEach(function(r){var on=(r.a===id);
@@ -731,12 +758,12 @@ function choisir(id){vue='lieu';vueArg=id;var z=C[ck],l=M[id];lk=id;marq();
  '<div class="sec s-in"><h3>Liens utiles</h3>'+liens(l.n)+'</div>'+
  '<div class="note">Tarifs TTC '+(VAN?'van, 5 à 8 passagers':'berline, 1 à 4 passagers')+'. Chaque hébergement garde son propre système de réservation. <b>Exemples d\'illustration.</b></div></div>';
  panel.dataset.vue='tr';panel.scrollTop=0}
-function listeParcours(){vue='liste';clearAll();onglet('parcours');
+function listeParcours(){quitteVierge();vue='liste';clearAll();onglet('parcours');
  panel.innerHTML='<div class="pad"><div class="h1">Les traversées</div><div class="meta">Comment nous accompagnons un séjour de trek</div>'+PHOTO_TREK+
  '<p class="lead">Déposes, changes de bagages, récupérations. Le point bleu suit la route, le vert marche, l\'orange transporte les sacs.</p>'+
  PARCOURS.map(function(p,i){return '<button class="trip'+(i<2?' star':'')+'" onclick="lancer(\''+p.id+'\')"><b>'+p.n+'</b><i>'+p.sub+'</i><u>▶ Dérouler</u></button>'}).join('')+'</div>';
  panel.removeAttribute('data-vue');panel.scrollTop=0}
-function lancer(pid){vue='parc';vueArg=pid;var P=null;PARCOURS.forEach(function(x){if(x.id===pid)P=x});if(!P)return;
+function lancer(pid){quitteVierge();vue='parc';vueArg=pid;var P=null;PARCOURS.forEach(function(x){if(x.id===pid)P=x});if(!P)return;
  clearAll();onglet('parcours');pause=false;tiroirRepos();
  var tot=0,km=0;P.E.forEach(function(e){if(e.p)tot+=PX(e.p);if(e.km)km+=e.km});
  var rt=retours(P),f=rt.length?rt:null;var estM=function(r){return r.est?' <small class="est">estimé</small>':''};
@@ -841,15 +868,32 @@ var tiroirPos=34,tiroirRepos=function(){};
   tt.addEventListener('touchmove',function(e){mouv(e.touches[0].clientY)},{passive:true});
   tt.addEventListener('touchend',fin);tt.addEventListener('mousedown',function(e){debut(e.clientY)});
   window.addEventListener('mousemove',function(e){mouv(e.clientY)});window.addEventListener('mouseup',fin)}
- function placeCalq(){if(ETROIT.matches){if(calq.parentNode!==tir)tir.insertBefore(calq,panelEl)}else if(calq.parentNode!==mw)mw.appendChild(calq)}
- function poseEtCalq(){placeCalq();if(tiroirPos<60)tiroirPos=repos();pose()}
+ /* ---- menu mobile : les commandes existantes (Berline/Van, Formules Trek, secteurs, sentiers/transferts, Loueurs/Gites)
+    sont deplacees dans le panneau deroulant sur telephone, et remises a leur place d'origine sur ordinateur ---- */
+ var mpanel=document.getElementById('mpanel'),btnOptions=document.getElementById('btnOptions');
+ var MOB=[['veh',document.querySelector('.veh')],['trek',document.getElementById('btnTrek')],['tools',document.querySelector('.tools')],['zones',document.getElementById('zones')],['calq',calq]];
+ var ORIG=MOB.map(function(m){return {el:m[1],parent:m[1].parentNode,next:m[1].nextSibling}});
+ function menuMobile(){return ETROIT.matches&&!ENCADRE}
+ function optionsOuvrir(on){if(on&&!menuMobile())on=false;mpanel.hidden=!on;btnOptions.textContent=on?'✕ Fermer':'☰ Options ▾';btnOptions.setAttribute('aria-expanded',on?'true':'false')}
+ window.optionsOuvrir=optionsOuvrir;
+ function placer(){var on=menuMobile();document.body.classList.toggle('menu-mobile',on);
+  if(on){MOB.forEach(function(m){var slot=mpanel.querySelector('[data-slot="'+m[0]+'"]');if(m[1].parentNode!==slot)slot.appendChild(m[1])})}
+  else{for(var i=ORIG.length-1;i>=0;i--){var o=ORIG[i];if(o.el.parentNode!==o.parent)o.parent.insertBefore(o.el,o.next)}optionsOuvrir(false);document.body.classList.remove('vierge')}}
+ btnOptions.onclick=function(){optionsOuvrir(mpanel.hidden)};
+ /* un secteur, un vehicule, Formules Trek ou un toggle sentiers/transferts referme le panneau ; Loueurs/Gites restent au choix */
+ mpanel.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
+  if(b.classList.contains('zb')||b.classList.contains('trek')||b.closest('.veh')||b.id==='t3'||b.id==='t4')setTimeout(function(){optionsOuvrir(false)},60)});
+ /* toucher la carte referme le panneau */
+ ['pointerdown','touchstart'].forEach(function(ev){document.getElementById('map').addEventListener(ev,function(){if(!mpanel.hidden)optionsOuvrir(false)},{passive:true})});
+ if(menuMobile())document.body.classList.add('vierge');
+ function poseEtCalq(){placer();if(tiroirPos<60)tiroirPos=repos();pose()}
  function sortiePlein(){if(!ETROIT.matches&&document.body.classList.contains('demo-plein'))pleinEcran(false)}
  if(ETROIT.addEventListener){ETROIT.addEventListener('change',poseEtCalq);ETROIT.addEventListener('change',sortiePlein)}else{ETROIT.addListener(poseEtCalq);ETROIT.addListener(sortiePlein)}
  /* l'accroche disparait au premier toucher sur la carte */
  ['pointerdown','touchstart'].forEach(function(ev){document.getElementById('map').addEventListener(ev,function(){var ac=document.getElementById('accroche');if(ac)ac.hidden=true},{once:true,passive:true})});
  poseEtCalq()})();
 window.ouvrir=ouvrir;window.choisir=choisir;window.vueIle=vueIle;window.lancer=lancer;window.listeParcours=listeParcours;window.togglePause=togglePause;
-setTimeout(function(){map.invalidateSize();if(ETROIT.matches)map.panBy([0,Math.round(map.getSize().y*0.16)],{animate:false})},350);
+setTimeout(function(){map.invalidateSize();if(ETROIT.matches&&!document.body.classList.contains('vierge'))map.panBy([0,Math.round(map.getSize().y*0.16)],{animate:false})},350);
 window.addEventListener('resize',function(){map.invalidateSize()});
 vueIle();
 setTimeout(function(){if(ok===0&&!basc){basc=true;map.removeLayer(ortho);topo.addTo(map);eT='<span class="ko">IGN sans réponse</span> → OpenTopoMap';maj()}},6000);
