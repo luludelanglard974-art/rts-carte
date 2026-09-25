@@ -270,9 +270,20 @@ body.menu-mobile .mpanel .zones{display:flex;flex-wrap:wrap;gap:8px;background:n
 .mpanel .zb{flex:1 1 30%;min-width:96px;min-height:46px;margin:0;padding:10px 8px;font-size:14px}
 .mpanel .tools{display:flex;gap:8px}.mpanel .tg{flex:1;min-height:48px;font-size:18px;padding:8px}
 .mpanel .calq{position:static;display:flex;flex-direction:column;gap:8px}.mpanel .calq button{width:100%;min-height:48px;text-align:center;font-size:14px}
-/* carte vierge : tant que rien n'est choisi, le tiroir reste cache */
-body.menu-mobile.vierge .tiroir{display:none}
-body.menu-mobile.vierge .mw .leaflet-bottom{bottom:0}
+/* ---- tiroir a 3 etats (peek / half / full), sans glissement libre : hauteur fixee par etat, transition animee ---- */
+body.menu-mobile .tiroir{transition:height .3s cubic-bezier(.2,.8,.2,1)}
+body.menu-mobile .tirette{cursor:pointer;height:56px}
+body.menu-mobile .tirette i{font-size:15px;font-weight:800;color:var(--marine)}
+body.menu-mobile[data-tiroir="peek"] .tirette{height:72px}
+body.menu-mobile[data-tiroir="peek"] .panel{visibility:hidden}
+body.menu-mobile[data-tiroir="full"] .leaflet-control-attribution{display:none}
+/* HALF : liste courte (titre + transferts, ou formules, ou deroule en cours), rien d'autre */
+body.menu-mobile[data-tiroir="half"] .panel .photo,body.menu-mobile[data-tiroir="half"] .panel .bascule,body.menu-mobile[data-tiroir="half"] .panel .lead,body.menu-mobile[data-tiroir="half"] .panel .note,body.menu-mobile[data-tiroir="half"] .panel .meta,body.menu-mobile[data-tiroir="half"] .panel .down,body.menu-mobile[data-tiroir="half"] .panel .vueille,body.menu-mobile[data-tiroir="half"] .panel .lg,body.menu-mobile[data-tiroir="half"] .panel .sec.fin,body.menu-mobile[data-tiroir="half"] .panel .card{display:none}
+body.menu-mobile[data-tiroir="half"] .panel .sec:not(.s-tr):not(:has(.trip)):not(:has(.step)){display:none}
+body.menu-mobile[data-tiroir="half"] .panel .sec{margin-top:10px}
+body.menu-mobile[data-tiroir="half"] .panel .h1{font-size:19px}
+body.menu-mobile[data-tiroir="half"] .panel .pad{padding-top:8px}
+body.menu-mobile .mpanel #t3{font-size:14px}
 body.demo-plein .mmenu,body.demo-plein .mpanel{display:none!important}
 }
 </style></head><body>
@@ -416,7 +427,7 @@ var SUPP={tbd:20,ic:35};
 C.cilaos.R.filter(function(r){return r.a==='ci'}).forEach(function(r){
  for(var sk in SUPP)C.cilaos.R.push({de:r.de,a:sk,p:r.p+SUPP[sk],src:0})});
 for(var sk2 in SUPP)OUT[sk2]=OUT.ci.map(function(p){return p+SUPP[sk2]});
-var BOX={t:'x',n:'Box RTS sécurisé',i:'Consigne des bagages au box du Port (association RTS) · en option dans le panier, prix dans tarifs.js'};
+var BOX={t:'x',n:'Box RTS sécurisé',i:'Consigne des bagages au box du Port (association RTS) · en option dans le panier'};
 function W(j,de,a,n,i,km,dp,dn,h,d){return {t:'w',j:j,de:de,a:a,n:n,i:i,km:km,dp:dp,dn:dn,h:h,d:d}}
 function R(j,de,a,n,i,p){return {t:'r',j:j,de:de,a:a,n:n,i:i,p:p}}
 var PT={rg:[-20.8907,55.5103],lport:[-20.9397,55.2925],tbd:[-21.1177,55.4501],lpr:[-20.8867,55.4550],mc:[-20.9300,55.4230],pc:[-20.9430,55.4200],re:[-20.9497,55.4283],paf:[-20.9450,55.3980],da:[-20.9556,55.3739],db:[-21.0117,55.3561],au:[-20.9933,55.3942],gp:[-21.0083,55.3992],rp:[-21.0619,55.3961],ma:[-21.0878,55.4378],ci:[-21.1361,55.4714],bl:[-21.1156,55.4783],cd:[-21.0958,55.4772],mab:[-21.1550,55.5350],bm:[-21.2058,55.5789],gv:[-21.2222,55.6900],gbv:[-21.3167,55.7322],bv:[-21.3736,55.7286],gg:[-21.3203,55.6403],sp:[-21.3393,55.4781],sg:[-21.0583,55.2289],hb:[-21.0664,55.5192],cb:[-21.0575,55.4972],pt:[-21.0600,55.4650],ln:[-21.0483,55.4283],bel:[-21.0350,55.4900]};
@@ -522,7 +533,10 @@ var t3=document.getElementById('t3'),t4=document.getElementById('t4'),t6=documen
 var vB=document.getElementById('vB'),vV=document.getElementById('vV');
 vB.onclick=function(){VAN=false;vB.classList.add('on');vV.classList.remove('on');stopAnim();gTrip.clearLayers();refresh()};
 vV.onclick=function(){VAN=true;vV.classList.add('on');vB.classList.remove('on');stopAnim();gTrip.clearLayers();refresh()};
-t3.onclick=function(){var o=t3.classList.toggle('on');if(o){map.addLayer(gPath);map.addLayer(gMkW)}else{map.removeLayer(gPath);map.removeLayer(gMkW)}};
+t3.onclick=function(){var o=t3.classList.toggle('on');if(o){map.addLayer(gPath);if(!menuMobile())map.addLayer(gMkW)}else{map.removeLayer(gPath);map.removeLayer(gMkW)}};
+/* telephone : sentiers masques par defaut, l'interrupteur affiche le trace (jamais de pastille par sentier) */
+function menuMobile(){return ETROIT.matches&&!ENCADRE}
+if(menuMobile()){t3.classList.remove('on');map.removeLayer(gPath);map.removeLayer(gMkW);t3.textContent='🥾 Voir les sentiers'}
 t4.onclick=function(){var o=t4.classList.toggle('on');if(o){map.addLayer(gRoad);map.addLayer(gMkR)}else{map.removeLayer(gRoad);map.removeLayer(gMkR)}};
 t6.onclick=function(){var o=t6.classList.toggle('on');o?map.addLayer(gLoc):map.removeLayer(gLoc)};
 document.getElementById('btnTrek').onclick=function(){listeParcours()};
@@ -605,7 +619,7 @@ function traceMarche(a,b,cb,essai){essai=essai||0;
 var ONGLETS=[{k:'ile',n:"Toute l'île"},{k:'nord',n:'Nord'},{k:'mafate',n:'Mafate'},{k:'cilaos',n:'Cilaos'},{k:'salazie',n:'Salazie'},{k:'volcan',n:'Volcan'}];
 ONGLETS.forEach(function(o){var b=document.createElement('button');b.className='zb';b.id='zb_'+o.k;
  b.textContent=o.n;
- b.onclick=function(){var ac=document.getElementById('accroche');if(ac)ac.hidden=true;quitteVierge();o.k==='ile'?vueIle():(o.k==='parcours'?listeParcours():ouvrir(o.k))};zones.appendChild(b)});
+ b.onclick=function(){var ac=document.getElementById('accroche');if(ac)ac.hidden=true;quitteVierge();o.k==='ile'?vueIle():(o.k==='parcours'?listeParcours():ouvrir(o.k));if(window.tiroirEtat)tiroirEtat('half')};zones.appendChild(b)});
 function onglet(k){ONGLETS.forEach(function(o){var b=document.getElementById('zb_'+o.k);
  b.classList.toggle('on',o.k===k)});
  var bt=document.getElementById('btnTrek');if(bt)bt.classList.toggle('on',k==='parcours');
@@ -644,7 +658,7 @@ function vueIle(){vue='ile';ck=null;lk=null;clearAll();onglet('ile');
  '<div class="sec"><h3>Liens utiles</h3>'+liens('')+'</div>'+
  '<div class="vueille"></div><div class="note"><b>Maquette de démonstration.</b> Les hébergements et loueurs illustrent le fonctionnement : ils ne constituent pas une offre commerciale. Tarifs TTC indicatifs '+(VAN?'van 5 à 8 personnes':'berline 1 à 4 personnes')+'. Fond IGN, sentiers OpenStreetMap (ODbL). RTS n\'organise pas la randonnée et n\'accompagne pas sur les sentiers.</div></div>';
  panel.removeAttribute('data-vue');panel.scrollTop=0}
-function ouvrir(k){quitteVierge();vue='zone';vueArg=k;ck=k;lk=null;var z=C[k];M={};z.L.forEach(function(l){M[l.id]=l});
+function ouvrir(k){quitteVierge();vue='zone';vueArg=k;if(window.tiroirEtat)tiroirEtat('half');ck=k;lk=null;var z=C[k];M={};z.L.forEach(function(l){M[l.id]=l});
  clearAll();onglet(k);masque(z.poly);
  L.polygon(z.poly,{color:z.col,weight:4,opacity:1,fill:false,lineJoin:'round',smoothFactor:.4}).addTo(gZone);
  /* carte epuree : les transferts ne se dessinent qu'au clic sur ▶ Tracé (fonction demo) */
@@ -661,7 +675,10 @@ function ouvrir(k){quitteVierge();vue='zone';vueArg=k;ck=k;lk=null;var z=C[k];M=
  '<div class="sec s-in"><h3>Liens utiles — '+z.n+'</h3>'+liens(z.n)+'</div>'+
  '<div class="note"><b>Tarifs TTC '+(VAN?'van, 5 à 8 passagers':'berline, 1 à 4 passagers')+'.</b> Dimanche et nuit : +20 €. Touchez un marqueur sur la carte pour le détail d\'un lieu.</div></div>';
  panel.dataset.vue='tr';panel.scrollTop=0}
-function marq(){gMkW.clearLayers();gMkR.clearLayers();C[ck].L.forEach(function(l){
+function marq(){gMkW.clearLayers();gMkR.clearLayers();var mob=menuMobile(),cibles={},nb=0;
+ if(mob){C[ck].R.forEach(function(r){cibles[r.a]=1});if(lk)cibles[lk]=1}
+ C[ck].L.forEach(function(l){
+ if(mob){if(!l.a||!cibles[l.id]||nb>=5)return;nb++} /* telephone : seuls les points de transfert pertinents, 5 au plus, aucune botte */
  var ic=l.a?(l.r.some(function(r){return r[0]==='🚙'})?'🚙':'🚗'):'🥾';
  var h='<div class="mk '+(l.a?'acc':'')+' '+(lk===l.id?'on':'')+'"><div class="pin">'+ic+'</div><div class="nm">'+l.n+'</div></div>';
  var ps=ETROIT.matches?32:26;var m=L.marker(l.ll,{icon:L.divIcon({html:h,className:'',iconSize:[ps,ps+14],iconAnchor:[ps/2,ps/2]}),zIndexOffset:lk===l.id?600:0});
@@ -720,7 +737,7 @@ function demo(de,a,type,label){
  if(type==='r')routeReelle(de,a,go);
  else traceMarche(de,a,function(co){go(co,false)})}
 window.demo=demo;
-function choisir(id){quitteVierge();vue='lieu';vueArg=id;var z=C[ck],l=M[id];lk=id;marq();
+function choisir(id){quitteVierge();vue='lieu';vueArg=id;if(window.tiroirEtat)tiroirEtat('half');var z=C[ck],l=M[id];lk=id;marq();
  segs.forEach(function(s){var pr=s.pts.some(function(pt){return map.distance(pt,l.ll)<2600});
   s.p.setStyle(pr?{color:'#DE0715',weight:4.5,opacity:1,dashArray:'7 5'}:{color:'#DE0715',weight:2.6,opacity:.3,dashArray:'6 5'});if(pr)s.p.bringToFront()});
  roads.forEach(function(r){var on=(r.a===id);
@@ -758,12 +775,13 @@ function choisir(id){quitteVierge();vue='lieu';vueArg=id;var z=C[ck],l=M[id];lk=
  '<div class="sec s-in"><h3>Liens utiles</h3>'+liens(l.n)+'</div>'+
  '<div class="note">Tarifs TTC '+(VAN?'van, 5 à 8 passagers':'berline, 1 à 4 passagers')+'. Chaque hébergement garde son propre système de réservation. <b>Exemples d\'illustration.</b></div></div>';
  panel.dataset.vue='tr';panel.scrollTop=0}
-function listeParcours(){quitteVierge();vue='liste';clearAll();onglet('parcours');
+function listeParcours(){quitteVierge();vue='liste';if(window.tiroirEtat)tiroirEtat('half');clearAll();onglet('parcours');
  panel.innerHTML='<div class="pad"><div class="h1">Les traversées</div><div class="meta">Comment nous accompagnons un séjour de trek</div>'+PHOTO_TREK+
- '<p class="lead">Déposes, changes de bagages, récupérations. Le point bleu suit la route, le vert marche, l\'orange transporte les sacs.</p>'+
+ '<p class="lead">Déposes, changes de bagages, récupérations. Le point bleu suit la vraie route. Le rouge marche sur les sentiers, le jaune transporte les bagages.</p>'+
  PARCOURS.map(function(p,i){return '<button class="trip'+(i<2?' star':'')+'" onclick="lancer(\''+p.id+'\')"><b>'+p.n+'</b><i>'+p.sub+'</i><u>▶ Dérouler</u></button>'}).join('')+'</div>';
  panel.removeAttribute('data-vue');panel.scrollTop=0}
-function lancer(pid){quitteVierge();vue='parc';vueArg=pid;var P=null;PARCOURS.forEach(function(x){if(x.id===pid)P=x});if(!P)return;
+var demarreur=null; /* demarrage differe de la demonstration d'une formule (premier affichage statique) */
+function lancer(pid,auto){quitteVierge();vue='parc';vueArg=pid;var P=null;PARCOURS.forEach(function(x){if(x.id===pid)P=x});if(!P)return;demarreur=null;
  clearAll();onglet('parcours');pause=false;tiroirRepos();
  var tot=0,km=0;P.E.forEach(function(e){if(e.p)tot+=PX(e.p);if(e.km)km+=e.km});
  var rt=retours(P),f=rt.length?rt:null;var estM=function(r){return r.est?' <small class="est">estimé</small>':''};
@@ -773,7 +791,7 @@ function lancer(pid){quitteVierge();vue='parc';vueArg=pid;var P=null;PARCOURS.fo
   '<button class="go2 finbtn" onclick="demo('+JSON.stringify(PT[P.fin])+','+JSON.stringify(PT.sg)+',\'r\',\''+PX(f[2].p)+' €\')"><span class="em">🏖️</span><span class="tx"><b>Vers Saint-Gilles</b><i>Plage et repos après le trek</i></span><span class="eur">'+PX(f[2].p)+' €'+estM(f[2])+'</span><span class="play">▶</span></button><p class="lead" style="margin:6px 0 0;font-size:11px;color:rgba(2,17,50,.55)">Tarifs de retour indicatifs, confirmés lors de la réservation.</p></div>':'';
  panel.innerHTML='<div class="pad"><button class="tg" style="border-color:var(--l);color:var(--marine);background:#fff;margin-bottom:13px" onclick="listeParcours()">← Les traversées</button>'+
  '<div class="h1">'+P.n+'</div><div class="meta">'+P.sub+(km?' · '+Math.round(km)+' km à pied':'')+'</div><p class="lead">'+P.intro+'</p>'+
- '<div class="ctrl"><button class="go" id="bp" onclick="togglePause()">⏸ Pause</button><button onclick="lancer(\''+pid+'\')">↺ Rejouer</button></div>'+
+ '<div class="ctrl"><button class="go" id="bp" onclick="togglePause()">▶ Lancer la démonstration</button><button onclick="lancer(\''+pid+'\',true)">↺ Rejouer</button></div>'+
  '<div class="sec"><h3>Le déroulé</h3>'+P.E.map(function(e,i){
   var cl=e.t==='r'?'':(e.t==='b'?'bag':(e.t==='x'?'box':'walk'));
   var ic=e.t==='r'?'🚗':(e.t==='b'?'🧳':(e.t==='x'?'📦':'🥾'));
@@ -829,8 +847,9 @@ function lancer(pid){quitteVierge();vue='parc';vueArg=pid;var P=null;PARCOURS.fo
      L.marker(co[Math.floor(co.length/2)],{icon:L.divIcon({html:lblj,className:'',iconSize:e.t==='r'?[150,52]:[52,22],iconAnchor:e.t==='r'?[75,26]:[26,11]})}).addTo(gTrip)}
     i++;anim={raf:null,to:setTimeout(suivante,350)}}}
   anim={raf:requestAnimationFrame(tick),to:null}}
- setTimeout(suivante,500)}
-function togglePause(){pause=!pause;var b=document.getElementById('bp');if(b)b.textContent=pause?'▶ Reprendre':'⏸ Pause'}
+ demarreur=function(){demarreur=null;var b=document.getElementById('bp');if(b)b.textContent='⏸ Pause';if(window.tiroirEtat&&menuMobile())tiroirEtat('half');setTimeout(suivante,500)};
+ if(auto===true||ENCADRE)demarreur();else if(window.tiroirEtat&&menuMobile())tiroirEtat('full')}
+function togglePause(){if(demarreur){demarreur();return}pause=!pause;var b=document.getElementById('bp');if(b)b.textContent=pause?'▶ Reprendre':'⏸ Pause'}
 var PHOTO={mafate:'Le cirque de Mafate vu depuis les hauteurs, La Réunion',cilaos:'La route de l\'Îlet à Cordes dans le cirque de Cilaos',salazie:'Le cirque de Salazie et ses cascades',volcan:'Le Piton de la Fournaise et les paysages du Volcan'};
 function photoSecteur(k){return PHOTO[k]?'<div class="photo zl"><img src="images/secteur-'+k+'.jpg" loading="lazy" alt="'+PHOTO[k]+'"></div>':''}
 var PHOTO_TREK='<div class="photo"><img src="images/piton-des-neiges.jpg" loading="lazy" alt="Le Piton des Neiges, point culminant de La Réunion"></div>';
@@ -845,13 +864,20 @@ var tiroirPos=34,tiroirRepos=function(){};
  /* cran de repos : un tiers pour le panneau, plus la bande Loueurs / Gites placee au-dessus sur ecran etroit */
  function repos(){var hc=(ETROIT.matches&&calq.parentNode===tir)?calq.offsetHeight:0;return Math.min(48,Math.round(34+hc/(st.offsetHeight||1)*100))}
  function CRANS(){return [repos(),64,100]}
- function libelle(){lib.textContent=tiroirPos>=100?'▼ Glisser pour voir la carte':(tiroirPos>repos()+8?'▲ Agrandir · ▼ Voir la carte':'▲ Glisser pour agrandir')}
+ /* ---- telephone : 3 etats fixes (peek / half / full) ---- */
+ var ETAT='peek',HAUT={peek:'72px',half:'40%',full:'calc(100% - 62px)'},POS={peek:9,half:40,full:100};
+ function libellePeek(){if(ck&&C[ck])return C[ck].n+' ▴';if(vue==='parc'||vue==='liste')return 'Formules Trek ▴';return 'Choisir un secteur ▴'}
+ function libelle(){if(menuMobile()){lib.textContent=ETAT==='peek'?libellePeek():(ETAT==='half'?'▲ Voir le détail · ▼ Carte':'▼ Réduire');return}
+  lib.textContent=tiroirPos>=100?'▼ Glisser pour voir la carte':(tiroirPos>repos()+8?'▲ Agrandir · ▼ Voir la carte':'▲ Glisser pour agrandir')}
+ function etat(e){if(!menuMobile())return;if(!HAUT[e])e='peek';ETAT=e;tiroirPos=POS[e];document.body.setAttribute('data-tiroir',e);st.style.setProperty('--tirh',HAUT[e]);libelle();if(e!=='peek')panelEl.scrollTop=0;setTimeout(function(){map.invalidateSize()},320)}
+ window.tiroirEtat=etat;window.tiroirEtatActuel=function(){return ETAT};
  function applique(h){st.style.setProperty('--tirh',h+'%')}
- function pose(){if(!ETROIT.matches){st.style.removeProperty('--tirh');tir.classList.remove('drag');map.invalidateSize();return}
+ function pose(){if(!ETROIT.matches){st.style.removeProperty('--tirh');tir.classList.remove('drag');document.body.removeAttribute('data-tiroir');map.invalidateSize();return}
+  if(menuMobile()){etat(ETAT);return}
   applique(tiroirPos);libelle();setTimeout(function(){map.invalidateSize()},320)}
  function cran(h){var cs=CRANS(),best=cs[0];cs.forEach(function(c){if(Math.abs(c-h)<Math.abs(best-h))best=c});return best}
  window.tiroirVa=function(h){tiroirPos=cran(h);pose()};
- tiroirRepos=function(){if(ETROIT.matches&&tiroirPos>repos()){tiroirPos=repos();pose()}};
+ tiroirRepos=function(){if(menuMobile()){etat((ck||(vue!=='ile'))?'half':'peek');return}if(ETROIT.matches&&tiroirPos>repos()){tiroirPos=repos();pose()}};
  var y0=null,h0=0,hs=0,bouge=false;
  function debut(y){y0=y;h0=tiroirPos;hs=st.offsetHeight||1;bouge=false;tir.classList.add('drag')}
  function mouv(y){if(y0===null)return;var h=h0+(y0-y)/hs*100;if(Math.abs(y-y0)>6)bouge=true;
@@ -860,11 +886,11 @@ var tiroirPos=34,tiroirRepos=function(){};
   if(!bouge){tiroirPos=h0>=100?repos():100}else{tiroirPos=cran(tiroirPos)}
   pose()}
  if(window.PointerEvent){
-  tt.addEventListener('pointerdown',function(e){debut(e.clientY);try{tt.setPointerCapture(e.pointerId)}catch(x){}e.preventDefault()});
+  tt.addEventListener('pointerdown',function(e){if(menuMobile())return;debut(e.clientY);try{tt.setPointerCapture(e.pointerId)}catch(x){}e.preventDefault()});
   tt.addEventListener('pointermove',function(e){mouv(e.clientY)});
   tt.addEventListener('pointerup',fin);tt.addEventListener('pointercancel',fin)}
  else{
-  tt.addEventListener('touchstart',function(e){debut(e.touches[0].clientY)},{passive:true});
+  tt.addEventListener('touchstart',function(e){if(menuMobile())return;debut(e.touches[0].clientY)},{passive:true});
   tt.addEventListener('touchmove',function(e){mouv(e.touches[0].clientY)},{passive:true});
   tt.addEventListener('touchend',fin);tt.addEventListener('mousedown',function(e){debut(e.clientY)});
   window.addEventListener('mousemove',function(e){mouv(e.clientY)});window.addEventListener('mouseup',fin)}
@@ -873,7 +899,6 @@ var tiroirPos=34,tiroirRepos=function(){};
  var mpanel=document.getElementById('mpanel'),btnOptions=document.getElementById('btnOptions');
  var MOB=[['veh',document.querySelector('.veh')],['trek',document.getElementById('btnTrek')],['tools',document.querySelector('.tools')],['zones',document.getElementById('zones')],['calq',calq]];
  var ORIG=MOB.map(function(m){return {el:m[1],parent:m[1].parentNode,next:m[1].nextSibling}});
- function menuMobile(){return ETROIT.matches&&!ENCADRE}
  function optionsOuvrir(on){if(on&&!menuMobile())on=false;mpanel.hidden=!on;btnOptions.textContent=on?'✕ Fermer':'☰ Options ▾';btnOptions.setAttribute('aria-expanded',on?'true':'false')}
  window.optionsOuvrir=optionsOuvrir;
  function placer(){var on=menuMobile();document.body.classList.toggle('menu-mobile',on);
@@ -886,6 +911,11 @@ var tiroirPos=34,tiroirRepos=function(){};
  /* toucher la carte referme le panneau */
  ['pointerdown','touchstart'].forEach(function(ev){document.getElementById('map').addEventListener(ev,function(){if(!mpanel.hidden)optionsOuvrir(false)},{passive:true})});
  if(menuMobile())document.body.classList.add('vierge');
+ /* clic sur la poignee : peek -> half (ou menu Options si rien n'est choisi) ; half -> full ; full -> half */
+ tt.addEventListener('click',function(){if(!menuMobile())return;
+  if(ETAT==='peek'){if(ck||vue!=='ile')etat('half');else optionsOuvrir(true)}else if(ETAT==='half')etat('full');else etat('half')});
+ /* toucher la carte en zone visible : half -> peek */
+ ['pointerdown','touchstart'].forEach(function(ev){document.getElementById('map').addEventListener(ev,function(){if(menuMobile()&&ETAT==='half'&&!document.body.classList.contains('demo-plein'))etat('peek')},{passive:true})});
  function poseEtCalq(){placer();if(tiroirPos<60)tiroirPos=repos();pose()}
  function sortiePlein(){if(!ETROIT.matches&&document.body.classList.contains('demo-plein'))pleinEcran(false)}
  if(ETROIT.addEventListener){ETROIT.addEventListener('change',poseEtCalq);ETROIT.addEventListener('change',sortiePlein)}else{ETROIT.addListener(poseEtCalq);ETROIT.addListener(sortiePlein)}
