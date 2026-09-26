@@ -533,8 +533,8 @@ var t3=document.getElementById('t3'),t4=document.getElementById('t4'),t6=documen
 var vB=document.getElementById('vB'),vV=document.getElementById('vV');
 vB.onclick=function(){VAN=false;vB.classList.add('on');vV.classList.remove('on');stopAnim();gTrip.clearLayers();refresh()};
 vV.onclick=function(){VAN=true;vV.classList.add('on');vB.classList.remove('on');stopAnim();gTrip.clearLayers();refresh()};
-t3.onclick=function(){var o=t3.classList.toggle('on');if(o){map.addLayer(gPath);if(!menuMobile())map.addLayer(gMkW)}else{map.removeLayer(gPath);map.removeLayer(gMkW)}};
-/* telephone : sentiers masques par defaut, l'interrupteur affiche le trace (jamais de pastille par sentier) */
+t3.onclick=function(){var o=t3.classList.toggle('on');if(o){map.addLayer(gPath);map.addLayer(gMkW)}else{map.removeLayer(gPath);map.removeLayer(gMkW)}};
+/* telephone : sentiers masques par defaut ; l'interrupteur affiche le trace et les points de depart de sentiers (5 au plus) */
 function menuMobile(){return ETROIT.matches&&!ENCADRE}
 if(menuMobile()){t3.classList.remove('on');map.removeLayer(gPath);map.removeLayer(gMkW);t3.textContent='🥾 Voir les sentiers'}
 t4.onclick=function(){var o=t4.classList.toggle('on');if(o){map.addLayer(gRoad);map.addLayer(gMkR)}else{map.removeLayer(gRoad);map.removeLayer(gMkR)}};
@@ -675,10 +675,12 @@ function ouvrir(k){quitteVierge();vue='zone';vueArg=k;if(window.tiroirEtat)tiroi
  '<div class="sec s-in"><h3>Liens utiles — '+z.n+'</h3>'+liens(z.n)+'</div>'+
  '<div class="note"><b>Tarifs TTC '+(VAN?'van, 5 à 8 passagers':'berline, 1 à 4 passagers')+'.</b> Dimanche et nuit : +20 €. Touchez un marqueur sur la carte pour le détail d\'un lieu.</div></div>';
  panel.dataset.vue='tr';panel.scrollTop=0}
-function marq(){gMkW.clearLayers();gMkR.clearLayers();var mob=menuMobile(),cibles={},nb=0;
- if(mob){C[ck].R.forEach(function(r){cibles[r.a]=1});if(lk)cibles[lk]=1}
+function marq(){gMkW.clearLayers();gMkR.clearLayers();var mob=menuMobile(),cibles={},dep={},nbR=0,nbW=0;
+ if(mob){C[ck].R.forEach(function(r){cibles[r.a]=1});C[ck].P.forEach(function(x){dep[x.a]=1;dep[x.b]=1});if(lk){cibles[lk]=1;dep[lk]=1}}
  C[ck].L.forEach(function(l){
- if(mob){if(!l.a||!cibles[l.id]||nb>=5)return;nb++} /* telephone : seuls les points de transfert pertinents, 5 au plus, aucune botte */
+ /* telephone : points de transfert pertinents (5 au plus, toujours affiches) ; points de depart de sentiers (5 au plus, groupe gMkW,
+    visibles seulement quand "Voir les sentiers" est active) */
+ if(mob){if(l.a){if(!cibles[l.id]||nbR>=5)return;nbR++}else{if(!dep[l.id]||nbW>=5)return;nbW++}}
  var ic=l.a?(l.r.some(function(r){return r[0]==='🚙'})?'🚙':'🚗'):'🥾';
  var h='<div class="mk '+(l.a?'acc':'')+' '+(lk===l.id?'on':'')+'"><div class="pin">'+ic+'</div><div class="nm">'+l.n+'</div></div>';
  var ps=ETROIT.matches?32:26;var m=L.marker(l.ll,{icon:L.divIcon({html:h,className:'',iconSize:[ps,ps+14],iconAnchor:[ps/2,ps/2]}),zIndexOffset:lk===l.id?600:0});
