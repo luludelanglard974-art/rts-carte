@@ -666,7 +666,8 @@ function liens(zone){var q=zone?zone+' La Réunion':'La Réunion';
  '<a class="link" href="https://meteofrance.re/" target="_blank" rel="noopener"><span><span class="n">Météo</span><span class="d">Météo France Réunion</span></span><span class="arr">↗</span></a>'}
 function vueIle(){vue='ile';ck=null;lk=null;clearAll();onglet('ile');
  for(var k in C){(function(k){var z=C[k];
-  var p=L.polygon(z.poly,{color:z.col,weight:3,opacity:.95,fillColor:z.col,fillOpacity:.16,lineJoin:'round',smoothFactor:.4});
+  L.polygon(z.poly,{color:'#021132',weight:6,opacity:.55,fill:false,interactive:false,lineJoin:'round',smoothFactor:.4}).addTo(gZone);
+  var p=L.polygon(z.poly,{color:'#FCF9F4',weight:3,opacity:1,fillColor:'#FCF9F4',fillOpacity:.22,lineJoin:'round',smoothFactor:.4});/* secteurs en creme : le bleu est reserve aux transferts voiture */
   p.on('click',function(){ouvrir(k)});p.addTo(gZone);
   var m=L.marker(z.c,{icon:L.divIcon({html:'<div class="cq">'+z.n+'<small style="color:#FBD608">'+z.s+'</small></div>',className:'',iconSize:[120,32],iconAnchor:[60,16]})});
   m.on('click',function(){ouvrir(k)});m.addTo(gMkR)})(k)}
@@ -687,7 +688,7 @@ function vueIle(){vue='ile';ck=null;lk=null;clearAll();onglet('ile');
  panel.removeAttribute('data-vue');panel.scrollTop=0}
 function ouvrir(k){quitteVierge();vue='zone';vueArg=k;if(window.tiroirEtat)tiroirEtat('half');ck=k;lk=null;var z=C[k];M={};z.L.forEach(function(l){M[l.id]=l});
  clearAll();onglet(k);masque(z.poly);
- L.polygon(z.poly,{color:z.col,weight:4,opacity:1,fill:false,lineJoin:'round',smoothFactor:.4}).addTo(gZone);
+ /* pas de contour une fois dans le secteur : le voile sombre (masque) suffit, le bleu reste aux transferts */
  /* carte epuree : les transferts ne se dessinent qu'au clic sur ▶ Tracé (fonction demo) */
  marq();charge(z.bb);
  var trHtml=z.R.map(function(r){if(!M[r.a])return '';
