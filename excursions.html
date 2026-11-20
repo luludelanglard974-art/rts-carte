@@ -95,6 +95,11 @@ header p{font-size:14px;color:rgba(255,255,255,.85);max-width:1000px;margin:8px 
 .modal .ref{display:inline-block;margin:10px 0;font-size:15px;font-weight:900;letter-spacing:1px;padding:9px 18px;border-radius:9px;background:rgba(1,65,172,.08);color:var(--roi);border:1px dashed var(--roi)}
 .modal .demo{font-size:14px;color:rgba(2,17,50,.5);margin-top:8px}
 .modal .btn{margin-top:14px}
+/* renvoi vers le transport adapte (TPMR) */
+.renvoi{max-width:1000px;margin:26px auto 0;display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;padding:16px 18px;border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,.45),rgba(255,255,255,0) 55%),var(--jaune);color:var(--marine);border:2.5px solid var(--creme);box-shadow:0 8px 20px -6px rgba(0,0,0,.45);font-size:15px;line-height:1.45}
+.renvoi>.ic{flex:none;width:28px;height:28px}
+.renvoi>span{flex:1 1 220px}
+.renvoi a{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:12px;background:var(--marine);color:var(--blanc);font-weight:800;text-decoration:none;white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 4px 10px -2px rgba(2,17,50,.45)}
 footer.rts{background:var(--marine);color:var(--blanc);border-top:3px solid var(--rouge);margin-top:36px;padding:22px 16px 24px;text-align:center}
 footer.rts .co{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;font-size:13px;font-weight:600}
 footer.rts .co a{color:var(--blanc);text-decoration:none}
@@ -110,7 +115,7 @@ footer.rts .co{font-size:14px}footer.rts .co a{display:inline-flex;align-items:c
 .fiche h4{font-size:14px}
 }
 @media(max-width:600px){.fiche .ph{height:200px}.fiche .prix span{font-size:20px}.fiche .tarif .btn{width:100%}}
-</style></head><body>
+</style><link rel="stylesheet" href="css/rts.css"></head><body>
 <header>
  <div class="top"><a class="logo" href="index.html" title="Accueil"><img src="images/logo-rts.png" alt="Run Transfert &amp; Services"></a><a class="home" href="index.html">← Accueil</a><h1><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 3 4 8 5-5 5 15H2L8 3z" /></svg> Sept excursions guidées</h1></div>
  <p>Une journée avec un chauffeur qui connaît l'île. Même tarif pour les sept : 380 € en berline, 420 € en van, pour le véhicule entier.</p>
@@ -234,10 +239,10 @@ footer.rts .co{font-size:14px}footer.rts .co a{display:inline-flex;align-items:c
 </div>
 <footer class="rts">
  <div class="co">
-  <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /></svg> <a href="tel:0693911267">06 93 91 12 67</a></span>
-  <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /><rect x="2" y="4" width="20" height="16" rx="2" /></svg> <a href="mailto:runtransfertsservices@gmail.com">runtransfertsservices@gmail.com</a></span>
-  <span><a href="https://www.facebook.com/share/1cknUjSFH1/" target="_blank" rel="noopener">Facebook</a></span>
-  <span><a href="https://www.instagram.com/runtransfertservices/" target="_blank" rel="noopener">Instagram</a></span>
+  <a href="tel:0693911267"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /></svg> 06 93 91 12 67</a>
+  <a href="mailto:runtransfertsservices@gmail.com"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /><rect x="2" y="4" width="20" height="16" rx="2" /></svg> runtransfertsservices@gmail.com</a>
+  <a href="https://www.facebook.com/share/1cknUjSFH1/" target="_blank" rel="noopener">Facebook</a>
+  <a href="https://www.instagram.com/runtransfertservices/" target="_blank" rel="noopener">Instagram</a>
  </div>
  <div class="lg">RTS, association loi 1901</div>
 </footer>

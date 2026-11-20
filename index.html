@@ -108,6 +108,7 @@ a.presta i{color:var(--roi)}
 .reseau .leg span{display:flex;align-items:center;gap:10px}
 .reseau .leg i{width:16px;height:16px;border-radius:50%;flex:none;border:2px solid var(--blanc);background:var(--roi);box-sizing:border-box;box-shadow:0 0 0 1px var(--roi)}
 .reseau .leg i.cr{width:13px;height:13px;border:2px solid var(--roi);background:var(--blanc);box-shadow:none;margin:0 1.5px}
+.reseau>p{margin-top:12px;padding-top:10px;border-top:1px solid var(--l);font-size:14px;line-height:1.5;color:rgba(2,17,50,.72)}
 footer{background:var(--marine);color:var(--blanc);border-top:3px solid var(--rouge);margin-top:28px;padding:22px 16px 24px;text-align:center}
 footer .co{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;font-size:13px;font-weight:600}
 footer .co a{color:var(--blanc);text-decoration:none}
@@ -116,7 +117,7 @@ footer .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
 @media(max-width:760px){.portes,.tpmrrow{grid-template-columns:1fr}.porte,.porte.trek,.porte.resa,.porte.bag{min-height:200px}.porte .moitie{background-size:cover}.porte.trek .moitie{background-position:left center}.porte.bag .moitie{background-position:right center}.deuxcol{grid-template-columns:1fr}.hero{height:min(62vh,560px);min-height:400px}
 .porte p{font-size:14px}.presta b{font-size:14.5px}.presta i{font-size:14px}.ch span{font-size:14px}.infos a.pastille{min-height:44px}footer .co{font-size:14px}}
 @media(max-width:900px){.badge{font-size:14px;min-height:32px;display:inline-flex;align-items:center;gap:.3em}.hero .desc{font-size:14px}.hero .baseline{font-size:14px}.porte p{font-size:14px}.porte .go{font-size:14px;min-height:44px;display:inline-flex;align-items:center}.presta b{font-size:15px}.presta i{font-size:14px}.ch span{font-size:14px}.apropos,.infos{font-size:14px}.infos a.pastille{min-height:44px}.infos a.pastille i{font-size:14px}.infos .avert{font-size:14px}footer .co{font-size:14px}footer .co a{display:inline-flex;align-items:center;min-height:44px;padding:0 4px}footer .lg{font-size:14px}}
-</style></head><body>
+</style><link rel="stylesheet" href="css/rts.css"></head><body>
 
 <div class="hero">
  <img class="photo" src="images/hero-salazie.jpg" alt="Le cirque de Salazie et ses remparts sous les nuages, La Réunion">
@@ -224,12 +225,12 @@ footer .lg{margin-top:12px;font-size:11px;color:rgba(255,255,255,.55)}
  </div>
 </div>
 
-<footer>
+<footer class="rts">
  <div class="co">
-  <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /></svg> <a href="tel:0693911267">06 93 91 12 67</a></span>
-  <span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /><rect x="2" y="4" width="20" height="16" rx="2" /></svg> <a href="mailto:runtransfertsservices@gmail.com">runtransfertsservices@gmail.com</a></span>
-  <span><a href="https://www.facebook.com/share/1cknUjSFH1/" target="_blank" rel="noopener">Facebook</a></span>
-  <span><a href="https://www.instagram.com/runtransfertservices/" target="_blank" rel="noopener">Instagram</a></span>
+  <a href="tel:0693911267"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /></svg> 06 93 91 12 67</a>
+  <a href="mailto:runtransfertsservices@gmail.com"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /><rect x="2" y="4" width="20" height="16" rx="2" /></svg> runtransfertsservices@gmail.com</a>
+  <a href="https://www.facebook.com/share/1cknUjSFH1/" target="_blank" rel="noopener">Facebook</a>
+  <a href="https://www.instagram.com/runtransfertservices/" target="_blank" rel="noopener">Instagram</a>
  </div>
  <div class="lg">RTS, association loi 1901</div>
 </footer>
