@@ -757,16 +757,18 @@ function aff(els){segs=[];gPath.clearLayers();els.forEach(function(w){
 /* mode demo plein ecran sur telephone : classe sur body, la carte reprend toute la hauteur, Retour retablit la mise en page */
 function pleinEcran(on){if(on&&!ETROIT.matches)return;if(on&&window.optionsOuvrir)optionsOuvrir(false);document.body.classList.toggle('demo-plein',!!on);map.invalidateSize();setTimeout(function(){map.invalidateSize()},60)}
 window.pleinEcran=pleinEcran;
-document.getElementById('btnRetour').onclick=function(){pleinEcran(false);tiroirRepos();setTimeout(function(){map.invalidateSize();recadrerRetour()},340)};
+/* Retour : tout redevient comme avant le trace (trace efface, vue d'origine) */
+var vueAvantDemo=null,demoN=0;
+function memoVue(){if(!document.body.classList.contains('demo-plein'))vueAvantDemo={c:map.getCenter(),z:map.getZoom()}}
+document.getElementById('btnRetour').onclick=function(){demoN++;stopAnim();gTrip.clearLayers();dernierTrace=null;pleinEcran(false);tiroirRepos();setTimeout(function(){map.invalidateSize();if(vueAvantDemo)map.setView(vueAvantDemo.c,vueAvantDemo.z,{animate:false});vueAvantDemo=null},340)};
 var dernierTrace=null;
 function cadrerTrace(co){if(!co||co.length<2)return;dernierTrace=co;if(!document.body.classList.contains('demo-plein'))return;map.invalidateSize();map.fitBounds(L.latLngBounds(co),{padding:[44,44],animate:false})}
-/* au retour : le trace reste visible au-dessus du tiroir */
-function recadrerRetour(){if(!dernierTrace)return;var st=document.querySelector('.stage'),h=Math.round((st.offsetHeight||0)*tiroirPos/100);map.fitBounds(L.latLngBounds(dernierTrace),{paddingTopLeft:[30,30],paddingBottomRight:[30,h+30],animate:false})}
 function demo(de,a,type,label){
- stopAnim();tiroirRepos();gTrip.clearLayers();gRoad.clearLayers();roads=[];
+ memoVue();var mon=++demoN;stopAnim();tiroirRepos();gTrip.clearLayers();gRoad.clearLayers();roads=[];
  if(ETROIT.matches)pleinEcran(true);
  var col=type==='r'?'#0141AC':'#DE0715',cls=type==='r'?'':'w';
  function go(co,ap,hd,tl){
+  if(mon!==demoN)return;/* Retour appuye pendant le chargement */
   var tir=type==='r'?(ap?'8 7':null):'6 6';
   if(type==='r'&&!ap)L.polyline(co,{color:'#fff',weight:7,opacity:.4}).addTo(gTrip);
   else L.polyline(co,{color:col,weight:type==='r'?5:5,opacity:.2,dashArray:tir}).addTo(gTrip);
