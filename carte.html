@@ -304,7 +304,7 @@ body.menu-mobile[data-tiroir="half"] .panel .pad{padding-top:8px}
 body.menu-mobile .mpanel #t3{font-size:14px}
 body.demo-plein .mmenu,body.demo-plein .mpanel{display:none!important}
 }
-</style></head><body>
+</style><link rel="stylesheet" href="css/rts.css"></head><body>
 <div class="app">
 <div class="bar"><a class="logo" href="index.html" title="Accueil"><img src="images/logo-rts.png" alt="Run Transfert &amp; Services"></a><a href="index.html" class="home">← Accueil</a><b>Run Transfert <span class="r">&amp;</span> Services</b>
 <div class="droite"><div class="veh"><button class="on" id="vB">Berline<small>1 à 4 pers.</small></button><button id="vV">Van<small>5 à 8 pers.</small></button></div><button class="trek" id="btnTrek">Formules Trek</button><div class="tools"><button class="tg on" id="t3">🥾</button><button class="tg on" id="t4">🚗</button></div></div></div>
@@ -719,6 +719,9 @@ function etiquettes(){cancelAnimationFrame(etqRaf);etqRaf=requestAnimationFrame(
  var pane=map.getPane('markerPane');if(!pane)return;var mks=[].slice.call(pane.querySelectorAll('.mk'));if(!mks.length)return;
  var cadre=map.getContainer().getBoundingClientRect(),pins=[],POS=['','nm-r','nm-l','nm-t'],pris=[];
  pane.querySelectorAll('.pin,.mkbox').forEach(function(p){var r=p.getBoundingClientRect();if(r.width)pins.push({el:p,r:r})});
+ /* les commandes posees sur la carte (zoom, bandeau mobile) sont aussi des obstacles ; le tiroir borne le bas */
+ document.querySelectorAll('.leaflet-control-zoom,.mmenu>*').forEach(function(c){var r=c.getBoundingClientRect();if(r.width)pins.push({el:c,r:r})});
+ var tirEl=document.getElementById('tiroir'),bas=cadre.bottom;if(tirEl&&ETROIT.matches){var rt=tirEl.getBoundingClientRect();if(rt.height&&rt.top<bas)bas=rt.top}
  function chevauche(a,b,m){return a.left<b.right+m&&b.left<a.right+m&&a.top<b.bottom+m&&b.top<a.bottom+m}
  var avecNom=mks.filter(function(mk){return mk.querySelector('.nm')});
  avecNom.forEach(function(mk){POS.concat(['nm-off']).forEach(function(c){if(c)mk.classList.remove(c)})});
@@ -726,7 +729,7 @@ function etiquettes(){cancelAnimationFrame(etqRaf);etqRaf=requestAnimationFrame(
  .sort(function(a,b){return a.pr-b.pr||a.i-b.i}).forEach(function(o){var nm=o.mk.querySelector('.nm'),pin=o.mk.querySelector('.pin'),place=false;
   for(var k=0;k<POS.length&&!place;k++){if(k>0&&POS[k-1])o.mk.classList.remove(POS[k-1]);if(POS[k])o.mk.classList.add(POS[k]);
    var r=nm.getBoundingClientRect();
-   if(r.left<cadre.left+2||r.right>cadre.right-2||r.top<cadre.top+2)continue;
+   if(r.left<cadre.left+2||r.right>cadre.right-2||r.top<cadre.top+2||r.bottom>bas-2)continue;
    if(pris.some(function(q){return chevauche(r,q,2)}))continue;
    if(pins.some(function(p){return p.el!==pin&&chevauche(r,p.r,1)}))continue;
    pris.push(r);place=true}
@@ -919,12 +922,12 @@ var tiroirPos=34,tiroirRepos=function(){};
  function libellePeek(){if(ck&&C[ck])return C[ck].n+' ▴';if(vue==='parc'||vue==='liste')return 'Formules Trek ▴';return 'Choisir un secteur ▴'}
  function libelle(){if(menuMobile()){lib.textContent=ETAT==='peek'?libellePeek():(ETAT==='half'?'▲ Voir le détail · ▼ Carte':'▼ Réduire');return}
   lib.textContent=tiroirPos>=100?'▼ Glisser pour voir la carte':(tiroirPos>repos()+8?'▲ Agrandir · ▼ Voir la carte':'▲ Glisser pour agrandir')}
- function etat(e){if(!menuMobile())return;if(!HAUT[e])e='peek';ETAT=e;tiroirPos=POS[e];document.body.setAttribute('data-tiroir',e);st.style.setProperty('--tirh',HAUT[e]);libelle();if(e!=='peek')panelEl.scrollTop=0;setTimeout(function(){map.invalidateSize()},320)}
+ function etat(e){if(!menuMobile())return;if(!HAUT[e])e='peek';ETAT=e;tiroirPos=POS[e];document.body.setAttribute('data-tiroir',e);st.style.setProperty('--tirh',HAUT[e]);libelle();if(e!=='peek')panelEl.scrollTop=0;setTimeout(function(){map.invalidateSize();etiquettes()},320)}
  window.tiroirEtat=etat;window.tiroirEtatActuel=function(){return ETAT};
  function applique(h){st.style.setProperty('--tirh',h+'%')}
  function pose(){if(!ETROIT.matches){st.style.removeProperty('--tirh');tir.classList.remove('drag');document.body.removeAttribute('data-tiroir');map.invalidateSize();return}
   if(menuMobile()){etat(ETAT);return}
-  applique(tiroirPos);libelle();setTimeout(function(){map.invalidateSize()},320)}
+  applique(tiroirPos);libelle();setTimeout(function(){map.invalidateSize();etiquettes()},320)}
  function cran(h){var cs=CRANS(),best=cs[0];cs.forEach(function(c){if(Math.abs(c-h)<Math.abs(best-h))best=c});return best}
  window.tiroirVa=function(h){tiroirPos=cran(h);pose()};
  tiroirRepos=function(){if(menuMobile()){etat((ck||(vue!=='ile'))?'half':'peek');return}if(ETROIT.matches&&tiroirPos>repos()){tiroirPos=repos();pose()}};
