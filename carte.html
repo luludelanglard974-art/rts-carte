@@ -150,12 +150,27 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .hud.accroche span{display:block;color:rgba(255,255,255,.85);margin-top:2px}
 .hud{position:static;background:rgba(2,17,50,.9);color:#fff;font-size:10.5px;line-height:1.6;padding:7px 10px;border-radius:4px;max-width:230px}
 .hud .ok{color:var(--jaune)}.hud .ko{color:rgba(255,255,255,.65)}.hud[hidden]{display:none}
-.mk{text-align:center}
+.mk{--ps:26px;position:relative;height:100%;text-align:center}
 .mk .pin{width:26px;height:26px;border-radius:50%;background:#fff;border:2.5px solid var(--marine);display:flex;align-items:center;justify-content:center;font-size:13px;box-shadow:0 2px 6px rgba(0,0,0,.45);margin:0 auto;transition:transform .15s}
 .mk.acc .pin{background:var(--jaune)}
 .mk.on .pin{background:var(--roi);border-color:#fff;transform:scale(1.28);box-shadow:0 0 0 4px rgba(1,65,172,.35)}
 .mk.loc .pin{width:23px;height:23px;border-radius:4px;background:linear-gradient(180deg,rgba(255,255,255,.3),rgba(255,255,255,0)),var(--rouge);border:2px solid #fff;font-size:12px}
-.mk .nm{font-size:10.5px;font-weight:700;color:#fff;margin-top:1px;white-space:nowrap;text-shadow:0 0 3px #021132,0 0 4px #021132,0 1px 2px #000}
+.mk .nm{position:absolute;left:50%;top:calc(var(--ps) + 2px);transform:translateX(-50%);font-size:10.5px;font-weight:700;color:#fff;white-space:nowrap;line-height:1.25;padding:1px 6px;border-radius:7px;background:rgba(2,17,50,.72);box-shadow:0 1px 4px rgba(0,0,0,.3);text-shadow:0 1px 1px rgba(0,0,0,.5);pointer-events:none;transition:opacity .2s ease}
+/* anti-chevauchement des etiquettes (fonction etiquettes()) : a droite, a gauche, au-dessus, ou masquee */
+.mk.nm-r .nm{left:calc(50% + var(--ps)/2 + 3px);top:calc(var(--ps)/2);transform:translateY(-50%)}
+.mk.nm-l .nm{left:auto;right:calc(50% + var(--ps)/2 + 3px);top:calc(var(--ps)/2);transform:translateY(-50%)}
+.mk.nm-t .nm{top:auto;bottom:calc(100% + 2px);transform:translateX(-50%)}
+.mk.nm-off .nm{opacity:0;visibility:hidden}
+/* bulles d'information compactes (ordinateur, au survol) */
+.leaflet-tooltip.rts-bulle{background:var(--marine);color:#fff;border:1.5px solid rgba(255,255,255,.85);border-radius:10px;padding:6px 10px;font:600 12.5px/1.4 system-ui,-apple-system,Roboto,sans-serif;white-space:normal;width:max-content;max-width:240px;box-shadow:0 6px 16px rgba(2,17,50,.4)}
+.leaflet-tooltip.rts-bulle i{display:block;font-weight:500;font-size:11.5px;color:rgba(255,255,255,.72)}
+.leaflet-tooltip.rts-bulle::before{display:none}
+/* fiche compacte (telephone, au toucher) : posee au-dessus du tiroir, jamais sur les marqueurs du centre */
+.fiche{position:absolute;left:12px;right:12px;bottom:12px;z-index:1150;display:flex;align-items:flex-start;gap:10px;padding:10px 8px 10px 14px;border-radius:14px;color:#fff;font-size:14px;line-height:1.4;background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,0) 60%),var(--marine);border:2px solid var(--paper);box-shadow:0 8px 22px rgba(2,17,50,.45);animation:ficheIn .22s cubic-bezier(.2,.8,.2,1)}
+.fiche[hidden]{display:none}
+.fiche .fx{flex:1;min-width:0}.fiche .fx i{display:block;font-style:normal;font-size:13px;color:rgba(255,255,255,.75)}
+.fiche button{flex:none;width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.14);color:#fff;font-size:16px;font-weight:800}
+@keyframes ficheIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 .mk.on .nm{color:var(--jaune);font-size:11.5px}
 .city{font-size:11px;font-weight:700;color:#fff;white-space:nowrap;text-shadow:0 0 3px #021132,0 0 5px #021132,0 1px 2px #000}
 .px{background:var(--roi);color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:11px;white-space:nowrap;box-shadow:0 2px 5px rgba(0,0,0,.45);border:1.5px solid #fff}
@@ -174,6 +189,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .mmenu,.mpanel{display:none}
 #btnRetour{display:none;position:absolute;left:10px;top:10px;z-index:1300;min-height:46px;padding:10px 16px;font-size:15px;font-weight:800;align-items:center;gap:6px}
 .leaflet-div-icon{background:none;border:none}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 @media(max-width:900px){
 /* ---- tiroir : la carte occupe tout l'ecran, le panneau monte du bas ---- */
 .stage{position:relative;flex-direction:column;--tirh:34%}
@@ -236,9 +252,11 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .lg .tx{font-size:15px}.lg .tx i{font-size:14px}.lg .sw{width:30px;height:30px;font-size:15px}
 .down{font-size:14px}
 .hud{font-size:14px;max-width:290px}
-.mk .pin{width:32px;height:32px;font-size:16px}
-.mk .nm{font-size:14px}.mk.on .nm{font-size:15px}
-.mk.loc .pin,.mk.gite .pin{width:30px;height:30px;font-size:15px}
+.mk{--ps:32px}.mk .pin{width:32px;height:32px;font-size:16px}
+.mk .nm{font-size:13.5px;padding:2px 7px}.mk.on .nm{font-size:14.5px}
+.mk.loc .pin,.mk.gite .pin{width:32px;height:32px;font-size:15px}
+.fiche{bottom:calc(var(--tirh) + 10px)}
+body.menu-mobile .fiche{top:64px;bottom:auto}
 .mkbox{width:44px;height:44px;font-size:20px}
 .city{font-size:14px}
 .px{font-size:14px;padding:4px 10px}
@@ -291,7 +309,7 @@ body.demo-plein .mmenu,body.demo-plein .mpanel{display:none!important}
 <div class="bar"><a class="logo" href="index.html" title="Accueil"><img src="images/logo-rts.png" alt="Run Transfert &amp; Services"></a><a href="index.html" class="home">← Accueil</a><b>Run Transfert <span class="r">&amp;</span> Services</b>
 <div class="droite"><div class="veh"><button class="on" id="vB">Berline<small>1 à 4 pers.</small></button><button id="vV">Van<small>5 à 8 pers.</small></button></div><button class="trek" id="btnTrek">Formules Trek</button><div class="tools"><button class="tg on" id="t3">🥾</button><button class="tg on" id="t4">🚗</button></div></div></div>
 <div class="zones" id="zones"></div>
-<div class="stage"><div class="mw"><div id="map"></div><div class="coin"><div class="hud accroche" id="accroche"><b>Créez votre séjour. RTS vous accompagne.</b><span>Sélectionnez vos randonnées selon votre niveau. RTS met à disposition les outils et la logistique.</span></div><div class="hud" id="hud">Initialisation…</div></div><button id="btnRetour" type="button" aria-label="Quitter le mode plein écran">✕ Retour</button><div class="mmenu" id="mmenu"><a class="mlogo" href="index.html" title="Accueil"><img src="images/logo-rts.png" alt="Run Transfert &amp; Services"></a><a class="mhome" href="index.html">← Accueil</a><button id="btnOptions" type="button" aria-expanded="false" aria-controls="mpanel">☰ Options ▾</button></div><div class="mpanel" id="mpanel" hidden><div class="mp-sec"><b>Véhicule</b><div data-slot="veh"></div></div><div class="mp-sec"><b>Formules</b><div data-slot="trek"></div></div><div class="mp-sec"><b>Secteurs</b><div data-slot="zones"></div></div><div class="mp-sec"><b>Sentiers · Transferts</b><div data-slot="tools"></div></div><div class="mp-sec"><b>Partenaires</b><div data-slot="calq"></div></div></div><div class="calq" id="calq"><button id="t6">🚘 Loueurs de voitures</button><button id="t7">🏠 Gîtes partenaires</button></div></div><div class="tiroir" id="tiroir"><div class="tirette" id="tirette"><span></span><i id="tirlib">▲ Glisser pour agrandir</i></div><aside class="panel" id="panel"></aside></div></div></div>
+<div class="stage"><div class="mw"><div id="map"></div><div class="coin"><div class="hud accroche" id="accroche"><b>Créez votre séjour. RTS vous accompagne.</b><span>Sélectionnez vos randonnées selon votre niveau. RTS met à disposition les outils et la logistique.</span></div><div class="hud" id="hud">Initialisation…</div></div><button id="btnRetour" type="button" aria-label="Quitter le mode plein écran">✕ Retour</button><div class="fiche" id="fiche" role="status" hidden><div class="fx" id="fichetx"></div><button type="button" id="fichex" aria-label="Fermer">✕</button></div><div class="mmenu" id="mmenu"><a class="mlogo" href="index.html" title="Accueil"><img src="images/logo-rts.png" alt="Run Transfert &amp; Services"></a><a class="mhome" href="index.html">← Accueil</a><button id="btnOptions" type="button" aria-expanded="false" aria-controls="mpanel">☰ Options ▾</button></div><div class="mpanel" id="mpanel" hidden><div class="mp-sec"><b>Véhicule</b><div data-slot="veh"></div></div><div class="mp-sec"><b>Formules</b><div data-slot="trek"></div></div><div class="mp-sec"><b>Secteurs</b><div data-slot="zones"></div></div><div class="mp-sec"><b>Sentiers · Transferts</b><div data-slot="tools"></div></div><div class="mp-sec"><b>Partenaires</b><div data-slot="calq"></div></div></div><div class="calq" id="calq"><button id="t6">🚘 Loueurs de voitures</button><button id="t7">🏠 Gîtes partenaires</button></div></div><div class="tiroir" id="tiroir"><div class="tirette" id="tirette"><span></span><i id="tirlib">▲ Glisser pour agrandir</i></div><aside class="panel" id="panel"></aside></div></div></div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 var VAN=false;
@@ -300,6 +318,14 @@ var ETROIT=window.matchMedia('(max-width:900px)');
 var ENCADRE=(function(){try{return window.self!==window.top}catch(e){return true}})();
 function quitteVierge(){if(document.body.classList.contains('vierge')){document.body.classList.remove('vierge');setTimeout(function(){map.invalidateSize()},60)}}
 function PX(p){return VAN?Math.round(p*1.2):p}
+/* ecran tactile (pas de survol) : aucune bulle Leaflet flottante ; les infos passent par le tiroir ou par une fiche compacte au-dessus */
+var TACTILE=!!(window.matchMedia&&window.matchMedia('(hover: none)').matches);
+function fiche(html){var f=document.getElementById('fiche');if(!f)return;if(!html){f.hidden=true;return}document.getElementById('fichetx').innerHTML=html;f.hidden=false}
+/* bulle : survol compact sur ordinateur ; au toucher, fiche compacte si demandee, sinon rien (le tiroir donne le detail) */
+function bulle(layer,html,auToucher){
+ if(!TACTILE)return layer.bindTooltip(html,{sticky:true,className:'rts-bulle',direction:'top',offset:[0,-12]});
+ if(auToucher)layer.on('click',function(){fiche(html)});
+ return layer}
 /* photos locales des hebergements, choisies selon le secteur du gite (Mafate, Cilaos, Salazie, Volcan, autres) : aucun appel externe */
 var PH_LOCAL={g1:'ilet-mafate',g2:'secteur-mafate',g3:'mafate-maido-aube',g4:'ilet-mafate',g5:'secteur-mafate',g7:'mafate-maido-aube',g8:'ilet-mafate',g10:'cilaos-village',g11:'mare-a-joncs',g22:'secteur-cilaos',g24:'cilaos-village',g13:'hell-bourg-village',g14:'case-creole-hell-bourg',g15:'secteur-salazie',g16:'secteur-volcan',g18:'plaine-des-sables',g26:'case-bambou-traditionnelle',g27:'chapelle-patrimoine',g23:'case-bambou-traditionnelle'};
 function ph(s){return 'images/'+(PH_LOCAL[s]||'chapelle-patrimoine')+'.jpg'}
@@ -533,16 +559,17 @@ var t3=document.getElementById('t3'),t4=document.getElementById('t4'),t6=documen
 var vB=document.getElementById('vB'),vV=document.getElementById('vV');
 vB.onclick=function(){VAN=false;vB.classList.add('on');vV.classList.remove('on');stopAnim();gTrip.clearLayers();refresh()};
 vV.onclick=function(){VAN=true;vV.classList.add('on');vB.classList.remove('on');stopAnim();gTrip.clearLayers();refresh()};
-t3.onclick=function(){var o=t3.classList.toggle('on');if(o){map.addLayer(gPath);map.addLayer(gMkW)}else{map.removeLayer(gPath);map.removeLayer(gMkW)}};
+t3.onclick=function(){var o=t3.classList.toggle('on');if(o){map.addLayer(gPath);map.addLayer(gMkW)}else{map.removeLayer(gPath);map.removeLayer(gMkW)}etiquettes()};
 /* telephone : sentiers masques par defaut ; l'interrupteur affiche le trace et les points de depart de sentiers (5 au plus) */
 function menuMobile(){return ETROIT.matches&&!ENCADRE}
 if(menuMobile()){t3.classList.remove('on');map.removeLayer(gPath);map.removeLayer(gMkW);t3.textContent='🥾 Voir les sentiers'}
-t4.onclick=function(){var o=t4.classList.toggle('on');if(o){map.addLayer(gRoad);map.addLayer(gMkR)}else{map.removeLayer(gRoad);map.removeLayer(gMkR)}};
-t6.onclick=function(){var o=t6.classList.toggle('on');o?map.addLayer(gLoc):map.removeLayer(gLoc)};
+t4.onclick=function(){var o=t4.classList.toggle('on');if(o){map.addLayer(gRoad);map.addLayer(gMkR)}else{map.removeLayer(gRoad);map.removeLayer(gMkR)}etiquettes()};
+t6.onclick=function(){var o=t6.classList.toggle('on');o?map.addLayer(gLoc):map.removeLayer(gLoc);if(!o)fiche();etiquettes()};
 document.getElementById('btnTrek').onclick=function(){listeParcours()};
-t7.onclick=function(){var o=t7.classList.toggle('on');o?map.addLayer(gGite):map.removeLayer(gGite)};
-LOC.forEach(function(x){L.marker(x[1],{icon:L.divIcon({html:'<div class="mk loc"><div class="pin">🚘</div></div>',className:'',iconSize:[23,23],iconAnchor:[11,11]})}).addTo(gLoc)
- .bindTooltip('🚘 Location de véhicule — '+x[0]+(x[2]?'<br>'+x[2]:''),{sticky:true})});
+t7.onclick=function(){var o=t7.classList.toggle('on');o?map.addLayer(gGite):map.removeLayer(gGite);if(!o)fiche();etiquettes()};
+var PS2=ETROIT.matches?32:23;
+LOC.forEach(function(x){var m=L.marker(x[1],{icon:L.divIcon({html:'<div class="mk loc"><div class="pin">🚘</div></div>',className:'',iconSize:[PS2,PS2],iconAnchor:[PS2/2,PS2/2]})}).addTo(gLoc)
+ ;bulle(m,'<b>🚘 Location de véhicule — '+x[0]+'</b>'+(x[2]?'<i>'+x[2]+'</i>':''),true)});
 /* gites FICTIFS de demonstration : noms inventes, exemples d'illustration uniquement,
    aucune donnee reelle (ni Gites de France, ni IRT), aucune offre commerciale */
 var GITES=[
@@ -560,12 +587,12 @@ var GITES=[
 ['Ti Kaz Filao',[-21.0790,55.2310],'Côte ouest'],
 ['Lo Kaz Terre Sainte',[-21.3380,55.4770],'Saint-Pierre']];
 var gGite=L.layerGroup(); /* gites : desactives au depart, bouton 🏠 */
-GITES.forEach(function(x){L.marker(x[1],{icon:L.divIcon({html:'<div class="mk gite"><div class="pin">🏠</div></div>',className:'',iconSize:[23,23],iconAnchor:[11,11]})}).addTo(gGite)
- .bindTooltip('🏠 '+x[0]+' — gîte · '+x[2]+'<br><i>Exemple d\'illustration, ne constitue pas une offre commerciale</i>',{sticky:true})});
+GITES.forEach(function(x){var m=L.marker(x[1],{icon:L.divIcon({html:'<div class="mk gite"><div class="pin">🏠</div></div>',className:'',iconSize:[PS2,PS2],iconAnchor:[PS2/2,PS2/2]})}).addTo(gGite)
+ ;bulle(m,'<b>🏠 '+x[0]+' — gîte · '+x[2]+'</b><i>Exemple d\'illustration, ne constitue pas une offre commerciale</i>',true)});
 /* marqueur permanent du box du Port : pose directement sur la carte, hors de tout calque nettoye par clearAll */
-L.marker([-20.9397,55.2925],{icon:L.divIcon({html:'<div class="mkbox">🔒</div>',className:'',iconSize:[30,30],iconAnchor:[15,15]}),zIndexOffset:1200}).addTo(map)
- .bindTooltip('📦 Box RTS sécurisé — Le Port<br>Gardiennage et livraison des bagages',{sticky:true})
- .on('click',function(){ouvrir('mafate');choisir('lport')});
+var PSB=ETROIT.matches?44:30;
+bulle(L.marker([-20.9397,55.2925],{icon:L.divIcon({html:'<div class="mkbox" role="img" aria-label="Box RTS sécurisé — Le Port">🔒</div>',className:'',iconSize:[PSB,PSB],iconAnchor:[PSB/2,PSB/2]}),zIndexOffset:1200,title:'Box RTS sécurisé — Le Port'}).addTo(map),'<b>📦 Box RTS sécurisé — Le Port</b><i>Gardiennage et livraison des bagages</i>')
+ .on('click',function(){fiche();ouvrir('mafate');choisir('lport')});
 var cacheR={};
 /* courbe douce de repli quand OSRM echoue : jamais rien, toujours un trace approximatif */
 function approxRoute(a,b){
@@ -628,7 +655,7 @@ var ck=null,lk=null,segs=[],M={},roads=[],anim=null,pause=false,vue='ile',vueArg
 function stopAnim(){if(anim){cancelAnimationFrame(anim.raf);clearTimeout(anim.to);anim=null}}
 function masque(poly){gMask.clearLayers();if(!poly)return;
  L.polygon([[[-85,-180],[-85,180],[85,180],[85,-180]],poly],{stroke:false,fillColor:'#021132',fillOpacity:.58,interactive:false}).addTo(gMask)}
-function clearAll(){stopAnim();gMask.clearLayers();gZone.clearLayers();gPath.clearLayers();gRoad.clearLayers();gMkW.clearLayers();gMkR.clearLayers();gTrip.clearLayers();segs=[];roads=[]}
+function clearAll(){stopAnim();fiche();gMask.clearLayers();gZone.clearLayers();gPath.clearLayers();gRoad.clearLayers();gMkW.clearLayers();gMkR.clearLayers();gTrip.clearLayers();segs=[];roads=[]}
 function refresh(){if(vue==='ile')vueIle();else if(vue==='zone')ouvrir(vueArg);else if(vue==='lieu')choisir(vueArg);else if(vue==='parc')lancer(vueArg);else if(vue==='liste')listeParcours()}
 function liens(zone){var q=zone?zone+' La Réunion':'La Réunion';
  return '<a class="link" href="'+gmap('gîtes '+q)+'" target="_blank" rel="noopener"><span><span class="n">Tous les gîtes sur la carte</span><span class="d">Recherche cartographique</span></span><span class="arr">↗</span></a>'+
@@ -684,7 +711,28 @@ function marq(){gMkW.clearLayers();gMkR.clearLayers();var mob=menuMobile(),cible
  var ic=l.a?(l.r.some(function(r){return r[0]==='🚙'})?'🚙':'🚗'):'🥾';
  var h='<div class="mk '+(l.a?'acc':'')+' '+(lk===l.id?'on':'')+'"><div class="pin">'+ic+'</div><div class="nm">'+l.n+'</div></div>';
  var ps=ETROIT.matches?32:26;var m=L.marker(l.ll,{icon:L.divIcon({html:h,className:'',iconSize:[ps,ps+14],iconAnchor:[ps/2,ps/2]}),zIndexOffset:lk===l.id?600:0});
- m.on('click',function(){choisir(l.id)});m.addTo(l.a?gMkR:gMkW)})}
+ m.on('click',function(){choisir(l.id)});m.addTo(l.a?gMkR:gMkW)});etiquettes()}
+/* etiquettes des lieux sans chevauchement : priorite au lieu choisi, puis aux points de transfert ; chaque etiquette essaie
+   dessous, a droite, a gauche, au-dessus du marqueur, sinon elle est masquee (elle revient en zoomant) */
+var etqRaf=0;
+function etiquettes(){cancelAnimationFrame(etqRaf);etqRaf=requestAnimationFrame(function(){
+ var pane=map.getPane('markerPane');if(!pane)return;var mks=[].slice.call(pane.querySelectorAll('.mk'));if(!mks.length)return;
+ var cadre=map.getContainer().getBoundingClientRect(),pins=[],POS=['','nm-r','nm-l','nm-t'],pris=[];
+ pane.querySelectorAll('.pin,.mkbox').forEach(function(p){var r=p.getBoundingClientRect();if(r.width)pins.push({el:p,r:r})});
+ function chevauche(a,b,m){return a.left<b.right+m&&b.left<a.right+m&&a.top<b.bottom+m&&b.top<a.bottom+m}
+ var avecNom=mks.filter(function(mk){return mk.querySelector('.nm')});
+ avecNom.forEach(function(mk){POS.concat(['nm-off']).forEach(function(c){if(c)mk.classList.remove(c)})});
+ avecNom.map(function(mk,i){return {mk:mk,i:i,pr:mk.classList.contains('on')?0:(mk.classList.contains('acc')?1:2)}})
+ .sort(function(a,b){return a.pr-b.pr||a.i-b.i}).forEach(function(o){var nm=o.mk.querySelector('.nm'),pin=o.mk.querySelector('.pin'),place=false;
+  for(var k=0;k<POS.length&&!place;k++){if(k>0&&POS[k-1])o.mk.classList.remove(POS[k-1]);if(POS[k])o.mk.classList.add(POS[k]);
+   var r=nm.getBoundingClientRect();
+   if(r.left<cadre.left+2||r.right>cadre.right-2||r.top<cadre.top+2)continue;
+   if(pris.some(function(q){return chevauche(r,q,2)}))continue;
+   if(pins.some(function(p){return p.el!==pin&&chevauche(r,p.r,1)}))continue;
+   pris.push(r);place=true}
+  if(!place){o.mk.classList.remove('nm-t');o.mk.classList.add('nm-off')}})})}
+map.on('zoomend',etiquettes);window.addEventListener('resize',etiquettes);
+document.getElementById('fichex').onclick=function(){fiche()};map.getContainer().addEventListener('pointerdown',function(){fiche()},{passive:true});
 var EP=['https://overpass-api.de/api/interpreter?data=','https://overpass.kumi.systems/api/interpreter?data=','https://overpass.osm.ch/api/interpreter?data='];
 var chargeEnCours=false;
 function charge(bb,i){i=i||0;chargeEnCours=true;eS='chargement…';maj();hud.hidden=false;
@@ -700,7 +748,7 @@ function aff(els){segs=[];gPath.clearLayers();els.forEach(function(w){
  var pts=w.geometry.map(function(g){return [g.lat,g.lon]});
  L.polyline(pts,{color:'#fff',weight:4.5,opacity:.45}).addTo(gPath);
  var p=L.polyline(pts,{color:'#DE0715',weight:2.6,opacity:.95,dashArray:'6 5'});
- p.bindTooltip('🥾 '+((w.tags&&w.tags.name)||'Sentier'),{sticky:true});p.addTo(gPath);
+ bulle(p,'🥾 '+((w.tags&&w.tags.name)||'Sentier'));p.addTo(gPath);
  segs.push({p:p,pts:pts})})}
 /* mode demo plein ecran sur telephone : classe sur body, la carte reprend toute la hauteur, Retour retablit la mise en page */
 function pleinEcran(on){if(on&&!ETROIT.matches)return;if(on&&window.optionsOuvrir)optionsOuvrir(false);document.body.classList.toggle('demo-plein',!!on);map.invalidateSize();setTimeout(function(){map.invalidateSize()},60)}
@@ -721,7 +769,7 @@ function demo(de,a,type,label){
   if(hd)L.polyline(hd,{color:col,weight:4,opacity:.9,dashArray:'6 6'}).addTo(gTrip);
   if(tl)L.polyline(tl,{color:col,weight:4,opacity:.9,dashArray:'6 6'}).addTo(gTrip);
   var trace=L.polyline([],{color:col,weight:5,opacity:1,dashArray:tir}).addTo(gTrip);
-  if(ap)trace.bindTooltip('Tracé approximatif',{sticky:true});
+  if(ap)bulle(trace,'Tracé approximatif');
   cadrerTrace(co);
   var pt=L.marker(co[0],{icon:L.divIcon({html:'<div class="dot '+cls+'"></div>',className:'',iconSize:[19,19],iconAnchor:[9,9]}),zIndexOffset:900}).addTo(gTrip);
   var t0=null,dur=2200;
@@ -830,7 +878,7 @@ function lancer(pid,auto){quitteVierge();vue='parc';vueArg=pid;var P=null;PARCOU
   if(hd)L.polyline(hd,{color:col,weight:4,opacity:.9,dashArray:'6 6'}).addTo(gTrip);
   if(tl)L.polyline(tl,{color:col,weight:4,opacity:.9,dashArray:'6 6'}).addTo(gTrip);
   var trace=L.polyline([],{color:col,weight:e.t==='r'?5:4,opacity:1,dashArray:tir}).addTo(gTrip);
-  if(ap&&e.t!=='w')trace.bindTooltip('Tracé approximatif',{sticky:true});
+  if(ap&&e.t!=='w')bulle(trace,'Tracé approximatif');
   var pt=L.marker(co[0],{icon:L.divIcon({html:'<div class="dot '+cls+'"></div>',className:'',iconSize:[19,19],iconAnchor:[9,9]}),zIndexOffset:900}).addTo(gTrip);
   var dur=e.t==='r'?1300:1000,t0=null;
   function tick(ts){
