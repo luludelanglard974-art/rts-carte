@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc --noEmit)",
+      "Bash(npm run lint)",
+      "Bash(ffprobe *)",
+      "mcp__Descript__wait_for_job",
+      "mcp__Vercel__list_deployments",
+      "mcp__Google_Drive__search_files",
+      "mcp__Vercel__get_deployment"
+    ]
+  }
+}
