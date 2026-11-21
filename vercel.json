@@ -1,0 +1,6 @@
+{
+  "redirects": [
+    { "source": "/", "destination": "https://rts-app-zeta.vercel.app/", "permanent": false },
+    { "source": "/:chemin*", "destination": "https://rts-app-zeta.vercel.app/:chemin*", "permanent": false }
+  ]
+}
